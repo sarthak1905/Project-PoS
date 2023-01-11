@@ -1,3 +1,4 @@
+/*
 package com.increff.employee.spring;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
@@ -5,3 +6,4 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
     //no code needed
 }
+*/
