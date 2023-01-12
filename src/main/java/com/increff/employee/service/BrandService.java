@@ -39,6 +39,12 @@ public class BrandService {
     }
 
     @Transactional
+    public void delete(int id) throws ApiException{
+        BrandPojo b = getCheck(id);
+        dao.delete(id);
+    }
+
+    @Transactional
     public BrandPojo getCheck(int id) throws ApiException{
         BrandPojo b = dao.select(id);
         if(b == null){
