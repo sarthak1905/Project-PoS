@@ -2,7 +2,9 @@ package com.increff.employee.controller;
 
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
+import com.increff.employee.model.EmployeeForm;
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.EmployeePojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
 import io.swagger.annotations.Api;
@@ -45,18 +47,25 @@ public class BrandController {
         return brandDataList;
     }
 
+    @ApiOperation(value = "Updates a Brand")
+    @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable int id, @RequestBody BrandForm f) throws ApiException {
+        BrandPojo b = convert(f);
+        service.update(id, b);
+    }
+
+    @ApiOperation(value = "Deletes a Brand")
+    @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable int id) throws ApiException{
+        service.delete(id);
+    }
+
     private static BrandData convert(BrandPojo b){
         BrandData d = new BrandData();
         d.setBrand(b.getBrand());
         d.setCategory(b.getCategory());
         d.setId(b.getId());
         return d;
-    }
-
-    @ApiOperation(value = "Gets a Brand")
-    @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws ApiException{
-        service.delete(id);
     }
 
     private static BrandPojo convert(BrandForm f){

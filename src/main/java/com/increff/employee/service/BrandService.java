@@ -2,6 +2,7 @@ package com.increff.employee.service;
 
 import com.increff.employee.dao.BrandDao;
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.EmployeePojo;
 import com.increff.employee.util.BrandUtil;
 import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static com.increff.employee.util.BrandUtil.normalize;
 
 @Service
 public class BrandService {
@@ -18,7 +21,7 @@ public class BrandService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(BrandPojo b) throws ApiException {
-        BrandUtil.normalize(b);
+        normalize(b);
         if(StringUtil.isEmpty(b.getBrand())) {
             throw new ApiException("Brand name cannot be empty!");
         }
@@ -36,6 +39,14 @@ public class BrandService {
     @Transactional(rollbackOn = ApiException.class)
     public List<BrandPojo> getAll(){
         return dao.selectAll();
+    }
+
+    @Transactional(rollbackOn  = ApiException.class)
+    public void update(int id, BrandPojo b) throws ApiException {
+        normalize(b);
+        BrandPojo bx = getCheck(id);
+        bx.setBrand(b.getBrand());
+        bx.setCategory(b.getCategory());
     }
 
     @Transactional
