@@ -81,14 +81,9 @@ public class BrandService {
 
     @Transactional
     private boolean checkValidity(BrandPojo b){
-        BrandPojo pojoByBrand = brandDao.select_brand(b.getBrand());
-        BrandPojo pojoByCategory = brandDao.select_category(b.getCategory());
-        if(pojoByBrand != null && pojoByCategory != null) {
-            String existingBrandCategory = pojoByBrand.getBrand() + pojoByCategory.getCategory();
-            String newBrandCategory = b.getBrand() + b.getCategory();
-            if (existingBrandCategory.equals(newBrandCategory)) {
-                return false;
-            }
+        BrandPojo p = brandDao.selectBrandCategory(b.getBrand(), b.getCategory());
+        if (p != null){
+            return false;
         }
         return true;
     }
