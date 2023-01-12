@@ -22,14 +22,18 @@ public class BrandService {
     @Transactional(rollbackOn = ApiException.class)
     public void add(BrandPojo b) throws ApiException {
         normalize(b);
-        if(StringUtil.isEmpty(b.getBrand())) {
+        if (StringUtil.isEmpty(b.getBrand())) {
             throw new ApiException("Brand name cannot be empty!");
         }
-        if(StringUtil.isEmpty(b.getCategory())) {
+        if (StringUtil.isEmpty(b.getCategory())) {
             throw new ApiException("Brand category cannot be empty!");
+        }
+        if (!checkValidity(b)) {
+            throw new ApiException("Brand+category combination must be unique!");
         }
         dao.insert(b);
     }
+
 
     @Transactional(rollbackOn = ApiException.class)
     public BrandPojo get(int id) throws ApiException{
@@ -57,11 +61,24 @@ public class BrandService {
 
     @Transactional
     public BrandPojo getCheck(int id) throws ApiException{
-        BrandPojo b = dao.select(id);
+        BrandPojo b = dao.select_id(id);
         if(b == null){
             throw new ApiException("Brand with given ID does not exist");
         }
         return b;
+    }
+
+    private boolean checkValidity(BrandPojo b){
+        BrandPojo pojoByBrand = dao.select_brand(b.getBrand());
+        BrandPojo pojoByCategory = dao.select_category(b.getCategory());
+        if(pojoByBrand != null && pojoByCategory != null) {
+            String existingBrandCategory = pojoByBrand.getBrand() + pojoByCategory.getCategory();
+            String newBrandCategory = b.getBrand() + b.getCategory();
+            if (existingBrandCategory.equals(newBrandCategory)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
