@@ -68,6 +68,7 @@ public class BrandService {
         return b;
     }
 
+    @Transactional
     private boolean checkValidity(BrandPojo b){
         BrandPojo pojoByBrand = dao.select_brand(b.getBrand());
         BrandPojo pojoByCategory = dao.select_category(b.getCategory());
