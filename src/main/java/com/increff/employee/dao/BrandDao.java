@@ -13,18 +13,17 @@ import java.util.List;
 @Repository
 public class BrandDao extends AbstractDao{
 
-    @PersistenceContext
-    private EntityManager em;
     private static String select_id = "select b from BrandPojo b where id=:id";
     private static String select_brand = "select b from BrandPojo b where brand=:brand";
     private static String select_category = "select b from BrandPojo b where category=:category";
     private static String select_all = "select b from BrandPojo b";
+    private static String select_brand_category = "select b from BrandPojo b where brand=:brand and category=:category";
     private static String delete_id = "delete from BrandPojo b where id=:id";
 
 
     @Transactional
     public void insert(BrandPojo b){
-        em.persist(b);
+        em().persist(b);
     }
 
     public BrandPojo select_id(int id){
@@ -50,8 +49,14 @@ public class BrandDao extends AbstractDao{
         return query.getResultList();
     }
 
+    public BrandPojo selectBrandCategory(String brand, String category){
+        TypedQuery<BrandPojo> query = getQuery(select_brand_category, BrandPojo.class);
+        query.setParameter("brand", brand).setParameter("category", category);
+        return getSingle(query);
+    }
+
     public int delete(int id){
-        Query query = em.createQuery(delete_id);
+        Query query = em().createQuery(delete_id);
         query.setParameter("id", id);
         return query.executeUpdate();
     }

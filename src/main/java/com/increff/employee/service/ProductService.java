@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private ProductDao dao;
+    private ProductDao productDao;
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(ProductPojo p) throws ApiException {
@@ -25,10 +25,10 @@ public class ProductService {
         if (StringUtil.isEmpty(p.getName())) {
             throw new ApiException("Name cannot be empty!");
         }
-/*        if (!checkValidity(p)) {
-            throw new ApiException("Brand-category combination does not exist");
-        }*/
-        dao.insert(p);
+        if (!checkValidity(p)) {
+            throw new ApiException("Barcode already exists!");
+        }
+        productDao.insert(p);
     }
 
 
@@ -39,7 +39,7 @@ public class ProductService {
 
     @Transactional(rollbackOn = ApiException.class)
     public List<ProductPojo> getAll(){
-        return dao.selectAll();
+        return productDao.selectAll();
     }
 
     @Transactional(rollbackOn  = ApiException.class)
@@ -54,30 +54,22 @@ public class ProductService {
     @Transactional
     public void delete(int id) throws ApiException{
         ProductPojo p = getCheck(id);
-        dao.delete(id);
+        productDao.delete(id);
     }
 
     @Transactional
     public ProductPojo getCheck(int id) throws ApiException{
-        ProductPojo p = dao.selectId(id);
+        ProductPojo p = productDao.selectId(id);
         if(p == null){
             throw new ApiException("Product with given ID does not exist");
         }
         return p;
     }
 
-/*    @Transactional
+    @Transactional
     private boolean checkValidity(ProductPojo p){
-        ProductPojo pojoByBrand = dao.select_brand(p.getBrand());
-        ProductPojo pojoByCategory = dao.select_category(p.getCategory());
-        if(pojoByBrand != null && pojoByCategory != null) {
-            String existingBrandCategory = pojoByBrand.getBrand() + pojoByCategory.getCategory();
-            String newBrandCategory = p.getBrand() + p.getCategory();
-            if (existingBrandCategory.equals(newBrandCategory)) {
-                return false;
-            }
-        }
-        return true;
-    }*/
+        ProductPojo px = productDao.selectBarcode(p.getBarcode());
+        return px == null;
+    }
 
 }

@@ -13,8 +13,8 @@ public class ProductPojo {
     private int id;
     private String barcode;
     private int brand_category;
-    private String name;
     private double mrp;
+    private String name;
 
 
     public int getId() {

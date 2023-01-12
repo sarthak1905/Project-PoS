@@ -2,9 +2,7 @@ package com.increff.employee.controller;
 
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
-import com.increff.employee.model.EmployeeForm;
 import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.pojo.EmployeePojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
 import io.swagger.annotations.Api;
@@ -20,26 +18,26 @@ import java.util.List;
 public class BrandController {
 
     @Autowired
-    private BrandService service;
+    private BrandService brandService;
 
     @ApiOperation(value = "Adds a Brand")
     @RequestMapping(path = "/api/brand", method = RequestMethod.POST)
     public void add(@RequestBody BrandForm form) throws ApiException {
         BrandPojo b = convert(form);
-        service.add(b);
+        brandService.add(b);
     }
 
     @ApiOperation(value = "Gets a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
     public BrandData get(@PathVariable int id) throws ApiException{
-        BrandPojo b = service.get(id);
+        BrandPojo b = brandService.get(id);
         return convert(b);
     }
 
     @ApiOperation(value = "Gets all Brands")
     @RequestMapping(path = "/api/brand", method = RequestMethod.GET)
     public List<BrandData> getAll(){
-        List<BrandPojo> brandList = service.getAll();
+        List<BrandPojo> brandList = brandService.getAll();
         List<BrandData> brandDataList = new ArrayList<BrandData>();
         for(BrandPojo b: brandList){
             brandDataList.add(convert(b));
@@ -51,13 +49,13 @@ public class BrandController {
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable int id, @RequestBody BrandForm f) throws ApiException {
         BrandPojo b = convert(f);
-        service.update(id, b);
+        brandService.update(id, b);
     }
 
     @ApiOperation(value = "Deletes a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException{
-        service.delete(id);
+        brandService.delete(id);
     }
 
     private static BrandData convert(BrandPojo b){
