@@ -3,14 +3,15 @@ package com.increff.employee.controller;
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
 import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.pojo.EmployeePojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Api
 @RestController
@@ -28,9 +29,20 @@ public class BrandController {
 
     @ApiOperation(value = "Gets a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
-    public BrandForm get(@PathVariable int id) throws ApiException{
+    public BrandData get(@PathVariable int id) throws ApiException{
         BrandPojo b = service.get(id);
         return convert(b);
+    }
+
+    @ApiOperation(value = "Gets all Brands")
+    @RequestMapping(path = "/api/brand", method = RequestMethod.GET)
+    public List<BrandData> getAll(){
+        List<BrandPojo> brandList = service.getAll();
+        List<BrandData> brandDataList = new ArrayList<BrandData>();
+        for(BrandPojo b: brandList){
+            brandDataList.add(convert(b));
+        }
+        return brandDataList;
     }
 
     private static BrandData convert(BrandPojo b){

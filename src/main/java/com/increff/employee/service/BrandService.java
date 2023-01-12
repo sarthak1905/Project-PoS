@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class BrandService {
@@ -30,6 +31,11 @@ public class BrandService {
     @Transactional(rollbackOn = ApiException.class)
     public BrandPojo get(int id) throws ApiException{
         return getCheck(id);
+    }
+
+    @Transactional(rollbackOn = ApiException.class)
+    public List<BrandPojo> getAll(){
+        return dao.selectAll();
     }
 
     @Transactional
