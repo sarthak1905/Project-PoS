@@ -27,5 +27,18 @@ public class BrandService {
         dao.insert(b);
     }
 
+    @Transactional(rollbackOn = ApiException.class)
+    public BrandPojo get(int id) throws ApiException{
+        return getCheck(id);
+    }
+
+    @Transactional
+    public BrandPojo getCheck(int id) throws ApiException{
+        BrandPojo b = dao.select(id);
+        if(b == null){
+            throw new ApiException("Brand with given ID does not exist");
+        }
+        return b;
+    }
 
 }
