@@ -63,9 +63,4 @@ public class InventoryService {
         return p;
     }
 
-    @Transactional
-    private boolean checkValidity(InventoryPojo p){
-        return true;
-    }
-
 }

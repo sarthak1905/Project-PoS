@@ -67,9 +67,28 @@ public class ProductService {
     }
 
     @Transactional
+    public String getBarcode(int id){
+        ProductPojo p = productDao.selectId(id);
+        return p.getBarcode();
+    }
+
+    @Transactional
+    public int getProductIdFromBarcode(String barcode) throws ApiException {
+        ProductPojo px = productDao.selectBarcode(barcode);
+        if (px == null){
+            throw new ApiException("Product with given barcode does not exist!");
+        }
+        return px.getId();
+    }
+
+    @Transactional
     private boolean checkValidity(ProductPojo p){
         ProductPojo px = productDao.selectBarcode(p.getBarcode());
-        return px == null;
+        if(px != null){
+            return false;
+        }
+        return true;
     }
+
 
 }
