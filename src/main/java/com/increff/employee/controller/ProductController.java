@@ -1,5 +1,6 @@
 package com.increff.employee.controller;
 
+import com.increff.employee.dto.ProductDto;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
 import com.increff.employee.pojo.BrandPojo;
@@ -20,72 +21,36 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private BrandService brandService;
+    private ProductDto productDto;
 
     @ApiOperation(value = "Adds a product")
     @RequestMapping(path = "/api/product", method = RequestMethod.POST)
     public void add(@RequestBody ProductForm form) throws ApiException{
-        ProductPojo p = convert(form);
-        productService.add(p);
+        productDto.add(form);
     }
 
     @ApiOperation(value = "Gets a product")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
     public ProductData get(@PathVariable int id) throws ApiException{
-        ProductPojo p = productService.get(id);
-        return convert(p);
+        return productDto.get(id);
     }
 
     @ApiOperation(value = "Gets all products")
     @RequestMapping(path = "/api/product", method = RequestMethod.GET)
     public List<ProductData> getAll() throws ApiException {
-        List<ProductPojo> productList = productService.getAll();
-        List<ProductData> productDataList = new ArrayList<>();
-        for(ProductPojo p: productList){
-            productDataList.add(convert(p));
-        }
-        return productDataList;
+        return productDto.getAll();
     }
 
     @ApiOperation(value = "Updates a product")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
-        ProductPojo p = convert(f);
-        productService.update(id, p);
+    public void update(@PathVariable int id, @RequestBody ProductForm form) throws ApiException {
+        productDto.update(id, form);
     }
 
     @ApiOperation(value = "Deletes a product")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException{
-        productService.delete(id);
-    }
-
-    private ProductData convert(ProductPojo p) throws ApiException {
-        ProductData d = new ProductData();
-        BrandPojo b = brandService.get(p.getBrand_category());
-        d.setId(p.getId());
-        d.setName(p.getName());
-        d.setBrand(b.getBrand());
-        d.setCategory(b.getCategory());
-        d.setBarcode(p.getBarcode());
-        d.setMrp(p.getMrp());
-        return d;
-    }
-
-    private ProductPojo convert(ProductForm f) throws ApiException {
-        ProductPojo p = new ProductPojo();
-        BrandPojo b = brandService.getBrandCategory(f.getBrand(), f.getCategory());
-        if (b == null) {
-            throw new ApiException("Brand-category combination does not exist!");
-        }
-        p.setBrand_category(b.getId());
-        p.setBarcode(f.getBarcode());
-        p.setName(f.getName());
-        p.setMrp(f.getMrp());
-        return p;
+        productDto.delete(id);
     }
 
 }

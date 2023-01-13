@@ -1,5 +1,6 @@
 package com.increff.employee.controller;
 
+import com.increff.employee.dto.BrandDto;
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
 import com.increff.employee.pojo.BrandPojo;
@@ -18,59 +19,36 @@ import java.util.List;
 public class BrandController {
 
     @Autowired
-    private BrandService brandService;
+    private BrandDto brandDto;
 
     @ApiOperation(value = "Adds a Brand")
     @RequestMapping(path = "/api/brand", method = RequestMethod.POST)
     public void add(@RequestBody BrandForm form) throws ApiException {
-        BrandPojo b = convert(form);
-        brandService.add(b);
+        brandDto.add(form);
     }
 
     @ApiOperation(value = "Gets a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
     public BrandData get(@PathVariable int id) throws ApiException{
-        BrandPojo b = brandService.get(id);
-        return convert(b);
+        return brandDto.get(id);
     }
 
     @ApiOperation(value = "Gets all Brands")
     @RequestMapping(path = "/api/brand", method = RequestMethod.GET)
     public List<BrandData> getAll(){
-        List<BrandPojo> brandList = brandService.getAll();
-        List<BrandData> brandDataList = new ArrayList<BrandData>();
-        for(BrandPojo b: brandList){
-            brandDataList.add(convert(b));
-        }
-        return brandDataList;
+        return brandDto.getAll();
     }
 
     @ApiOperation(value = "Updates a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody BrandForm f) throws ApiException {
-        BrandPojo b = convert(f);
-        brandService.update(id, b);
+    public void update(@PathVariable int id, @RequestBody BrandForm form) throws ApiException {
+        brandDto.update(id, form);
     }
 
     @ApiOperation(value = "Deletes a Brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException{
-        brandService.delete(id);
-    }
-
-    private static BrandData convert(BrandPojo b){
-        BrandData d = new BrandData();
-        d.setBrand(b.getBrand());
-        d.setCategory(b.getCategory());
-        d.setId(b.getId());
-        return d;
-    }
-
-    private static BrandPojo convert(BrandForm f){
-        BrandPojo b = new BrandPojo();
-        b.setBrand(f.getBrand());
-        b.setCategory(f.getCategory());
-        return b;
+        brandDto.delete(id);
     }
 
 }
