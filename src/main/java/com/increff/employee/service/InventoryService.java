@@ -25,8 +25,8 @@ public class InventoryService {
         if (product == null){
             throw new ApiException("Product does not exist!");
         }
-        InventoryPojo px = getCheck(p.getId());
-        if(px == null){
+        InventoryPojo px = inventoryDao.select_id(p.getId());
+        if(px != null){
             throw new ApiException("Product inventory already exists! Please update instead");
         }
         inventoryDao.insert(p);
@@ -38,12 +38,6 @@ public class InventoryService {
     }
 
     @Transactional(rollbackOn = ApiException.class)
-    public String getBarcode(int id) {
-        ProductPojo p = productDao.selectId(id);
-        return p.getBarcode();
-    }
-
-    @Transactional(rollbackOn = ApiException.class)
     public List<InventoryPojo> getAll(){
         return inventoryDao.selectAll();
     }
@@ -51,7 +45,7 @@ public class InventoryService {
     @Transactional(rollbackOn  = ApiException.class)
     public void update(int id, InventoryPojo p) throws ApiException {
         InventoryPojo px = getCheck(id);
-        px.setQuantity(p.getQuantity() + px.getQuantity());
+        px.setQuantity(p.getQuantity());
     }
 
     @Transactional

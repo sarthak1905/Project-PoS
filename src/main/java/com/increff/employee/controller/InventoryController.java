@@ -64,7 +64,6 @@ public class InventoryController {
 
     private InventoryData convert(InventoryPojo b) {
         InventoryData d = new InventoryData();
-        d.setBarcode(inventoryService.getBarcode(b.getId()));
         d.setQuantity(b.getQuantity());
         d.setId(b.getId());
         return d;
