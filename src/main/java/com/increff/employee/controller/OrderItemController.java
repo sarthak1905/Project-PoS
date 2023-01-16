@@ -39,7 +39,6 @@ public class OrderItemController {
     @ApiOperation(value = "Gets all orderitem")
     @RequestMapping(path = "/api/orderitem", method = RequestMethod.GET)
     public List<OrderItemData> getAll(){
-        System.out.println("Here 1");
         return orderItemDto.getAll();
     }
 

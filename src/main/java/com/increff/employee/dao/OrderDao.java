@@ -1,5 +1,6 @@
 package com.increff.employee.dao;
 
+import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,4 @@ public class OrderDao extends AbstractDao{
         query.setParameter("id", id);
         return query.executeUpdate();
     }
-
 }
