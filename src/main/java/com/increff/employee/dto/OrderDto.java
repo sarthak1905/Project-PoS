@@ -21,13 +21,12 @@ public class OrderDto {
 
     @Autowired
     private OrderItemDto orderItemDto;
-
     @Autowired
     private OrderItemService orderItemService;
-
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private InventoryDto inventoryDto;
     @Autowired
     private ProductService productService;
 
@@ -36,8 +35,15 @@ public class OrderDto {
         orderService.add(orderPojo);
         List<OrderItemPojo> orderItems = new ArrayList<>();
         for (OrderItemForm orderItemForm: forms){
-            OrderItemPojo b = orderItemDto.convert(orderItemForm, orderPojo.getId());
-            orderItemService.add(b);
+            if(inventoryDto.isValidInventory(productService.getProductIdFromBarcode(orderItemForm.getBarcode()),
+                    orderItemForm.getQuantity())){
+                OrderItemPojo b = orderItemDto.convert(orderItemForm, orderPojo.getId());
+                orderItemService.add(b);
+            }
+            else {
+                throw new ApiException("Insufficient quantity available for product with barcode: "
+                        + orderItemForm.getBarcode());
+            }
         }
     }
 
