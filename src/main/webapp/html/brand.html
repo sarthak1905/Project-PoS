@@ -10,137 +10,155 @@
 
 <div class="container">
 
-<h3>Brands</h3>
+	<h3>Brands</h3>
 
- <!-- Top row with form-->
-<div class="row">
-	<div class="col-12">
-		<form>
-			<div class="row">
-				<div class="col-3">
-					<input type="text" class="form-control" placeholder="Brand name">
-				</div>
-				<div class="col-3">
-					<input type="text" class="form-control" placeholder="Category name">
-				</div>
-				<div class="col-6">
-					<button type="button" class="btn btn-primary" id="add-brand">Add</button>
-					&nbsp;
-					<button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
-					&nbsp;
-					<button type="button" class="btn btn-primary" id="upload-data">Upload</button>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
+	<!-- Top row with form-->
+	<div class="row">
+		<div class="col-12">
+			<form class="form-inline" id="brand-form">
 
-</div> <!-- Container end-->
-
-<!-- Blank Row -->
-<div class="row">
-	&nbsp;
-</div>
-<div class="row">
-
-	<!-- Table -->
-	<div class="col-12">
-		<table class="table table-striped" id="brand-table">
-			<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Brand</th>
-				<th scope="col">Category</th>
-				<th scope="col">Actions</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>1</td>
-				<td>Sample Brand</td>
-				<td>Sample Category</td>
-				<td>Edit | Delete</td>
-			</tr>
-			</tbody>
-		</table>
-
-	</div>
-</div>
-
-<!-- Employee Edit Modal -->
-<div class="modal" tabindex="-1" role="dialog" id="edit-employee-modal">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Edit Brand</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form class="form-inline" id="employee-edit-form">
-					<div class="form-group">
-						<label for="newBrandName" class="col-sm-2 col-form-label">Brand</label>
-						<div class="col-sm-10">
-							<input type="text" id="newBrandName" class="form-control" name="brand" placeholder="Brand Name">
-						</div>
+				<div class="form-group">
+					<label for="inputBrandName" class="col-sm-2 col-form-label">Brand Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="brand" id="inputBrandName" placeholder="Enter Brand name">
 					</div>
-					<div class="form-group">
-						<label for="newCategoryName" class="col-sm-2 col-form-label">Category</label>
-						<div class="col-sm-10">
-							<input type="text" id="newCategoryName" class="form-control" name="category" placeholder="Category Name">
-						</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputBrandCategory" class="col-sm-2 col-form-label">Brand Category</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="category" id="inputBrandCategory" placeholder="Enter Brand category">
 					</div>
-					<input type="hidden" name="id" >
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary" id="update-employee">Update</button>
+				</div>
+
+				<button type="button" class="btn btn-primary" id="add-brand">Add</button>
+				&nbsp;
+				<button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
+				&nbsp;
+				<button type="button" class="btn btn-primary" id="upload-data">Upload</button>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- Blank Row -->
+	<div class="row">
+		&nbsp;
+	</div>
+	<div class="row">
+
+		<!-- Table -->
+		<div class="col-11 d-flex justify-content-center">
+			<table class="table table-striped" id="brand-table">
+				<thead>
+				<tr>
+					<th scope="col">Brand ID</th>
+					<th scope="col">Brand Name</th>
+					<th scope="col">Brand Category</th>
+					<th scope="col">Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>1</td>
+					<td>Nike</td>
+					<td>Shoes</td>
+					<td>Edit | Delete</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Nike</td>
+					<td>Shirts</td>
+					<td>Edit | Delete</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Adidas</td>
+					<td>Hoodies</td>
+					<td>Edit | Delete</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+	<!-- Brand Edit Modal -->
+	<div class="modal" tabindex="-1" role="dialog" id="edit-brand-modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Brand</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline" id="brand-edit-form">
+						<div class="form-group">
+							<label for="updateBrandName" class="col-sm-2 col-form-label">Brand Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="updateBrandName" name="brand" placeholder="Enter Brand name">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="updateCategoryName" class="col-sm-2 col-form-label">Brand category</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="updateCategoryName" name="category" placeholder="Enter Brand category">
+							</div>
+						</div>
+
+						<input type="hidden" name="brandId" >
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="update-brand">Update Brand</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
-<!-- Employee Edit Modal -->
-<div class="modal" tabindex="-1" role="dialog" id="upload-employee-modal">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+	<!-- Brand Edit Modal -->
+	<div class="modal" tabindex="-1" role="dialog" id="upload-brand-modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
 
-			<div class="modal-header">
-				<h5 class="modal-title">Upload Brand</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<div class="modal-body">
-				<div class="employee-file">
-					<input type="file" class="custom-file-input" id="employeeFile">
-					<label class="custom-file-label" for="employeeFile" id="employeeFileName">Choose file</label>
+				<div class="modal-header">
+					<h5 class="modal-title">Upload Brand</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-				<a th:href="@{/sample/employee.tsv}" target="_blank">Download Sample</a>
-				<br>
-				Rows: <span id="rowCount">0</span>,
-				Processed: <span id="processCount">0</span>,
-				Errors: <span id="errorCount">0</span>
-			</div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary" id="process-data">Upload</button>
-				<button type="button" class="btn btn-warning" id="download-errors">Download Errors</button>
+				<div class="modal-body">
+					<div class="brand-file">
+						<input type="file" class="custom-file-input" id="brandFile">
+						<label class="custom-file-label" for="brandFile" id="brandFileName">Choose Brand File</label>
+					</div>
+					<a th:href="@{/sample/brand.tsv}" target="_blank">Download Sample</a>
+					<br>
+					Rows: <span id="rowCount">0</span>,
+					Processed: <span id="processCount">0</span>,
+					Errors: <span id="errorCount">0</span>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="process-data">Upload</button>
+					<button type="button" class="btn btn-warning" id="download-errors">Download Errors</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 </div> <!-- Container end-->
 
 <footer th:replace="snippets.html :: name_footer"></footer>
 
-<script th:src="@{/static/employee.js}"/></script>
+<script th:src="@{/static/brand.js}"></script>
 
 </body>
 

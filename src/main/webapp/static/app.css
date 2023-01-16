@@ -21,3 +21,11 @@ body {
 .fas{
     font-size: 4rem;
 }
+
+.table td {
+text-align: center;
+}
+
+.table th {
+text-align: center;
+}
