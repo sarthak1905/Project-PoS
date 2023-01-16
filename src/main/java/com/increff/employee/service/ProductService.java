@@ -18,16 +18,6 @@ public class ProductService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(ProductPojo p) throws ApiException {
-        ProductUtil.normalize(p);
-        if (StringUtil.isEmpty(p.getBarcode())) {
-            throw new ApiException("Barcode cannot be empty!");
-        }
-        if (StringUtil.isEmpty(p.getName())) {
-            throw new ApiException("Name cannot be empty!");
-        }
-        if (!checkValidity(p)) {
-            throw new ApiException("Barcode already exists!");
-        }
         productDao.insert(p);
     }
 
@@ -76,13 +66,13 @@ public class ProductService {
     public int getProductIdFromBarcode(String barcode) throws ApiException {
         ProductPojo px = productDao.selectBarcode(barcode);
         if (px == null){
-            throw new ApiException("Product with given barcode does not exist!");
+            throw new ApiException("Product with given barcode" + barcode + " does not exist!");
         }
         return px.getId();
     }
 
     @Transactional
-    private boolean checkValidity(ProductPojo p){
+    public boolean isValid(ProductPojo p){
         ProductPojo px = productDao.selectBarcode(p.getBarcode());
         if(px != null){
             return false;

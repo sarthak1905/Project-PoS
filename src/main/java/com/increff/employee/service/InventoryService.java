@@ -21,14 +21,6 @@ public class InventoryService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(InventoryPojo p) throws ApiException {
-        ProductPojo product = productDao.selectId(p.getId());
-        if (product == null){
-            throw new ApiException("Product does not exist!");
-        }
-        InventoryPojo px = inventoryDao.select_id(p.getId());
-        if(px != null){
-            throw new ApiException("Product inventory already exists! Please update instead");
-        }
         inventoryDao.insert(p);
     }
 
