@@ -56,7 +56,7 @@ public class OrderItemDto {
         orderItemService.delete(id);
     }
 
-    private OrderItemData convert(OrderItemPojo b) {
+    public OrderItemData convert(OrderItemPojo b) {
         OrderItemData d = new OrderItemData();
         d.setQuantity(b.getQuantity());
         d.setId(b.getId());
@@ -67,7 +67,7 @@ public class OrderItemDto {
         return d;
     }
 
-    private OrderItemPojo convert(OrderItemForm f, int orderId) throws ApiException {
+    public OrderItemPojo convert(OrderItemForm f, int orderId) throws ApiException {
         OrderItemPojo b = new OrderItemPojo();
         b.setQuantity(f.getQuantity());
         b.setSellingPrice(f.getSellingPrice());
