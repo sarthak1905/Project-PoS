@@ -30,8 +30,9 @@ function addProduct(event){
 function updateProduct(event){
 	$('#edit-product-modal').modal('toggle');
 	//Get the ID
-	var id = $("#product-edit-form input[name=productId]").val();
-	var url = getBrandUrl() + "/" + id;
+	var id = $("#product-edit-form input[name=id]").val();
+	var url = getProductUrl() + "/" + id;
+    console.log(id);
 
 	//Set the values to update
 	var $form = $("#product-edit-form");
@@ -139,18 +140,17 @@ function downloadErrors(){
 function displayProductList(data){
 	var $tbody = $('#product-table').find('tbody');
 	$tbody.empty();
-	console.log(data);
 	for(var i in data){
 		var p = data[i];
 		var buttonHtml = '<button class="btn btn-primary" onclick="deleteProduct(' + p.id + ')">Delete</button>'
 		buttonHtml += ' <button class="btn btn-primary" onclick="displayEditProduct(' + p.id + ')">Edit</button>'
 		var row = '<tr>'
-		+ '<td>' + b.id + '</td>'
-		+ '<td>'  + b.barcode + '</td>'
-		+ '<td>' + b.brand + '</td>'
-		+ '<td>'  + b.category + '</td>'
-		+ '<td>'  + b.name + '</td>'
-		+ '<td>'  + b.mrp + '</td>'
+		+ '<td>' + p.id + '</td>'
+		+ '<td>'  + p.barcode + '</td>'
+		+ '<td>' + p.brand + '</td>'
+		+ '<td>'  + p.category + '</td>'
+		+ '<td>'  + p.name + '</td>'
+		+ '<td>'  + p.mrp + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -201,10 +201,12 @@ function displayUploadData(){
 
 function displayProduct(data){
 	$("#product-edit-form input[name=name]").val(data.name);
-	$("#product-edit-form input[name=age]").val(data.age);
-	$("#product-edit-form input[name=brandId]").val(data.id);
-	$("#product-edit-form input[name=brandId]").val(data.id);
-	$('#product-brand-modal').modal('toggle');
+	$("#product-edit-form input[name=brand]").val(data.brand);
+	$("#product-edit-form input[name=category]").val(data.category);
+	$("#product-edit-form input[name=barcode]").val(data.barcode);
+	$("#product-edit-form input[name=mrp]").val(data.mrp);
+	$("#product-edit-form input[name=id]").val(data.id);
+	$('#edit-product-modal').modal('toggle');
 }
 
 
