@@ -12,32 +12,6 @@
 
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1" th:fragment="name_site_navbar">
-    <a class="navbar-brand" th:href="@{/}">
-        <img th:src="@{/static/logo.jpg}" class="d-inline-block align-top" alt="">
-    </a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/site/features}">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/site/pricing}">Pricing</a>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="btn btn-primary" th:href="@{/site/login}">Login</a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light  mb-1" th:fragment="name_app_navbar">
     <a class="navbar-brand" th:href="@{/}">
@@ -51,9 +25,6 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/ui/home}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/ui/employee}">Employees</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/ui/brand}">Brands</a>

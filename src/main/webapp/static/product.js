@@ -4,6 +4,11 @@ function getProductUrl(){
 	return baseUrl + "/api/product";
 }
 
+function getBrandUrl(){
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	return baseUrl + "/api/brand";
+}
+
 //BUTTON ACTIONS
 function addProduct(event){
 	//Set the values to update
@@ -62,6 +67,19 @@ function getProductList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayProductList(data);
+	   },
+	   error: handleAjaxError
+	});
+}
+
+function getBrandList(){
+	var url = getBrandUrl();
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+			updateBrandOptions(data);
+			updateEditBrandOptions(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -157,6 +175,65 @@ function displayProductList(data){
 	}
 }
 
+function updateBrandOptions(data){
+	var $selectBrandCategoryName = $("#inputProductBrandCategoryName");
+	$selectBrandCategoryName.empty();
+
+	var $selectBrandName = $("#inputProductBrandName");
+	$selectBrandName.empty();
+
+	const brandNames = new Set();
+	const categoryNames = new Set();
+
+	for(var i in data){
+		var brandDetails = data[i];
+		brandNames.add(brandDetails.brand);
+		categoryNames.add(brandDetails.category);
+
+	}
+
+    console.log(brandNames);
+
+	for(category of categoryNames.values()){
+		var option1 = $('<option></option>').attr("value", category).text(category);
+        $selectBrandCategoryName.append(option1);
+	}
+
+	for(brand of brandNames.values()){
+		var option2 = $('<option></option>').attr("value", brand).text(brand);
+		$selectBrandName.append(option2);
+	}
+}
+
+function updateEditBrandOptions(data){
+	var $selectBrandCategoryName = $("#editProductBrandCategoryName");
+	$selectBrandCategoryName.empty();
+
+	var $selectBrandName = $("#editProductBrandName");
+	$selectBrandName.empty();
+
+	const brandNames = new Set();
+	const categoryNames = new Set();
+
+	for(var i in data){
+		var brandDetails = data[i];
+		brandNames.add(brandDetails.brand);
+		categoryNames.add(brandDetails.category);
+
+	}
+
+	for(category of categoryNames.values()){
+		var option1 = $('<option></option>').attr("value", category).text(category);
+        $selectBrandCategoryName.append(option1);
+	}
+
+	for(brand of brandNames.values()){
+		var option2 = $('<option></option>').attr("value", brand).text(brand);
+		$selectBrandName.append(option2);
+	}
+}
+
+
 function displayEditProduct(id){
 	var url = getProductUrl() + "/" + id;
 	$.ajax({
@@ -223,3 +300,4 @@ function init(){
 
 $(document).ready(init);
 $(document).ready(getProductList);
+$(document).ready(getBrandList);
