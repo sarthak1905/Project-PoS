@@ -30,7 +30,7 @@ function addBrand(event){
 function updateBrand(event){
 	$('#edit-brand-modal').modal('toggle');
 	//Get the ID
-	var id = $("#brand-edit-form input[name=id]").val();	
+	var id = $("#brand-edit-form input[name=brandId]").val();
 	var url = getBrandUrl() + "/" + id;
 
 	//Set the values to update
@@ -60,7 +60,7 @@ function getBrandList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayBrandList();
+	   		displayBrandList(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -139,10 +139,11 @@ function downloadErrors(){
 function displayBrandList(data){
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
+	console.log(data);
 	for(var i in data){
 		var b = data[i];
-		var buttonHtml = '<button onclick="deleteBrand(' + b.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditBrand(' + b.id + ')">edit</button>'
+		var buttonHtml = '<button class="btn btn-primary" onclick="deleteBrand(' + b.id + ')">Delete</button>'
+		buttonHtml += ' <button class="btn btn-primary" onclick="displayEditBrand(' + b.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + b.id + '</td>'
 		+ '<td>' + b.brand + '</td>'
@@ -198,7 +199,7 @@ function displayUploadData(){
 function displayBrand(data){
 	$("#brand-edit-form input[name=name]").val(data.name);	
 	$("#brand-edit-form input[name=age]").val(data.age);	
-	$("#brand-edit-form input[name=id]").val(data.id);	
+	$("#brand-edit-form input[name=brandId]").val(data.id);
 	$('#edit-brand-modal').modal('toggle');
 }
 
