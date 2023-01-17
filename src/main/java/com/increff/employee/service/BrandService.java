@@ -88,4 +88,9 @@ public class BrandService {
         return true;
     }
 
+    public void checkIfNull(BrandPojo b) throws ApiException {
+        if (b == null) {
+            throw new ApiException("Brand-category combination does not exist!");
+        }
+    }
 }

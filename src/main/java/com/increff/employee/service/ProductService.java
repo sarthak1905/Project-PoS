@@ -3,7 +3,6 @@ package com.increff.employee.service;
 import com.increff.employee.dao.ProductDao;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.util.ProductUtil;
-import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +56,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String getBarcode(int id){
+    public String getBarcodeFromProductId(int id){
         ProductPojo p = productDao.selectId(id);
         return p.getBarcode();
     }
@@ -72,7 +71,7 @@ public class ProductService {
     }
 
     @Transactional
-    public boolean isValid(ProductPojo p){
+    public boolean isValidBarcode(ProductPojo p){
         ProductPojo px = productDao.selectBarcode(p.getBarcode());
         if(px != null){
             return false;

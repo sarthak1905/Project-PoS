@@ -35,7 +35,7 @@ public class OrderItemService {
     }
 
     @Transactional(rollbackOn  = ApiException.class)
-    public void update(int id, OrderItemData p) throws ApiException {
+    public void update(int id, OrderItemPojo p) throws ApiException {
         OrderItemPojo px = getCheck(id);
         px.setProductId(p.getProductId());
         px.setQuantity(p.getQuantity());

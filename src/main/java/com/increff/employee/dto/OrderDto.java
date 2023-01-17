@@ -31,13 +31,13 @@ public class OrderDto {
     private ProductService productService;
 
     public void add(List<OrderItemForm> forms) throws ApiException {
+        // TODO Shift business logic to orderService
         OrderPojo orderPojo = new OrderPojo();
         orderService.add(orderPojo);
-        List<OrderItemPojo> orderItems = new ArrayList<>();
         for (OrderItemForm orderItemForm: forms){
             if(inventoryDto.isValidInventory(productService.getProductIdFromBarcode(orderItemForm.getBarcode()),
                     orderItemForm.getQuantity())){
-                OrderItemPojo b = orderItemDto.convert(orderItemForm, orderPojo.getId());
+                OrderItemPojo b = orderItemDto.convert(orderPojo.getId(), orderItemForm);
                 orderItemService.add(b);
             }
             else {
@@ -69,7 +69,7 @@ public class OrderDto {
         List<OrderItemPojo> orderItems = orderItemService.getByOrderId(id);
         for(OrderItemPojo orderItem: orderItems){
             if(map.containsKey(orderItem.getId())){
-                orderItemService.update(orderItem.getId(), map.get(orderItem.getId()));
+                orderItemService.update(orderItem.getId(), orderItemDto.convert(map.get(orderItem.getId())));
             }
             else{
                 orderItemService.delete(orderItem.getId());

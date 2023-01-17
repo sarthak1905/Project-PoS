@@ -29,7 +29,7 @@ public class OrderItemDto {
     public void add(OrderItemForm form) throws ApiException {
         OrderPojo orderPojo = new OrderPojo();
         orderService.add(orderPojo);
-        OrderItemPojo b = convert(form, orderPojo.getId());
+        OrderItemPojo b = convert(orderPojo.getId(), form);
         orderItemService.add(b);
     }
 
@@ -46,11 +46,11 @@ public class OrderItemDto {
         }
         return orderItemDataList;
     }
-/*
+
     public void update(int id, OrderItemForm form) throws ApiException{
-        OrderItemPojo b = convert(form);
+        OrderItemPojo b = convert(id, form);
         orderItemService.update(id, b);
-    }*/
+    }
 
     public void delete(int id) throws ApiException{
         orderItemService.delete(id);
@@ -63,16 +63,25 @@ public class OrderItemDto {
         d.setProductId(b.getProductId());
         d.setOrderId(b.getOrderId());
         d.setSellingPrice(b.getSellingPrice());
-        d.setBarcode(productService.getBarcode(b.getProductId()));
+        d.setBarcode(productService.getBarcodeFromProductId(b.getProductId()));
         return d;
     }
 
-    public OrderItemPojo convert(OrderItemForm f, int orderId) throws ApiException {
+    public OrderItemPojo convert(int orderId, OrderItemForm f) throws ApiException {
         OrderItemPojo b = new OrderItemPojo();
         b.setQuantity(f.getQuantity());
         b.setSellingPrice(f.getSellingPrice());
         b.setOrderId(orderId);
         b.setProductId(productService.getProductIdFromBarcode(f.getBarcode()));
+        return b;
+    }
+
+    public OrderItemPojo convert(OrderItemData data) throws ApiException {
+        OrderItemPojo b = new OrderItemPojo();
+        b.setQuantity(data.getQuantity());
+        b.setSellingPrice(data.getSellingPrice());
+        b.setOrderId(data.getOrderId());
+        b.setProductId(productService.getProductIdFromBarcode(data.getBarcode()));
         return b;
     }
 
