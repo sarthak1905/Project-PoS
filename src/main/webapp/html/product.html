@@ -107,7 +107,7 @@
 	</div>
 
 	<!-- Product Edit Modal -->
-	<div class="modal" tabindex="-1" role="dialog" id="edit-product-modal">
+	<div class="modal fade" tabindex="-1" role="dialog" id="edit-product-modal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -117,37 +117,61 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form-inline" id="product-edit-form">
-
-						<div class="form-group">
-							<label for="updateProductName" class="col-sm-2 col-form-label">Name</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="updateProductName" name="name" placeholder="Enter Product Name">
+					<form class="form" id="product-edit-form">
+						<div class="container">
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateProductName" class="col-form-label">Name</label>
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									<input type="text" class="form-control col-6" id="updateProductName" name="name" placeholder="Enter Product Name">
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label for="updateBrandName" class="col-sm-2 col-form-label">Brand</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="updateBrandName" name="brand" placeholder="Enter Brand Name">
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateProductBrandName" class="col-form-label">Brand</label>
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									<select required class="form-control" name="brand" id="updateProductBrandName">
+										<option value="dummy">Dummy</option>
+										<option value="dummy">Dummy</option>
+									</select>
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label for="updateCategoryName" class="col-sm-2 col-form-label">Category</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="updateCategoryName" name="category" placeholder="Enter Category">
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateProductBrandCategoryName" class="col-form-label">Category</label>
+									&nbsp; &nbsp; &nbsp;
+									<select required class="form-control" name="category" id="updateProductBrandCategoryName">
+										<option value="dummy">Dummy</option>
+										<option value="dummy">Dummy</option>
+									</select>
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label for="updateMRP" class="col-sm-2 col-form-label">MRP</label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" id="updateMRP" name="mrp" placeholder="Enter MRP">
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateMRP" class="col-form-label">MRP</label>
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									<input type="number" class="form-control col-6" id="updateMRP" name="mrp" placeholder="Enter MRP">
+								</div>
 							</div>
-						</div>
-						<input type="hidden" name="barcode">
-						<input type="hidden" name="id">
+							
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateBarcode" class="col-form-label">Barcode</label>
+									&nbsp; &nbsp; &nbsp;
+									<input id="updateBarcode" type="text" class="form-control col-6" name="barcode" readonly>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group form-inline">
+									<label for="updateID" class="col-form-label">ID</label>
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									<input id="updateID" type="text" class="form-control col-6" name="id" readonly>
+								</div>
+							</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -159,7 +183,7 @@
 	</div>
 
 
-	<!-- Brand Edit Modal -->
+	<!-- Product Edit Modal -->
 	<div class="modal" tabindex="-1" role="dialog" id="upload-product-modal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
