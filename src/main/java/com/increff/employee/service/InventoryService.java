@@ -3,7 +3,6 @@ package com.increff.employee.service;
 import com.increff.employee.dao.InventoryDao;
 import com.increff.employee.dao.ProductDao;
 import com.increff.employee.pojo.InventoryPojo;
-import com.increff.employee.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +54,16 @@ public class InventoryService {
         return p;
     }
 
+    public void checkInventory(int id, int quantity) throws ApiException {
+        InventoryPojo inventoryPojo = getCheck(id);
+        if(inventoryPojo.getQuantity() < quantity){
+            throw new ApiException("Insufficient inventory for product with id:" + id +
+                    ". Max available = " + inventoryPojo.getQuantity() + ". Order placed for = " + quantity);
+        }
+    }
+
+    public void reduceInventory(int productId, int quantity) throws ApiException {
+        InventoryPojo inventoryPojo = getCheck(productId);
+        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);
+    }
 }
