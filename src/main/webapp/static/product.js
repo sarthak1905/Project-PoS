@@ -37,7 +37,6 @@ function updateProduct(event){
 	//Get the ID
 	var id = $("#product-edit-form input[name=id]").val();
 	var url = getProductUrl() + "/" + id;
-    console.log(id);
 
 	//Set the values to update
 	var $form = $("#product-edit-form");
@@ -78,8 +77,8 @@ function getBrandList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-			updateBrandOptions(data);
-			updateEditBrandOptions(data);
+			showBrandDropdownAdd(data);
+			showBrandDropdownEdit(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -175,15 +174,14 @@ function displayProductList(data){
 	}
 }
 
-function updateBrandOptions(data){
-	var $selectBrandCategoryName = $("#inputProductBrandCategoryName");
-	$selectBrandCategoryName.empty();
+function showBrandDropdownAdd(data){
+	const brandNames = new Set();
+	const categoryNames = new Set();
+	var $selectCategoryName = $("#inputProductBrandCategoryName");
+	$selectCategoryName.empty();
 
 	var $selectBrandName = $("#inputProductBrandName");
 	$selectBrandName.empty();
-
-	const brandNames = new Set();
-	const categoryNames = new Set();
 
 	for(var i in data){
 		var brandDetails = data[i];
@@ -192,11 +190,9 @@ function updateBrandOptions(data){
 
 	}
 
-    console.log(brandNames);
-
 	for(category of categoryNames.values()){
 		var option1 = $('<option></option>').attr("value", category).text(category);
-        $selectBrandCategoryName.append(option1);
+        $selectCategoryName.append(option1);
 	}
 
 	for(brand of brandNames.values()){
@@ -205,26 +201,24 @@ function updateBrandOptions(data){
 	}
 }
 
-function updateEditBrandOptions(data){
-	var $selectBrandCategoryName = $("#editProductBrandCategoryName");
-	$selectBrandCategoryName.empty();
-
-	var $selectBrandName = $("#editProductBrandName");
-	$selectBrandName.empty();
-
+function showBrandDropdownEdit(data){
 	const brandNames = new Set();
 	const categoryNames = new Set();
+	var $selectCategoryName = $("#updateProductBrandCategoryName");
+	$selectCategoryName.empty();
+
+	var $selectBrandName = $("#updateProductBrandName");
+	$selectBrandName.empty();
 
 	for(var i in data){
 		var brandDetails = data[i];
 		brandNames.add(brandDetails.brand);
 		categoryNames.add(brandDetails.category);
-
 	}
 
 	for(category of categoryNames.values()){
 		var option1 = $('<option></option>').attr("value", category).text(category);
-        $selectBrandCategoryName.append(option1);
+        $selectCategoryName.append(option1);
 	}
 
 	for(brand of brandNames.values()){
