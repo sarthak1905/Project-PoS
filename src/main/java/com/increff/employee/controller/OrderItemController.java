@@ -44,8 +44,8 @@ public class OrderItemController {
 
     @ApiOperation(value = "Updates an orderitem")
     @RequestMapping(path = "/api/orderitem/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody OrderItemForm form) throws ApiException {
-        //orderItemDto.update(id, form);
+    public void update(@PathVariable int id, @RequestBody OrderItemForm orderItemForm) throws ApiException {
+        orderItemDto.update(id, orderItemForm);
     }
 
     @ApiOperation(value = "Deletes an orderitem")

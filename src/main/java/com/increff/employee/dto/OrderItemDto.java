@@ -4,10 +4,7 @@ import com.increff.employee.model.OrderItemData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
-import com.increff.employee.service.ApiException;
-import com.increff.employee.service.OrderItemService;
-import com.increff.employee.service.OrderService;
-import com.increff.employee.service.ProductService;
+import com.increff.employee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,70 +16,80 @@ public class OrderItemDto {
 
     @Autowired
     private OrderItemService orderItemService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private ProductService productService;
+    @Autowired
+    private InventoryService inventoryService;
 
-    public void add(OrderItemForm form) throws ApiException {
+
+    public void add(OrderItemForm orderItemForm) throws ApiException {
         OrderPojo orderPojo = new OrderPojo();
-        orderService.add(orderPojo);
-        OrderItemPojo b = convert(orderPojo.getId(), form);
-        orderItemService.add(b);
+        OrderItemPojo b = convertFormToPojo(orderItemForm);
+        List<OrderItemPojo> orderItemPojos = new ArrayList<>();
+        orderItemPojos.add(b);
+        orderService.add(orderPojo, orderItemPojos);
     }
 
     public OrderItemData get(int id) throws ApiException{
         OrderItemPojo b = orderItemService.get(id);
-        return convert(b);
+        return convertPojoToData(b);
     }
 
     public List<OrderItemData> getAll(){
         List<OrderItemPojo> orderItemList = orderItemService.getAll();
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo b: orderItemList){
-            orderItemDataList.add(convert(b));
+            orderItemDataList.add(convertPojoToData(b));
         }
         return orderItemDataList;
     }
 
-    public void update(int id, OrderItemForm form) throws ApiException{
-        OrderItemPojo b = convert(id, form);
-        orderItemService.update(id, b);
+    public void update(int id, OrderItemForm orderItemForm) throws ApiException{
+        OrderItemPojo orderItemPojo = convertUpdateFormToPojo(id, orderItemForm);
+        orderItemService.update(id, orderItemPojo);
     }
 
     public void delete(int id) throws ApiException{
         orderItemService.delete(id);
     }
 
-    public OrderItemData convert(OrderItemPojo b) {
+    public OrderItemData convertPojoToData(OrderItemPojo orderItemPojo) {
         OrderItemData d = new OrderItemData();
-        d.setQuantity(b.getQuantity());
-        d.setId(b.getId());
-        d.setProductId(b.getProductId());
-        d.setOrderId(b.getOrderId());
-        d.setSellingPrice(b.getSellingPrice());
-        d.setBarcode(productService.getBarcodeFromProductId(b.getProductId()));
+        d.setQuantity(orderItemPojo.getQuantity());
+        d.setId(orderItemPojo.getId());
+        d.setProductId(orderItemPojo.getProductId());
+        d.setOrderId(orderItemPojo.getOrderId());
+        d.setSellingPrice(orderItemPojo.getSellingPrice());
+        d.setBarcode(productService.getBarcodeFromProductId(orderItemPojo.getProductId()));
         return d;
     }
 
-    public OrderItemPojo convert(int orderId, OrderItemForm f) throws ApiException {
+    public OrderItemPojo convertFormToPojo(OrderItemForm orderItemForm) throws ApiException {
         OrderItemPojo b = new OrderItemPojo();
-        b.setQuantity(f.getQuantity());
-        b.setSellingPrice(f.getSellingPrice());
-        b.setOrderId(orderId);
-        b.setProductId(productService.getProductIdFromBarcode(f.getBarcode()));
+        b.setQuantity(orderItemForm.getQuantity());
+        b.setSellingPrice(orderItemForm.getSellingPrice());
+        b.setProductId(productService.getProductIdFromBarcode(orderItemForm.getBarcode()));
         return b;
     }
 
-    public OrderItemPojo convert(OrderItemData data) throws ApiException {
+    public OrderItemPojo convertDataToPojo(OrderItemData orderItemData) throws ApiException {
         OrderItemPojo b = new OrderItemPojo();
-        b.setQuantity(data.getQuantity());
-        b.setSellingPrice(data.getSellingPrice());
-        b.setOrderId(data.getOrderId());
-        b.setProductId(productService.getProductIdFromBarcode(data.getBarcode()));
+        b.setQuantity(orderItemData.getQuantity());
+        b.setSellingPrice(orderItemData.getSellingPrice());
+        b.setOrderId(orderItemData.getOrderId());
+        b.setProductId(productService.getProductIdFromBarcode(orderItemData.getBarcode()));
         return b;
     }
 
+    private OrderItemPojo convertUpdateFormToPojo(int id, OrderItemForm orderItemForm) throws ApiException {
+        OrderItemPojo orderItemPojo = orderItemService.get(id);
+        int newProductId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
+        inventoryService.checkInventory(newProductId, orderItemForm.getQuantity());
+        orderItemPojo.setQuantity(orderItemForm.getQuantity());
+        orderItemPojo.setSellingPrice(orderItemForm.getSellingPrice());
+        orderItemPojo.setProductId(newProductId);
+        return orderItemPojo;
+    }
 }

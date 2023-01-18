@@ -63,12 +63,4 @@ public class InventoryDto {
         return b;
     }
 
-
-    public boolean isValidInventory(int id, int quantity) throws ApiException {
-        InventoryPojo p = inventoryService.get(id);
-        if(p.getQuantity() < quantity){
-            return false;
-        }
-        return true;
-    }
 }

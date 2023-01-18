@@ -21,11 +21,11 @@ import java.util.List;
 public class ProductDto {
 
     @Autowired
+    private BrandDto brandDto;
+    @Autowired
     private InventoryDto inventoryDto;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private BrandService brandService;
 
@@ -80,7 +80,7 @@ public class ProductDto {
 
     private ProductPojo convertToPojo(ProductForm f) throws ApiException {
         ProductPojo p = new ProductPojo();
-        BrandPojo b = brandService.getBrandCategory(f.getBrand(), f.getCategory());
+        BrandPojo b = brandDto.getBrandCategory(f.getBrand(), f.getCategory());
         brandService.checkIfNull(b);
         p.setBrand_category(b.getId());
         p.setBarcode(f.getBarcode());

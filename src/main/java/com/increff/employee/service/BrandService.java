@@ -2,15 +2,11 @@ package com.increff.employee.service;
 
 import com.increff.employee.dao.BrandDao;
 import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.util.BrandUtil;
-import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static com.increff.employee.util.BrandUtil.normalize;
 
 @Service
 public class BrandService {
@@ -20,14 +16,7 @@ public class BrandService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(BrandPojo b) throws ApiException {
-        BrandUtil.normalize(b);
-        if (StringUtil.isEmpty(b.getBrand())) {
-            throw new ApiException("Brand name cannot be empty!");
-        }
-        if (StringUtil.isEmpty(b.getCategory())) {
-            throw new ApiException("Brand category cannot be empty!");
-        }
-        if (!checkValidity(b)) {
+        if (!isExists(b)) {
             throw new ApiException("Brand+category combination must be unique!");
         }
         brandDao.insert(b);
@@ -45,7 +34,9 @@ public class BrandService {
 
     @Transactional(rollbackOn  = ApiException.class)
     public void update(int id, BrandPojo b) throws ApiException {
-        normalize(b);
+        if (!isExists(b)) {
+            throw new ApiException("Brand+category combination must be unique!");
+        }
         BrandPojo bx = getCheck(id);
         bx.setBrand(b.getBrand());
         bx.setCategory(b.getCategory());
@@ -67,21 +58,13 @@ public class BrandService {
     }
 
     @Transactional
-    public BrandPojo getBrandCategory(String brand, String category) throws ApiException {
-        brand = brand.toLowerCase().trim();
-        category = category.toLowerCase().trim();
-        if (StringUtil.isEmpty(brand)){
-            throw new ApiException("Brand name cannot be empty!");
-        }
-        if (StringUtil.isEmpty(category)){
-            throw new ApiException("Brand category cannot be empty!");
-        }
+    public BrandPojo getBrandCategory(String brand, String category){
         return brandDao.selectBrandCategory(brand, category);
     }
 
     @Transactional
-    private boolean checkValidity(BrandPojo b){
-        BrandPojo p = brandDao.selectBrandCategory(b.getBrand(), b.getCategory());
+    private boolean isExists(BrandPojo brandPojo){
+        BrandPojo p = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
         if (p != null){
             return false;
         }
