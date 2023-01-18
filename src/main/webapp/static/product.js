@@ -4,7 +4,7 @@ function getProductUrl(){
 	return baseUrl + "/api/product";
 }
 
-function getBrandUrl(){
+function getInventoryUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	return baseUrl + "/api/brand";
 }
@@ -71,8 +71,8 @@ function getProductList(){
 	});
 }
 
-function getBrandList(){
-	var url = getBrandUrl();
+function getInventoryList(){
+	var url = getInventoryUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
@@ -126,7 +126,7 @@ function uploadRows(){
 	processCount++;
 	
 	var json = JSON.stringify(row);
-	var url = getBrandUrl();
+	var url = getInventoryUrl();
 
 	//Make ajax call
 	$.ajax({
@@ -294,4 +294,4 @@ function init(){
 
 $(document).ready(init);
 $(document).ready(getProductList);
-$(document).ready(getBrandList);
+$(document).ready(getInventoryList);
