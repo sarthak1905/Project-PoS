@@ -106,6 +106,7 @@ public class OrderDto {
             }
             int productId = productService.getProductIdFromBarcode(orderItemData.getBarcode());
             inventoryService.checkInventory(productId, orderItemData.getQuantity());
+            orderService.validateSellingPrice(productId, orderItemData.getSellingPrice());
         }
     }
 
