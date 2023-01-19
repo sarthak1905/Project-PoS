@@ -1,7 +1,7 @@
 
 function getOrderUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/inventory";
+	return baseUrl + "/api/order";
 }
 
 //BUTTON ACTIONS
@@ -29,6 +29,13 @@ function updateOrder(event){
 	});
 
 	return false;
+}
+
+function addOrderItem(){
+	var $tbody = $('#add-order-table').find('tbody');
+	var formRow = createOrderItemForm();
+	var row = '<tr>'+ formRow +'</tr>';
+    $tbody.append(row);
 }
 
 
@@ -115,30 +122,74 @@ function downloadErrors(){
 //UI DISPLAY METHODS
 
 function displayOrderList(data){
-	var $tbody = $('#inventory-table').find('tbody');
+	var $tbody = $('#order-table').find('tbody');
 	$tbody.empty();
-	console.log(data);
 	for(var i in data){
-		var b = data[i];
-		var buttonHtml = '<button class="btn btn-primary" onclick="deleteInventory(' + b.id + ')">Delete</button>'
-		buttonHtml += ' <button class="btn btn-primary" onclick="displayEditInventory(' + b.id + ')">Edit</button>'
+		var o = data[i];
+		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+		var parsedDate = parseDate(o.dateTime);
 		var row = '<tr>'
-		+ '<td>' + b.id + '</td>'
-		+ '<td>' + b.barcode + '</td>'
-		+ '<td>'  + b.quantity + '</td>'
+		+ '<td>' + o.id + '</td>'
+		+ '<td>' + parsedDate + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
 }
 
-function displayEditInventory(id){
+function parseDate(dateTime){
+	var hours = dateTime[3];
+	var minutes = dateTime[4];
+	var seconds = dateTime[5];
+	var day = dateTime[2];
+	var month = dateTime[1];
+	var year = dateTime[0];
+	var parsedDate = hours + ':' + minutes + ':' + seconds + ' ' + day;
+	if(day == 1)
+		parsedDate += 'st ';
+	else if(day == 2)
+		parsedDate += 'nd ';
+	else if(day == 3)
+		parsedDate += 'rd ';
+	else 
+		parsedDate += 'th ';
+	
+	if(month == 1)
+		parsedDate += 'January';
+	else if(month == 2)
+		parsedDate += 'February';
+	else if(month == 3)
+		parsedDate += 'March';
+	else if(month == 4)
+		parsedDate += 'April';
+	else if(month == 5)
+		parsedDate += 'May';
+	else if(month == 6)
+		parsedDate += 'June';
+	else if(month == 7)
+		parsedDate += 'July';
+	else if(month == 8)
+		parsedDate += 'August';
+	else if(month == 9)
+		parsedDate += 'September';
+	else if(month == 10)
+		parsedDate += 'October';
+	else if(month == 11)
+		parsedDate += 'November';
+	else if(month == 12)
+		parsedDate += 'December';
+
+	parsedDate += ', ' + year;
+	return parsedDate;
+}
+
+function displayEditOrder(id){
 	var url = getOrderUrl() + "/" + id;
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayInventory(data);   
+	   		displayOrder(data);   
 	   },
 	   error: handleAjaxError
 	});	
@@ -174,17 +225,17 @@ function displayUploadData(){
 	$('#upload-brand-modal').modal('toggle');
 }
 
-function displayInventory(data){
-	$("#inventory-edit-form input[name=id]").val(data.id);	
-	$("#inventory-edit-form input[name=barcode]").val(data.barcode);	
-	$("#inventory-edit-form input[name=quantity]").val(data.quantity);
-	$('#edit-inventory-modal').modal('toggle');
+function displayOrder(data){
+	$("#order-edit-form input[name=id]").val(data.id);	
+	$("#order-edit-form input[name=created_at]").val(parseDate(data.dateTime));	
+	$('#edit-order-modal').modal('toggle');
 }
 
 
 //INITIALIZATION CODE
 function init(){
-	$('#update-inventory').click(updateOrder);
+	$('#add-order-item').click(addOrderItem);
+	$('#update-order').click(updateOrder);
 	$('#refresh-data').click(getOrderList);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
