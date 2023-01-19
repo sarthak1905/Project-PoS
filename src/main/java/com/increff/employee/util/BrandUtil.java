@@ -1,9 +1,6 @@
 package com.increff.employee.util;
 
 import com.increff.employee.model.BrandForm;
-import com.increff.employee.pojo.BrandPojo;
-
-import java.util.Locale;
 
 public class BrandUtil {
 

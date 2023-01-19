@@ -1,14 +1,12 @@
 package com.increff.employee.dao;
 
+import com.increff.employee.pojo.EmployeePojo;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.stereotype.Repository;
-
-import com.increff.employee.pojo.EmployeePojo;
 
 @Repository
 public class EmployeeInMemDao {

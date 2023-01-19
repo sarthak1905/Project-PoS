@@ -35,7 +35,6 @@ public class ProductService {
     public void update(int id, ProductPojo p) throws ApiException {
         ProductUtil.normalize(p);
         ProductPojo bx = getCheck(id);
-        bx.setBarcode(p.getBarcode());
         bx.setName(p.getName());
         bx.setMrp(p.getMrp());
     }
@@ -71,8 +70,8 @@ public class ProductService {
     }
 
     @Transactional
-    public boolean isValidBarcode(ProductPojo p){
-        ProductPojo px = productDao.selectBarcode(p.getBarcode());
+    public boolean isValidBarcode(String barcode){
+        ProductPojo px = productDao.selectBarcode(barcode);
         if(px != null){
             return false;
         }

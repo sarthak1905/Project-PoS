@@ -1,20 +1,18 @@
 package com.increff.employee.controller;
 
-import java.util.List;
-
+import com.increff.employee.model.InfoData;
+import com.increff.employee.model.UserForm;
+import com.increff.employee.pojo.UserPojo;
+import com.increff.employee.service.ApiException;
+import com.increff.employee.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.increff.employee.model.InfoData;
-import com.increff.employee.model.UserForm;
-import com.increff.employee.pojo.UserPojo;
-import com.increff.employee.service.ApiException;
-import com.increff.employee.service.UserService;
-
-import io.swagger.annotations.ApiOperation;
+import java.util.List;
 
 @Controller
 public class InitApiController extends AbstractUiController {

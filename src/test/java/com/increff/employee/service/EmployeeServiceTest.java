@@ -1,11 +1,10 @@
 package com.increff.employee.service;
 
-import static org.junit.Assert.assertEquals;
-
+import com.increff.employee.pojo.EmployeePojo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.increff.employee.pojo.EmployeePojo;
+import static org.junit.Assert.assertEquals;
 
 public class EmployeeServiceTest extends AbstractUnitTest {
 

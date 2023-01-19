@@ -1,9 +1,9 @@
 package com.increff.employee.service;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.Assert.assertEquals;
 
 public class AboutAppServiceTest extends AbstractUnitTest {
 

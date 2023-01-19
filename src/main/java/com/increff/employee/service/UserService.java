@@ -1,14 +1,12 @@
 package com.increff.employee.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.increff.employee.dao.UserDao;
+import com.increff.employee.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.increff.employee.dao.UserDao;
-import com.increff.employee.pojo.UserPojo;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UserService {

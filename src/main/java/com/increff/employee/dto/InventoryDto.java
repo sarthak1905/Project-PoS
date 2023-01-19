@@ -64,8 +64,6 @@ public class InventoryDto {
         return b;
     }
 
-<<<<<<< HEAD
-
     public boolean isValidInventory(int id, int quantity) throws ApiException {
         InventoryPojo p = inventoryService.get(id);
         if(p.getQuantity() < quantity){
@@ -79,6 +77,4 @@ public class InventoryDto {
             throw new ApiException("Quantity cannot be negative!");
         }
     }
-=======
->>>>>>> master
 }
