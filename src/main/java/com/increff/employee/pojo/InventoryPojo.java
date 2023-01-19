@@ -1,5 +1,8 @@
 package com.increff.employee.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,24 +10,12 @@ import javax.persistence.Id;
 public class InventoryPojo {
 
     @Id
-    int id;
-    int quantity;
+    @Getter
+    @Setter
+    private Integer id;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    @Getter
+    @Setter
+    private Integer quantity;
 
 }

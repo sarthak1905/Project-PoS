@@ -65,7 +65,7 @@ public class ProductDto {
 
     private ProductData convertToData(ProductPojo p) throws ApiException {
         ProductData d = new ProductData();
-        BrandPojo b = brandService.get(p.getBrand_category());
+        BrandPojo b = brandService.get(p.getBrandCategory());
         d.setId(p.getId());
         d.setName(p.getName());
         d.setBrand(b.getBrand());
@@ -82,7 +82,7 @@ public class ProductDto {
         validateBrandCategoryNames(brand, category);
         BrandPojo brandPojo = brandService.getBrandCategory(brand, category);
         brandService.checkIfNull(brandPojo);
-        productPojo.setBrand_category(brandPojo.getId());
+        productPojo.setBrandCategory(brandPojo.getId());
         productPojo.setBarcode(productForm.getBarcode());
         productPojo.setName(productForm.getName());
         productPojo.setMrp(productForm.getMrp());

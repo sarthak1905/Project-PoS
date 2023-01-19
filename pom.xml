@@ -23,6 +23,7 @@
 		<junit.version>4.12</junit.version>
 		<log4j.version>2.19.0</log4j.version>
 		<h2.version>1.4.200</h2.version>
+		<lombok.version>1.18.24</lombok.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<!-- Jetty configuration -->
@@ -177,6 +178,13 @@
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-surefire-report-plugin</artifactId>
 			<version>3.0.0-M4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 

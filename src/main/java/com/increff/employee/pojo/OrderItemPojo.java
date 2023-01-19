@@ -1,5 +1,8 @@
 package com.increff.employee.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,51 +13,25 @@ public class OrderItemPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int orderId;
-    private int productId;
-    private int quantity;
-    private double sellingPrice;
+    @Getter
+    @Setter
+    private Integer id;
 
+    @Getter
+    @Setter
+    private Integer orderId;
 
-    public int getId() {
-        return id;
-    }
+    @Getter
+    @Setter
+    private Integer productId;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Getter
+    @Setter
+    private Integer quantity;
 
-    public int getOrderId() {
-        return orderId;
-    }
+    @Getter
+    @Setter
+    private Double sellingPrice;
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
 
 }

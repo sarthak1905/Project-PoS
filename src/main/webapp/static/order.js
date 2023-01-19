@@ -31,11 +31,12 @@ function updateOrder(event){
 	return false;
 }
 
-function addOrderItem(){
-	var $tbody = $('#add-order-table').find('tbody');
-	var formRow = createOrderItemForm();
-	var row = '<tr>'+ formRow +'</tr>';
-    $tbody.append(row);
+function addOrderItemRow() {
+	console.log("Function called !!");
+    $("#add-order-row").clone().insertAfter("tr.add-order-row:last");
+    $("tr.add-order-row:last input[name=quantity]").val("");
+    $("tr.add-order-row:last input[name=sellingPrice]").val("");
+    $("tr.add-order-row:last button").click(removeOrderItem);
 }
 
 
@@ -234,7 +235,7 @@ function displayOrder(data){
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-order-item').click(addOrderItem);
+	$('#add-order-item').click(addOrderItemRow);
 	$('#update-order').click(updateOrder);
 	$('#refresh-data').click(getOrderList);
 	$('#upload-data').click(displayUploadData);
