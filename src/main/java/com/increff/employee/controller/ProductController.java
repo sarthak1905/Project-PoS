@@ -3,17 +3,12 @@ package com.increff.employee.controller;
 import com.increff.employee.dto.ProductDto;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
-import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
-import com.increff.employee.service.BrandService;
-import com.increff.employee.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Api

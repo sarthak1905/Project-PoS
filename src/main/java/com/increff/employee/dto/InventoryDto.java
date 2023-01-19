@@ -39,8 +39,9 @@ public class InventoryDto {
         return inventoryDataList;
     }
 
-    public void update(int id, InventoryForm form) throws ApiException{
-        InventoryPojo b = convertFormToPojo(form);
+    public void update(int id, InventoryForm inventoryForm) throws ApiException{
+        InventoryPojo b = convertFormToPojo(inventoryForm);
+        validateForm(inventoryForm);
         inventoryService.update(id, b);
     }
 
@@ -63,4 +64,17 @@ public class InventoryDto {
         return b;
     }
 
+    public boolean isValidInventory(int id, int quantity) throws ApiException {
+        InventoryPojo p = inventoryService.get(id);
+        if(p.getQuantity() < quantity){
+            return false;
+        }
+        return true;
+    }
+
+    private void validateForm(InventoryForm inventoryForm) throws ApiException {
+        if(inventoryForm.getQuantity() < 0){
+            throw new ApiException("Quantity cannot be negative!");
+        }
+    }
 }

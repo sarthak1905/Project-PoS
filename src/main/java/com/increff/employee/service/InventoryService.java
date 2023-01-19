@@ -1,7 +1,6 @@
 package com.increff.employee.service;
 
 import com.increff.employee.dao.InventoryDao;
-import com.increff.employee.dao.ProductDao;
 import com.increff.employee.pojo.InventoryPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ public class InventoryService {
 
     @Autowired
     private InventoryDao inventoryDao;
-
-    @Autowired
-    private ProductDao productDao;
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(InventoryPojo p) throws ApiException {

@@ -1,13 +1,13 @@
 package com.increff.employee.dto;
 
-import com.increff.employee.model.InventoryData;
-import com.increff.employee.model.InventoryForm;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
+import com.increff.employee.service.InventoryService;
 import com.increff.employee.service.ProductService;
 import com.increff.employee.util.ProductUtil;
 import com.increff.employee.util.StringUtil;
@@ -21,27 +21,23 @@ import java.util.List;
 public class ProductDto {
 
     @Autowired
-    private BrandDto brandDto;
-    @Autowired
-    private InventoryDto inventoryDto;
+    private InventoryService inventoryService;
     @Autowired
     private ProductService productService;
     @Autowired
     private BrandService brandService;
 
-    public void add(ProductForm form) throws ApiException {
-        ProductPojo p = convertToPojo(form);
-        String barcode = p.getBarcode();
-        ProductUtil.normalize(p);
-        validateData(p);
-        productService.add(p);
-        InventoryData inventoryData = new InventoryData();
-        inventoryData.setId(productService.getProductIdFromBarcode(barcode));
-        inventoryData.setBarcode(barcode);
-        inventoryData.setQuantity(0);
-        inventoryDto.add(inventoryData);
+    public void add(ProductForm productForm) throws ApiException {
+        validateForm(productForm);
+        ProductPojo productPojo = convertToPojo(productForm);
+        String barcode = productPojo.getBarcode();
+        ProductUtil.normalize(productPojo);
+        productService.add(productPojo);
+        InventoryPojo inventoryPojo = new InventoryPojo();
+        inventoryPojo.setId(productService.getProductIdFromBarcode(barcode));
+        inventoryPojo.setQuantity(0);
+        inventoryService.add(inventoryPojo);
     }
-
 
     public ProductData get(int id) throws ApiException{
         ProductPojo p = productService.get(id);
@@ -57,9 +53,10 @@ public class ProductDto {
         return productDataList;
     }
 
-    public void update(int id, ProductForm form) throws ApiException{
-        ProductPojo p = convertToPojo(form);
-        productService.update(id, p);
+    public void update(int id, ProductForm productForm) throws ApiException{
+        validateForm(productForm);
+        ProductPojo productPojo = convertToPojo(productForm);
+        productService.update(id, productPojo);
     }
 
     public void delete(int id) throws ApiException{
@@ -78,26 +75,40 @@ public class ProductDto {
         return d;
     }
 
-    private ProductPojo convertToPojo(ProductForm f) throws ApiException {
-        ProductPojo p = new ProductPojo();
-        BrandPojo b = brandDto.getBrandCategory(f.getBrand(), f.getCategory());
-        brandService.checkIfNull(b);
-        p.setBrand_category(b.getId());
-        p.setBarcode(f.getBarcode());
-        p.setName(f.getName());
-        p.setMrp(f.getMrp());
-        return p;
+    private ProductPojo convertToPojo(ProductForm productForm) throws ApiException {
+        ProductPojo productPojo = new ProductPojo();
+        String brand = productForm.getBrand();
+        String category = productForm.getCategory();
+        validateBrandCategoryNames(brand, category);
+        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);
+        brandService.checkIfNull(brandPojo);
+        productPojo.setBrand_category(brandPojo.getId());
+        productPojo.setBarcode(productForm.getBarcode());
+        productPojo.setName(productForm.getName());
+        productPojo.setMrp(productForm.getMrp());
+        return productPojo;
     }
 
-    private void validateData(ProductPojo p) throws ApiException {
-        if (StringUtil.isEmpty(p.getBarcode())) {
+    private void validateForm(ProductForm productForm) throws ApiException {
+        if (StringUtil.isEmpty(productForm.getBarcode())) {
             throw new ApiException("Barcode cannot be empty!");
         }
-        if (StringUtil.isEmpty(p.getName())) {
+        if (StringUtil.isEmpty(productForm.getName())) {
             throw new ApiException("Name cannot be empty!");
         }
-        if (!productService.isValidBarcode(p)) {
+        if (!productService.isValidBarcode(productForm.getBarcode())) {
             throw new ApiException("Barcode already exists!");
+        }
+    }
+
+    private void validateBrandCategoryNames(String brand, String category) throws ApiException {
+        brand = brand.toLowerCase().trim();
+        category = category.toLowerCase().trim();
+        if (StringUtil.isEmpty(brand)){
+            throw new ApiException("Brand name cannot be empty!");
+        }
+        if (StringUtil.isEmpty(category)){
+            throw new ApiException("Brand category cannot be empty!");
         }
     }
 }

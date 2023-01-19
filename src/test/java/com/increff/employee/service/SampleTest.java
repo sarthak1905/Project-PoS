@@ -1,10 +1,10 @@
 package com.increff.employee.service;
 
-import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 
 import java.io.InputStream;
 
-import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
 
 public class SampleTest {
 

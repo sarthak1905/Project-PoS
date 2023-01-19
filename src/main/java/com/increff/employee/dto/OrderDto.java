@@ -23,8 +23,6 @@ public class OrderDto {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private InventoryDto inventoryDto;
-    @Autowired
     private ProductService productService;
     @Autowired
     private InventoryService inventoryService;
@@ -106,6 +104,7 @@ public class OrderDto {
             }
             int productId = productService.getProductIdFromBarcode(orderItemData.getBarcode());
             inventoryService.checkInventory(productId, orderItemData.getQuantity());
+            orderService.validateSellingPrice(productId, orderItemData.getSellingPrice());
         }
     }
 

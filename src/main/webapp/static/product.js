@@ -4,7 +4,7 @@ function getProductUrl(){
 	return baseUrl + "/api/product";
 }
 
-function getBrandUrl(){
+function getInventoryUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	return baseUrl + "/api/brand";
 }
@@ -37,7 +37,6 @@ function updateProduct(event){
 	//Get the ID
 	var id = $("#product-edit-form input[name=id]").val();
 	var url = getProductUrl() + "/" + id;
-    console.log(id);
 
 	//Set the values to update
 	var $form = $("#product-edit-form");
@@ -72,14 +71,14 @@ function getProductList(){
 	});
 }
 
-function getBrandList(){
-	var url = getBrandUrl();
+function getInventoryList(){
+	var url = getInventoryUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-			updateBrandOptions(data);
-			updateEditBrandOptions(data);
+			showBrandDropdownAdd(data);
+			showBrandDropdownEdit(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -127,7 +126,7 @@ function uploadRows(){
 	processCount++;
 	
 	var json = JSON.stringify(row);
-	var url = getBrandUrl();
+	var url = getInventoryUrl();
 
 	//Make ajax call
 	$.ajax({
@@ -175,15 +174,14 @@ function displayProductList(data){
 	}
 }
 
-function updateBrandOptions(data){
-	var $selectBrandCategoryName = $("#inputProductBrandCategoryName");
-	$selectBrandCategoryName.empty();
+function showBrandDropdownAdd(data){
+	const brandNames = new Set();
+	const categoryNames = new Set();
+	var $selectCategoryName = $("#inputProductBrandCategoryName");
+	$selectCategoryName.empty();
 
 	var $selectBrandName = $("#inputProductBrandName");
 	$selectBrandName.empty();
-
-	const brandNames = new Set();
-	const categoryNames = new Set();
 
 	for(var i in data){
 		var brandDetails = data[i];
@@ -192,11 +190,9 @@ function updateBrandOptions(data){
 
 	}
 
-    console.log(brandNames);
-
 	for(category of categoryNames.values()){
 		var option1 = $('<option></option>').attr("value", category).text(category);
-        $selectBrandCategoryName.append(option1);
+        $selectCategoryName.append(option1);
 	}
 
 	for(brand of brandNames.values()){
@@ -205,26 +201,24 @@ function updateBrandOptions(data){
 	}
 }
 
-function updateEditBrandOptions(data){
-	var $selectBrandCategoryName = $("#editProductBrandCategoryName");
-	$selectBrandCategoryName.empty();
-
-	var $selectBrandName = $("#editProductBrandName");
-	$selectBrandName.empty();
-
+function showBrandDropdownEdit(data){
 	const brandNames = new Set();
 	const categoryNames = new Set();
+	var $selectCategoryName = $("#updateProductBrandCategoryName");
+	$selectCategoryName.empty();
+
+	var $selectBrandName = $("#updateProductBrandName");
+	$selectBrandName.empty();
 
 	for(var i in data){
 		var brandDetails = data[i];
 		brandNames.add(brandDetails.brand);
 		categoryNames.add(brandDetails.category);
-
 	}
 
 	for(category of categoryNames.values()){
 		var option1 = $('<option></option>').attr("value", category).text(category);
-        $selectBrandCategoryName.append(option1);
+        $selectCategoryName.append(option1);
 	}
 
 	for(brand of brandNames.values()){
@@ -300,4 +294,4 @@ function init(){
 
 $(document).ready(init);
 $(document).ready(getProductList);
-$(document).ready(getBrandList);
+$(document).ready(getInventoryList);

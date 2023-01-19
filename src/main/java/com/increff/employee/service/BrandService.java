@@ -65,10 +65,10 @@ public class BrandService {
     @Transactional
     private boolean isExists(BrandPojo brandPojo){
         BrandPojo p = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
-        if (p != null){
-            return false;
+        if (p == null){
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void checkIfNull(BrandPojo b) throws ApiException {

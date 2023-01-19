@@ -1,6 +1,5 @@
 package com.increff.employee.util;
 
-import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.ProductPojo;
 
 public class ProductUtil {

@@ -1,12 +1,13 @@
 package com.increff.employee.controller;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.increff.employee.model.InfoData;
+import com.increff.employee.model.LoginForm;
+import com.increff.employee.pojo.UserPojo;
+import com.increff.employee.service.ApiException;
+import com.increff.employee.service.UserService;
+import com.increff.employee.util.SecurityUtil;
+import com.increff.employee.util.UserPrincipal;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,15 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.increff.employee.model.InfoData;
-import com.increff.employee.model.LoginForm;
-import com.increff.employee.pojo.UserPojo;
-import com.increff.employee.service.ApiException;
-import com.increff.employee.service.UserService;
-import com.increff.employee.util.SecurityUtil;
-import com.increff.employee.util.UserPrincipal;
-
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 public class LoginController {
