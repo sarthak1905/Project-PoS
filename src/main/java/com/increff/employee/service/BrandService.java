@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+// TODO can have @Transactional(rollbackFor = ApiException.class) at class level
 public class BrandService {
 
     @Autowired

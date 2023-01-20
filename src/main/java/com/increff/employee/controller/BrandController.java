@@ -13,6 +13,7 @@ import java.util.List;
 
 @Api
 @RestController
+// TODO all endpoints are starting with /api/brand/. Move the mapping here
 public class BrandController {
 
     @Autowired

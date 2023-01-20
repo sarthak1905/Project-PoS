@@ -13,6 +13,7 @@ public class UserPojo {
 	private int id;
 	private String email;
 	private String password;
+	// TODO role is an enumerated type. Have string and use @Enumerated annotation
 	private String role;
 
 	public int getId() {

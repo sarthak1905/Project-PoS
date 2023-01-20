@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+// TODO Have @Transactional at class level
 public class BrandDao extends AbstractDao{
 
     private static String select_id = "select b from BrandPojo b where id=:id";

@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+// TODO Use indexes and have names for the index. Having names will help in deleting the indexes
 public class BrandPojo {
 
+    // TODO Read on other strategies for table id generation. Usually, we tend to use GenerationType.TABLE. Not necessary to implement
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

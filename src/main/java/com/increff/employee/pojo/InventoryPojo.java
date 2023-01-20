@@ -6,6 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class InventoryPojo {
 
+    // use access modifier -> Make the fields private
     @Id
     int id;
     int quantity;

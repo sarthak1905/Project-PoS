@@ -12,6 +12,7 @@ public class ProductPojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String barcode;
+    // TODO follow consistent naming convention -> elsewhere it is camelcase
     private int brand_category;
     private double mrp;
     private String name;
