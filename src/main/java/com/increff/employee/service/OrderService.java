@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
+@Transactional(rollbackOn = ApiException.class)
 public class OrderService {
 
     @Autowired
@@ -24,44 +26,42 @@ public class OrderService {
     @Autowired
     private OrderItemService orderItemService;
 
-    @Transactional(rollbackOn = ApiException.class)
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
-        OrderPojo px = orderDao.select_id(orderPojo.getId());
-        if(px != null){
-            throw new ApiException("Order already exists! Please update instead");
-        }
         orderPojo.setDateTime(OrderUtil.getCurrentTime());
         orderDao.insert(orderPojo);
         for (OrderItemPojo orderItemPojo: orderItemPojos){
+            System.out.println("Here 3");
             orderItemPojo.setOrderId(orderPojo.getId());
             inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+            System.out.println("Here 4");
             orderItemService.add(orderItemPojo);
         }
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+
     public OrderPojo get(int id) throws ApiException{
         return getCheck(id);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public List<OrderPojo> getAll(){
         return orderDao.selectAll();
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
-    public void update(int id, OrderPojo p) throws ApiException {
-        OrderPojo px = getCheck(id);
-        px.setDateTime(p.getDateTime());
+    public void update(List<OrderItemPojo> newOrderItemPojos, HashMap<Integer, OrderItemPojo> existingOrderItemMapByID) throws ApiException {
+        for(OrderItemPojo newOrderItemPojo: newOrderItemPojos ){
+            if (existingOrderItemMapByID.containsKey(newOrderItemPojo.getProductId())){
+                OrderItemPojo existingOrderItemPojo = orderItemService.get(newOrderItemPojo.getId());
+                existingOrderItemPojo.setQuantity(newOrderItemPojo.getQuantity());
+                existingOrderItemPojo.setSellingPrice(newOrderItemPojo.getSellingPrice());
+            }
+        }
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
     public void delete(int id) throws ApiException{
         OrderPojo p = getCheck(id);
         orderDao.delete(id);
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
     public OrderPojo getCheck(int id) throws ApiException {
         OrderPojo p = orderDao.select_id(id);
         if (p == null) {
@@ -76,4 +76,5 @@ public class OrderService {
             throw new ApiException("Selling price of order item cannot be greater than MRP!");
         }
     }
+
 }

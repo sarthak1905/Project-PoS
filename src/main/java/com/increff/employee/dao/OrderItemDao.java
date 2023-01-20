@@ -1,5 +1,6 @@
 package com.increff.employee.dao;
 
+import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.OrderItemPojo;
 import org.springframework.stereotype.Repository;
 
@@ -9,14 +10,17 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class OrderItemDao extends AbstractDao{
 
     private static String select_id = "select p from OrderItemPojo p where id=:id";
     private static String select_all = "select p from OrderItemPojo p";
     private static String delete_id = "delete from OrderItemPojo p where id=:id";
-    private static String select_by_orderId = "select p from OrderItemPojo p where orderid=:orderid";
+    private static String select_productId_orderId = "select p from OrderItemPojo p where " +
+                                                        "productId=:productId " +
+                                                        "and orderId=:orderId";
+    private static String select_by_orderId = "select p from OrderItemPojo p where orderId=:orderId";
 
-    @Transactional
     public void insert(OrderItemPojo p){
         em().persist(p);
     }
@@ -29,13 +33,19 @@ public class OrderItemDao extends AbstractDao{
 
     public List<OrderItemPojo> selectByOrderId(int orderId) {
         TypedQuery<OrderItemPojo> query = getQuery(select_by_orderId, OrderItemPojo.class);
-        query.setParameter("orderid", orderId);
+        query.setParameter("orderId", orderId);
         return query.getResultList();
     }
 
     public List<OrderItemPojo> selectAll(){
         TypedQuery<OrderItemPojo> query = getQuery(select_all, OrderItemPojo.class);
         return query.getResultList();
+    }
+
+    public OrderItemPojo selectProductIdOrderId(Integer productId, Integer orderId){
+        TypedQuery<OrderItemPojo> query = getQuery(select_productId_orderId, OrderItemPojo.class);
+        query.setParameter("productId", productId).setParameter("orderId", orderId);
+        return getSingle(query);
     }
 
     public int delete(int id){

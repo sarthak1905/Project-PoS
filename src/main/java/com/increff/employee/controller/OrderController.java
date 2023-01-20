@@ -37,10 +37,16 @@ public class OrderController {
         return orderDto.getAll();
     }
 
+    @ApiOperation(value = "Gets all order items of an order")
+    @RequestMapping(path = "/api/order/{id}/items", method = RequestMethod.GET)
+    public List<OrderItemData> getOrderItems(@PathVariable Integer id){
+        return orderDto.getOrderItems(id);
+    }
+
     @ApiOperation(value = "Updates an order")
     @RequestMapping(path = "/api/order/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody List<OrderItemData> orderItemData) throws ApiException {
-        orderDto.update(id, orderItemData);
+    public void update(@PathVariable int id, @RequestBody List<OrderItemForm> orderItemForms) throws ApiException {
+        orderDto.update(id, orderItemForms);
     }
 
     @ApiOperation(value = "Deletes an order")

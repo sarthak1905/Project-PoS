@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class OrderDao extends AbstractDao{
 
     private static String select_id = "select p from OrderPojo p where id=:id";
@@ -16,14 +17,16 @@ public class OrderDao extends AbstractDao{
     private static String delete_id = "delete from OrderPojo p where id=:id";
 
 
-    @Transactional
     public void insert(OrderPojo p){
         em().persist(p);
     }
 
     public OrderPojo select_id(int id){
+        System.out.println("Here xyz");
         TypedQuery<OrderPojo> query = getQuery(select_id, OrderPojo.class);
+        System.out.println("Here abc");
         query.setParameter("id", id);
+        System.out.println("Here 123");
         return getSingle(query);
     }
 

@@ -9,31 +9,31 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(rollbackOn = ApiException.class)
 public class OrderItemService {
 
     @Autowired
     private OrderItemDao orderItemDao;
 
-    @Transactional(rollbackOn = ApiException.class)
-    public void add(OrderItemPojo p) throws ApiException {
-        OrderItemPojo px = orderItemDao.select_id(p.getId());
-        if(px != null){
-            throw new ApiException("OrderItem already exists! Please update instead");
+    public void add(OrderItemPojo orderItemPojo) throws ApiException {
+        Integer productId = orderItemPojo.getProductId();
+        Integer orderId = orderItemPojo.getOrderId();
+        OrderItemPojo existingOrderItem = orderItemDao.selectProductIdOrderId(productId, orderId);
+        if(existingOrderItem != null){
+            throw new ApiException("Order item with id:" + orderItemPojo.getId() +
+                    " already exists for order with id: " + orderItemPojo.getOrderId());
         }
-        orderItemDao.insert(p);
+        orderItemDao.insert(orderItemPojo);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public OrderItemPojo get(int id) throws ApiException{
         return getCheck(id);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public List<OrderItemPojo> getAll(){
         return orderItemDao.selectAll();
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
     public void update(int id, OrderItemPojo p) throws ApiException {
         OrderItemPojo px = getCheck(id);
         px.setProductId(p.getProductId());
@@ -41,13 +41,11 @@ public class OrderItemService {
         px.setSellingPrice(p.getSellingPrice());
     }
 
-    @Transactional
     public void delete(int id) throws ApiException{
         OrderItemPojo p = getCheck(id);
         orderItemDao.delete(id);
     }
 
-    @Transactional
     public OrderItemPojo getCheck(int id) throws ApiException {
         OrderItemPojo p = orderItemDao.select_id(id);
         if (p == null) {

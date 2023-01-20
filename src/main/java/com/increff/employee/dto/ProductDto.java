@@ -28,7 +28,7 @@ public class ProductDto {
     private BrandService brandService;
 
     public void add(ProductForm productForm) throws ApiException {
-        validateForm(productForm);
+        validateForm(productForm, false);
         ProductPojo productPojo = convertToPojo(productForm);
         String barcode = productPojo.getBarcode();
         ProductUtil.normalize(productPojo);
@@ -54,7 +54,7 @@ public class ProductDto {
     }
 
     public void update(int id, ProductForm productForm) throws ApiException{
-        validateForm(productForm);
+        validateForm(productForm, true);
         ProductPojo productPojo = convertToPojo(productForm);
         productService.update(id, productPojo);
     }
@@ -81,7 +81,9 @@ public class ProductDto {
         String category = productForm.getCategory();
         validateBrandCategoryNames(brand, category);
         BrandPojo brandPojo = brandService.getBrandCategory(brand, category);
-        brandService.checkIfNull(brandPojo);
+        if (brandPojo == null) {
+            throw new ApiException("Brand-category combination does not exist!");
+        }
         productPojo.setBrandCategory(brandPojo.getId());
         productPojo.setBarcode(productForm.getBarcode());
         productPojo.setName(productForm.getName());
@@ -89,15 +91,20 @@ public class ProductDto {
         return productPojo;
     }
 
-    private void validateForm(ProductForm productForm) throws ApiException {
+    private void validateForm(ProductForm productForm, boolean update) throws ApiException {
         if (StringUtil.isEmpty(productForm.getBarcode())) {
             throw new ApiException("Barcode cannot be empty!");
         }
         if (StringUtil.isEmpty(productForm.getName())) {
             throw new ApiException("Name cannot be empty!");
         }
-        if (!productService.isValidBarcode(productForm.getBarcode())) {
-            throw new ApiException("Barcode already exists!");
+        if (productForm.getMrp() <= 0){
+            throw new ApiException("MRP must be positive!");
+        }
+        if (!update) {
+            if (!productService.isValidBarcode(productForm.getBarcode())) {
+                throw new ApiException("Barcode already exists!");
+            }
         }
     }
 
