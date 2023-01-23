@@ -4,7 +4,49 @@ function getOrderUrl(){
 	return baseUrl + "/api/order";
 }
 
+function getProductUrl(){
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	return baseUrl + "/api/product";
+}
+
 //BUTTON ACTIONS
+function addOrder(event){
+	//Set the values to update
+	var $form = $("#add-order-form");
+	var jsonList = convertOrderForm($form);
+	var url = getOrderUrl();
+
+	$.ajax({
+	   url: url,
+	   type: 'POST',
+	   data: JSON.stringify(jsonList),
+	   headers: {
+       	'Content-Type': 'application/json'
+       },	   
+	   success: function(response) {
+	   		getOrderList();
+	   },
+	   error: handleAjaxError
+	});
+
+	return false;
+}
+
+function convertOrderForm($form){
+	var serializedData = $form.serializeArray();
+	var listLength = serializedData.length/3;
+	var jsonList = [];
+	for(let i=0; i<listLength; i++){
+		var jsonData = {};
+		for(let j=i*3; j<(i*3) + 3; j++){
+			console.log('value of j:' + j);
+			jsonData[serializedData[j]['name']] = serializedData[j]['value'];
+		}
+		jsonList.push(jsonData);
+	}
+	return jsonList;
+}
+
 function updateOrder(event){
 	$('#edit-order-modal').modal('toggle');
 	//Get the ID
@@ -31,14 +73,57 @@ function updateOrder(event){
 	return false;
 }
 
+function removeOrderItem(){
+	var tableId = $(this).closest('table').attr('id');
+	var rowCount = $('#' + tableId + ' tr').length - 1;
+	if(rowCount == 1){
+		alert("Minimum 1 order item required!");
+		return;
+	}
+	$(this).closest('tr').remove();
+}
+
 function addOrderItemRow() {
-	console.log("Function called !!");
     $("#add-order-row").clone().insertAfter("tr.add-order-row:last");
+	var lastRowDropdown = $("tr.add-order-row:last td div select");
+	getProductList(lastRowDropdown);
     $("tr.add-order-row:last input[name=quantity]").val("");
     $("tr.add-order-row:last input[name=sellingPrice]").val("");
     $("tr.add-order-row:last button").click(removeOrderItem);
 }
 
+function getProductList(element){
+	var url = getProductUrl();
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+			showBarcodeDropdownAdd(data, element);
+	   },
+	   error: handleAjaxError
+	});
+}
+
+function showBarcodeDropdownAdd(data, element){
+	const barcodes = new Set();
+	var $selectBarcodeInput = element;
+	$selectBarcodeInput.empty();
+
+	for(var i in data){
+		var productDetails = data[i];
+		barcodes.add(productDetails.barcode);
+	}
+
+	for(barcode of barcodes.values()){
+		var option = $('<option></option>').attr("value", barcode).text(barcode);
+        $selectBarcodeInput.append(option);
+	}
+}
+
+function initOrderItemRow(){
+	var $selectField = $('#add-order-table').find('tbody tr:first td:first div select');
+	getProductList($selectField);
+}
 
 function getOrderList(){
 	var url = getOrderUrl();
@@ -236,6 +321,9 @@ function displayOrder(data){
 //INITIALIZATION CODE
 function init(){
 	$('#add-order-item').click(addOrderItemRow);
+	$('#add-order-dialog').click(initOrderItemRow);
+	$('#add-order').click(addOrder);
+	$('#add-order-first-row-btn').click(removeOrderItem);
 	$('#update-order').click(updateOrder);
 	$('#refresh-data').click(getOrderList);
 	$('#upload-data').click(displayUploadData);

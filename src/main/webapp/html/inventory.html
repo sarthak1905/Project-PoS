@@ -58,7 +58,7 @@
 								<div class="form-group form-inline">
 									<label for="updateQuantity" class="col-form-label">Quantity</label>
 									&nbsp; &nbsp; &nbsp;
-									<input type="number" class="form-control col-6" id="updateQuantity" name="quantity" placeholder="Enter MRP">
+									<input type="number" class="form-control col-6" min="0" oninput="validity.valid||(value='');" id="updateQuantity" name="quantity" placeholder="Enter MRP">
 								</div>
 							</div>
 							
