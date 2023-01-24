@@ -41,10 +41,4 @@ public class EmployeeDao extends AbstractDao {
 		TypedQuery<EmployeePojo> query = getQuery(select_all, EmployeePojo.class);
 		return query.getResultList();
 	}
-
-	public void update(EmployeePojo p) {
-	}
-
-
-
 }
