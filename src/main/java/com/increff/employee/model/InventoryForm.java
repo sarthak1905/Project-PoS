@@ -1,24 +1,16 @@
 package com.increff.employee.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+@Getter
+@Setter
 public class InventoryForm {
 
+    @NotBlank
     private String barcode;
+
+    @NotBlank
     private int quantity;
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
 }

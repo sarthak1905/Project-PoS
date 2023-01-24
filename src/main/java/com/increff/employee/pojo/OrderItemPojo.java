@@ -3,34 +3,30 @@ package com.increff.employee.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
+@Getter
+@Setter
+@Table
 public class OrderItemPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Integer id;
 
-    @Getter
-    @Setter
+    @Column(nullable = false)
     private Integer orderId;
 
-    @Getter
-    @Setter
+    @Column(nullable = false)
     private Integer productId;
 
-    @Getter
-    @Setter
+    @Column(nullable = false)
     private Integer quantity;
 
-    @Getter
-    @Setter
+    @Column(nullable = false)
+    @Min(value=0)
     private Double sellingPrice;
 
 

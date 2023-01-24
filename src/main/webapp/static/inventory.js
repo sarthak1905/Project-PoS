@@ -1,6 +1,6 @@
 
 function getInventoryUrl(){
-	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	var baseUrl = $("meta[name=baseUrl]").attr("content");
 	return baseUrl + "/api/inventory";
 }
 
@@ -64,7 +64,7 @@ var processCount = 0;
 
 
 function processData(){
-	var file = $('#brandFile')[0].files[0];
+	var file = $('#inventoryFile')[0].files[0];
 	readFileData(file, readFileDataCallback);
 }
 
@@ -117,7 +117,6 @@ function downloadErrors(){
 function displayInventoryList(data){
 	var $tbody = $('#inventory-table').find('tbody');
 	$tbody.empty();
-	console.log(data);
 	for(var i in data){
 		var b = data[i];
 		var buttonHtml = '<button class="btn btn-primary" onclick="deleteInventory(' + b.id + ')">Delete</button>'
@@ -146,9 +145,9 @@ function displayEditInventory(id){
 
 function resetUploadDialog(){
 	//Reset file name
-	var $file = $('#brandFile');
+	var $file = $('#inventoryFile');
 	$file.val('');
-	$('#brandFileName').html("Choose File");
+	$('#inventoryFileName').html("Choose File");
 	//Reset various counts
 	processCount = 0;
 	fileData = [];
@@ -164,14 +163,14 @@ function updateUploadDialog(){
 }
 
 function updateFileName(){
-	var $file = $('#brandFile');
+	var $file = $('#inventoryFile');
 	var fileName = $file.val();
-	$('#brandFileName').html(fileName);
+	$('#inventoryFileName').html(fileName);
 }
 
 function displayUploadData(){
  	resetUploadDialog(); 	
-	$('#upload-brand-modal').modal('toggle');
+	$('#upload-inventory-modal').modal('toggle');
 }
 
 function displayInventory(data){
@@ -189,7 +188,7 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
-    $('#brandFile').on('change', updateFileName)
+    $('#inventoryFile').on('change', updateFileName)
 }
 
 $(document).ready(init);

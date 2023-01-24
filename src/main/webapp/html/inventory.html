@@ -16,6 +16,18 @@
 	<div class="row">
 		&nbsp;
 	</div>
+
+	<div class="row d-flex justify-content-center">
+		<button type="button" class="btn btn-success" id="upload-inventory-dialog" data-toggle="modal" data-target="#upload-inventory-modal">
+			Upload Inventory
+		</button>
+	</div>
+
+	<!-- Blank Row -->
+	<div class="row">
+		&nbsp;
+	</div>
+
 	<div class="row">
 
 		<!-- Table -->
@@ -102,11 +114,11 @@
 				</div>
 
 				<div class="modal-body">
-					<div class="brand-file">
-						<input type="file" class="custom-file-input" id="brandFile">
-						<label class="custom-file-label" for="brandFile" id="brandFileName">Choose Brand File</label>
+					<div class="inventory-file">
+						<input type="file" class="custom-file-input" id="inventoryFile">
+						<label class="custom-file-label" for="brandFile" id="inventoryFileName">Choose Inventory File</label>
 					</div>
-					<a th:href="@{/sample/brand.tsv}" target="_blank">Download Sample</a>
+					<a th:href="@{/sample/employee.tsv}" target="_blank">Download Sample</a>
 					<br>
 					Rows: <span id="rowCount">0</span>,
 					Processed: <span id="processCount">0</span>,
@@ -114,8 +126,8 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" id="process-data">Upload</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success" id="process-data">Upload</button>
 					<button type="button" class="btn btn-warning" id="download-errors">Download Errors</button>
 				</div>
 			</div>

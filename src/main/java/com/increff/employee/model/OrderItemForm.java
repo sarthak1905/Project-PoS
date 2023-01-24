@@ -1,33 +1,20 @@
 package com.increff.employee.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+@Getter
+@Setter
 public class OrderItemForm {
 
+    @NotBlank
     private String barcode;
+
+    @NotBlank
     private int quantity;
+
+    @NotBlank
     private double sellingPrice;
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
 
 }

@@ -1,26 +1,16 @@
 package com.increff.employee.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class OrderData {
 
     private int id;
     private LocalDateTime dateTime;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
 }
