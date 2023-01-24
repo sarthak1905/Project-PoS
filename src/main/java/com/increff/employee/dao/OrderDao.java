@@ -22,11 +22,8 @@ public class OrderDao extends AbstractDao{
     }
 
     public OrderPojo select_id(int id){
-        System.out.println("Here xyz");
         TypedQuery<OrderPojo> query = getQuery(select_id, OrderPojo.class);
-        System.out.println("Here abc");
         query.setParameter("id", id);
-        System.out.println("Here 123");
         return getSingle(query);
     }
 

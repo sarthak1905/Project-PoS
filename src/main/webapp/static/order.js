@@ -166,7 +166,6 @@ function getUniqueBarcodes(productData, $selectBarcodeInput){
 			}
 			if(barcodes != undefined){
 				for(barcode of barcodes.values()){
-					console.log(barcode);
 					var option = $('<option></option>').attr("value", barcode).text(barcode);
 					$selectBarcodeInput.append(option);
 				}

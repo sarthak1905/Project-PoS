@@ -267,7 +267,6 @@ function updateProductFileName(){
 
 function displayProductUploadData(){
  	resetProductUploadDialog();
-	console.log("reaching here"); 	
 	$('#upload-product-modal').modal('toggle');
 }
 

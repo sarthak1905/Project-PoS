@@ -30,10 +30,8 @@ public class OrderService {
         orderPojo.setDateTime(OrderUtil.getCurrentTime());
         orderDao.insert(orderPojo);
         for (OrderItemPojo orderItemPojo: orderItemPojos){
-            System.out.println("Here 3");
             orderItemPojo.setOrderId(orderPojo.getId());
             inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
-            System.out.println("Here 4");
             orderItemService.add(orderItemPojo);
         }
     }

@@ -32,7 +32,6 @@ public class OrderDto {
         for(OrderItemForm orderItemForm: orderItemForms){
             orderItemPojos.add(convertOrderItemFormToPojo(orderItemForm));
         }
-        System.out.println("Here 1");
         orderService.add(orderPojo, orderItemPojos);
     }
 
