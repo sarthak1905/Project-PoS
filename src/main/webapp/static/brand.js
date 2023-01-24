@@ -122,7 +122,7 @@ function uploadRows(){
 	   		uploadRows();  
 	   },
 	   error: function(response){
-	   		row.error=response.responseText
+	   		row.error=response.responseText;
 	   		errorData.push(row);
 	   		uploadRows();
 	   }
@@ -139,7 +139,6 @@ function downloadErrors(){
 function displayBrandList(data){
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
-	console.log(data);
 	for(var i in data){
 		var b = data[i];
 		var buttonHtml = '<button class="btn btn-primary" onclick="deleteBrand(' + b.id + ')">Delete</button>'
