@@ -1,1 +1,3 @@
-org\example\App.class
+com\increff\invoice\spring\WebInitializer.class
+com\increff\invoice\spring\SpringConfig.class
+com\increff\invoice\spring\ControllerConfig.class

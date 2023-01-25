@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.dto</a> &gt; <span class="el_source">ProductDto.java</span></div><h1>ProductDto.java</h1><pre class="source lang-java linenums">package com.increff.pos.dto;
+
+import com.increff.pos.model.ProductData;
+import com.increff.pos.model.ProductForm;
+import com.increff.pos.pojo.BrandPojo;
+import com.increff.pos.pojo.InventoryPojo;
+import com.increff.pos.pojo.ProductPojo;
+import com.increff.pos.service.ApiException;
+import com.increff.pos.service.BrandService;
+import com.increff.pos.service.InventoryService;
+import com.increff.pos.service.ProductService;
+import com.increff.pos.util.ProductUtil;
+import com.increff.pos.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+<span class="nc" id="L21">public class ProductDto {</span>
+
+    @Autowired
+    private InventoryService inventoryService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private BrandService brandService;
+
+    public void add(ProductForm productForm) throws ApiException {
+<span class="nc" id="L31">        validateForm(productForm, false);</span>
+<span class="nc" id="L32">        ProductPojo productPojo = convertToPojo(productForm);</span>
+<span class="nc" id="L33">        String barcode = productPojo.getBarcode();</span>
+<span class="nc" id="L34">        ProductUtil.normalize(productPojo);</span>
+<span class="nc" id="L35">        productService.add(productPojo);</span>
+<span class="nc" id="L36">        InventoryPojo inventoryPojo = new InventoryPojo();</span>
+<span class="nc" id="L37">        inventoryPojo.setId(productService.getProductIdFromBarcode(barcode));</span>
+<span class="nc" id="L38">        inventoryPojo.setQuantity(0);</span>
+<span class="nc" id="L39">        inventoryService.add(inventoryPojo);</span>
+<span class="nc" id="L40">    }</span>
+
+    public ProductData get(int id) throws ApiException{
+<span class="nc" id="L43">        ProductPojo p = productService.get(id);</span>
+<span class="nc" id="L44">        return convertToData(p);</span>
+    }
+
+    public List&lt;ProductData&gt; getAll() throws ApiException {
+<span class="nc" id="L48">        List&lt;ProductPojo&gt; productList = productService.getAll();</span>
+<span class="nc" id="L49">        List&lt;ProductData&gt; productDataList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        for(ProductPojo p: productList){</span>
+<span class="nc" id="L51">            productDataList.add(convertToData(p));</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">        return productDataList;</span>
+    }
+
+    public void update(int id, ProductForm productForm) throws ApiException{
+<span class="nc" id="L57">        validateForm(productForm, true);</span>
+<span class="nc" id="L58">        ProductPojo productPojo = convertToPojo(productForm);</span>
+<span class="nc" id="L59">        productService.update(id, productPojo);</span>
+<span class="nc" id="L60">    }</span>
+
+    public void delete(int id) throws ApiException{
+<span class="nc" id="L63">        productService.delete(id);</span>
+<span class="nc" id="L64">    }</span>
+
+    private ProductData convertToData(ProductPojo p) throws ApiException {
+<span class="nc" id="L67">        ProductData d = new ProductData();</span>
+<span class="nc" id="L68">        BrandPojo b = brandService.get(p.getBrandCategory());</span>
+<span class="nc" id="L69">        d.setId(p.getId());</span>
+<span class="nc" id="L70">        d.setName(p.getName());</span>
+<span class="nc" id="L71">        d.setBrand(b.getBrand());</span>
+<span class="nc" id="L72">        d.setCategory(b.getCategory());</span>
+<span class="nc" id="L73">        d.setBarcode(p.getBarcode());</span>
+<span class="nc" id="L74">        d.setMrp(p.getMrp());</span>
+<span class="nc" id="L75">        return d;</span>
+    }
+
+    private ProductPojo convertToPojo(ProductForm productForm) throws ApiException {
+<span class="nc" id="L79">        ProductPojo productPojo = new ProductPojo();</span>
+<span class="nc" id="L80">        String brand = productForm.getBrand();</span>
+<span class="nc" id="L81">        String category = productForm.getCategory();</span>
+<span class="nc" id="L82">        validateBrandCategoryNames(brand, category);</span>
+<span class="nc" id="L83">        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (brandPojo == null) {</span>
+<span class="nc" id="L85">            throw new ApiException(&quot;Brand-category combination does not exist!&quot;);</span>
+        }
+<span class="nc" id="L87">        productPojo.setBrandCategory(brandPojo.getId());</span>
+<span class="nc" id="L88">        productPojo.setBarcode(productForm.getBarcode());</span>
+<span class="nc" id="L89">        productPojo.setName(productForm.getName());</span>
+<span class="nc" id="L90">        productPojo.setMrp(productForm.getMrp());</span>
+<span class="nc" id="L91">        return productPojo;</span>
+    }
+
+    private void validateForm(ProductForm productForm, boolean update) throws ApiException {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (StringUtil.isEmpty(productForm.getBarcode())) {</span>
+<span class="nc" id="L96">            throw new ApiException(&quot;Barcode cannot be empty!&quot;);</span>
+        }
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (StringUtil.isEmpty(productForm.getName())) {</span>
+<span class="nc" id="L99">            throw new ApiException(&quot;Name cannot be empty!&quot;);</span>
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (productForm.getMrp() &lt;= 0){</span>
+<span class="nc" id="L102">            throw new ApiException(&quot;MRP must be positive!&quot;);</span>
+        }
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (!update) {</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if (!productService.isValidBarcode(productForm.getBarcode())) {</span>
+<span class="nc" id="L106">                throw new ApiException(&quot;Barcode already exists!&quot;);</span>
+            }
+        }
+<span class="nc" id="L109">    }</span>
+
+    private void validateBrandCategoryNames(String brand, String category) throws ApiException {
+<span class="nc" id="L112">        brand = brand.toLowerCase().trim();</span>
+<span class="nc" id="L113">        category = category.toLowerCase().trim();</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if (StringUtil.isEmpty(brand)){</span>
+<span class="nc" id="L115">            throw new ApiException(&quot;Brand name cannot be empty!&quot;);</span>
+        }
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (StringUtil.isEmpty(category)){</span>
+<span class="nc" id="L118">            throw new ApiException(&quot;Brand category cannot be empty!&quot;);</span>
+        }
+<span class="nc" id="L120">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

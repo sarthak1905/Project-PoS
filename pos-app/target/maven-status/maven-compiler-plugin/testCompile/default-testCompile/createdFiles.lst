@@ -1,3 +1,3 @@
-com\increff\employee\service\AbstractUnitTest.class
-com\increff\employee\service\SampleTest.class
-com\increff\employee\service\QaConfig.class
+com\increff\pos\service\QaConfig.class
+com\increff\pos\service\SampleTest.class
+com\increff\pos\service\AbstractUnitTest.class
