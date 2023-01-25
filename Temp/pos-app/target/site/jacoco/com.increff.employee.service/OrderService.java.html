@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.service</a> &gt; <span class="el_source">OrderService.java</span></div><h1>OrderService.java</h1><pre class="source lang-java linenums">package com.increff.employee.service;
+
+
+import com.increff.employee.dao.OrderDao;
+import com.increff.employee.pojo.OrderItemPojo;
+import com.increff.employee.pojo.OrderPojo;
+import com.increff.employee.pojo.ProductPojo;
+import com.increff.employee.util.OrderUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.List;
+
+@Service
+@Transactional(rollbackOn = ApiException.class)
+<span class="nc" id="L18">public class OrderService {</span>
+
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private InventoryService inventoryService;
+    @Autowired
+    private OrderItemService orderItemService;
+
+    public void add(OrderPojo orderPojo, List&lt;OrderItemPojo&gt; orderItemPojos) throws ApiException {
+<span class="nc" id="L30">        orderPojo.setDateTime(OrderUtil.getCurrentTime());</span>
+<span class="nc" id="L31">        orderDao.insert(orderPojo);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo: orderItemPojos){</span>
+<span class="nc" id="L33">            orderItemPojo.setOrderId(orderPojo.getId());</span>
+<span class="nc" id="L34">            inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());</span>
+<span class="nc" id="L35">            orderItemService.add(orderItemPojo);</span>
+<span class="nc" id="L36">        }</span>
+<span class="nc" id="L37">    }</span>
+
+
+    public OrderPojo get(int id) throws ApiException{
+<span class="nc" id="L41">        return getCheck(id);</span>
+    }
+
+    public List&lt;OrderPojo&gt; getAll(){
+<span class="nc" id="L45">        return orderDao.selectAll();</span>
+    }
+
+    public void update(List&lt;OrderItemPojo&gt; newOrderItemPojos, HashMap&lt;Integer, OrderItemPojo&gt; existingOrderItemMapByID) throws ApiException {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        for(OrderItemPojo newOrderItemPojo: newOrderItemPojos ){</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (existingOrderItemMapByID.containsKey(newOrderItemPojo.getProductId())){</span>
+<span class="nc" id="L51">                OrderItemPojo existingOrderItemPojo = orderItemService.get(newOrderItemPojo.getId());</span>
+<span class="nc" id="L52">                existingOrderItemPojo.setQuantity(newOrderItemPojo.getQuantity());</span>
+<span class="nc" id="L53">                existingOrderItemPojo.setSellingPrice(newOrderItemPojo.getSellingPrice());</span>
+            }
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">    }</span>
+
+    public void delete(int id) throws ApiException{
+<span class="nc" id="L59">        OrderPojo p = getCheck(id);</span>
+<span class="nc" id="L60">        orderDao.delete(id);</span>
+<span class="nc" id="L61">    }</span>
+
+    public OrderPojo getCheck(int id) throws ApiException {
+<span class="nc" id="L64">        OrderPojo p = orderDao.select_id(id);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (p == null) {</span>
+<span class="nc" id="L66">            throw new ApiException(&quot;Order with given ID: &quot; + id + &quot; does not exist!&quot;);</span>
+        }
+<span class="nc" id="L68">        return p;</span>
+    }
+
+    public void validateSellingPrice(int productId, double sellingPrice) throws ApiException {
+<span class="nc" id="L72">        ProductPojo productPojo = productService.getCheck(productId);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
+<span class="nc" id="L74">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
+        }
+<span class="nc" id="L76">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

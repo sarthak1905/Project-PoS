@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderItemPojo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.pojo</a> &gt; <span class="el_source">OrderItemPojo.java</span></div><h1>OrderItemPojo.java</h1><pre class="source lang-java linenums">package com.increff.employee.pojo;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+@Entity
+@Getter
+<span class="nc" id="L11">@Setter</span>
+@Table(name = &quot;order_items&quot;)
+<span class="nc" id="L13">public class OrderItemPojo {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="nc" id="L17">    private Integer id;</span>
+
+    @Column(nullable = false)
+<span class="nc" id="L20">    private Integer orderId;</span>
+
+    @Column(nullable = false)
+<span class="nc" id="L23">    private Integer productId;</span>
+
+    @Column(nullable = false)
+<span class="nc" id="L26">    private Integer quantity;</span>
+
+    @Column(nullable = false)
+    @Min(value=0)
+<span class="nc" id="L30">    private Double sellingPrice;</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
