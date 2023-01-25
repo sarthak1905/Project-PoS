@@ -1,12 +1,12 @@
 
 function getOrderUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/order";
+	return baseUrl + "/api/orders";
 }
 
 function getProductUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/product";
+	return baseUrl + "/api/products";
 }
 
 //BUTTON ACTIONS

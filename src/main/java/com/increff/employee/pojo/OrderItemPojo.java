@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Entity
 @Getter
 @Setter
-@Table
+@Table(name = "order_items")
 public class OrderItemPojo {
 
     @Id

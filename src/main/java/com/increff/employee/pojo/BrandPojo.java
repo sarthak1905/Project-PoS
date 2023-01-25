@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(indexes ={@Index(columnList = "brand,category")},
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"brand", "category"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"brand", "category"})}, name = "brands")
 @Getter
 @Setter
 public class BrandPojo {

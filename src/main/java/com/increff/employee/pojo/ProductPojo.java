@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"barcode"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"barcode"})}, name = "products")
 @Getter
 @Setter
 public class ProductPojo {

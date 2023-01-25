@@ -34,7 +34,7 @@
 					<div class="form-group col-4">
 						<label for="inputMRP" class="col-sm-2 col-form-label">Product MRP</label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" name="mrp" id="inputMRP" placeholder="Enter MRP">
+							<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control" name="mrp" id="inputMRP" placeholder="Enter MRP">
 						</div>
 					</div>
 				</div>

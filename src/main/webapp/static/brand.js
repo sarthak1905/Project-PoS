@@ -1,7 +1,7 @@
 
 function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/brand";
+	return baseUrl + "/api/brands";
 }
 
 //BUTTON ACTIONS
@@ -141,8 +141,8 @@ function displayBrandList(data){
 	$tbody.empty();
 	for(var i in data){
 		var b = data[i];
-		var buttonHtml = '<button class="btn btn-primary" onclick="deleteBrand(' + b.id + ')">Delete</button>'
-		buttonHtml += ' <button class="btn btn-primary" onclick="displayEditBrand(' + b.id + ')">Edit</button>'
+		//var buttonHtml = '<button class="btn btn-primary" onclick="deleteBrand(' + b.id + ')">Delete</button>'
+		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditBrand(' + b.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + b.id + '</td>'
 		+ '<td>' + b.brand + '</td>'

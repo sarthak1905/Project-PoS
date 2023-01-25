@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table
+@Table(name = "orders")
 public class OrderPojo {
 
     @Id

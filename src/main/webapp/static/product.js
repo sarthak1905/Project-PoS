@@ -1,12 +1,12 @@
 
 function getProductUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/product";
+	return baseUrl + "/api/products";
 }
 
 function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/brand";
+	return baseUrl + "/api/brands";
 }
 
 //BUTTON ACTIONS
@@ -159,8 +159,8 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var p = data[i];
-		var buttonHtml = '<button class="btn btn-primary" onclick="deleteProduct(' + p.id + ')">Delete</button>'
-		buttonHtml += ' <button class="btn btn-primary" onclick="displayEditProduct(' + p.id + ')">Edit</button>'
+		//var buttonHtml = '<button class="btn btn-primary" onclick="deleteProduct(' + p.id + ')">Delete</button>'
+		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditProduct(' + p.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + p.id + '</td>'
 		+ '<td>'  + p.barcode + '</td>'
