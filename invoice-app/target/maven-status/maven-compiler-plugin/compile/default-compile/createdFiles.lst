@@ -1,3 +1,4 @@
+com\increff\invoice\controller\InvoiceController.class
 com\increff\invoice\spring\WebInitializer.class
-com\increff\invoice\spring\SpringConfig.class
 com\increff\invoice\spring\ControllerConfig.class
+com\increff\invoice\spring\SpringConfig.class

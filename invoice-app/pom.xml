@@ -18,7 +18,7 @@
         <!--  Jetty configuration  -->
         <jetty.version>9.4.21.v20190926</jetty.version>
         <jetty.http.port>7000</jetty.http.port>
-        <jetty.context>/pos</jetty.context>
+        <jetty.context>/invoice</jetty.context>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 

@@ -45,7 +45,7 @@ import java.time.format.DateTimeFormatter;
 <span class="nc" id="L45">        return new Docket(DocumentationType.SWAGGER_2)//</span>
 <span class="nc" id="L46">                .useDefaultResponseMessages(false)//</span>
 <span class="nc" id="L47">                .select().apis(RequestHandlerSelectors.basePackage(PACKAGE_CONTROLLER))//</span>
-<span class="nc" id="L48">                .paths(PathSelectors.regex(&quot;/api/.*&quot;))//</span>
+<span class="nc" id="L48">                .paths(PathSelectors.regex(&quot;/api.*&quot;))//</span>
 <span class="nc" id="L49">                .build();</span>
     }
 
