@@ -1,5 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+invoice-app,com.increff.invoice.models,OrderData,38,0,0,0,7,0,11,0,11,0
+invoice-app,com.increff.invoice.models,OrderItemData,24,0,0,0,5,0,7,0,7,0
+invoice-app,com.increff.invoice.models,InvoiceResponse,10,0,0,0,3,0,3,0,3,0
+invoice-app,com.increff.invoice.models,OrderItemForm,24,0,0,0,5,0,7,0,7,0
+invoice-app,com.increff.invoice.models,InvoiceForm,24,0,0,0,5,0,7,0,7,0
 invoice-app,com.increff.invoice.spring,ControllerConfig,146,0,0,0,32,0,9,0,9,0
 invoice-app,com.increff.invoice.spring,WebInitializer,20,0,0,0,4,0,4,0,4,0
 invoice-app,com.increff.invoice.spring,SpringConfig,3,0,0,0,1,0,1,0,1,0
-invoice-app,com.increff.invoice.controller,InvoiceController,5,0,0,0,2,0,2,0,2,0
+invoice-app,com.increff.invoice.dto,InvoiceDto,36,0,0,0,7,0,2,0,2,0
+invoice-app,com.increff.invoice.controller,InvoiceController,8,0,0,0,2,0,2,0,2,0
+invoice-app,com.increff.invoice.service,InvoiceService,96,0,0,0,24,0,4,0,4,0

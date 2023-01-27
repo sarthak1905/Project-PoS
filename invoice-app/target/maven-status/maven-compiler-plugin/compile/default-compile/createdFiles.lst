@@ -1,4 +1,11 @@
 com\increff\invoice\controller\InvoiceController.class
+com\increff\invoice\models\OrderData.class
 com\increff\invoice\spring\WebInitializer.class
 com\increff\invoice\spring\ControllerConfig.class
+com\increff\invoice\service\InvoiceService.class
+com\increff\invoice\models\OrderItemData.class
+com\increff\invoice\models\OrderItemForm.class
 com\increff\invoice\spring\SpringConfig.class
+com\increff\invoice\dto\InvoiceDto.class
+com\increff\invoice\models\InvoiceForm.class
+com\increff\invoice\models\InvoiceResponse.class

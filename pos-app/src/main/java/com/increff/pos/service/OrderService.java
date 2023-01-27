@@ -28,8 +28,7 @@ public class OrderService {
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
         orderPojo.setDateTime(OrderUtil.getCurrentTime());
-        //orderPojo.setIsInvoiced;
-        orderPojo.setInvoiceDate(null);
+        orderPojo.setInvoiced(false);
         orderDao.insert(orderPojo);
         double orderTotal = 0.0;
         for (OrderItemPojo orderItemPojo: orderItemPojos){

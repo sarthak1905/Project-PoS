@@ -6,9 +6,9 @@
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21.0cm" margin-top="1cm" margin-left="2cm" margin-right="2cm" margin-bottom="1cm">
                     <!-- Page template goes here -->
+                    <fo:region-body />
                     <fo:region-before region-name="xsl-region-before" extent="3cm"/>
                     <fo:region-after region-name="xsl-region-after" extent="4cm"/>
-                    <fo:region-body />
                 </fo:simple-page-master>
             </fo:layout-master-set>
 
@@ -85,7 +85,7 @@
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block text-align="right">
-                                <xsl:value-of select="orderData/invoiceDate"></xsl:value-of>&#x2028;
+                                <xsl:value-of select="invoiceDate"></xsl:value-of>&#x2028;
                                 <xsl:value-of select="orderData/id"></xsl:value-of>&#x2028;
                                 <xsl:value-of select="orderData/dateTime"></xsl:value-of>&#x2028;
                             </fo:block>
@@ -118,16 +118,6 @@
                 </fo:table-header>
                 <fo:table-body>
                     <xsl:apply-templates select="root/orderItemData"></xsl:apply-templates>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" text-align="right" padding-right="3pt">
-                            <fo:block>Subtotal</fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell  text-align="right" padding-right="3pt" border-left="1px solid #b8b6b6" border-right="1px solid #b8b6b6" >
-                            <fo:block>
-                                <xsl:value-of select="subtotal" />
-                            </fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
                     <fo:table-row font-weight="bold">
                         <fo:table-cell number-columns-spanned="3" text-align="right" padding-right="3pt">
                             <fo:block>Total</fo:block>

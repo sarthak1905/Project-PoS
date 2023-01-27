@@ -48,7 +48,7 @@ public class InvoiceService {
 
     private void generatePDF(StreamSource streamSource, String fileName)
             throws FOPException, TransformerException, IOException {
-        File xsltFile = new File("../templates/template.xsl");
+        File xsltFile = new File("D:\\Java Projects\\Maven\\Increff Training\\pos-project\\invoice-app\\src\\main\\java\\com\\increff\\invoice\\templates\\template.xsl");
 
         // create an instance of fop factory
         FopFactory fopFactory = FopFactory.newInstance();

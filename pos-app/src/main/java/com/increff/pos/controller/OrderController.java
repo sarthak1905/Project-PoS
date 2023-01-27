@@ -47,7 +47,7 @@ public class OrderController {
 
     @ApiOperation(value = "Generates order invoice")
     @RequestMapping(path = "/{id}/invoice", method = RequestMethod.GET)
-    public InvoiceForm getOrderInvoice(@PathVariable Integer id) throws ApiException {
+    public String getOrderInvoice(@PathVariable Integer id) throws ApiException {
         return orderDto.getOrderInvoice(id);
     }
 

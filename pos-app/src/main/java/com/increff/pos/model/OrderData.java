@@ -13,7 +13,6 @@ public class OrderData {
     private Integer id;
     private LocalDateTime dateTime;
     private boolean invoiceStatus;
-    private LocalDateTime invoiceDate;
     private Double orderTotal;
 
 }

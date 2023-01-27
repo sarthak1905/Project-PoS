@@ -1,20 +1,19 @@
 package com.increff.pos.dto;
 
 import com.increff.pos.model.*;
+import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
 import com.increff.pos.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.sql.SQLOutput;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +64,15 @@ public class OrderDto {
         return orderItemDataList;
     }
 
-    public InvoiceForm getOrderInvoice(Integer orderId) throws ApiException {
+    public String getOrderInvoice(Integer orderId) throws ApiException {
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
-        orderPojo.setInvoiceStatus(true);
-        orderPojo.setInvoiceDate(OrderUtil.getCurrentTime());
+        orderPojo.setInvoiced(true);
+
+        InvoicePojo invoicePojo = new InvoicePojo();
+        invoicePojo.setOrderId(orderId);
+        invoicePojo.setInvoiceDate(OrderUtil.getCurrentTime());
+
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo obj:orderItemPojos){
             orderItemDataList.add(convertOrderItemPojoToData(obj));
@@ -81,9 +84,10 @@ public class OrderDto {
         invoiceForm.setOrderItemData(orderItemDataList);
         invoiceForm.setOrderData(orderData);
 
-        return invoiceForm;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        invoiceForm.setInvoiceDate(invoicePojo.getInvoiceDate().format(dateTimeFormatter));
 
-/*        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:7000/invoice/api";
 
         HttpHeaders headers = new HttpHeaders();
@@ -91,8 +95,8 @@ public class OrderDto {
 
         HttpEntity<InvoiceForm> requestEntity = new HttpEntity<>(invoiceForm, headers);
         InvoiceResponse invoiceResponse = restTemplate.postForObject(url, requestEntity, InvoiceResponse.class);
-        System.out.println(invoiceResponse.getBase64EncodedResponse());
-        return null;*/
+
+        return invoiceResponse.getBase64EncodedResponse();
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
@@ -159,7 +163,6 @@ public class OrderDto {
         OrderData orderData = new OrderData();
         orderData.setId(orderPojo.getId());
         orderData.setDateTime(orderPojo.getDateTime());
-        orderData.setInvoiceDate(orderPojo.getInvoiceDate());
         orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
     }

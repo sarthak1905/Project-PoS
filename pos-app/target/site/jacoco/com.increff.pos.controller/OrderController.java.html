@@ -47,7 +47,7 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Generates order invoice&quot;)
     @RequestMapping(path = &quot;/{id}/invoice&quot;, method = RequestMethod.GET)
-    public InvoiceForm getOrderInvoice(@PathVariable Integer id) throws ApiException {
+    public String getOrderInvoice(@PathVariable Integer id) throws ApiException {
 <span class="nc" id="L51">        return orderDto.getOrderInvoice(id);</span>
     }
 

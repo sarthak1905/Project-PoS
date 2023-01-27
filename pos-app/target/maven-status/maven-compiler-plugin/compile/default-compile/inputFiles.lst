@@ -28,6 +28,7 @@ D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\in
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\AdminApiController.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\dao\UserDao.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\AboutApiController.java
+D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\InvoicePojo.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\service\BrandService.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\util\IOUtil.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\model\BrandData.java
