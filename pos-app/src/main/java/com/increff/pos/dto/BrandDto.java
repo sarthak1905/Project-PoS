@@ -21,6 +21,7 @@ public class BrandDto {
 
     public void add(BrandForm brandForm) throws ApiException {
         BrandPojo brandPojo = convertFormToPojo(brandForm);
+        BrandUtil.normalize(brandPojo);
         brandService.add(brandPojo);
     }
 
@@ -53,6 +54,7 @@ public class BrandDto {
     public void update(int id, BrandForm brandForm) throws ApiException {
         checkInputValidity(brandForm);
         BrandPojo brandPojo = convertFormToPojo(brandForm);
+        BrandUtil.normalize(brandPojo);
         brandService.update(id, brandPojo);
     }
 
@@ -76,7 +78,6 @@ public class BrandDto {
     }
 
     private void checkInputValidity(BrandForm brandForm) throws ApiException {
-        BrandUtil.normalize(brandForm);
         if (StringUtil.isEmpty(brandForm.getBrand())) {
             throw new ApiException("Brand name cannot be empty!");
         }

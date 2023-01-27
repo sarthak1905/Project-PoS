@@ -19,4 +19,13 @@ public class OrderPojo {
     @Column(nullable = false)
     private LocalDateTime dateTime;
 
+    @Column(nullable = false, name = "is_invoiced")
+    private boolean isInvoiced;
+
+    @Column(name = "invoice_date")
+    private LocalDateTime invoiceDate;
+
+    @Column(name = "order_total")
+    private Double orderTotal;
+
 }

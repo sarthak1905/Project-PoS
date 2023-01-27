@@ -1,14 +1,20 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.OrderData;
-import com.increff.pos.model.OrderItemData;
-import com.increff.pos.model.OrderItemForm;
+import com.increff.pos.model.*;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
+import com.increff.pos.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,8 +65,40 @@ public class OrderDto {
         return orderItemDataList;
     }
 
+    public InvoiceForm getOrderInvoice(Integer orderId) throws ApiException {
+        List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
+        OrderPojo orderPojo = orderService.get(orderId);
+        orderPojo.setInvoiceStatus(true);
+        orderPojo.setInvoiceDate(OrderUtil.getCurrentTime());
+        List<OrderItemData> orderItemDataList = new ArrayList<>();
+        for(OrderItemPojo obj:orderItemPojos){
+            orderItemDataList.add(convertOrderItemPojoToData(obj));
+        }
+
+        OrderData orderData = convertOrderPojoToData(orderPojo);
+        orderData.setInvoiceStatus(true);
+        InvoiceForm invoiceForm = new InvoiceForm();
+        invoiceForm.setOrderItemData(orderItemDataList);
+        invoiceForm.setOrderData(orderData);
+
+        return invoiceForm;
+
+/*        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:7000/invoice/api";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<InvoiceForm> requestEntity = new HttpEntity<>(invoiceForm, headers);
+        InvoiceResponse invoiceResponse = restTemplate.postForObject(url, requestEntity, InvoiceResponse.class);
+        System.out.println(invoiceResponse.getBase64EncodedResponse());
+        return null;*/
+    }
+
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
         validateOrderItemInputForms(orderItemForms);
+        double orderTotal = calculateOrderItemTotal(orderItemForms);
+
         List<OrderItemPojo> existingOrderItems = orderItemService.getByOrderId(orderId);
         HashMap<Integer,OrderItemPojo> existingOrderItemMapByID = new HashMap<>();
         HashMap<String,OrderItemPojo> existingOrderItemMapByBarcode = new HashMap<>();
@@ -75,7 +113,15 @@ public class OrderDto {
             OrderItemPojo orderItemPojo = getExistingPojoOrAddNew(form, orderId, existingOrderItemMapByBarcode);
             newOrderItemPojos.add(orderItemPojo);
         }
-        orderService.update(newOrderItemPojos, existingOrderItemMapByID);
+        orderService.update(newOrderItemPojos, existingOrderItemMapByID, orderId, orderTotal);
+    }
+
+    private double calculateOrderItemTotal(List<OrderItemForm> orderItemForms) {
+        double orderTotal = 0.0;
+        for(OrderItemForm orderItemForm: orderItemForms){
+            orderTotal += orderItemForm.getQuantity() * orderItemForm.getSellingPrice();
+        }
+        return orderTotal;
     }
 
     public void delete(Integer id) throws ApiException{
@@ -113,6 +159,8 @@ public class OrderDto {
         OrderData orderData = new OrderData();
         orderData.setId(orderPojo.getId());
         orderData.setDateTime(orderPojo.getDateTime());
+        orderData.setInvoiceDate(orderPojo.getInvoiceDate());
+        orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
     }
 
@@ -124,6 +172,7 @@ public class OrderDto {
         orderItemData.setOrderId(orderItemPojo.getOrderId());
         orderItemData.setSellingPrice(orderItemPojo.getSellingPrice());
         orderItemData.setBarcode(productService.getBarcodeFromProductId(orderItemPojo.getProductId()));
+        orderItemData.setTotal(orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity());
         return orderItemData;
     }
 

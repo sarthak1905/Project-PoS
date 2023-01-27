@@ -1,6 +1,7 @@
 package com.increff.pos.controller;
 
 import com.increff.pos.dto.OrderDto;
+import com.increff.pos.model.InvoiceForm;
 import com.increff.pos.model.OrderData;
 import com.increff.pos.model.OrderItemData;
 import com.increff.pos.model.OrderItemForm;
@@ -42,6 +43,12 @@ public class OrderController {
     @RequestMapping(path = "/{id}/items", method = RequestMethod.GET)
     public List<OrderItemData> getOrderItems(@PathVariable Integer id){
         return orderDto.getOrderItems(id);
+    }
+
+    @ApiOperation(value = "Generates order invoice")
+    @RequestMapping(path = "/{id}/invoice", method = RequestMethod.GET)
+    public InvoiceForm getOrderInvoice(@PathVariable Integer id) throws ApiException {
+        return orderDto.getOrderInvoice(id);
     }
 
     @ApiOperation(value = "Updates an order")

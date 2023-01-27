@@ -28,12 +28,18 @@ public class OrderService {
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
         orderPojo.setDateTime(OrderUtil.getCurrentTime());
+        //orderPojo.setIsInvoiced;
+        orderPojo.setInvoiceDate(null);
         orderDao.insert(orderPojo);
+        double orderTotal = 0.0;
         for (OrderItemPojo orderItemPojo: orderItemPojos){
             orderItemPojo.setOrderId(orderPojo.getId());
             inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+            double itemTotal = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();
             orderItemService.add(orderItemPojo);
+            orderTotal += itemTotal;
         }
+        orderPojo.setOrderTotal(orderTotal);
     }
 
 
@@ -45,7 +51,11 @@ public class OrderService {
         return orderDao.selectAll();
     }
 
-    public void update(List<OrderItemPojo> newOrderItemPojos, HashMap<Integer, OrderItemPojo> existingOrderItemMapByID) throws ApiException {
+    public void update(List<OrderItemPojo> newOrderItemPojos,
+                       HashMap<Integer, OrderItemPojo> existingOrderItemMapByID,
+                       int orderId, double orderTotal) throws ApiException {
+        OrderPojo orderPojo = get(orderId);
+        orderPojo.setOrderTotal(orderTotal);
         for(OrderItemPojo newOrderItemPojo: newOrderItemPojos ){
             if (existingOrderItemMapByID.containsKey(newOrderItemPojo.getProductId())){
                 OrderItemPojo existingOrderItemPojo = orderItemService.get(newOrderItemPojo.getId());

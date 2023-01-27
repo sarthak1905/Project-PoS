@@ -12,6 +12,7 @@ D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\in
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\util\StringUtil.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\dao\BrandDao.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\dao\InventoryDao.java
+D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\model\InvoiceForm.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\model\InventoryData.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\service\OrderService.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\SampleController.java
@@ -67,5 +68,6 @@ D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\in
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\util\BrandUtil.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\dto\ProductDto.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\BrandPojo.java
+D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\model\InvoiceResponse.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\dto\OrderDto.java
 D:\Java Projects\Maven\Increff Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\AbstractUiController.java

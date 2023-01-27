@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class OrderItemData extends OrderItemForm {
+public class InvoiceForm {
 
-    private int id;
-    private int orderId;
-    private int productId;
-    private double total;
-
+    private OrderData orderData;
+    private List<OrderItemData> orderItemData;
 }
