@@ -1,7 +1,10 @@
 package com.increff.invoice.controller;
 
+import com.increff.invoice.dto.InvoiceDto;
+import com.increff.invoice.models.InvoiceForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Api
@@ -9,9 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class InvoiceController {
 
-    @ApiOperation(value = "Gets an order")
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public String get(){
-        return "Reaching here!";
+    @Autowired
+    private InvoiceDto invoiceDto;
+
+    @ApiOperation(value = "Returns the base64 encoded string")
+    @RequestMapping(path = "", method = RequestMethod.POST)
+    public String getInvoice(@RequestBody InvoiceForm invoiceForm) throws Exception {
+        return invoiceDto.getInvoice(invoiceForm);
     }
 }
