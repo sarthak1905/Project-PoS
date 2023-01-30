@@ -6,38 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2dd2c2fd-be7c-4c29-bb35-cb867ce1850d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/Test/invoice.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/Test/invoice.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/src/main/resources/xml/Invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/src/main/resources/xml/Invoice.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/classes/xml/Invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/classes/xml/Invoice.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/surefire-reports/TEST-org.example.AppTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/surefire-reports/TEST-org.example.AppTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice-app/target/surefire-reports/org.example.AppTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/surefire-reports/org.example.AppTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/generated/Invoice1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/generated/Invoice1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AdminApiController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AdminApiController.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/BrandController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/BrandController.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/OrderController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/OrderController.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/BrandDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/BrandDao.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InventoryDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InventoryDao.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderData.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.SampleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.SampleTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.SampleTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.SampleTest.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +19,22 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="workspaceImportEnabled" value="true" />
@@ -72,15 +52,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8 (2)&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Java-Projects/Maven/Increff-Training/pos-project&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalResources&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "1.8 (2)",
+    "last_opened_file_path": "D:/Java-Projects/Maven/Increff-Training/pos-project",
+    "settings.editor.selected.configurable": "preferences.externalResources"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Java Projects\Maven\Increff Training\pos-project\invoice-app\src\main\resources\xsl" />
