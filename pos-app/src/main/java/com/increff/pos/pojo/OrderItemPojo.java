@@ -29,5 +29,4 @@ public class OrderItemPojo {
     @Min(value=0)
     private Double sellingPrice;
 
-
 }

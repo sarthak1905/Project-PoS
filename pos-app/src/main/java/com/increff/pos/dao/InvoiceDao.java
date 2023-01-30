@@ -10,19 +10,19 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class InvoiceDao extends AbstractDao{
 
-    private static String select_id = "select p from invoice p where id=:id";
-    private static String select_all = "select b from InvoicePojo b";
+    private static String select_id = "select p from InvoicePojo p where order_id=:order_id";
+    private static String select_all = "select p from InvoicePojo p";
 
-    @Transactional
     public void insert(InvoicePojo invoicePojo){
         em().persist(invoicePojo);
     }
 
-    public InvoicePojo select_id(int id){
+    public InvoicePojo select_id(int orderId){
         TypedQuery<InvoicePojo> query = getQuery(select_id, InvoicePojo.class);
-        query.setParameter("id", id);
+        query.setParameter("order_id", orderId);
         return getSingle(query);
     }
 

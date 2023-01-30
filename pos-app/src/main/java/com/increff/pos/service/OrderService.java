@@ -5,7 +5,6 @@ import com.increff.pos.dao.OrderDao;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.pojo.ProductPojo;
-import com.increff.pos.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class OrderService {
     private OrderItemService orderItemService;
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
-        orderPojo.setDateTime(OrderUtil.getCurrentTime());
+        orderPojo.setDateTime(java.time.LocalDateTime.now());
         orderPojo.setInvoiced(false);
         orderDao.insert(orderPojo);
         double orderTotal = 0.0;

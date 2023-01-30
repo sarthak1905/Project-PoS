@@ -192,6 +192,12 @@ function getOrderList(){
 	});
 }
 
+function downloadOrderInvoice(id){
+	var url = getOrderUrl();
+	url += '/' + id + '/invoice';
+	window.location.href = url;
+}
+
 //UI DISPLAY METHODS
 
 function displayOrderList(data){
@@ -200,6 +206,7 @@ function displayOrderList(data){
 	for(var i in data){
 		var o = data[i];
 		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+		buttonHtml += ' <button class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
 		var parsedDate = parseDate(o.dateTime);
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'

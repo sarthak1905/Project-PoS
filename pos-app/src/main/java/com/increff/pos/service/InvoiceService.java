@@ -16,7 +16,10 @@ public class InvoiceService {
     private InvoiceDao invoiceDao;
     
     public void add(InvoicePojo invoicePojo) throws ApiException {
-        invoiceDao.insert(invoicePojo);
+        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());
+        if(existingPojo == null) {
+            invoiceDao.insert(invoicePojo);
+        }
     }
     
     public InvoicePojo get(int id) throws ApiException{

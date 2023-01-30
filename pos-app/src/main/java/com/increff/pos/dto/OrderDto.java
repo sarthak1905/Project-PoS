@@ -5,13 +5,15 @@ import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
-import com.increff.pos.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -74,7 +76,7 @@ public class OrderDto {
 
         InvoicePojo invoicePojo = new InvoicePojo();
         invoicePojo.setOrderId(orderId);
-        invoicePojo.setInvoiceDate(OrderUtil.getCurrentTime());
+        invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
         invoiceService.add(invoicePojo);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
@@ -89,16 +91,24 @@ public class OrderDto {
         RestTemplate restTemplate = new RestTemplate();
         String url = invoiceUrl;
 
-        byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
+        File file = new File("./generated/Invoice"+ orderId +".pdf");
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
+            fos.write(contents);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
 
-        String filename = "invoice.pdf";
-        headers.setContentDispositionFormData(filename, filename);
+            String filename = "invoice.pdf";
+            headers.setContentDispositionFormData(filename, filename);
 
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-        return new ResponseEntity<>(contents, headers, HttpStatus.OK);
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            return new ResponseEntity<>(contents, headers, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
