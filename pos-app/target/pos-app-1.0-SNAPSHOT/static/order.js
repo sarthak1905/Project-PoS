@@ -212,60 +212,13 @@ function displayOrderList(data){
 			console.log('Reaching here!');
 			buttonHtml += ' <button id="btn-edit' + o.id + '"class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
 		}
-		var parsedDate = parseDate(o.dateTime);
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
 		+ '<td>' + parsedDate + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td>' + o.dateTime + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
-}
-
-function parseDate(dateTime){
-	var hours = dateTime[3];
-	var minutes = dateTime[4];
-	var seconds = dateTime[5];
-	var day = dateTime[2];
-	var month = dateTime[1];
-	var year = dateTime[0];
-	var parsedDate = hours + ':' + minutes + ':' + seconds + ' ' + day;
-	if(day%10 == 1)
-		parsedDate += 'st ';
-	else if(day%10 == 2)
-		parsedDate += 'nd ';
-	else if(day%10 == 3)
-		parsedDate += 'rd ';
-	else 
-		parsedDate += 'th ';
-	
-	if(month == 1)
-		parsedDate += 'January';
-	else if(month == 2)
-		parsedDate += 'February';
-	else if(month == 3)
-		parsedDate += 'March';
-	else if(month == 4)
-		parsedDate += 'April';
-	else if(month == 5)
-		parsedDate += 'May';
-	else if(month == 6)
-		parsedDate += 'June';
-	else if(month == 7)
-		parsedDate += 'July';
-	else if(month == 8)
-		parsedDate += 'August';
-	else if(month == 9)
-		parsedDate += 'September';
-	else if(month == 10)
-		parsedDate += 'October';
-	else if(month == 11)
-		parsedDate += 'November';
-	else if(month == 12)
-		parsedDate += 'December';
-
-	parsedDate += ', ' + year;
-	return parsedDate;
 }
 
 function displayEditOrder(id){

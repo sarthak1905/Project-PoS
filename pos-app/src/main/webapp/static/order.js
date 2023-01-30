@@ -214,8 +214,8 @@ function displayOrderList(data){
 		}
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
-		+ '<td>' + parsedDate + '</td>'
 		+ '<td>' + o.dateTime + '</td>'
+		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

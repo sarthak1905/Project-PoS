@@ -82,7 +82,6 @@ public class OrderDto {
         InvoicePojo invoicePojo = new InvoicePojo();
         invoicePojo.setOrderId(orderId);
         invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
-        invoiceService.add(invoicePojo);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo obj:orderItemPojos){
@@ -102,7 +101,8 @@ public class OrderDto {
             fos.write(contents);
 
             String path = "pos-app/generated/Invoice" + orderId + ".pdf";
-            invoiceService.setPath(invoicePojo.getOrderId(), path);
+            invoicePojo.setPath(path);
+            invoiceService.add(invoicePojo);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
