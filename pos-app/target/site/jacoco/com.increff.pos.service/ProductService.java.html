@@ -10,74 +10,68 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-<span class="nc" id="L13">public class ProductService {</span>
+@Transactional(rollbackOn = ApiException.class)
+<span class="nc" id="L14">public class ProductService {</span>
 
     @Autowired
     private ProductDao productDao;
 
-    @Transactional(rollbackOn = ApiException.class)
     public void add(ProductPojo p) throws ApiException {
 <span class="nc" id="L20">        productDao.insert(p);</span>
 <span class="nc" id="L21">    }</span>
 
-
-    @Transactional(rollbackOn = ApiException.class)
     public ProductPojo get(int id) throws ApiException{
-<span class="nc" id="L26">        return getCheck(id);</span>
+<span class="nc" id="L24">        return getCheck(id);</span>
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public List&lt;ProductPojo&gt; getAll(){
-<span class="nc" id="L31">        return productDao.selectAll();</span>
+<span class="nc" id="L28">        return productDao.selectAll();</span>
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
     public void update(int id, ProductPojo p) throws ApiException {
-<span class="nc" id="L36">        ProductUtil.normalize(p);</span>
-<span class="nc" id="L37">        ProductPojo bx = getCheck(id);</span>
-<span class="nc" id="L38">        bx.setName(p.getName());</span>
-<span class="nc" id="L39">        bx.setMrp(p.getMrp());</span>
-<span class="nc" id="L40">    }</span>
+<span class="nc" id="L32">        ProductUtil.normalize(p);</span>
+<span class="nc" id="L33">        ProductPojo bx = getCheck(id);</span>
+<span class="nc" id="L34">        bx.setName(p.getName());</span>
+<span class="nc" id="L35">        bx.setMrp(p.getMrp());</span>
+<span class="nc" id="L36">    }</span>
 
-    @Transactional
     public void delete(int id) throws ApiException{
-<span class="nc" id="L44">        ProductPojo p = getCheck(id);</span>
-<span class="nc" id="L45">        productDao.delete(id);</span>
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L39">        ProductPojo p = getCheck(id);</span>
+<span class="nc" id="L40">        productDao.delete(id);</span>
+<span class="nc" id="L41">    }</span>
 
-    @Transactional
     public ProductPojo getCheck(int id) throws ApiException{
-<span class="nc" id="L50">        ProductPojo p = productDao.selectId(id);</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if(p == null){</span>
-<span class="nc" id="L52">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
+<span class="nc" id="L44">        ProductPojo p = productDao.selectId(id);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if(p == null){</span>
+<span class="nc" id="L46">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
         }
-<span class="nc" id="L54">        return p;</span>
+<span class="nc" id="L48">        return p;</span>
     }
 
-    @Transactional
     public String getBarcodeFromProductId(int id){
-<span class="nc" id="L59">        ProductPojo p = productDao.selectId(id);</span>
-<span class="nc" id="L60">        return p.getBarcode();</span>
+<span class="nc" id="L52">        ProductPojo p = productDao.selectId(id);</span>
+<span class="nc" id="L53">        return p.getBarcode();</span>
     }
 
-    @Transactional
     public int getProductIdFromBarcode(String barcode) throws ApiException {
-<span class="nc" id="L65">        ProductPojo px = productDao.selectBarcode(barcode);</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (px == null){</span>
-<span class="nc" id="L67">            throw new ApiException(&quot;Product with given barcode&quot; + barcode + &quot; does not exist!&quot;);</span>
+<span class="nc" id="L57">        ProductPojo px = productDao.selectBarcode(barcode);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (px == null){</span>
+<span class="nc" id="L59">            throw new ApiException(&quot;Product with given barcode&quot; + barcode + &quot; does not exist!&quot;);</span>
         }
-<span class="nc" id="L69">        return px.getId();</span>
+<span class="nc" id="L61">        return px.getId();</span>
     }
 
-    @Transactional
     public boolean isValidBarcode(String barcode){
-<span class="nc" id="L74">        ProductPojo px = productDao.selectBarcode(barcode);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if(px != null){</span>
-<span class="nc" id="L76">            return false;</span>
+<span class="nc" id="L65">        ProductPojo px = productDao.selectBarcode(barcode);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(px != null){</span>
+<span class="nc" id="L67">            return false;</span>
         }
-<span class="nc" id="L78">        return true;</span>
+<span class="nc" id="L69">        return true;</span>
     }
 
-
+    public String getProductNameFromProductId(Integer productId) throws ApiException {
+<span class="nc" id="L73">        ProductPojo productPojo = getCheck(productId);</span>
+<span class="nc" id="L74">        return productPojo.getName();</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

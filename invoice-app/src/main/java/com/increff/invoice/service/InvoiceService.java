@@ -1,77 +1,144 @@
 package com.increff.invoice.service;
 
 import com.increff.invoice.models.InvoiceForm;
-import org.apache.commons.io.output.ByteArrayOutputStream;
+import com.increff.invoice.models.OrderItemData;
 import org.apache.fop.apps.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.text.DecimalFormat;
 
 @Component
 @Service
 public class InvoiceService {
 
-    public void generatePDFFromJavaObject(InvoiceForm invoiceForm, String fileName) throws Exception {
-        ByteArrayOutputStream xmlSource = getXMLSource(invoiceForm);
-        StreamSource streamSource = new StreamSource(new ByteArrayInputStream(xmlSource.toByteArray()));
-        generatePDF(streamSource, fileName);
+    private static final String xmlFilePath = "D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml" +
+            "\\Invoice.xml";
+
+    public void generateInvoice(InvoiceForm invoiceForm) {
+        createXML(invoiceForm);
+        createPDF();
     }
 
-    private ByteArrayOutputStream getXMLSource(InvoiceForm invoiceForm) {
-        JAXBContext context;
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+    private void createXML(InvoiceForm invoiceForm) {
         try {
-            context = JAXBContext.newInstance(InvoiceForm.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(invoiceForm, outStream);
-        } catch (JAXBException e) {
-            e.printStackTrace();
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            // root element
+            Element root = document.createElement("invoice");
+            document.appendChild(root);
+
+            Element order_id = document.createElement("order_id");
+            order_id.appendChild(document.createTextNode(invoiceForm.getOrderId().toString()));
+            root.appendChild(order_id);
+
+            Element order_date = document.createElement("order_date");
+            order_date.appendChild(document.createTextNode(invoiceForm.getOrderDate()));
+            root.appendChild(order_date);
+
+            Element invoice_date = document.createElement("invoice_date");
+            invoice_date.appendChild(document.createTextNode(invoiceForm.getInvoiceDate()));
+            root.appendChild(invoice_date);
+
+            // order item element
+            for (OrderItemData o : invoiceForm.getOrderItemData()){
+                DecimalFormat df = new DecimalFormat("#.##");
+                Element order_item = document.createElement("order_item");
+
+                root.appendChild(order_item);
+
+                Element id = document.createElement("id");
+                id.appendChild(document.createTextNode(o.getId().toString()));
+                order_item.appendChild(id);
+
+                Element ProductId = document.createElement("product_name");
+                ProductId.appendChild(document.createTextNode(o.getProductName()));
+                order_item.appendChild(ProductId);
+
+                Element quantity = document.createElement("quantity");
+                quantity.appendChild(document.createTextNode(o.getQuantity().toString()));
+                order_item.appendChild(quantity);
+
+                Element sellingPrice = document.createElement("selling_price");
+                sellingPrice.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice())).toString()));
+                order_item.appendChild(sellingPrice);
+
+                Element amt = document.createElement("amt");
+                amt.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice() * o.getQuantity())).toString()));
+                order_item.appendChild(amt);
+            }
+
+            Element amount = document.createElement("amount");
+            amount.appendChild(document.createTextNode(invoiceForm.getOrderTotal().toString()));
+            root.appendChild(amount);
+            // create the xml file
+            //transform the DOM Object to an XML File
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+
+            transformer.transform(domSource, streamResult);
+
+            System.out.println("Done creating XML File");
+
+        } catch (ParserConfigurationException | TransformerException pce) {
+            pce.printStackTrace();
         }
-        return outStream;
     }
 
-    private void generatePDF(StreamSource streamSource, String fileName)
-            throws FOPException, TransformerException, IOException {
-        File xsltFile = new File("D:\\Java Projects\\Maven\\Increff Training\\pos-project\\invoice-app\\src\\main\\java\\com\\increff\\invoice\\templates\\template.xsl");
-
-        // create an instance of fop factory
-        FopFactory fopFactory = FopFactory.newInstance();
-
-        // a user agent is needed for transformation
-        FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-        // Setup output
-
-        try (OutputStream out = Files.newOutputStream(Paths.get(fileName))) {
-            // Construct fop with desired output format
-            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-
-            // Setup XSLT
-            TransformerFactory factory = TransformerFactory.newInstance();
-
-            Transformer transformer = factory.newTransformer(new StreamSource(xsltFile));
-
-            // Resulting SAX events (the generated FO) must be piped through to FOP
-            Result res = new SAXResult(fop.getDefaultHandler());
-            // Start XSLT transformation and FOP processing
-            // That's where the XML is first transformed to XSL-FO and then
-            // PDF is created
-            transformer.transform(streamSource, res);
+    public void createPDF() {
+        try {
+            File xmlfile = new File("D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml\\Invoice.xml");
+            File xsltfile = new File("D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xsl\\template.xsl");
+            File pdfDir = new File("./Test");
+            pdfDir.mkdirs();
+            File pdfFile = new File(pdfDir, "invoice.pdf");
+            System.out.println(pdfFile.getAbsolutePath());
+            // configure fopFactory as desired
+            final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+            // configure foUserAgent as desired
+            // Setup output
+            OutputStream out = Files.newOutputStream(pdfFile.toPath());
+            out = new java.io.BufferedOutputStream(out);
+            try {
+                // Construct fop with desired output format
+                Fop fop;
+                fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
+                // Setup XSLT
+                TransformerFactory factory = TransformerFactory.newInstance();
+                Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));
+                // Setup input for XSLT transformation
+                Source src = new StreamSource(xmlfile);
+                // Resulting SAX events (the generated FO) must be piped through to FOP
+                Result res = new SAXResult(fop.getDefaultHandler());
+                // Start XSLT transformation and FOP processing
+                transformer.transform(src, res);
+            } catch (FOPException | TransformerException e) {
+                e.printStackTrace();
+            } finally {
+                out.close();
+            }
+        }catch(Exception exp){
+            exp.printStackTrace();
         }
     }
+
 }

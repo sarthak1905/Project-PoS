@@ -7,14 +7,14 @@ import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
 import com.increff.pos.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +29,10 @@ public class OrderDto {
     private ProductService productService;
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private InvoiceService invoiceService;
+    @Value("${invoice.uri}")
+    private String invoiceUrl;
 
     public void add(List<OrderItemForm> orderItemForms) throws ApiException {
         validateOrderItemInputForms(orderItemForms);
@@ -54,7 +58,7 @@ public class OrderDto {
         return orderDataList;
     }
 
-    public List<OrderItemData> getOrderItems(Integer orderId) {
+    public List<OrderItemData> getOrderItems(Integer orderId) throws ApiException {
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo: orderItemPojos){
@@ -64,44 +68,54 @@ public class OrderDto {
         return orderItemDataList;
     }
 
-    public String getOrderInvoice(Integer orderId) throws ApiException {
+    public ResponseEntity<byte[]> getOrderInvoice(Integer orderId) throws ApiException {
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
-        orderPojo.setInvoiced(true);
 
         InvoicePojo invoicePojo = new InvoicePojo();
         invoicePojo.setOrderId(orderId);
         invoicePojo.setInvoiceDate(OrderUtil.getCurrentTime());
+        invoiceService.add(invoicePojo);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo obj:orderItemPojos){
             orderItemDataList.add(convertOrderItemPojoToData(obj));
         }
 
-        OrderData orderData = convertOrderPojoToData(orderPojo);
-        orderData.setInvoiceStatus(true);
+        orderService.setInvoicedTrue(orderPojo);
+
+        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = invoiceUrl;
+
+        byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        String filename = "invoice.pdf";
+        headers.setContentDispositionFormData(filename, filename);
+
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        return new ResponseEntity<>(contents, headers, HttpStatus.OK);
+    }
+
+    private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
         InvoiceForm invoiceForm = new InvoiceForm();
         invoiceForm.setOrderItemData(orderItemDataList);
-        invoiceForm.setOrderData(orderData);
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         invoiceForm.setInvoiceDate(invoicePojo.getInvoiceDate().format(dateTimeFormatter));
-
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:7000/invoice/api";
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<InvoiceForm> requestEntity = new HttpEntity<>(invoiceForm, headers);
-        InvoiceResponse invoiceResponse = restTemplate.postForObject(url, requestEntity, InvoiceResponse.class);
-
-        return invoiceResponse.getBase64EncodedResponse();
+        invoiceForm.setOrderDate(orderPojo.getDateTime().format(dateTimeFormatter));
+        invoiceForm.setOrderTotal(orderPojo.getOrderTotal());
+        invoiceForm.setOrderId(orderPojo.getId());
+        return invoiceForm;
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
         validateOrderItemInputForms(orderItemForms);
-        double orderTotal = calculateOrderItemTotal(orderItemForms);
+        double orderTotal = calculateOrderTotal(orderItemForms);
 
         List<OrderItemPojo> existingOrderItems = orderItemService.getByOrderId(orderId);
         HashMap<Integer,OrderItemPojo> existingOrderItemMapByID = new HashMap<>();
@@ -120,7 +134,7 @@ public class OrderDto {
         orderService.update(newOrderItemPojos, existingOrderItemMapByID, orderId, orderTotal);
     }
 
-    private double calculateOrderItemTotal(List<OrderItemForm> orderItemForms) {
+    private double calculateOrderTotal(List<OrderItemForm> orderItemForms) {
         double orderTotal = 0.0;
         for(OrderItemForm orderItemForm: orderItemForms){
             orderTotal += orderItemForm.getQuantity() * orderItemForm.getSellingPrice();
@@ -167,7 +181,7 @@ public class OrderDto {
         return orderData;
     }
 
-    public OrderItemData convertOrderItemPojoToData(OrderItemPojo orderItemPojo) {
+    public OrderItemData convertOrderItemPojoToData(OrderItemPojo orderItemPojo) throws ApiException {
         OrderItemData orderItemData = new OrderItemData();
         orderItemData.setQuantity(orderItemPojo.getQuantity());
         orderItemData.setId(orderItemPojo.getId());
@@ -175,7 +189,7 @@ public class OrderDto {
         orderItemData.setOrderId(orderItemPojo.getOrderId());
         orderItemData.setSellingPrice(orderItemPojo.getSellingPrice());
         orderItemData.setBarcode(productService.getBarcodeFromProductId(orderItemPojo.getProductId()));
-        orderItemData.setTotal(orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity());
+        orderItemData.setProductName(productService.getProductNameFromProductId(orderItemPojo.getProductId()));
         return orderItemData;
     }
 

@@ -84,4 +84,7 @@ public class OrderService {
         }
     }
 
+    public void setInvoicedTrue(OrderPojo orderPojo) {
+        orderPojo.setInvoiced(true);
+    }
 }

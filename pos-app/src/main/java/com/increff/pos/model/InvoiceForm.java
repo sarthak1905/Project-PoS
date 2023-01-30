@@ -11,7 +11,9 @@ import java.util.List;
 @Setter
 public class InvoiceForm {
 
-    private OrderData orderData;
+    private Integer orderId;
+    private Double orderTotal;
+    private String orderDate;
     private List<OrderItemData> orderItemData;
     private String invoiceDate;
 }

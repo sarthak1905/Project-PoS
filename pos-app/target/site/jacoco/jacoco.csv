@@ -8,12 +8,12 @@ pos-app,com.increff.pos.dao,OrderItemDao,89,0,0,0,22,0,8,0,8,0
 pos-app,com.increff.pos.dao,OrderDao,53,0,0,0,14,0,6,0,6,0
 pos-app,com.increff.pos.dto,BrandDto,150,0,10,0,41,0,15,0,10,0
 pos-app,com.increff.pos.dto,ProductDto,247,0,18,0,63,0,19,0,10,0
-pos-app,com.increff.pos.dto,OrderDto,488,0,20,0,108,0,24,0,14,0
+pos-app,com.increff.pos.dto,OrderDto,499,0,20,0,111,0,24,0,14,0
 pos-app,com.increff.pos.dto,InventoryDto,132,0,6,0,34,0,13,0,10,0
 pos-app,com.increff.pos.service,OrderItemService,103,0,4,0,24,0,10,0,8,0
 pos-app,com.increff.pos.service,ApiException,4,0,0,0,2,0,1,0,1,0
 pos-app,com.increff.pos.service,BrandService,94,0,8,0,25,0,13,0,9,0
-pos-app,com.increff.pos.service,ProductService,99,0,6,0,27,0,13,0,10,0
+pos-app,com.increff.pos.service,ProductService,107,0,6,0,29,0,14,0,11,0
 pos-app,com.increff.pos.service,InventoryService,93,0,4,0,23,0,11,0,9,0
 pos-app,com.increff.pos.service,UserService,51,0,2,0,14,0,7,0,6,0
 pos-app,com.increff.pos.service,AboutAppService,9,0,0,0,3,0,3,0,3,0
@@ -33,7 +33,7 @@ pos-app,com.increff.pos.model,OrderData,31,0,0,0,6,0,9,0,9,0
 pos-app,com.increff.pos.model,BrandForm,17,0,0,0,4,0,5,0,5,0
 pos-app,com.increff.pos.model,UserForm,24,0,0,0,10,0,7,0,7,0
 pos-app,com.increff.pos.model,OrderItemForm,24,0,0,0,5,0,7,0,7,0
-pos-app,com.increff.pos.model,InvoiceForm,24,0,0,0,5,0,7,0,7,0
+pos-app,com.increff.pos.model,InvoiceForm,38,0,0,0,7,0,11,0,11,0
 pos-app,com.increff.pos.model,LoginForm,17,0,0,0,7,0,5,0,5,0
 pos-app,com.increff.pos.model,BrandData,10,0,0,0,3,0,3,0,3,0
 pos-app,com.increff.pos.model,UserData,24,0,0,0,10,0,7,0,7,0

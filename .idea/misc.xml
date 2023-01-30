@@ -10,6 +10,7 @@
   </component>
   <component name="ProjectResources">
     <resource url="http://www.w3.org/1999/XSL/Format" location="$PROJECT_DIR$" />
+    <resource url="http://www.yt.com/text/2" location="$PROJECT_DIR$" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
