@@ -24,7 +24,7 @@ import java.util.List;
 <span class="nc" id="L24">        em().persist(b);</span>
 <span class="nc" id="L25">    }</span>
 
-    public BrandPojo select_id(int id){
+    public BrandPojo select_id(Integer id){
 <span class="nc" id="L28">        TypedQuery&lt;BrandPojo&gt; query = getQuery(select_id, BrandPojo.class);</span>
 <span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L30">        return getSingle(query);</span>
@@ -53,7 +53,7 @@ import java.util.List;
 <span class="nc" id="L53">        return getSingle(query);</span>
     }
 
-    public int delete(int id){
+    public Integer delete(Integer id){
 <span class="nc" id="L57">        Query query = em().createQuery(delete_id);</span>
 <span class="nc" id="L58">        query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L59">        return query.executeUpdate();</span>

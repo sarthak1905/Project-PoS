@@ -28,7 +28,7 @@ public class OrderController {
 
     @ApiOperation(value = "Gets an order")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public OrderData get(@PathVariable int id) throws ApiException{
+    public OrderData get(@PathVariable Integer id) throws ApiException{
         return orderDto.get(id);
     }
 
@@ -52,13 +52,13 @@ public class OrderController {
 
     @ApiOperation(value = "Updates an order")
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody List<OrderItemForm> orderItemForms) throws ApiException {
+    public void update(@PathVariable Integer id, @RequestBody List<OrderItemForm> orderItemForms) throws ApiException {
         orderDto.update(id, orderItemForms);
     }
 
     @ApiOperation(value = "Deletes an order")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws ApiException{
+    public void delete(@PathVariable Integer id) throws ApiException{
         orderDto.delete(id);
     }
 }

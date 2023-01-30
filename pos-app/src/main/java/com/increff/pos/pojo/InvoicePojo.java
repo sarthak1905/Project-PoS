@@ -22,4 +22,6 @@ public class InvoicePojo {
     @Column(nullable = false, name = "invoice_date")
     private LocalDateTime invoiceDate;
 
+    @Column(nullable = false)
+    private String path;
 }

@@ -195,6 +195,7 @@ function getOrderList(){
 function downloadOrderInvoice(id){
 	var url = getOrderUrl();
 	url += '/' + id + '/invoice';
+	$('#btn-edit' + id).remove();
 	window.location.href = url;
 }
 
@@ -205,8 +206,12 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
-		buttonHtml += ' <button class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
+		var buttonHtml = ' <button id="btn-invoice' + o.id + '"class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
+		console.log(o);
+		if(o.invoiced === false){
+			console.log('Reaching here!');
+			buttonHtml += ' <button id="btn-edit' + o.id + '"class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+		}
 		var parsedDate = parseDate(o.dateTime);
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'

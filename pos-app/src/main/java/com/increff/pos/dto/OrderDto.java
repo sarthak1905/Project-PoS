@@ -1,18 +1,23 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.*;
+import com.increff.pos.model.InvoiceForm;
+import com.increff.pos.model.OrderData;
+import com.increff.pos.model.OrderItemData;
+import com.increff.pos.model.OrderItemForm;
 import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,8 +52,8 @@ public class OrderDto {
     }
 
     public OrderData get(Integer id) throws ApiException{
-        OrderPojo b = orderService.get(id);
-        return convertOrderPojoToData(b);
+        OrderPojo orderPojo = orderService.get(id);
+        return convertOrderPojoToData(orderPojo);
     }
 
     public List<OrderData> getAll(){
@@ -84,7 +89,7 @@ public class OrderDto {
             orderItemDataList.add(convertOrderItemPojoToData(obj));
         }
 
-        orderService.setInvoicedTrue(orderPojo);
+        orderService.setInvoicedTrue(orderPojo.getId());
 
         InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
 
@@ -95,6 +100,9 @@ public class OrderDto {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
             fos.write(contents);
+
+            String path = "pos-app/generated/Invoice" + orderId + ".pdf";
+            invoiceService.setPath(invoicePojo.getOrderId(), path);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
@@ -124,6 +132,7 @@ public class OrderDto {
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
+        orderService.validateOrderInvoiceStatus(orderId);
         validateOrderItemInputForms(orderItemForms);
         double orderTotal = calculateOrderTotal(orderItemForms);
 
@@ -186,7 +195,9 @@ public class OrderDto {
     private OrderData convertOrderPojoToData(OrderPojo orderPojo) {
         OrderData orderData = new OrderData();
         orderData.setId(orderPojo.getId());
-        orderData.setDateTime(orderPojo.getDateTime());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        orderData.setDateTime(orderPojo.getDateTime().format(dateTimeFormatter));
+        orderData.setInvoiced(orderPojo.isInvoiced());
         orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
     }

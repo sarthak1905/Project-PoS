@@ -37,4 +37,9 @@ public class InvoiceService {
         }
         return b;
     }
+
+    public void setPath(Integer orderId, String path) throws ApiException {
+        InvoicePojo invoicePojo = getCheck(orderId);
+        invoicePojo.setPath(path);
+    }
 }

@@ -1,6 +1,5 @@
 package com.increff.pos.service;
 
-
 import com.increff.pos.dao.OrderDao;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
@@ -68,7 +67,7 @@ public class OrderService {
         orderDao.delete(id);
     }
 
-    public OrderPojo getCheck(int id) throws ApiException {
+    private OrderPojo getCheck(int id) throws ApiException {
         OrderPojo p = orderDao.select_id(id);
         if (p == null) {
             throw new ApiException("Order with given ID: " + id + " does not exist!");
@@ -83,7 +82,20 @@ public class OrderService {
         }
     }
 
-    public void setInvoicedTrue(OrderPojo orderPojo) {
+    public void setInvoicedTrue(Integer id) throws ApiException {
+        OrderPojo orderPojo = getCheck(id);
         orderPojo.setInvoiced(true);
+    }
+
+    public void setInvoicedFalse(Integer id) throws ApiException {
+        OrderPojo orderPojo = getCheck(id);
+        orderPojo.setInvoiced(false);
+    }
+
+    public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
+        OrderPojo orderPojo = get(orderId);
+        if(orderPojo.isInvoiced()){
+            throw new ApiException("Invoiced order cannot be edited!");
+        }
     }
 }

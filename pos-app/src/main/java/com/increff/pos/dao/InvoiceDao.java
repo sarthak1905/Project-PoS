@@ -20,7 +20,7 @@ public class InvoiceDao extends AbstractDao{
         em().persist(invoicePojo);
     }
 
-    public InvoicePojo select_id(int orderId){
+    public InvoicePojo select_id(Integer orderId){
         TypedQuery<InvoicePojo> query = getQuery(select_id, InvoicePojo.class);
         query.setParameter("order_id", orderId);
         return getSingle(query);

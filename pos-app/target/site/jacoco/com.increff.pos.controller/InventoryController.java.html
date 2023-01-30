@@ -27,7 +27,7 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Gets an inventory&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
-    public InventoryData get(@PathVariable int id) throws ApiException{
+    public InventoryData get(@PathVariable Integer id) throws ApiException{
 <span class="nc" id="L31">        return inventoryDto.get(id);</span>
     }
 
@@ -39,13 +39,13 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Updates an inventory&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody InventoryForm form) throws ApiException {
+    public void update(@PathVariable Integer id, @RequestBody InventoryForm form) throws ApiException {
 <span class="nc" id="L43">        inventoryDto.update(id, form);</span>
 <span class="nc" id="L44">    }</span>
 
     @ApiOperation(value = &quot;Deletes an inventory&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws ApiException{
+    public void delete(@PathVariable Integer id) throws ApiException{
 <span class="nc" id="L49">        inventoryDto.delete(id);</span>
 <span class="nc" id="L50">    }</span>
 

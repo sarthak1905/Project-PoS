@@ -29,7 +29,7 @@ import java.util.List;
 
 	@ApiOperation(value = &quot;Deletes a user&quot;)
 	@RequestMapping(path = &quot;/api/admin/user/{id}&quot;, method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable int id) {
+	public void deleteUser(@PathVariable Integer id) {
 <span class="nc" id="L33">		service.delete(id);</span>
 <span class="nc" id="L34">	}</span>
 

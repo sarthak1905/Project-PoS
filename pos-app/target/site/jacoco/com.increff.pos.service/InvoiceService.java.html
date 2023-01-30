@@ -37,5 +37,10 @@ import java.util.List;
         }
 <span class="nc" id="L38">        return b;</span>
     }
+
+    public void setPath(Integer orderId, String path) throws ApiException {
+<span class="nc" id="L42">        InvoicePojo invoicePojo = getCheck(orderId);</span>
+<span class="nc" id="L43">        invoicePojo.setPath(path);</span>
+<span class="nc" id="L44">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

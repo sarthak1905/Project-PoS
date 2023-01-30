@@ -21,7 +21,7 @@ public class InventoryDao extends AbstractDao{
         em().persist(p);
     }
 
-    public InventoryPojo select_id(int id){
+    public InventoryPojo select_id(Integer id){
         TypedQuery<InventoryPojo> query = getQuery(select_id, InventoryPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
@@ -32,7 +32,7 @@ public class InventoryDao extends AbstractDao{
         return query.getResultList();
     }
 
-    public int delete(int id){
+    public Integer delete(Integer id){
         Query query = em().createQuery(delete_id);
         query.setParameter("id", id);
         return query.executeUpdate();

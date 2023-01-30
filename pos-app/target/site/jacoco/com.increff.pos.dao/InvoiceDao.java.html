@@ -20,7 +20,7 @@ import java.util.List;
 <span class="nc" id="L20">        em().persist(invoicePojo);</span>
 <span class="nc" id="L21">    }</span>
 
-    public InvoicePojo select_id(int orderId){
+    public InvoicePojo select_id(Integer orderId){
 <span class="nc" id="L24">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_id, InvoicePojo.class);</span>
 <span class="nc" id="L25">        query.setParameter(&quot;order_id&quot;, orderId);</span>
 <span class="nc" id="L26">        return getSingle(query);</span>

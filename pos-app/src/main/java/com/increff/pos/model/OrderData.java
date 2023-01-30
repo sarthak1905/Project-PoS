@@ -2,7 +2,6 @@ package com.increff.pos.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 
@@ -11,8 +10,8 @@ import java.time.LocalDateTime;
 public class OrderData {
 
     private Integer id;
-    private LocalDateTime dateTime;
-    private boolean invoiceStatus;
+    private String dateTime;
+    private boolean isInvoiced;
     private Double orderTotal;
 
 }

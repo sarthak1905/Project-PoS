@@ -28,7 +28,7 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Gets an order&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
-    public OrderData get(@PathVariable int id) throws ApiException{
+    public OrderData get(@PathVariable Integer id) throws ApiException{
 <span class="nc" id="L32">        return orderDto.get(id);</span>
     }
 
@@ -52,13 +52,13 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Updates an order&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
-    public void update(@PathVariable int id, @RequestBody List&lt;OrderItemForm&gt; orderItemForms) throws ApiException {
+    public void update(@PathVariable Integer id, @RequestBody List&lt;OrderItemForm&gt; orderItemForms) throws ApiException {
 <span class="nc" id="L56">        orderDto.update(id, orderItemForms);</span>
 <span class="nc" id="L57">    }</span>
 
     @ApiOperation(value = &quot;Deletes an order&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws ApiException{
+    public void delete(@PathVariable Integer id) throws ApiException{
 <span class="nc" id="L62">        orderDto.delete(id);</span>
 <span class="nc" id="L63">    }</span>
 }
