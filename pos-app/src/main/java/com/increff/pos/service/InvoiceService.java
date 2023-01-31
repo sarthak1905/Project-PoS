@@ -2,10 +2,12 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.InvoiceDao;
 import com.increff.pos.pojo.InvoicePojo;
+import com.increff.pos.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -31,15 +33,18 @@ public class InvoiceService {
     }
     
     public InvoicePojo getCheck(Integer id) throws ApiException{
-        InvoicePojo b = invoiceDao.select_id(id);
-        if(b == null){
+        InvoicePojo invoicePojo = invoiceDao.select_id(id);
+        if(invoicePojo == null){
             throw new ApiException("Invoice with given ID does not exist");
         }
-        return b;
+        return invoicePojo;
     }
 
-    public void setPath(Integer orderId, String path) throws ApiException {
-        InvoicePojo invoicePojo = getCheck(orderId);
-        invoicePojo.setPath(path);
+
+    public List<InvoicePojo> getInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
+        if(startDate.isAfter(endDate)){
+            throw new ApiException("Start date cannot be after end date for scheduler!");
+        }
+        return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);
     }
 }

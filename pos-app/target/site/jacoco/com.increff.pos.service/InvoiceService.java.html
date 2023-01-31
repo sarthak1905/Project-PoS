@@ -2,45 +2,50 @@
 
 import com.increff.pos.dao.InvoiceDao;
 import com.increff.pos.pojo.InvoicePojo;
+import com.increff.pos.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L13">public class InvoiceService {</span>
+<span class="nc" id="L15">public class InvoiceService {</span>
 
     @Autowired
     private InvoiceDao invoiceDao;
     
     public void add(InvoicePojo invoicePojo) throws ApiException {
-<span class="nc" id="L19">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        if(existingPojo == null) {</span>
-<span class="nc" id="L21">            invoiceDao.insert(invoicePojo);</span>
+<span class="nc" id="L21">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if(existingPojo == null) {</span>
+<span class="nc" id="L23">            invoiceDao.insert(invoicePojo);</span>
         }
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L25">    }</span>
     
     public InvoicePojo get(int id) throws ApiException{
-<span class="nc" id="L26">        return getCheck(id);</span>
+<span class="nc" id="L28">        return getCheck(id);</span>
     }
     
     public List&lt;InvoicePojo&gt; getAll(){
-<span class="nc" id="L30">        return invoiceDao.selectAll();</span>
+<span class="nc" id="L32">        return invoiceDao.selectAll();</span>
     }
     
     public InvoicePojo getCheck(Integer id) throws ApiException{
-<span class="nc" id="L34">        InvoicePojo b = invoiceDao.select_id(id);</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(b == null){</span>
-<span class="nc" id="L36">            throw new ApiException(&quot;Invoice with given ID does not exist&quot;);</span>
+<span class="nc" id="L36">        InvoicePojo invoicePojo = invoiceDao.select_id(id);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if(invoicePojo == null){</span>
+<span class="nc" id="L38">            throw new ApiException(&quot;Invoice with given ID does not exist&quot;);</span>
         }
-<span class="nc" id="L38">        return b;</span>
+<span class="nc" id="L40">        return invoicePojo;</span>
     }
 
-    public void setPath(Integer orderId, String path) throws ApiException {
-<span class="nc" id="L42">        InvoicePojo invoicePojo = getCheck(orderId);</span>
-<span class="nc" id="L43">        invoicePojo.setPath(path);</span>
-<span class="nc" id="L44">    }</span>
+
+    public List&lt;InvoicePojo&gt; getInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if(startDate.isAfter(endDate)){</span>
+<span class="nc" id="L46">            throw new ApiException(&quot;Start date cannot be after end date for scheduler!&quot;);</span>
+        }
+<span class="nc" id="L48">        return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

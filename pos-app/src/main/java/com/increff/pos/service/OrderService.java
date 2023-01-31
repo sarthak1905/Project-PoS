@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class OrderService {
     private InventoryService inventoryService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private InvoiceService invoiceService;
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
         orderPojo.setDateTime(java.time.LocalDateTime.now());
@@ -98,4 +101,5 @@ public class OrderService {
             throw new ApiException("Invoiced order cannot be edited!");
         }
     }
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 public class SchedulerPojo {
 
     @Id
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(nullable = false, name = "invoiced_order_count")
     private Integer invoicedOrdersCount;
@@ -28,6 +29,6 @@ public class SchedulerPojo {
 
     @Column(nullable = false, name = "total_revenue")
     @Min(value = 0)
-    private Integer totalRevenue;
+    private Double totalRevenue;
 
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -15,6 +16,8 @@ public class OrderDao extends AbstractDao{
     private static String select_id = "select p from OrderPojo p where id=:id";
     private static String select_all = "select p from OrderPojo p";
     private static String delete_id = "delete from OrderPojo p where id=:id";
+    private static String select_between_dates = "select p from OrderPojo p where " +
+            "datetime between :startDate and :endDate and is_invoiced=true";
 
 
     public void insert(OrderPojo p){
@@ -37,4 +40,5 @@ public class OrderDao extends AbstractDao{
         query.setParameter("id", id);
         return query.executeUpdate();
     }
+
 }
