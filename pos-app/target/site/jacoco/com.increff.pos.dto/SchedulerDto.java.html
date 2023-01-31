@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SchedulerDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.dto</a> &gt; <span class="el_source">SchedulerDto.java</span></div><h1>SchedulerDto.java</h1><pre class="source lang-java linenums">package com.increff.pos.dto;
+
+import com.increff.pos.model.BrandData;
+import com.increff.pos.model.SchedulerData;
+import com.increff.pos.pojo.InvoicePojo;
+import com.increff.pos.pojo.OrderItemPojo;
+import com.increff.pos.pojo.OrderPojo;
+import com.increff.pos.pojo.SchedulerPojo;
+import com.increff.pos.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+<span class="nc" id="L21">public class SchedulerDto {</span>
+
+    @Autowired
+    InvoiceService invoiceService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    OrderItemService orderItemService;
+    @Autowired
+    SchedulerService schedulerService;
+
+
+    public void createScheduler() throws ApiException {
+<span class="nc" id="L34">        SchedulerPojo schedulerPojo = new SchedulerPojo();</span>
+<span class="nc" id="L35">        LocalDateTime currentDateTime = java.time.LocalDateTime.now();</span>
+<span class="nc" id="L36">        LocalDateTime lastDayDateTime = currentDateTime.minus(1, ChronoUnit.DAYS);</span>
+<span class="nc" id="L37">        LocalDate lastDayDate = java.time.LocalDate.now().minus(1, ChronoUnit.DAYS);</span>
+<span class="nc" id="L38">        schedulerPojo.setDate(lastDayDate);</span>
+
+<span class="nc" id="L40">        List&lt;InvoicePojo&gt; invoicePojoList = invoiceService.getInvoicedOrdersBetweenDates(lastDayDateTime, currentDateTime);</span>
+<span class="nc" id="L41">        schedulerPojo.setInvoicedOrdersCount(invoicePojoList.size());</span>
+
+<span class="nc" id="L43">        int totalItems = 0;</span>
+<span class="nc" id="L44">        double totalRevenue = 0.0;</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        for(InvoicePojo invoicePojo: invoicePojoList){</span>
+<span class="nc" id="L46">            List&lt;OrderItemPojo&gt; orderItemPojoList = orderItemService.getByOrderId(invoicePojo.getOrderId());</span>
+<span class="nc" id="L47">            OrderPojo orderPojo = orderService.get(invoicePojo.getOrderId());</span>
+<span class="nc" id="L48">            totalItems += orderItemPojoList.size();</span>
+<span class="nc" id="L49">            totalRevenue += orderPojo.getOrderTotal();</span>
+<span class="nc" id="L50">        }</span>
+<span class="nc" id="L51">        schedulerPojo.setInvoicedItemsCount(totalItems);</span>
+<span class="nc" id="L52">        schedulerPojo.setTotalRevenue(totalRevenue);</span>
+<span class="nc" id="L53">        schedulerService.addOrUpdate(schedulerPojo);</span>
+<span class="nc" id="L54">    }</span>
+
+    public List&lt;SchedulerData&gt; getAll() {
+<span class="nc" id="L57">        List&lt;SchedulerPojo&gt; schedulerPojoList = schedulerService.getAll();</span>
+<span class="nc" id="L58">        List&lt;SchedulerData&gt; schedulerDataList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        for(SchedulerPojo schedulerPojo: schedulerPojoList){</span>
+<span class="nc" id="L60">            schedulerDataList.add(convertSchedulerPojoToData(schedulerPojo));</span>
+<span class="nc" id="L61">        }</span>
+<span class="nc" id="L62">        return schedulerDataList;</span>
+    }
+
+    private SchedulerData convertSchedulerPojoToData(SchedulerPojo schedulerPojo) {
+<span class="nc" id="L66">        SchedulerData schedulerData = new SchedulerData();</span>
+
+<span class="nc" id="L68">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L69">        schedulerData.setDate(schedulerPojo.getDate().format(dateTimeFormatter));</span>
+<span class="nc" id="L70">        schedulerData.setTotalRevenue(schedulerPojo.getTotalRevenue());</span>
+<span class="nc" id="L71">        schedulerData.setInvoicedItemsCount(schedulerPojo.getInvoicedItemsCount());</span>
+<span class="nc" id="L72">        schedulerData.setInvoicedOrdersCount(schedulerPojo.getInvoicedOrdersCount());</span>
+<span class="nc" id="L73">        return schedulerData;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

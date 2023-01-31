@@ -1,5 +1,7 @@
 package com.increff.pos.dao;
 
+import com.increff.pos.model.SchedulerData;
+import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.pojo.SchedulerPojo;
 import org.springframework.stereotype.Repository;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -25,4 +28,8 @@ public class SchedulerDao extends AbstractDao {
         return getSingle(query);
     }
 
+    public List<SchedulerPojo> selectAll() {
+        TypedQuery<SchedulerPojo> query = getQuery(select_all, SchedulerPojo.class);
+        return query.getResultList();
+    }
 }

@@ -21,6 +21,7 @@ public class SchedulerPojo {
     private LocalDate date;
 
     @Column(nullable = false, name = "invoiced_order_count")
+    @Min(value = 0)
     private Integer invoicedOrdersCount;
 
     @Column(nullable = false, name = "invoiced_items_count")

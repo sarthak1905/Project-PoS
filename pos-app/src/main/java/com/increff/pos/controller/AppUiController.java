@@ -37,4 +37,9 @@ public class AppUiController extends AbstractUiController {
 		return mav("order.html");
 	}
 
+	@RequestMapping(value = "/ui/scheduler")
+	public ModelAndView scheduler() {
+		return mav("scheduler.html");
+	}
+
 }

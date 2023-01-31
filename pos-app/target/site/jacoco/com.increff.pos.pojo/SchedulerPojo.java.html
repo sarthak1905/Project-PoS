@@ -21,15 +21,16 @@ import java.time.LocalDateTime;
 <span class="nc" id="L21">    private LocalDate date;</span>
 
     @Column(nullable = false, name = &quot;invoiced_order_count&quot;)
-<span class="nc" id="L24">    private Integer invoicedOrdersCount;</span>
+    @Min(value = 0)
+<span class="nc" id="L25">    private Integer invoicedOrdersCount;</span>
 
     @Column(nullable = false, name = &quot;invoiced_items_count&quot;)
     @Min(value = 0)
-<span class="nc" id="L28">    private Integer invoicedItemsCount;</span>
+<span class="nc" id="L29">    private Integer invoicedItemsCount;</span>
 
     @Column(nullable = false, name = &quot;total_revenue&quot;)
     @Min(value = 0)
-<span class="nc" id="L32">    private Double totalRevenue;</span>
+<span class="nc" id="L33">    private Double totalRevenue;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

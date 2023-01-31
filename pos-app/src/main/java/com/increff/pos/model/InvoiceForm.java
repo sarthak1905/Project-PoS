@@ -3,6 +3,7 @@ package com.increff.pos.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,9 +12,14 @@ import java.util.List;
 @Setter
 public class InvoiceForm {
 
+    @NotBlank
     private Integer orderId;
+    @NotBlank
     private Double orderTotal;
+    @NotBlank
     private String orderDate;
+    @NotBlank
     private List<OrderItemData> orderItemData;
+    @NotBlank
     private String invoiceDate;
 }

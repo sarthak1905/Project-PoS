@@ -1,6 +1,6 @@
 package com.increff.pos.scheduler;
 
-import com.increff.pos.dto.SalesDto;
+import com.increff.pos.dto.SchedulerDto;
 import com.increff.pos.service.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class Scheduler {
 
     @Autowired
-    SalesDto salesDto;
+    SchedulerDto salesDto;
 
     @Async
     @Scheduled(cron = "0 1 12 * * *")

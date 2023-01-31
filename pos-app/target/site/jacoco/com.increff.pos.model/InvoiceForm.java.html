@@ -3,18 +3,24 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-<span class="nc" id="L11">@Setter</span>
-<span class="nc" id="L12">public class InvoiceForm {</span>
+<span class="nc" id="L12">@Setter</span>
+<span class="nc" id="L13">public class InvoiceForm {</span>
 
-<span class="nc" id="L14">    private Integer orderId;</span>
-<span class="nc" id="L15">    private Double orderTotal;</span>
-<span class="nc" id="L16">    private String orderDate;</span>
-<span class="nc" id="L17">    private List&lt;OrderItemData&gt; orderItemData;</span>
-<span class="nc" id="L18">    private String invoiceDate;</span>
+    @NotBlank
+<span class="nc" id="L16">    private Integer orderId;</span>
+    @NotBlank
+<span class="nc" id="L18">    private Double orderTotal;</span>
+    @NotBlank
+<span class="nc" id="L20">    private String orderDate;</span>
+    @NotBlank
+<span class="nc" id="L22">    private List&lt;OrderItemData&gt; orderItemData;</span>
+    @NotBlank
+<span class="nc" id="L24">    private String invoiceDate;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
