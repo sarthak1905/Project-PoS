@@ -13,32 +13,54 @@ import java.util.List;
 @Transactional
 <span class="nc" id="L14">public class OrderDao extends AbstractDao{</span>
 
-<span class="nc" id="L16">    private static String select_id = &quot;select p from OrderPojo p where id=:id&quot;;</span>
-<span class="nc" id="L17">    private static String select_all = &quot;select p from OrderPojo p&quot;;</span>
-<span class="nc" id="L18">    private static String delete_id = &quot;delete from OrderPojo p where id=:id&quot;;</span>
-<span class="nc" id="L19">    private static String select_between_dates = &quot;select p from OrderPojo p where &quot; +</span>
-            &quot;datetime between :startDate and :endDate and is_invoiced=true&quot;;
+    private static final String select_id = &quot;select p from OrderPojo p where id=:id&quot;;
+    private static final String select_all = &quot;select p from OrderPojo p&quot;;
+    private static final String delete_id = &quot;delete from OrderPojo p where id=:id&quot;;
+    private static final String select_between_dates = &quot;select p from OrderPojo p where &quot; +
+            &quot;datetime between :startDate and :endDate&quot;;
+    private static final String select_after_date = &quot;select p from OrderPojo p where &quot; +
+            &quot;datetime &gt;= :startDate&quot;;
+    private static final String select_before_date = &quot;select p from OrderPojo p where &quot; +
+            &quot;datetime &lt;= :endDate&quot;;
 
 
     public void insert(OrderPojo p){
-<span class="nc" id="L24">        em().persist(p);</span>
-<span class="nc" id="L25">    }</span>
+<span class="nc" id="L28">        em().persist(p);</span>
+<span class="nc" id="L29">    }</span>
 
     public OrderPojo select_id(int id){
-<span class="nc" id="L28">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_id, OrderPojo.class);</span>
-<span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L30">        return getSingle(query);</span>
+<span class="nc" id="L32">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_id, OrderPojo.class);</span>
+<span class="nc" id="L33">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L34">        return getSingle(query);</span>
     }
 
     public List&lt;OrderPojo&gt; selectAll(){
-<span class="nc" id="L34">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
-<span class="nc" id="L35">        return query.getResultList();</span>
+<span class="nc" id="L38">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
+<span class="nc" id="L39">        return query.getResultList();</span>
     }
 
     public int delete(int id){
-<span class="nc" id="L39">        Query query = em().createQuery(delete_id);</span>
-<span class="nc" id="L40">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L41">        return query.executeUpdate();</span>
+<span class="nc" id="L43">        Query query = em().createQuery(delete_id);</span>
+<span class="nc" id="L44">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L45">        return query.executeUpdate();</span>
+    }
+
+    public List&lt;OrderPojo&gt; selectBeforeEndDate(LocalDateTime endDate) {
+<span class="nc" id="L49">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_before_date, OrderPojo.class);</span>
+<span class="nc" id="L50">        query.setParameter(&quot;endDate&quot;, endDate);</span>
+<span class="nc" id="L51">        return query.getResultList();</span>
+    }
+
+    public List&lt;OrderPojo&gt; selectBetweenDates(LocalDateTime startDate,LocalDateTime endDate) {
+<span class="nc" id="L55">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_between_dates, OrderPojo.class);</span>
+<span class="nc" id="L56">        query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate);</span>
+<span class="nc" id="L57">        return query.getResultList();</span>
+    }
+
+    public List&lt;OrderPojo&gt; selectAfterStartDate(LocalDateTime startDate) {
+<span class="nc" id="L61">        TypedQuery&lt;OrderPojo&gt; query = getQuery(select_after_date, OrderPojo.class);</span>
+<span class="nc" id="L62">        query.setParameter(&quot;startDate&quot;, startDate);</span>
+<span class="nc" id="L63">        return query.getResultList();</span>
     }
 
 }

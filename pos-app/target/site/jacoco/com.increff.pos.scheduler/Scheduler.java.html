@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
     DaySalesDto daySalesDto;
 
     @Async
-    @Scheduled(cron = &quot;57 59 23 * * *&quot;)
+    @Scheduled(cron = &quot;1 0 0 * * *&quot;)
     public void createDaySalesReport() throws ApiException {
 <span class="nc" id="L19">        daySalesDto.createDailyReport();</span>
 <span class="nc" id="L20">    }</span>

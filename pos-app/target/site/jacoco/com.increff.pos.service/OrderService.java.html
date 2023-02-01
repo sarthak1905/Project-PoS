@@ -102,5 +102,16 @@ import java.util.List;
         }
 <span class="nc" id="L103">    }</span>
 
+    public List&lt;OrderPojo&gt; getBeforeEndDate(LocalDateTime endDate) {
+<span class="nc" id="L106">        return orderDao.selectBeforeEndDate(endDate);</span>
+    }
+
+    public List&lt;OrderPojo&gt; getAfterStartDate(LocalDateTime startDate) {
+<span class="nc" id="L110">        return orderDao.selectAfterStartDate(startDate);</span>
+    }
+
+    public List&lt;OrderPojo&gt; getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+<span class="nc" id="L114">        return orderDao.selectBetweenDates(startDate, endDate);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -102,4 +102,15 @@ public class OrderService {
         }
     }
 
+    public List<OrderPojo> getBeforeEndDate(LocalDateTime endDate) {
+        return orderDao.selectBeforeEndDate(endDate);
+    }
+
+    public List<OrderPojo> getAfterStartDate(LocalDateTime startDate) {
+        return orderDao.selectAfterStartDate(startDate);
+    }
+
+    public List<OrderPojo> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return orderDao.selectBetweenDates(startDate, endDate);
+    }
 }

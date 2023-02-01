@@ -13,11 +13,15 @@ import java.util.List;
 @Transactional
 public class OrderDao extends AbstractDao{
 
-    private static String select_id = "select p from OrderPojo p where id=:id";
-    private static String select_all = "select p from OrderPojo p";
-    private static String delete_id = "delete from OrderPojo p where id=:id";
-    private static String select_between_dates = "select p from OrderPojo p where " +
-            "datetime between :startDate and :endDate and is_invoiced=true";
+    private static final String select_id = "select p from OrderPojo p where id=:id";
+    private static final String select_all = "select p from OrderPojo p";
+    private static final String delete_id = "delete from OrderPojo p where id=:id";
+    private static final String select_between_dates = "select p from OrderPojo p where " +
+            "datetime between :startDate and :endDate";
+    private static final String select_after_date = "select p from OrderPojo p where " +
+            "datetime >= :startDate";
+    private static final String select_before_date = "select p from OrderPojo p where " +
+            "datetime <= :endDate";
 
 
     public void insert(OrderPojo p){
@@ -39,6 +43,24 @@ public class OrderDao extends AbstractDao{
         Query query = em().createQuery(delete_id);
         query.setParameter("id", id);
         return query.executeUpdate();
+    }
+
+    public List<OrderPojo> selectBeforeEndDate(LocalDateTime endDate) {
+        TypedQuery<OrderPojo> query = getQuery(select_before_date, OrderPojo.class);
+        query.setParameter("endDate", endDate);
+        return query.getResultList();
+    }
+
+    public List<OrderPojo> selectBetweenDates(LocalDateTime startDate,LocalDateTime endDate) {
+        TypedQuery<OrderPojo> query = getQuery(select_between_dates, OrderPojo.class);
+        query.setParameter("startDate", startDate).setParameter("endDate", endDate);
+        return query.getResultList();
+    }
+
+    public List<OrderPojo> selectAfterStartDate(LocalDateTime startDate) {
+        TypedQuery<OrderPojo> query = getQuery(select_after_date, OrderPojo.class);
+        query.setParameter("startDate", startDate);
+        return query.getResultList();
     }
 
 }
