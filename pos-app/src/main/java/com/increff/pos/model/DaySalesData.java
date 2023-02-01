@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SchedulerData {
+public class DaySalesData {
 
     private String date;
     private Integer invoicedOrdersCount;

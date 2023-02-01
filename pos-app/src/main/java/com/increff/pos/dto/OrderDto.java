@@ -19,6 +19,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -75,42 +79,53 @@ public class OrderDto {
         return orderItemDataList;
     }
 
-    public ResponseEntity<byte[]> getOrderInvoice(Integer orderId) throws ApiException {
+    public ResponseEntity<byte[]> getOrderInvoice(Integer orderId) throws ApiException, IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        String filename = "invoice" + orderId +".pdf";
+        headers.setContentDispositionFormData(filename, filename);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        String invoiceDirectoryString = "./generated/invoice"+ orderId +".pdf";
+        File file = new File(invoiceDirectoryString);
+
+        if(file.exists()){
+            Path invoicePath = Paths.get(invoiceDirectoryString);
+            byte[] contents = Files.readAllBytes(invoicePath);
+            return new ResponseEntity<>(contents, headers, HttpStatus.OK);
+        }
+
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
-
-        InvoicePojo invoicePojo = new InvoicePojo();
-        invoicePojo.setOrderId(orderId);
-        invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo obj:orderItemPojos){
             orderItemDataList.add(convertOrderItemPojoToData(obj));
         }
 
-        orderService.setInvoicedTrue(orderPojo.getId());
+        InvoicePojo invoicePojo = new InvoicePojo();
+        InvoicePojo existingInvoicePojo = invoiceService.getOrNull(orderId);
+        invoicePojo.setOrderId(orderId);
+        if(existingInvoicePojo == null) {
+            invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
+            orderService.setInvoicedTrue(orderPojo.getId());
+        }
+        else{
+            invoicePojo.setInvoiceDate(existingInvoicePojo.getInvoiceDate());
+        }
 
-        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
-
+        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList,orderPojo,invoicePojo);
         RestTemplate restTemplate = new RestTemplate();
         String url = invoiceUrl;
 
-        File file = new File("./generated/Invoice"+ orderId +".pdf");
         try (FileOutputStream fos = new FileOutputStream(file)) {
             byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
             fos.write(contents);
 
-            String path = "pos-app/generated/Invoice" + orderId + ".pdf";
+            String path = "pos-app/generated/invoice" + orderId + ".pdf";
             invoicePojo.setPath(path);
             invoiceService.add(invoicePojo);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-
-            String filename = "invoice.pdf";
-            headers.setContentDispositionFormData(filename, filename);
-
-            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
         catch (Exception e) {

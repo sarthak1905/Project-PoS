@@ -1,7 +1,7 @@
 package com.increff.pos.controller;
 
-import com.increff.pos.dto.SchedulerDto;
-import com.increff.pos.model.SchedulerData;
+import com.increff.pos.dto.DaySalesDto;
+import com.increff.pos.model.DaySalesData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.List;
 public class SchedulerController {
 
     @Autowired
-    private SchedulerDto schedulerDto;
+    private DaySalesDto daySalesDto;
 
     @ApiOperation(value = "Gets the scheduler table")
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<SchedulerData> getAll(){
-        return schedulerDto.getAll();
+    public List<DaySalesData> getAll(){
+        return daySalesDto.getAll();
     }
 
 }

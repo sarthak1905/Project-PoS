@@ -9,13 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "pos_day_sales")
-public class SchedulerPojo {
+public class DaySalesPojo {
 
     @Id
     private LocalDate date;

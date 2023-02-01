@@ -47,4 +47,8 @@ public class InvoiceService {
         }
         return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);
     }
+
+    public InvoicePojo getOrNull(Integer orderId) {
+        return invoiceDao.select_id(orderId);
+    }
 }

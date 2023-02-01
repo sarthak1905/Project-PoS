@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @Api
@@ -46,7 +47,7 @@ public class OrderController {
 
     @ApiOperation(value = "Generates order invoice")
     @RequestMapping(path = "/{id}/invoice", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getOrderInvoice(@PathVariable Integer id) throws ApiException {
+    public ResponseEntity<byte[]> getOrderInvoice(@PathVariable Integer id) throws ApiException, IOException {
         return orderDto.getOrderInvoice(id);
     }
 

@@ -1,10 +1,8 @@
 package com.increff.pos.controller;
 
 import com.increff.pos.dto.SalesDto;
-import com.increff.pos.dto.SchedulerDto;
 import com.increff.pos.model.SalesData;
 import com.increff.pos.model.SalesForm;
-import com.increff.pos.model.SchedulerData;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
