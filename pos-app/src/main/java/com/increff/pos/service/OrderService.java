@@ -90,11 +90,6 @@ public class OrderService {
         orderPojo.setInvoiced(true);
     }
 
-    public void setInvoicedFalse(Integer id) throws ApiException {
-        OrderPojo orderPojo = getCheck(id);
-        orderPojo.setInvoiced(false);
-    }
-
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
         OrderPojo orderPojo = get(orderId);
         if(orderPojo.isInvoiced()){
@@ -113,4 +108,5 @@ public class OrderService {
     public List<OrderPojo> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return orderDao.selectBetweenDates(startDate, endDate);
     }
+
 }

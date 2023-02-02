@@ -3,6 +3,7 @@ package com.increff.pos.dao;
 import com.increff.pos.pojo.InvoicePojo;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -16,6 +17,8 @@ public class InvoiceDao extends AbstractDao{
     private static String select_all = "select p from InvoicePojo p";
     private static String select_between_dates = "select p from InvoicePojo p where invoice_date " +
             "between :start_date and :end_date";
+    private static final String select_first_order_date_time = "select MIN(p.invoiceDate) " +
+            "from InvoicePojo p";
 
     public void insert(InvoicePojo invoicePojo){
         em().persist(invoicePojo);
@@ -36,5 +39,10 @@ public class InvoiceDao extends AbstractDao{
         TypedQuery<InvoicePojo> query = getQuery(select_between_dates, InvoicePojo.class);
         query.setParameter("start_date", startDate).setParameter("end_date", endDate);
         return query.getResultList();
+    }
+
+    public LocalDateTime selectFirstOrderDateTime() {
+        Query query = em().createQuery(select_first_order_date_time);
+        return (LocalDateTime)query.getSingleResult();
     }
 }

@@ -3,6 +3,7 @@ package com.increff.pos.dao;
 import com.increff.pos.pojo.DaySalesPojo;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -12,8 +13,9 @@ import java.util.List;
 @Transactional
 public class DaySalesDao extends AbstractDao {
 
-    private static String select_all = "select p from SchedulerPojo p";
-    private static String select_by_date = "select p from SchedulerPojo p where date=:date";
+    private static String select_all = "select p from DaySalesPojo p";
+    private static String select_by_date = "select p from DaySalesPojo p where date=:date";
+    private static final String select_latest_date = "select max(p.date) from DaySalesPojo p";
 
     public void insert(DaySalesPojo daySalesPojo){
         em().persist(daySalesPojo);
@@ -28,5 +30,10 @@ public class DaySalesDao extends AbstractDao {
     public List<DaySalesPojo> selectAll() {
         TypedQuery<DaySalesPojo> query = getQuery(select_all, DaySalesPojo.class);
         return query.getResultList();
+    }
+
+    public LocalDate selectLatestDate() {
+        Query query = em().createQuery(select_latest_date);
+        return (LocalDate)query.getSingleResult();
     }
 }

@@ -37,10 +37,26 @@ import org.springframework.web.servlet.ModelAndView;
 <span class="nc" id="L37">		return mav(&quot;order.html&quot;);</span>
 	}
 
-	@RequestMapping(value = &quot;/ui/scheduler&quot;)
-	public ModelAndView scheduler() {
-<span class="nc" id="L42">		return mav(&quot;scheduler.html&quot;);</span>
+	@RequestMapping(value = &quot;/ui/reports/day-sales&quot;)
+	public ModelAndView daySalesReport() {
+<span class="nc" id="L42">		return mav(&quot;day-sales.html&quot;);</span>
 	}
+
+	@RequestMapping(value = &quot;/ui/reports/filtered-sales&quot;)
+	public ModelAndView filteredSalesReport() {
+<span class="nc" id="L47">		return mav(&quot;filtered-sales.html&quot;);</span>
+	}
+
+	@RequestMapping(value = &quot;/ui/reports/brand&quot;)
+	public ModelAndView brandsReport() {
+<span class="nc" id="L52">		return mav(&quot;brand-report.html&quot;);</span>
+	}
+
+	@RequestMapping(value = &quot;/ui/reports/inventory&quot;)
+	public ModelAndView inventoryReport() {
+<span class="nc" id="L57">		return mav(&quot;inventory-report.html&quot;);</span>
+	}
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

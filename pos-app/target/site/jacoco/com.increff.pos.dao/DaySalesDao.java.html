@@ -3,6 +3,7 @@
 import com.increff.pos.pojo.DaySalesPojo;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -10,24 +11,30 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class DaySalesDao extends AbstractDao {</span>
+<span class="nc" id="L14">public class DaySalesDao extends AbstractDao {</span>
 
-<span class="nc" id="L15">    private static String select_all = &quot;select p from SchedulerPojo p&quot;;</span>
-<span class="nc" id="L16">    private static String select_by_date = &quot;select p from SchedulerPojo p where date=:date&quot;;</span>
+<span class="nc" id="L16">    private static String select_all = &quot;select p from DaySalesPojo p&quot;;</span>
+<span class="nc" id="L17">    private static String select_by_date = &quot;select p from DaySalesPojo p where date=:date&quot;;</span>
+    private static final String select_latest_date = &quot;select max(p.date) from DaySalesPojo p&quot;;
 
     public void insert(DaySalesPojo daySalesPojo){
-<span class="nc" id="L19">        em().persist(daySalesPojo);</span>
-<span class="nc" id="L20">    }</span>
+<span class="nc" id="L21">        em().persist(daySalesPojo);</span>
+<span class="nc" id="L22">    }</span>
 
     public DaySalesPojo selectByDate(LocalDate date){
-<span class="nc" id="L23">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_by_date, DaySalesPojo.class);</span>
-<span class="nc" id="L24">        query.setParameter(&quot;date&quot;, date);</span>
-<span class="nc" id="L25">        return getSingle(query);</span>
+<span class="nc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_by_date, DaySalesPojo.class);</span>
+<span class="nc" id="L26">        query.setParameter(&quot;date&quot;, date);</span>
+<span class="nc" id="L27">        return getSingle(query);</span>
     }
 
     public List&lt;DaySalesPojo&gt; selectAll() {
-<span class="nc" id="L29">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_all, DaySalesPojo.class);</span>
-<span class="nc" id="L30">        return query.getResultList();</span>
+<span class="nc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_all, DaySalesPojo.class);</span>
+<span class="nc" id="L32">        return query.getResultList();</span>
+    }
+
+    public LocalDate selectLatestDate() {
+<span class="nc" id="L36">        Query query = em().createQuery(select_latest_date);</span>
+<span class="nc" id="L37">        return (LocalDate)query.getSingleResult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

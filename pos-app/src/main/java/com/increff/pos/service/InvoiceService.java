@@ -51,4 +51,7 @@ public class InvoiceService {
     public InvoicePojo getOrNull(Integer orderId) {
         return invoiceDao.select_id(orderId);
     }
+    public LocalDateTime getFirstOrderDateTime() {
+        return invoiceDao.selectFirstOrderDateTime();
+    }
 }

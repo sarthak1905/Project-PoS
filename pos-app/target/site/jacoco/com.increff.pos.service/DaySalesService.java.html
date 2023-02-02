@@ -2,33 +2,71 @@
 
 import com.increff.pos.dao.DaySalesDao;
 import com.increff.pos.pojo.DaySalesPojo;
+import com.increff.pos.pojo.InvoicePojo;
+import com.increff.pos.pojo.OrderItemPojo;
+import com.increff.pos.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L13">public class DaySalesService {</span>
+<span class="nc" id="L19">public class DaySalesService {</span>
 
     @Autowired
     DaySalesDao daySalesDao;
+    @Autowired
+    InvoiceService invoiceService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    OrderItemService orderItemService;
 
     public void addOrUpdate(DaySalesPojo daySalesPojo) {
-<span class="nc" id="L19">        DaySalesPojo existingDaySalesPojo = daySalesDao.selectByDate(daySalesPojo.getDate());</span>
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        if (existingDaySalesPojo == null) {</span>
-<span class="nc" id="L21">            daySalesDao.insert(daySalesPojo);</span>
+<span class="nc" id="L31">        DaySalesPojo existingDaySalesPojo = daySalesDao.selectByDate(daySalesPojo.getDate());</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (existingDaySalesPojo == null) {</span>
+<span class="nc" id="L33">            daySalesDao.insert(daySalesPojo);</span>
         }
         else{
-<span class="nc" id="L24">            existingDaySalesPojo.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());</span>
-<span class="nc" id="L25">            existingDaySalesPojo.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());</span>
-<span class="nc" id="L26">            existingDaySalesPojo.setTotalRevenue(daySalesPojo.getTotalRevenue());</span>
+<span class="nc" id="L36">            existingDaySalesPojo.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());</span>
+<span class="nc" id="L37">            existingDaySalesPojo.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());</span>
+<span class="nc" id="L38">            existingDaySalesPojo.setTotalRevenue(daySalesPojo.getTotalRevenue());</span>
         }
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L40">    }</span>
 
     public List&lt;DaySalesPojo&gt; getAll() {
-<span class="nc" id="L31">        return daySalesDao.selectAll();</span>
+<span class="nc" id="L43">        return daySalesDao.selectAll();</span>
     }
+
+    public LocalDate getLastDate() {
+<span class="nc" id="L47">        return daySalesDao.selectLatestDate();</span>
+    }
+
+    public void createDaySalesEntry(LocalDate date) throws ApiException {
+<span class="nc" id="L51">        LocalDateTime startOfDay = date.atStartOfDay();</span>
+<span class="nc" id="L52">        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);</span>
+<span class="nc" id="L53">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
+<span class="nc" id="L54">        daySalesPojo.setDate(date);</span>
+
+<span class="nc" id="L56">        List&lt;InvoicePojo&gt; invoicePojoList = invoiceService.getInvoicedOrdersBetweenDates(startOfDay, endOfDay);</span>
+<span class="nc" id="L57">        daySalesPojo.setInvoicedOrdersCount(invoicePojoList.size());</span>
+
+<span class="nc" id="L59">        int totalItems = 0;</span>
+<span class="nc" id="L60">        double totalRevenue = 0.0;</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        for(InvoicePojo invoicePojo: invoicePojoList){</span>
+<span class="nc" id="L62">            List&lt;OrderItemPojo&gt; orderItemPojoList = orderItemService.getByOrderId(invoicePojo.getOrderId());</span>
+<span class="nc" id="L63">            OrderPojo orderPojo = orderService.get(invoicePojo.getOrderId());</span>
+<span class="nc" id="L64">            totalItems += orderItemPojoList.size();</span>
+<span class="nc" id="L65">            totalRevenue += orderPojo.getOrderTotal();</span>
+<span class="nc" id="L66">        }</span>
+<span class="nc" id="L67">        daySalesPojo.setInvoicedItemsCount(totalItems);</span>
+<span class="nc" id="L68">        daySalesPojo.setTotalRevenue(totalRevenue);</span>
+<span class="nc" id="L69">        addOrUpdate(daySalesPojo);</span>
+<span class="nc" id="L70">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

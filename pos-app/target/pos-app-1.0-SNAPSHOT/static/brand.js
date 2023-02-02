@@ -1,5 +1,5 @@
 
-function getBrandUrl(){
+function getDaySalesReportUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	return baseUrl + "/api/brands";
 }
@@ -9,7 +9,7 @@ function addBrand(event){
 	//Set the values to update
 	var $form = $("#brand-form");
 	var json = toJson($form);
-	var url = getBrandUrl();
+	var url = getDaySalesReportUrl();
 
 	$.ajax({
 	   url: url,
@@ -19,7 +19,7 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();  
+	   		getDaySalesList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -31,7 +31,7 @@ function updateBrand(event){
 	$('#edit-brand-modal').modal('toggle');
 	//Get the ID
 	var id = $("#brand-edit-form input[name=brandId]").val();
-	var url = getBrandUrl() + "/" + id;
+	var url = getDaySalesReportUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#brand-edit-form");
@@ -45,7 +45,7 @@ function updateBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();   
+	   		getDaySalesList();   
 	   },
 	   error: handleAjaxError
 	});
@@ -54,26 +54,26 @@ function updateBrand(event){
 }
 
 
-function getBrandList(){
-	var url = getBrandUrl();
+function getDaySalesList(){
+	var url = getDaySalesReportUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayBrandList(data);
+	   		displayDaySalesList(data);
 	   },
 	   error: handleAjaxError
 	});
 }
 
 function deleteBrand(id){
-	var url = getBrandUrl() + "/" + id;
+	var url = getDaySalesReportUrl() + "/" + id;
 
 	$.ajax({
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
-	   		getBrandList();  
+	   		getDaySalesList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -108,7 +108,7 @@ function uploadRows(){
 	processCount++;
 	
 	var json = JSON.stringify(row);
-	var url = getBrandUrl();
+	var url = getDaySalesReportUrl();
 
 	//Make ajax call
 	$.ajax({
@@ -136,7 +136,7 @@ function downloadErrors(){
 
 //UI DISPLAY METHODS
 
-function displayBrandList(data){
+function displayDaySalesList(data){
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -154,7 +154,7 @@ function displayBrandList(data){
 }
 
 function displayEditBrand(id){
-	var url = getBrandUrl() + "/" + id;
+	var url = getDaySalesReportUrl() + "/" + id;
 	$.ajax({
 	   url: url,
 	   type: 'GET',
@@ -207,7 +207,7 @@ function displayBrand(data){
 function init(){
 	$('#add-brand').click(addBrand);
 	$('#update-brand').click(updateBrand);
-	$('#refresh-data').click(getBrandList);
+	$('#refresh-data').click(getDaySalesList);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
@@ -215,4 +215,4 @@ function init(){
 }
 
 $(document).ready(init);
-$(document).ready(getBrandList);
+$(document).ready(getDaySalesList);

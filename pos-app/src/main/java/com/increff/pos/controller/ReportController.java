@@ -1,10 +1,7 @@
 package com.increff.pos.controller;
 
 import com.increff.pos.dto.ReportDto;
-import com.increff.pos.model.BrandData;
-import com.increff.pos.model.InventoryReportData;
-import com.increff.pos.model.SalesReportData;
-import com.increff.pos.model.SalesReportFilterForm;
+import com.increff.pos.model.*;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +18,11 @@ public class ReportController {
     @Autowired
     private ReportDto reportDto;
 
+    @ApiOperation(value = "Gets the pos-day-sales table")
+    @RequestMapping(path = "/day-sales", method = RequestMethod.GET)
+    public List<DaySalesData> getDaySalesReport() {
+        return reportDto.getDaySalesReport();
+    }
     @ApiOperation(value = "Gets sales report")
     @RequestMapping(path = "/sales", method = RequestMethod.POST)
     public List<SalesReportData> getSalesReport(@RequestBody SalesReportFilterForm salesReportFilterForm) throws ApiException {
@@ -29,7 +31,7 @@ public class ReportController {
 
     @ApiOperation(value = "Gets brand report")
     @RequestMapping(path = "/brand", method = RequestMethod.GET)
-    public List<BrandData> getAll(){
+    public List<BrandData> getBrandReport(){
         return reportDto.getBrandReport();
     }
 

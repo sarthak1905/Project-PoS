@@ -24,7 +24,7 @@ function addOrder(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getOrderList();
+	   		getSalesList();
 			   $('#add-order-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
@@ -65,7 +65,7 @@ function updateOrder(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getOrderList();   
+	   		getSalesList();   
 	   },
 	   error: handleAjaxError
 	});
@@ -180,13 +180,13 @@ function initOrderItemRow(){
 	getProductList($selectField);
 }
 
-function getOrderList(){
+function getSalesList(){
 	var url = getOrderUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayOrderList(data);
+	   		displaySalesList(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -201,7 +201,7 @@ function downloadOrderInvoice(id){
 
 //UI DISPLAY METHODS
 
-function displayOrderList(data){
+function displaySalesList(data){
 	var $tbody = $('#order-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -263,8 +263,8 @@ function init(){
 	$('#add-order').click(addOrder);
 	$('#add-order-first-row-btn').click(removeOrderItem);
 	$('#update-order').click(updateOrder);
-	$('#refresh-data').click(getOrderList);
+	$('#refresh-data').click(getSalesList);
 }
 
 $(document).ready(init);
-$(document).ready(getOrderList);
+$(document).ready(getSalesList);

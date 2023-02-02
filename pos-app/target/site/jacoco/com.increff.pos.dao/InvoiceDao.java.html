@@ -3,6 +3,7 @@
 import com.increff.pos.pojo.InvoicePojo;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -10,32 +11,39 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class InvoiceDao extends AbstractDao{</span>
+<span class="nc" id="L14">public class InvoiceDao extends AbstractDao{</span>
 
-<span class="nc" id="L15">    private static String select_id = &quot;select p from InvoicePojo p where order_id=:order_id&quot;;</span>
-<span class="nc" id="L16">    private static String select_all = &quot;select p from InvoicePojo p&quot;;</span>
-<span class="nc" id="L17">    private static String select_between_dates = &quot;select p from InvoicePojo p where invoice_date &quot; +</span>
+<span class="nc" id="L16">    private static String select_id = &quot;select p from InvoicePojo p where order_id=:order_id&quot;;</span>
+<span class="nc" id="L17">    private static String select_all = &quot;select p from InvoicePojo p&quot;;</span>
+<span class="nc" id="L18">    private static String select_between_dates = &quot;select p from InvoicePojo p where invoice_date &quot; +</span>
             &quot;between :start_date and :end_date&quot;;
+    private static final String select_first_order_date_time = &quot;select MIN(p.invoiceDate) &quot; +
+            &quot;from InvoicePojo p&quot;;
 
     public void insert(InvoicePojo invoicePojo){
-<span class="nc" id="L21">        em().persist(invoicePojo);</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L24">        em().persist(invoicePojo);</span>
+<span class="nc" id="L25">    }</span>
 
     public InvoicePojo select_id(Integer orderId){
-<span class="nc" id="L25">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_id, InvoicePojo.class);</span>
-<span class="nc" id="L26">        query.setParameter(&quot;order_id&quot;, orderId);</span>
-<span class="nc" id="L27">        return getSingle(query);</span>
+<span class="nc" id="L28">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_id, InvoicePojo.class);</span>
+<span class="nc" id="L29">        query.setParameter(&quot;order_id&quot;, orderId);</span>
+<span class="nc" id="L30">        return getSingle(query);</span>
     }
 
     public List&lt;InvoicePojo&gt; selectAll(){
-<span class="nc" id="L31">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_all, InvoicePojo.class);</span>
-<span class="nc" id="L32">        return query.getResultList();</span>
+<span class="nc" id="L34">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_all, InvoicePojo.class);</span>
+<span class="nc" id="L35">        return query.getResultList();</span>
     }
 
     public List&lt;InvoicePojo&gt; selectInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-<span class="nc" id="L36">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_between_dates, InvoicePojo.class);</span>
-<span class="nc" id="L37">        query.setParameter(&quot;start_date&quot;, startDate).setParameter(&quot;end_date&quot;, endDate);</span>
-<span class="nc" id="L38">        return query.getResultList();</span>
+<span class="nc" id="L39">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_between_dates, InvoicePojo.class);</span>
+<span class="nc" id="L40">        query.setParameter(&quot;start_date&quot;, startDate).setParameter(&quot;end_date&quot;, endDate);</span>
+<span class="nc" id="L41">        return query.getResultList();</span>
+    }
+
+    public LocalDateTime selectFirstOrderDateTime() {
+<span class="nc" id="L45">        Query query = em().createQuery(select_first_order_date_time);</span>
+<span class="nc" id="L46">        return (LocalDateTime)query.getSingleResult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -51,5 +51,8 @@ import java.util.List;
     public InvoicePojo getOrNull(Integer orderId) {
 <span class="nc" id="L52">        return invoiceDao.select_id(orderId);</span>
     }
+    public LocalDateTime getFirstOrderDateTime() {
+<span class="nc" id="L55">        return invoiceDao.selectFirstOrderDateTime();</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

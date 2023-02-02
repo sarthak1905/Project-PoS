@@ -90,28 +90,24 @@ import java.util.List;
 <span class="nc" id="L90">        orderPojo.setInvoiced(true);</span>
 <span class="nc" id="L91">    }</span>
 
-    public void setInvoicedFalse(Integer id) throws ApiException {
-<span class="nc" id="L94">        OrderPojo orderPojo = getCheck(id);</span>
-<span class="nc" id="L95">        orderPojo.setInvoiced(false);</span>
-<span class="nc" id="L96">    }</span>
-
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
-<span class="nc" id="L99">        OrderPojo orderPojo = get(orderId);</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        if(orderPojo.isInvoiced()){</span>
-<span class="nc" id="L101">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
+<span class="nc" id="L94">        OrderPojo orderPojo = get(orderId);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if(orderPojo.isInvoiced()){</span>
+<span class="nc" id="L96">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
         }
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L98">    }</span>
 
     public List&lt;OrderPojo&gt; getBeforeEndDate(LocalDateTime endDate) {
-<span class="nc" id="L106">        return orderDao.selectBeforeEndDate(endDate);</span>
+<span class="nc" id="L101">        return orderDao.selectBeforeEndDate(endDate);</span>
     }
 
     public List&lt;OrderPojo&gt; getAfterStartDate(LocalDateTime startDate) {
-<span class="nc" id="L110">        return orderDao.selectAfterStartDate(startDate);</span>
+<span class="nc" id="L105">        return orderDao.selectAfterStartDate(startDate);</span>
     }
 
     public List&lt;OrderPojo&gt; getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-<span class="nc" id="L114">        return orderDao.selectBetweenDates(startDate, endDate);</span>
+<span class="nc" id="L109">        return orderDao.selectBetweenDates(startDate, endDate);</span>
     }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

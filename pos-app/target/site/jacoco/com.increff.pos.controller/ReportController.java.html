@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.controller</a> &gt; <span class="el_source">ReportController.java</span></div><h1>ReportController.java</h1><pre class="source lang-java linenums">package com.increff.pos.controller;
 
 import com.increff.pos.dto.ReportDto;
-import com.increff.pos.model.BrandData;
-import com.increff.pos.model.InventoryReportData;
-import com.increff.pos.model.SalesReportData;
-import com.increff.pos.model.SalesReportFilterForm;
+import com.increff.pos.model.*;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,27 +13,32 @@ import java.util.List;
 @Api
 @RestController
 @RequestMapping(path = &quot;/api/reports&quot;)
-<span class="nc" id="L19">public class ReportController {</span>
+<span class="nc" id="L16">public class ReportController {</span>
 
     @Autowired
     private ReportDto reportDto;
 
+    @ApiOperation(value = &quot;Gets the pos-day-sales table&quot;)
+    @RequestMapping(path = &quot;/day-sales&quot;, method = RequestMethod.GET)
+    public List&lt;DaySalesData&gt; getDaySalesReport() {
+<span class="nc" id="L24">        return reportDto.getDaySalesReport();</span>
+    }
     @ApiOperation(value = &quot;Gets sales report&quot;)
     @RequestMapping(path = &quot;/sales&quot;, method = RequestMethod.POST)
     public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportFilterForm salesReportFilterForm) throws ApiException {
-<span class="nc" id="L27">        return reportDto.getSalesReport(salesReportFilterForm);</span>
+<span class="nc" id="L29">        return reportDto.getSalesReport(salesReportFilterForm);</span>
     }
 
     @ApiOperation(value = &quot;Gets brand report&quot;)
     @RequestMapping(path = &quot;/brand&quot;, method = RequestMethod.GET)
-    public List&lt;BrandData&gt; getAll(){
-<span class="nc" id="L33">        return reportDto.getBrandReport();</span>
+    public List&lt;BrandData&gt; getBrandReport(){
+<span class="nc" id="L35">        return reportDto.getBrandReport();</span>
     }
 
     @ApiOperation(value = &quot;Gets inventory report&quot;)
     @RequestMapping(path = &quot;/inventory&quot;, method = RequestMethod.GET)
     public List&lt;InventoryReportData&gt; getInventoryReport() throws ApiException {
-<span class="nc" id="L39">        return reportDto.getInventoryReport();</span>
+<span class="nc" id="L41">        return reportDto.getInventoryReport();</span>
     }
 
 }
