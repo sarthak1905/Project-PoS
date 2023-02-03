@@ -43,6 +43,12 @@ public class InventoryController {
         inventoryDto.update(id, form);
     }
 
+    @ApiOperation(value = "Updates an inventory by barcode")
+    @RequestMapping(path = "/file-upload/{barcode}", method = RequestMethod.PUT)
+    public void updateByBarcode(@PathVariable String barcode, @RequestBody InventoryForm form) throws ApiException {
+        inventoryDto.updateByBarcode(barcode, form);
+    }
+
     @ApiOperation(value = "Deletes an inventory")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) throws ApiException{

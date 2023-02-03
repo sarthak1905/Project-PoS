@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head th:replace="snippets.html :: name_head"></head>
-
+<link rel="stylesheet" th:href="@{/static/order.css}">
 <body>
 
 <nav th:replace="snippets.html :: name_app_navbar"></nav>
@@ -72,12 +72,10 @@
 									</thead>
 									<tbody id="add-order-tbody">
 									<tr class="add-order-row" id="add-order-row">
-										<td>
-											<div class="d-flex justify-content-center">
-													<select class="form-control col-12" name="barcode">
-														<option>Dummy</option>
-													</select>
-											</div>
+										<td valign="center">
+											<select class="form-control col-12 js-select2" name="barcode">
+												<option>Dummy</option>
+											</select>
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">

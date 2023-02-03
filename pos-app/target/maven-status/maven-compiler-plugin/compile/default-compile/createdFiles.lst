@@ -38,7 +38,6 @@ com\increff\pos\controller\LoginController.class
 com\increff\pos\dao\DaySalesDao.class
 com\increff\pos\util\BrandUtil.class
 com\increff\pos\pojo\DaySalesPojo.class
-com\increff\pos\scheduler\Scheduler.class
 com\increff\pos\model\InfoData.class
 com\increff\pos\model\ProductForm.class
 com\increff\pos\dao\AbstractDao.class

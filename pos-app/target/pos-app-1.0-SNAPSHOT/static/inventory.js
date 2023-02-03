@@ -85,13 +85,13 @@ function uploadRows(){
 	var row = fileData[processCount];
 	processCount++;
 	
-	var json = JSON.stringify(row);
-	var url = getInventoryUrl();
+	var json = toJson(row);
+	var url = getInventoryUrl() + "/"+ row["barcode"];
 
 	//Make ajax call
 	$.ajax({
 	   url: url,
-	   type: 'POST',
+	   type: 'PUT',
 	   data: json,
 	   headers: {
        	'Content-Type': 'application/json'
@@ -180,7 +180,6 @@ function displayInventory(data){
 	$('#edit-inventory-modal').modal('toggle');
 }
 
-
 //INITIALIZATION CODE
 function init(){
 	$('#update-inventory').click(updateInventory);
@@ -188,7 +187,7 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
-    $('#inventoryFile').on('change', updateFileName)
+    $('#inventoryFile').on('change', updateFileName);
 }
 
 $(document).ready(init);

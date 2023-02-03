@@ -3,6 +3,7 @@ package com.increff.pos.dto;
 import com.increff.pos.model.InventoryData;
 import com.increff.pos.model.InventoryForm;
 import com.increff.pos.pojo.InventoryPojo;
+import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
@@ -26,8 +27,8 @@ public class InventoryDto {
     }
 
     public InventoryData get(int id) throws ApiException{
-        InventoryPojo b = inventoryService.get(id);
-        return convertPojoToData(b);
+        InventoryPojo inventoryPojo = inventoryService.get(id);
+        return convertPojoToData(inventoryPojo);
     }
 
     public List<InventoryData> getAll() {
@@ -40,9 +41,16 @@ public class InventoryDto {
     }
 
     public void update(int id, InventoryForm inventoryForm) throws ApiException{
-        InventoryPojo b = convertFormToPojo(inventoryForm);
+        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
         validateForm(inventoryForm);
-        inventoryService.update(id, b);
+        inventoryService.update(id, inventoryPojo);
+    }
+
+    public void updateByBarcode(String barcode, InventoryForm inventoryForm) throws ApiException{
+        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
+        validateForm(inventoryForm);
+        Integer productId = productService.getProductIdFromBarcode(barcode);
+        inventoryService.update(productId, inventoryPojo);
     }
 
     public void delete(int id) throws ApiException{
@@ -50,23 +58,23 @@ public class InventoryDto {
     }
 
     private InventoryData convertPojoToData(InventoryPojo b) {
-        InventoryData d = new InventoryData();
-        d.setQuantity(b.getQuantity());
-        d.setBarcode(productService.getBarcodeFromProductId(b.getId()));
-        d.setId(b.getId());
-        return d;
+        InventoryData inventoryData = new InventoryData();
+        inventoryData.setQuantity(b.getQuantity());
+        inventoryData.setBarcode(productService.getBarcodeFromProductId(b.getId()));
+        inventoryData.setId(b.getId());
+        return inventoryData;
     }
 
     private InventoryPojo convertFormToPojo(InventoryForm f) throws ApiException {
-        InventoryPojo b = new InventoryPojo();
-        b.setId(productService.getProductIdFromBarcode(f.getBarcode()));
-        b.setQuantity(f.getQuantity());
-        return b;
+        InventoryPojo inventoryPojo = new InventoryPojo();
+        inventoryPojo.setId(productService.getProductIdFromBarcode(f.getBarcode()));
+        inventoryPojo.setQuantity(f.getQuantity());
+        return inventoryPojo;
     }
 
     public boolean isValidInventory(int id, int quantity) throws ApiException {
-        InventoryPojo p = inventoryService.get(id);
-        if(p.getQuantity() < quantity){
+        InventoryPojo inventoryPojo = inventoryService.get(id);
+        if(inventoryPojo.getQuantity() < quantity){
             return false;
         }
         return true;

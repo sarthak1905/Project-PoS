@@ -19,7 +19,7 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getDaySalesList();  
+	   		getBrandList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -45,7 +45,7 @@ function updateBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getDaySalesList();   
+	   		getBrandList();   
 	   },
 	   error: handleAjaxError
 	});
@@ -54,13 +54,13 @@ function updateBrand(event){
 }
 
 
-function getDaySalesList(){
+function getBrandList(){
 	var url = getDaySalesReportUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayDaySalesList(data);
+	   		displayBrandList(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -73,7 +73,7 @@ function deleteBrand(id){
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
-	   		getDaySalesList();  
+	   		getBrandList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -136,7 +136,7 @@ function downloadErrors(){
 
 //UI DISPLAY METHODS
 
-function displayDaySalesList(data){
+function displayBrandList(data){
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -196,8 +196,8 @@ function displayUploadData(){
 }
 
 function displayBrand(data){
-	$("#brand-edit-form input[name=name]").val(data.name);	
-	$("#brand-edit-form input[name=age]").val(data.age);	
+	$("#brand-edit-form input[name=brand]").val(data.brand);	
+	$("#brand-edit-form input[name=category]").val(data.category);	
 	$("#brand-edit-form input[name=brandId]").val(data.id);
 	$('#edit-brand-modal').modal('toggle');
 }
@@ -207,7 +207,7 @@ function displayBrand(data){
 function init(){
 	$('#add-brand').click(addBrand);
 	$('#update-brand').click(updateBrand);
-	$('#refresh-data').click(getDaySalesList);
+	$('#refresh-data').click(getBrandList);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
@@ -215,4 +215,4 @@ function init(){
 }
 
 $(document).ready(init);
-$(document).ready(getDaySalesList);
+$(document).ready(getBrandList);
