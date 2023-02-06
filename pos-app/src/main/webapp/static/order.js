@@ -206,19 +206,53 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var buttonHtml = ' <button id="btn-invoice' + o.id + '"class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
-		console.log(o);
+		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
+		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-primary" onclick="displayOrderItems(' + o.id + ')">View</button>';
 		if(o.invoiced === false){
-			buttonHtml += ' <button id="btn-edit' + o.id + '"class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
 		}
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
 		+ '<td>' + o.dateTime + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td>' + o.orderTotal + '</td>'
+		+ '<td>' + actionsButton + '</td>'
+		+ '<td>' + downloadIncvoiceButton + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
 }
+
+function displayOrderItems(id){
+	var url = getOrderUrl() + '/' + id + '/items';
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+	   		viewOrderItems(data, id);   
+	   },
+	   error: handleAjaxError
+	});	
+}
+
+function viewOrderItems(data, id){
+	$('#view-order-id').val(id);
+	console.log(data);
+	var $tbody = $('#view-order-tbody');
+	$tbody.empty();
+	for(var i in data){
+		var item = data[i];
+		console.log(item);
+		var row = '<tr>'
+		+ '<td>' + item.barcode + '</td>'
+		+ '<td>' + item.quantity + '</td>'
+		+ '<td>' + item.sellingPrice + '</td>'
+		+ '<td>' + item.sellingPrice*item.quantity + '</td>'
+		+ '</tr>';
+        $tbody.append(row);
+	}
+	$('#view-order-modal').modal('toggle');
+}
+
 
 function displayEditOrder(id){
 	var url = getOrderUrl() + '/' + id + '/items';
@@ -226,13 +260,13 @@ function displayEditOrder(id){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayOrder(data, id);   
+	   		displayOrderForm(data, id);   
 	   },
 	   error: handleAjaxError
 	});	
 }
 
-function displayOrder(data, id){
+function displayOrderForm(data, id){
 	$('#edit-order-id').val(id);
 	var $editTbody = $("#edit-order-tbody");
 	for(let i = 0; i<data.length; i++){

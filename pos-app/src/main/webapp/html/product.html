@@ -15,57 +15,62 @@
 	<!-- Top row with form-->
 	<div class="row">
 		<div class="col-12">
-			<form class="form-inline" id="product-form">
-				<div class="col-12 row">
-					<div class="form-group col-4">
-						<label for="inputProductName" class="col-sm-2 col-form-label">Product Name</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="name" id="inputProductName" placeholder="Enter Product Name">
-						</div>
-					</div>
-
-					<div class="form-group col-4">
-						<label for="inputBarcode" class="col-sm-2 col-form-label">Product Barcode</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="barcode" id="inputBarcode" placeholder="Enter Product Barcode">
-						</div>
-					</div>
-
-					<div class="form-group col-4">
-						<label for="inputMRP" class="col-sm-2 col-form-label">Product MRP</label>
-						<div class="col-sm-10">
-							<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control" name="mrp" id="inputMRP" placeholder="Enter MRP">
-						</div>
-					</div>
+		  <form class="form-inline" id="product-form">
+			<div class="col-12 row">
+			  <div class="form-group col-md-4 col-12">
+				<label for="inputProductName" class="col-sm-2 col-form-label">Product Name</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" name="name" id="inputProductName" placeholder="Enter Product Name">
 				</div>
-				<div class="col-12 row">
-					<div class="form-group col-4">
-						<label for="inputProductBrandName" class="col-form-label">Product Brand Name</label>
-						&nbsp; &nbsp;
-						<select class="form-control" name="brand" id="inputProductBrandName">
-							<option value="dummy">Dummy</option>
-						</select>
-					</div>
-
-					<div class="form-group col-4">
-						<label for="inputProductBrandCategoryName" class="col-form-label">Product Category Name</label>
-						&nbsp; &nbsp;
-						<select class="form-control" name="category" id="inputProductBrandCategoryName">
-							<option value="string">Dummy</option>
-						</select>
-					</div>
-
-					<div class="col-4 justify-content-center">
-						<button type="button" class="btn btn-primary" id="add-product">Add</button>
-						&nbsp;
-						<button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
-						&nbsp;
-						<button type="button" class="btn btn-primary" id="upload-data">Upload</button>
-					</div>
+			  </div>
+	  
+			  <div class="form-group col-md-4 col-12">
+				<label for="inputBarcode" class="col-sm-2 col-form-label">Product Barcode</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" name="barcode" id="inputBarcode" placeholder="Enter Product Barcode">
 				</div>
-			</form>
+			  </div>
+	  
+			  <div class="form-group col-md-4 col-12">
+				<label for="inputMRP" class="col-sm-2 col-form-label">Product MRP</label>
+				<div class="col-sm-10">
+				  <input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control" name="mrp" id="inputMRP" placeholder="Enter MRP">
+				</div>
+			  </div>
+			</div>
+			<div class="col-12 row">
+			  <div class="form-group col-md-4 col-12">
+				<label for="inputProductBrandName" class="col-form-label">Product Brand Name</label>
+				&nbsp; &nbsp;
+				<select class="form-control" name="brand" id="inputProductBrandName">
+				  <option value="dummy">Dummy</option>
+				</select>
+			  </div>
+	  
+			  <div class="form-group col-md-4 col-12">
+				<label for="inputProductBrandCategoryName" class="col-form-label">Product Category Name</label>
+				&nbsp; &nbsp;
+				<select class="form-control" name="category" id="inputProductBrandCategoryName">
+				  <option value="string">Dummy</option>
+				</select>
+			  </div>
+	  
+			  <div class="col-md-4 col-12 justify-content-center">
+				<button type="button" class="btn btn-success" id="add-product">
+					<i class="fas fa-plus"></i>&nbsp; Add
+				</button>
+				&nbsp;
+				<button type="button" class="btn btn-primary" id="refresh-data">
+					<i class="fas fa-sync-alt fa-lg"></i>&nbsp; Refresh
+				</button>
+				&nbsp;
+				<button type="button" class="btn btn-warning" id="upload-data">Upload</button>
+			  </div>
+			</div>
+		  </form>
 		</div>
-	</div>
+	  </div>
+	  
 
 
 	<!-- Blank Row -->
@@ -76,8 +81,8 @@
 
 		<!-- Table -->
 		<div class="col-11 d-flex justify-content-center">
-			<table class="table table-striped" id="product-table">
-				<thead>
+			<table class="table table-striped table-bordered shadow" id="product-table">
+				<thead class="thead-dark">
 				<tr>
 					<th scope="col">Product ID</th>
 					<th scope="col">Barcode</th>
@@ -131,7 +136,6 @@
 									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 									<select required class="form-control" name="brand" id="updateProductBrandName">
 										<option value="dummy">Dummy</option>
-										<option value="dummy">Dummy</option>
 									</select>
 								</div>
 							</div>
@@ -142,7 +146,6 @@
 									&nbsp; &nbsp; &nbsp;
 									<select required class="form-control" name="category" id="updateProductBrandCategoryName">
 										<option value="dummy">Dummy</option>
-										<option value="dummy">Dummy</option>
 									</select>
 								</div>
 							</div>
@@ -151,7 +154,7 @@
 								<div class="form-group form-inline">
 									<label for="updateMRP" class="col-form-label">MRP</label>
 									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-									<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-6" id="updateMRP" name="mrp" placeholder="Enter MRP">
+									<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-6" id="updateMRP" name="mrp" placeholder="Enter MRP">
 								</div>
 							</div>
 							

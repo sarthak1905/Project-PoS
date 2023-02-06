@@ -1,6 +1,7 @@
 package com.increff.pos.service;
 
 import com.increff.pos.dao.ProductDao;
+import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import java.util.List;
 @Service
 @Transactional(rollbackOn = ApiException.class)
 public class ProductService {
+
+    @Autowired
+    private BrandService brandService;
 
     @Autowired
     private ProductDao productDao;
@@ -28,11 +32,12 @@ public class ProductService {
         return productDao.selectAll();
     }
 
-    public void update(int id, ProductPojo p) throws ApiException {
-        ProductUtil.normalize(p);
-        ProductPojo bx = getCheck(id);
-        bx.setName(p.getName());
-        bx.setMrp(p.getMrp());
+    public void update(int id, ProductPojo productPojo) throws ApiException {
+        ProductUtil.normalize(productPojo);
+        ProductPojo existingProductPojo = getCheck(id);
+        existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
+        existingProductPojo.setName(productPojo.getName());
+        existingProductPojo.setMrp(productPojo.getMrp());
     }
 
     public void delete(int id) throws ApiException{

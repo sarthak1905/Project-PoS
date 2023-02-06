@@ -84,9 +84,9 @@ function uploadRows(){
 	//Process next row
 	var row = fileData[processCount];
 	processCount++;
-	
-	var json = toJson(row);
-	var url = getInventoryUrl() + "/"+ row["barcode"];
+	console.log(row);
+	var json = JSON.stringify(row);
+	var url = getInventoryUrl() + "/file-upload/"+ row["barcode"];
 
 	//Make ajax call
 	$.ajax({

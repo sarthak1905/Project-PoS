@@ -44,7 +44,7 @@ import java.util.List;
 <span class="nc" id="L44">    }</span>
 
     @ApiOperation(value = &quot;Updates an inventory by barcode&quot;)
-    @RequestMapping(path = &quot;/{barcode}&quot;, method = RequestMethod.PUT)
+    @RequestMapping(path = &quot;/file-upload/{barcode}&quot;, method = RequestMethod.PUT)
     public void updateByBarcode(@PathVariable String barcode, @RequestBody InventoryForm form) throws ApiException {
 <span class="nc" id="L49">        inventoryDto.updateByBarcode(barcode, form);</span>
 <span class="nc" id="L50">    }</span>
