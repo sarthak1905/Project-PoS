@@ -36,7 +36,7 @@ public class InitApiController extends AbstractUiController {
 		if (list.size() > 0) {
 			info.setMessage("Application already initialized. Please use existing credentials");
 		} else {
-			form.setRole("admin");
+			form.setRole("supervisor");
 			UserPojo p = convert(form);
 			service.add(p);
 			info.setMessage("Application initialized");
@@ -45,12 +45,12 @@ public class InitApiController extends AbstractUiController {
 
 	}
 
-	private static UserPojo convert(UserForm f) {
-		UserPojo p = new UserPojo();
-		p.setEmail(f.getEmail());
-		p.setRole(f.getRole());
-		p.setPassword(f.getPassword());
-		return p;
+	private static UserPojo convert(UserForm userForm) {
+		UserPojo userPojo = new UserPojo();
+		userPojo.setEmail(userForm.getEmail());
+		userPojo.setRole(userForm.getRole());
+		userPojo.setPassword(userForm.getPassword());
+		return userPojo;
 	}
 
 }

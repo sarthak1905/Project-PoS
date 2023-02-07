@@ -7,6 +7,7 @@ import com.increff.pos.service.ApiException;
 import com.increff.pos.service.BrandService;
 import com.increff.pos.util.BrandUtil;
 import com.increff.pos.util.StringUtil;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,9 @@ public class BrandDto {
     private BrandService brandService;
 
     public void add(BrandForm brandForm) throws ApiException {
+        ValidationUtil.validateForms(brandForm);
+        BrandUtil.normalize(brandForm);
         BrandPojo brandPojo = convertFormToPojo(brandForm);
-        BrandUtil.normalize(brandPojo);
         brandService.add(brandPojo);
     }
 
@@ -53,8 +55,8 @@ public class BrandDto {
 
     public void update(int id, BrandForm brandForm) throws ApiException {
         checkInputValidity(brandForm);
+        BrandUtil.normalize(brandForm);
         BrandPojo brandPojo = convertFormToPojo(brandForm);
-        BrandUtil.normalize(brandPojo);
         brandService.update(id, brandPojo);
     }
 
@@ -77,13 +79,8 @@ public class BrandDto {
         return brandPojo;
     }
 
-    private void checkInputValidity(BrandForm brandForm) throws ApiException {
-        if (StringUtil.isEmpty(brandForm.getBrand())) {
-            throw new ApiException("Brand name cannot be empty!");
-        }
-        if (StringUtil.isEmpty(brandForm.getCategory())) {
-            throw new ApiException("Brand category cannot be empty!");
-        }
+    private void checkInputValidity(BrandForm brandForm) {
+        ValidationUtil.validateForms(brandForm);
     }
 
 }

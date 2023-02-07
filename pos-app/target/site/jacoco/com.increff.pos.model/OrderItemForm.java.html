@@ -3,19 +3,19 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Getter
-<span class="nc" id="L9">@Setter</span>
-<span class="nc" id="L10">public class OrderItemForm {</span>
+<span class="nc" id="L11">@Setter</span>
+<span class="nc" id="L12">public class OrderItemForm {</span>
 
     @NotBlank
-<span class="nc" id="L13">    private String barcode;</span>
-
-    @NotBlank
-<span class="nc" id="L16">    private int quantity;</span>
-
-    @NotBlank
+<span class="nc" id="L15">    private String barcode;</span>
+    @Min(value = 1)
+<span class="nc" id="L17">    private int quantity;</span>
+    @Min(value = 0)
 <span class="nc" id="L19">    private double sellingPrice;</span>
 
 }

@@ -27,6 +27,8 @@ com\increff\pos\service\BrandService.class
 com\increff\pos\spring\WebInitializer.class
 com\increff\pos\model\SalesReportData.class
 com\increff\pos\pojo\ProductPojo.class
+com\increff\pos\spring\SecurityConfig.class
+com\increff\pos\spring\SpringSecurityInitializer.class
 com\increff\pos\service\ProductService.class
 com\increff\pos\spring\SchedulerInitializer.class
 com\increff\pos\controller\AppUiController.class
@@ -71,6 +73,7 @@ com\increff\pos\model\SalesReportFilterForm.class
 com\increff\pos\util\ProductUtil.class
 com\increff\pos\dto\ProductDto.class
 com\increff\pos\spring\ControllerConfig.class
+com\increff\pos\dto\UserDto.class
 com\increff\pos\dao\BrandDao.class
 com\increff\pos\controller\BrandController.class
 com\increff\pos\service\DaySalesService.class
@@ -81,3 +84,4 @@ com\increff\pos\util\SecurityUtil.class
 com\increff\pos\model\DaySalesData.class
 com\increff\pos\model\UserForm.class
 com\increff\pos\service\AboutAppService.class
+com\increff\pos\util\ValidationUtil.class

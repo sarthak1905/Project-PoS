@@ -5,29 +5,32 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {&quot;barcode&quot;})}, name = &quot;products&quot;)
 @Getter
-<span class="nc" id="L12">@Setter</span>
-<span class="nc" id="L13">public class ProductPojo {</span>
+<span class="nc" id="L13">@Setter</span>
+<span class="nc" id="L14">public class ProductPojo {</span>
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Integer id;</span>
+<span class="nc" id="L18">    private Integer id;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L20">    private String barcode;</span>
+    @NotBlank
+<span class="nc" id="L22">    private String barcode;</span>
 
     @Column(nullable = false, name = &quot;brand_category&quot;)
-<span class="nc" id="L23">    private Integer brandCategory;</span>
+<span class="nc" id="L25">    private Integer brandCategory;</span>
 
     @Column(nullable = false)
     @Min(value=0)
-<span class="nc" id="L27">    private Double mrp;</span>
+<span class="nc" id="L29">    private Double mrp;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L30">    private String name;</span>
+    @NotBlank
+<span class="nc" id="L33">    private String name;</span>
 
 
 }

@@ -4,23 +4,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(indexes ={@Index(columnList = &quot;brand,category&quot;)},
         uniqueConstraints = {@UniqueConstraint(columnNames = {&quot;brand&quot;, &quot;category&quot;})}, name = &quot;brands&quot;)
 @Getter
-<span class="nc" id="L12">@Setter</span>
-<span class="nc" id="L13">public class BrandPojo {</span>
+<span class="nc" id="L13">@Setter</span>
+<span class="nc" id="L14">public class BrandPojo {</span>
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Integer id;</span>
+<span class="nc" id="L18">    private Integer id;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L20">    private String brand;</span>
+    @NotBlank
+<span class="nc" id="L22">    private String brand;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L23">    private String category;</span>
+    @NotBlank
+<span class="nc" id="L26">    private String category;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -2,7 +2,10 @@ package com.increff.pos.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -20,7 +23,7 @@ public class ProductForm {
     @NotBlank
     private String name;
 
-    @NotBlank
+    @Min(value = 0)
     private double mrp;
 
 }

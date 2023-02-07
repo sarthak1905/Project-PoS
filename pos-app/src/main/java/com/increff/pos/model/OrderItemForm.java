@@ -3,7 +3,9 @@ package com.increff.pos.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -11,11 +13,9 @@ public class OrderItemForm {
 
     @NotBlank
     private String barcode;
-
-    @NotBlank
+    @Min(value = 1)
     private int quantity;
-
-    @NotBlank
+    @Min(value = 0)
     private double sellingPrice;
 
 }

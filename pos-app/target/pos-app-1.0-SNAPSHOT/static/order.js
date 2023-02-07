@@ -101,7 +101,7 @@ function editAddOrderItemRow() {
 	getProductList($lastRowDropdown, add=false);
 	$('tr.edit-order-row:last input[name=quantity]').val('');
     $('tr.edit-order-row:last input[name=sellingPrice]').val('');
-	$('tr.edit-order-row:last button').replaceWith('<button type="button" class="btn btn-danger">Remove</button>');
+	$('tr.edit-order-row:last button').replaceWith('<button type="button" class="btn btn-remove button">Remove</button>');
     $('tr.edit-order-row:last button').click(removeOrderItem);
 }
 
@@ -206,10 +206,10 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-primary" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
-		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-primary" onclick="displayOrderItems(' + o.id + ')">View</button>';
+		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-edit button" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
+		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-edit button" onclick="displayOrderItems(' + o.id + ')">View</button>';
 		if(o.invoiced === false){
-			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-primary" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-edit button" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
 		}
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'

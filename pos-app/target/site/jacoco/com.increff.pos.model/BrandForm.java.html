@@ -2,17 +2,18 @@
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
-<span class="nc" id="L8">@Setter</span>
-<span class="nc" id="L9">public class BrandForm {</span>
+<span class="nc" id="L9">@Setter</span>
+<span class="nc" id="L10">public class BrandForm {</span>
 
     @NotBlank
-<span class="nc" id="L12">    private String brand;</span>
+<span class="nc" id="L13">    private String brand;</span>
 
     @NotBlank
-<span class="nc" id="L15">    private String category;</span>
+<span class="nc" id="L16">    private String category;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

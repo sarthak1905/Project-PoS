@@ -61,6 +61,9 @@
                 [[${info.getEmail()}]]
                 &nbsp;&gt;&nbsp;
             </li>
+            <li id="user-role" class="navbar-text" type="hidden">
+                [[${user.getRole()}]]
+            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/session/logout}">Logout</a>
             </li>

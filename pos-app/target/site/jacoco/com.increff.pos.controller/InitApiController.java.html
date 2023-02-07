@@ -36,7 +36,7 @@ import java.util.List;
 <span class="nc bnc" id="L36" title="All 2 branches missed.">		if (list.size() &gt; 0) {</span>
 <span class="nc" id="L37">			info.setMessage(&quot;Application already initialized. Please use existing credentials&quot;);</span>
 		} else {
-<span class="nc" id="L39">			form.setRole(&quot;admin&quot;);</span>
+<span class="nc" id="L39">			form.setRole(&quot;supervisor&quot;);</span>
 <span class="nc" id="L40">			UserPojo p = convert(form);</span>
 <span class="nc" id="L41">			service.add(p);</span>
 <span class="nc" id="L42">			info.setMessage(&quot;Application initialized&quot;);</span>
@@ -45,12 +45,12 @@ import java.util.List;
 
 	}
 
-	private static UserPojo convert(UserForm f) {
-<span class="nc" id="L49">		UserPojo p = new UserPojo();</span>
-<span class="nc" id="L50">		p.setEmail(f.getEmail());</span>
-<span class="nc" id="L51">		p.setRole(f.getRole());</span>
-<span class="nc" id="L52">		p.setPassword(f.getPassword());</span>
-<span class="nc" id="L53">		return p;</span>
+	private static UserPojo convert(UserForm userForm) {
+<span class="nc" id="L49">		UserPojo userPojo = new UserPojo();</span>
+<span class="nc" id="L50">		userPojo.setEmail(userForm.getEmail());</span>
+<span class="nc" id="L51">		userPojo.setRole(userForm.getRole());</span>
+<span class="nc" id="L52">		userPojo.setPassword(userForm.getPassword());</span>
+<span class="nc" id="L53">		return userPojo;</span>
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -29,6 +30,7 @@ public class DaySalesPojo {
 
     @Column(nullable = false, name = "total_revenue")
     @Min(value = 0)
+    @NotBlank
     private Double totalRevenue;
 
 }

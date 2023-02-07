@@ -15,11 +15,11 @@ public class BrandService {
     @Autowired
     private BrandDao brandDao;
     
-    public void add(BrandPojo b) throws ApiException {
-        if (!existingBrandCategoryCombination(b)) {
+    public void add(BrandPojo brandPojo) throws ApiException {
+        if (!existingBrandCategoryCombination(brandPojo)) {
             throw new ApiException("Brand+category combination must be unique!");
         }
-        brandDao.insert(b);
+        brandDao.insert(brandPojo);
     }
     
     public BrandPojo get(int id) throws ApiException{
@@ -57,8 +57,8 @@ public class BrandService {
     }
     
     private boolean existingBrandCategoryCombination(BrandPojo brandPojo){
-        BrandPojo p = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
-        if (p == null){
+        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
+        if (existingBrandPojo == null){
             return true;
         }
         return false;

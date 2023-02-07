@@ -4,26 +4,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-<span class="nc" id="L11">@Setter</span>
+<span class="nc" id="L12">@Setter</span>
 @Table(name = &quot;orders&quot;)
-<span class="nc" id="L13">public class OrderPojo {</span>
+<span class="nc" id="L14">public class OrderPojo {</span>
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Integer id;</span>
+<span class="nc" id="L18">    private Integer id;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L20">    private LocalDateTime dateTime;</span>
+<span class="nc" id="L21">    private LocalDateTime dateTime;</span>
 
     @Column(nullable = false, name = &quot;is_invoiced&quot;)
-<span class="nc" id="L23">    private boolean isInvoiced;</span>
+<span class="nc" id="L24">    private boolean isInvoiced;</span>
 
     @Column(name = &quot;order_total&quot;)
-<span class="nc" id="L26">    private Double orderTotal;</span>
+<span class="nc" id="L27">    private Double orderTotal;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

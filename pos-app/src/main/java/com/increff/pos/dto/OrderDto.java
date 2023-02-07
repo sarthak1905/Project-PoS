@@ -8,6 +8,7 @@ import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -197,10 +198,7 @@ public class OrderDto {
 
     private void validateOrderItemInputForms(List<OrderItemForm> orderItemForms) throws ApiException {
         for(OrderItemForm orderItemForm: orderItemForms){
-            if(orderItemForm.getQuantity() <= 0){
-                throw new ApiException("Quantity cannot be below 1 for product with barcode:"
-                        + orderItemForm.getBarcode());
-            }
+            ValidationUtil.validateForms(orderItemForm);
             int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
             inventoryService.checkInventory(productId, orderItemForm.getQuantity());
             orderService.validateSellingPrice(productId, orderItemForm.getSellingPrice());

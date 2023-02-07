@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(indexes ={@Index(columnList = "brand,category")},
@@ -17,9 +18,11 @@ public class BrandPojo {
     private Integer id;
 
     @Column(nullable = false)
+    @NotBlank
     private String brand;
 
     @Column(nullable = false)
+    @NotBlank
     private String category;
 
 }

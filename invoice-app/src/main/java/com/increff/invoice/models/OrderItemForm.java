@@ -10,11 +10,7 @@ public class OrderItemForm {
 
     @NotBlank
     private String barcode;
-
-    @NotBlank
     private Integer quantity;
-
-    @NotBlank
     private Double sellingPrice;
 
 }

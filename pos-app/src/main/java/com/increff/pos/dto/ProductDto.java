@@ -11,6 +11,7 @@ import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
 import com.increff.pos.util.ProductUtil;
 import com.increff.pos.util.StringUtil;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,9 +30,9 @@ public class ProductDto {
 
     public void add(ProductForm productForm) throws ApiException {
         validateForm(productForm, false);
+        ProductUtil.normalize(productForm);
         ProductPojo productPojo = convertToPojo(productForm);
         String barcode = productPojo.getBarcode();
-        ProductUtil.normalize(productPojo);
         productService.add(productPojo);
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(productService.getProductIdFromBarcode(barcode));
@@ -40,8 +41,8 @@ public class ProductDto {
     }
 
     public ProductData get(int id) throws ApiException{
-        ProductPojo p = productService.get(id);
-        return convertToData(p);
+        ProductPojo productPojo = productService.get(id);
+        return convertToData(productPojo);
     }
 
     public List<ProductData> getAll() throws ApiException {
@@ -55,6 +56,7 @@ public class ProductDto {
 
     public void update(int id, ProductForm productForm) throws ApiException{
         validateForm(productForm, true);
+        ProductUtil.normalize(productForm);
         ProductPojo productPojo = convertToPojo(productForm);
         productService.update(id, productPojo);
     }
@@ -63,16 +65,16 @@ public class ProductDto {
         productService.delete(id);
     }
 
-    private ProductData convertToData(ProductPojo p) throws ApiException {
-        ProductData d = new ProductData();
-        BrandPojo b = brandService.get(p.getBrandCategory());
-        d.setId(p.getId());
-        d.setName(p.getName());
-        d.setBrand(b.getBrand());
-        d.setCategory(b.getCategory());
-        d.setBarcode(p.getBarcode());
-        d.setMrp(p.getMrp());
-        return d;
+    private ProductData convertToData(ProductPojo productPojo) throws ApiException {
+        ProductData productData = new ProductData();
+        BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());
+        productData.setId(productPojo.getId());
+        productData.setName(productPojo.getName());
+        productData.setBrand(brandPojo.getBrand());
+        productData.setCategory(brandPojo.getCategory());
+        productData.setBarcode(productPojo.getBarcode());
+        productData.setMrp(productPojo.getMrp());
+        return productData;
     }
 
     private ProductPojo convertToPojo(ProductForm productForm) throws ApiException {
@@ -92,15 +94,7 @@ public class ProductDto {
     }
 
     private void validateForm(ProductForm productForm, boolean update) throws ApiException {
-        if (StringUtil.isEmpty(productForm.getBarcode())) {
-            throw new ApiException("Barcode cannot be empty!");
-        }
-        if (StringUtil.isEmpty(productForm.getName())) {
-            throw new ApiException("Name cannot be empty!");
-        }
-        if (productForm.getMrp() <= 0){
-            throw new ApiException("MRP must be positive!");
-        }
+        ValidationUtil.validateForms(productForm);
         if (!update) {
             if (!productService.isValidBarcode(productForm.getBarcode())) {
                 throw new ApiException("Barcode already exists!");

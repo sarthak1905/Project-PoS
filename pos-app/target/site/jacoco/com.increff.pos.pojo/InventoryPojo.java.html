@@ -8,19 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="nc" id="L15">@Setter</span>
 @Table(name = &quot;inventory&quot;)
-<span class="nc" id="L16">public class InventoryPojo {</span>
+<span class="nc" id="L17">public class InventoryPojo {</span>
 
     @Id
-<span class="nc" id="L19">    private Integer id;</span>
+<span class="nc" id="L20">    private Integer id;</span>
 
     @Column(nullable = false)
     @Min(value=0)
-<span class="nc" id="L23">    private Integer quantity;</span>
+<span class="nc" id="L24">    private Integer quantity;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,9 +1,7 @@
 package com.increff.pos.service;
 
 import com.increff.pos.dao.ProductDao;
-import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.ProductPojo;
-import com.increff.pos.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +18,8 @@ public class ProductService {
     @Autowired
     private ProductDao productDao;
 
-    public void add(ProductPojo p) throws ApiException {
-        productDao.insert(p);
+    public void add(ProductPojo productPojo) throws ApiException {
+        productDao.insert(productPojo);
     }
 
     public ProductPojo get(int id) throws ApiException{
@@ -33,7 +31,6 @@ public class ProductService {
     }
 
     public void update(int id, ProductPojo productPojo) throws ApiException {
-        ProductUtil.normalize(productPojo);
         ProductPojo existingProductPojo = getCheck(id);
         existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
         existingProductPojo.setName(productPojo.getName());
@@ -54,8 +51,8 @@ public class ProductService {
     }
 
     public String getBarcodeFromProductId(int id){
-        ProductPojo p = productDao.selectId(id);
-        return p.getBarcode();
+        ProductPojo productPojo = productDao.selectId(id);
+        return productPojo.getBarcode();
     }
 
     public int getProductIdFromBarcode(String barcode) throws ApiException {
@@ -74,7 +71,7 @@ public class ProductService {
         return true;
     }
 
-    public String getProductNameFromProductId(Integer productId) throws ApiException {
+    public String getProductNameFromProductId(int productId) throws ApiException {
         ProductPojo productPojo = getCheck(productId);
         return productPojo.getName();
     }

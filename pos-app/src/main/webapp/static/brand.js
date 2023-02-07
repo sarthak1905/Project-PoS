@@ -1,15 +1,21 @@
 
-function getDaySalesReportUrl(){
+function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	return baseUrl + "/api/brands";
 }
+
+function getRole(){
+    console.log($('#user-role').html());
+    return $('#user-role').html();
+}
+
 
 //BUTTON ACTIONS
 function addBrand(event){
 	//Set the values to update
 	var $form = $("#brand-form");
 	var json = toJson($form);
-	var url = getDaySalesReportUrl();
+	var url = getBrandUrl();
 
 	$.ajax({
 	   url: url,
@@ -31,7 +37,7 @@ function updateBrand(event){
 	$('#edit-brand-modal').modal('toggle');
 	//Get the ID
 	var id = $("#brand-edit-form input[name=brandId]").val();
-	var url = getDaySalesReportUrl() + "/" + id;
+	var url = getBrandUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#brand-edit-form");
@@ -55,7 +61,7 @@ function updateBrand(event){
 
 
 function getBrandList(){
-	var url = getDaySalesReportUrl();
+	var url = getBrandUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
@@ -67,7 +73,7 @@ function getBrandList(){
 }
 
 function deleteBrand(id){
-	var url = getDaySalesReportUrl() + "/" + id;
+	var url = getBrandUrl() + "/" + id;
 
 	$.ajax({
 	   url: url,
@@ -108,7 +114,7 @@ function uploadRows(){
 	processCount++;
 	
 	var json = JSON.stringify(row);
-	var url = getDaySalesReportUrl();
+	var url = getBrandUrl();
 
 	//Make ajax call
 	$.ajax({
@@ -141,8 +147,8 @@ function displayBrandList(data){
 	$tbody.empty();
 	for(var i in data){
 		var b = data[i];
-		//var buttonHtml = '<button class="btn btn-primary" onclick="deleteBrand(' + b.id + ')">Delete</button>'
-		var buttonHtml = ' <button class="btn btn-primary" onclick="displayEditBrand(' + b.id + ')">Edit</button>'
+		var buttonHtml = '<button class="btn btn-edit button" onclick="displayEditBrand(' + b.id + 
+		')"><i class="bi bi-pen-fill"></i>Edit</button>';
 		var row = '<tr>'
 		+ '<td>' + b.id + '</td>'
 		+ '<td>' + b.brand + '</td>'
@@ -154,7 +160,7 @@ function displayBrandList(data){
 }
 
 function displayEditBrand(id){
-	var url = getDaySalesReportUrl() + "/" + id;
+	var url = getBrandUrl() + "/" + id;
 	$.ajax({
 	   url: url,
 	   type: 'GET',
@@ -216,3 +222,4 @@ function init(){
 
 $(document).ready(init);
 $(document).ready(getBrandList);
+$(document).ready(getRole);

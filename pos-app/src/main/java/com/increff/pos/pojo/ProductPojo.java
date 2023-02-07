@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"barcode"})}, name = "products")
@@ -17,6 +18,7 @@ public class ProductPojo {
     private Integer id;
 
     @Column(nullable = false)
+    @NotBlank
     private String barcode;
 
     @Column(nullable = false, name = "brand_category")
@@ -27,6 +29,7 @@ public class ProductPojo {
     private Double mrp;
 
     @Column(nullable = false)
+    @NotBlank
     private String name;
 
 

@@ -7,23 +7,39 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestControllerAdvice
-<span class="nc" id="L11">public class AppRestControllerAdvice {</span>
+<span class="nc" id="L15">public class AppRestControllerAdvice {</span>
 
 	@ExceptionHandler(ApiException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public MessageData handle(ApiException e) {
-<span class="nc" id="L16">		MessageData data = new MessageData();</span>
-<span class="nc" id="L17">		data.setMessage(e.getMessage());</span>
-<span class="nc" id="L18">		return data;</span>
+<span class="nc" id="L20">		MessageData data = new MessageData();</span>
+<span class="nc" id="L21">		data.setMessage(e.getMessage());</span>
+<span class="nc" id="L22">		return data;</span>
 	}
 
 	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public MessageData handle(Throwable e) {
-<span class="nc" id="L24">		MessageData data = new MessageData();</span>
-<span class="nc" id="L25">		data.setMessage(&quot;An unknown error has occurred - &quot; + e.getMessage());</span>
-<span class="nc" id="L26">		return data;</span>
+<span class="nc" id="L28">		MessageData data = new MessageData();</span>
+<span class="nc" id="L29">		data.setMessage(&quot;An unknown error has occurred - &quot; + e.getMessage());</span>
+<span class="nc" id="L30">		return data;</span>
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public final MessageData handleConstraintViolation(ConstraintViolationException ex) {
+<span class="nc" id="L36">		List&lt;String&gt; details = ex.getConstraintViolations()</span>
+<span class="nc" id="L37">				.parallelStream()</span>
+<span class="nc" id="L38">				.map(e -&gt; e.getPropertyPath() +&quot; &quot; + e.getMessage())</span>
+<span class="nc" id="L39">				.collect(Collectors.toList());</span>
+<span class="nc" id="L40">		MessageData data = new MessageData();</span>
+<span class="nc" id="L41">		data.setMessage(details.toString());</span>
+<span class="nc" id="L42">		return data;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

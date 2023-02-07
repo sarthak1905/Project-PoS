@@ -7,6 +7,7 @@ import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,9 @@ public class InventoryDto {
     @Autowired
     private ProductService productService;
 
-    public void add(InventoryForm form) throws ApiException {
-        InventoryPojo inventoryPojo = convertFormToPojo(form);
+    public void add(InventoryForm inventoryForm) throws ApiException {
+        ValidationUtil.validateForms(inventoryForm);
+        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
         inventoryService.add(inventoryPojo);
     }
 
@@ -41,15 +43,15 @@ public class InventoryDto {
     }
 
     public void update(int id, InventoryForm inventoryForm) throws ApiException{
+        ValidationUtil.validateForms(inventoryForm);
         InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
-        validateForm(inventoryForm);
         inventoryService.update(id, inventoryPojo);
     }
 
     public void updateByBarcode(String barcode, InventoryForm inventoryForm) throws ApiException{
+        ValidationUtil.validateForms(inventoryForm);
         InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
-        validateForm(inventoryForm);
-        Integer productId = productService.getProductIdFromBarcode(barcode);
+        int productId = productService.getProductIdFromBarcode(barcode);
         inventoryService.update(productId, inventoryPojo);
     }
 
@@ -80,9 +82,4 @@ public class InventoryDto {
         return true;
     }
 
-    private void validateForm(InventoryForm inventoryForm) throws ApiException {
-        if(inventoryForm.getQuantity() < 0){
-            throw new ApiException("Quantity cannot be negative!");
-        }
-    }
 }

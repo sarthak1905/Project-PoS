@@ -7,22 +7,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="nc" id="L15">@Setter</span>
 @Table(name = &quot;invoice&quot;)
-<span class="nc" id="L16">public class InvoicePojo {</span>
+<span class="nc" id="L17">public class InvoicePojo {</span>
 
     @Id
     @Column(name = &quot;order_id&quot;)
-<span class="nc" id="L20">    private Integer orderId;</span>
+<span class="nc" id="L21">    private Integer orderId;</span>
 
     @Column(nullable = false, name = &quot;invoice_date&quot;)
-<span class="nc" id="L23">    private LocalDateTime invoiceDate;</span>
+<span class="nc" id="L24">    private LocalDateTime invoiceDate;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L26">    private String path;</span>
+    @NotBlank
+<span class="nc" id="L28">    private String path;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
