@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConvertUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.util</a> &gt; <span class="el_source">ConvertUtil.java</span></div><h1>ConvertUtil.java</h1><pre class="source lang-java linenums">package com.increff.pos.util;
+
+import com.increff.pos.model.*;
+import com.increff.pos.pojo.*;
+
+import java.time.format.DateTimeFormatter;
+
+<span class="nc" id="L8">public class ConvertUtil {</span>
+
+    public static UserData convertUserPojoToUserData(UserPojo userPojo) {
+<span class="nc" id="L11">        UserData userData = new UserData();</span>
+<span class="nc" id="L12">        userData.setEmail(userPojo.getEmail());</span>
+<span class="nc" id="L13">        userData.setRole(userPojo.getRole());</span>
+<span class="nc" id="L14">        userData.setId(userPojo.getId());</span>
+<span class="nc" id="L15">        return userData;</span>
+    }
+
+    public static UserPojo convertUserFormToUserPojo(UserForm userForm) {
+<span class="nc" id="L19">        UserPojo userPojo = new UserPojo();</span>
+<span class="nc" id="L20">        userPojo.setEmail(userForm.getEmail());</span>
+<span class="nc" id="L21">        userPojo.setRole(userForm.getRole());</span>
+<span class="nc" id="L22">        userPojo.setPassword(userForm.getPassword());</span>
+<span class="nc" id="L23">        return userPojo;</span>
+    }
+
+    public static BrandData convertBrandPojoToData(BrandPojo brandPojo){
+<span class="nc" id="L27">        BrandData brandData = new BrandData();</span>
+<span class="nc" id="L28">        brandData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L29">        brandData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L30">        brandData.setId(brandPojo.getId());</span>
+<span class="nc" id="L31">        return brandData;</span>
+    }
+
+    public static BrandPojo convertBrandFormToPojo(BrandForm brandForm){
+<span class="nc" id="L35">        BrandPojo brandPojo = new BrandPojo();</span>
+<span class="nc" id="L36">        brandPojo.setBrand(brandForm.getBrand());</span>
+<span class="nc" id="L37">        brandPojo.setCategory(brandForm.getCategory());</span>
+<span class="nc" id="L38">        return brandPojo;</span>
+    }
+
+    public static InventoryData convertInventoryPojoToData(InventoryPojo inventoryPojo, String barcode) {
+<span class="nc" id="L42">        InventoryData inventoryData = new InventoryData();</span>
+<span class="nc" id="L43">        inventoryData.setQuantity(inventoryPojo.getQuantity());</span>
+<span class="nc" id="L44">        inventoryData.setBarcode(barcode);</span>
+<span class="nc" id="L45">        inventoryData.setId(inventoryPojo.getId());</span>
+<span class="nc" id="L46">        return inventoryData;</span>
+    }
+
+    public static InventoryPojo convertInventoryFormToPojo(InventoryForm inventoryForm, int productId) {
+<span class="nc" id="L50">        InventoryPojo inventoryPojo = new InventoryPojo();</span>
+<span class="nc" id="L51">        inventoryPojo.setId(productId);</span>
+<span class="nc" id="L52">        inventoryPojo.setQuantity(inventoryForm.getQuantity());</span>
+<span class="nc" id="L53">        return inventoryPojo;</span>
+    }
+
+    public static ProductData convertProductPojoToData(ProductPojo productPojo, String brand, String category) {
+<span class="nc" id="L57">        ProductData productData = new ProductData();</span>
+<span class="nc" id="L58">        productData.setId(productPojo.getId());</span>
+<span class="nc" id="L59">        productData.setName(productPojo.getName());</span>
+<span class="nc" id="L60">        productData.setBrand(brand);</span>
+<span class="nc" id="L61">        productData.setCategory(category);</span>
+<span class="nc" id="L62">        productData.setBarcode(productPojo.getBarcode());</span>
+<span class="nc" id="L63">        productData.setMrp(productPojo.getMrp());</span>
+<span class="nc" id="L64">        return productData;</span>
+    }
+
+    public static ProductPojo convertProductFormToPojo(ProductForm productForm, int brandId) {
+<span class="nc" id="L68">        ProductPojo productPojo = new ProductPojo();</span>
+<span class="nc" id="L69">        productPojo.setBrandCategory(brandId);</span>
+<span class="nc" id="L70">        productPojo.setBarcode(productForm.getBarcode());</span>
+<span class="nc" id="L71">        productPojo.setName(productForm.getName());</span>
+<span class="nc" id="L72">        productPojo.setMrp(productForm.getMrp());</span>
+<span class="nc" id="L73">        return productPojo;</span>
+    }
+
+    public static OrderData convertOrderPojoToData(OrderPojo orderPojo) {
+<span class="nc" id="L77">        OrderData orderData = new OrderData();</span>
+<span class="nc" id="L78">        orderData.setId(orderPojo.getId());</span>
+<span class="nc" id="L79">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm&quot;);</span>
+<span class="nc" id="L80">        orderData.setDateTime(orderPojo.getDateTime().format(dateTimeFormatter));</span>
+<span class="nc" id="L81">        orderData.setInvoiced(orderPojo.isInvoiced());</span>
+<span class="nc" id="L82">        orderData.setOrderTotal(orderPojo.getOrderTotal());</span>
+<span class="nc" id="L83">        return orderData;</span>
+    }
+
+    public static OrderItemData convertOrderItemPojoToData(OrderItemPojo orderItemPojo, String barcode, String productName) {
+<span class="nc" id="L87">        OrderItemData orderItemData = new OrderItemData();</span>
+<span class="nc" id="L88">        orderItemData.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L89">        orderItemData.setId(orderItemPojo.getId());</span>
+<span class="nc" id="L90">        orderItemData.setProductId(orderItemPojo.getProductId());</span>
+<span class="nc" id="L91">        orderItemData.setOrderId(orderItemPojo.getOrderId());</span>
+<span class="nc" id="L92">        orderItemData.setSellingPrice(orderItemPojo.getSellingPrice());</span>
+<span class="nc" id="L93">        orderItemData.setBarcode(barcode);</span>
+<span class="nc" id="L94">        orderItemData.setProductName(productName);</span>
+<span class="nc" id="L95">        return orderItemData;</span>
+    }
+
+    public static OrderItemPojo convertOrderItemFormToPojo(OrderItemForm orderItemForm, int productId){
+<span class="nc" id="L99">        OrderItemPojo orderItemPojo = new OrderItemPojo();</span>
+<span class="nc" id="L100">        orderItemPojo.setQuantity(orderItemForm.getQuantity());</span>
+<span class="nc" id="L101">        orderItemPojo.setSellingPrice(orderItemForm.getSellingPrice());</span>
+<span class="nc" id="L102">        orderItemPojo.setProductId(productId);</span>
+<span class="nc" id="L103">        return orderItemPojo;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

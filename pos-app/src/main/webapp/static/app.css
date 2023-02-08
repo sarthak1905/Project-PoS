@@ -39,36 +39,60 @@ text-align: center;
 	font-weight: 500;
 	color: #000;
 	border: none;
-	border-radius: 45px;
+	border-radius: 20px;
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease 0s;
 	cursor: pointer;
 	outline: none;
 	}
 
-  .button:hover {
-	background-color: #2EE59D;
-	box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-	color: #000;
-	transform: translateY(-5px);
-  }
+button:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+}
+	
+input:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+}
+	
+select:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+}
 
-  .btn-add {
-	background-color: #76FF7A;
-  }
+input:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+}
 
-  .btn-refresh{
-	background-color:#B2FFFF;
-  }
+.button:hover:enabled {
+background-color: #2EE59D;
+box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+color: #000;
+transform: translateY(-5px);
+}
 
-  .btn-upload{
-	background-color: #FAFA33;
-  }
+.btn-add {
+background-color: #76FF7A;
+}
 
-  .btn-edit {
-	background-color: darkgray;
-  }
+.btn-refresh{
+background-color:#B2FFFF;
+}
 
-  .btn-remove {
-	background-color: indianred;
-  }
+.btn-upload{
+background-color: #FAFA33;
+}
+
+.btn-edit {
+background-color: darkgray;
+}
+
+.btn-remove {
+background-color: indianred;
+}
+
+.btn-view {
+background-color:mistyrose;
+}

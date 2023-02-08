@@ -16,23 +16,26 @@
 	
 	<div class="card">
   	<div class="card-header">
-    	Login
+    	<h3>Signup</h3>
   	</div>
   	<div class="card-body">
-		<form class="form" id="login-form" method="POST" th:action="@{/session/login}">
-			<div class="form-group">
+		<form class="form" id="signup-form">
+			<div class="form-group" id="signup-email-field">
 				<label for="email" class="col-sm-10 col-form-label">Email</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="email" id="email" placeholder="enter email">
-			    </div>
+			      <input type="text" class="form-control" name="email" id="signup-email" placeholder="Email">
+				  <span id="signup-email-error"></span>
+				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="signup-password-field">
 			    <label for="password" class="col-sm-10 col-form-label">Password</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="password" id="password" placeholder="password">
-			    </div>
+			      <input type="password" class="form-control" name="password" id="signup-password" placeholder="Password">
+				  <span id="signup-password-error"></span>
+				  <input type="checkbox" id="show-password-checkbox">Show Password
+				</div>
 			</div>
-			<button type="submit" class="btn btn-primary" id="login">Go</button>
+			<button type="button" class="btn btn-primary" id="signup-btn">Go</button>
 		</form>
 	</div>
 	<div class="card-footer text-danger">
@@ -51,5 +54,5 @@
 <footer th:replace="snippets.html :: name_footer"></footer>
 
 </body>
-
+<script th:src="@{/static/authentication.js}"></script>
 </html>

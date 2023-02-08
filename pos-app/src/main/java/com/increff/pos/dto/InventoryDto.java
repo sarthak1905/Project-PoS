@@ -3,10 +3,10 @@ package com.increff.pos.dto;
 import com.increff.pos.model.InventoryData;
 import com.increff.pos.model.InventoryForm;
 import com.increff.pos.pojo.InventoryPojo;
-import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
+import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,54 +24,43 @@ public class InventoryDto {
 
     public void add(InventoryForm inventoryForm) throws ApiException {
         ValidationUtil.validateForms(inventoryForm);
-        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
+        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());
+        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);
         inventoryService.add(inventoryPojo);
     }
 
     public InventoryData get(int id) throws ApiException{
         InventoryPojo inventoryPojo = inventoryService.get(id);
-        return convertPojoToData(inventoryPojo);
+        String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());
+        return ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode);
     }
 
     public List<InventoryData> getAll() {
         List<InventoryPojo> inventoryList = inventoryService.getAll();
         List<InventoryData> inventoryDataList = new ArrayList<>();
-        for(InventoryPojo b: inventoryList){
-            inventoryDataList.add(convertPojoToData(b));
+        for(InventoryPojo inventoryPojo: inventoryList){
+            String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());
+            inventoryDataList.add(ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode));
         }
         return inventoryDataList;
     }
 
     public void update(int id, InventoryForm inventoryForm) throws ApiException{
         ValidationUtil.validateForms(inventoryForm);
-        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
+        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());
+        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);
         inventoryService.update(id, inventoryPojo);
     }
 
     public void updateByBarcode(String barcode, InventoryForm inventoryForm) throws ApiException{
         ValidationUtil.validateForms(inventoryForm);
-        InventoryPojo inventoryPojo = convertFormToPojo(inventoryForm);
-        int productId = productService.getProductIdFromBarcode(barcode);
+        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());
+        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);
         inventoryService.update(productId, inventoryPojo);
     }
 
     public void delete(int id) throws ApiException{
         inventoryService.delete(id);
-    }
-
-    private InventoryData convertPojoToData(InventoryPojo b) {
-        InventoryData inventoryData = new InventoryData();
-        inventoryData.setQuantity(b.getQuantity());
-        inventoryData.setBarcode(productService.getBarcodeFromProductId(b.getId()));
-        inventoryData.setId(b.getId());
-        return inventoryData;
-    }
-
-    private InventoryPojo convertFormToPojo(InventoryForm f) throws ApiException {
-        InventoryPojo inventoryPojo = new InventoryPojo();
-        inventoryPojo.setId(productService.getProductIdFromBarcode(f.getBarcode()));
-        inventoryPojo.setQuantity(f.getQuantity());
-        return inventoryPojo;
     }
 
     public boolean isValidInventory(int id, int quantity) throws ApiException {

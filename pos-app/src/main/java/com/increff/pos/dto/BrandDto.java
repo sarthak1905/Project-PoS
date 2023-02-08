@@ -6,6 +6,7 @@ import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.BrandService;
 import com.increff.pos.util.BrandUtil;
+import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.StringUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,13 @@ public class BrandDto {
     public void add(BrandForm brandForm) throws ApiException {
         ValidationUtil.validateForms(brandForm);
         BrandUtil.normalize(brandForm);
-        BrandPojo brandPojo = convertFormToPojo(brandForm);
+        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);
         brandService.add(brandPojo);
     }
 
     public BrandData get(int id) throws ApiException{
         BrandPojo brandPojo = brandService.get(id);
-        return convertPojoToData(brandPojo);
+        return ConvertUtil.convertBrandPojoToData(brandPojo);
     }
 
     public BrandPojo getBrandCategory(String brand, String category) throws ApiException{
@@ -48,7 +49,7 @@ public class BrandDto {
         List<BrandPojo> brandList = brandService.getAll();
         List<BrandData> brandDataList = new ArrayList<>();
         for (BrandPojo brandPojo : brandList) {
-            brandDataList.add(convertPojoToData(brandPojo));
+            brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));
         }
         return brandDataList;
     }
@@ -56,27 +57,12 @@ public class BrandDto {
     public void update(int id, BrandForm brandForm) throws ApiException {
         checkInputValidity(brandForm);
         BrandUtil.normalize(brandForm);
-        BrandPojo brandPojo = convertFormToPojo(brandForm);
+        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);
         brandService.update(id, brandPojo);
     }
 
     public void delete(int id) throws ApiException {
         brandService.delete(id);
-    }
-
-    private static BrandData convertPojoToData(BrandPojo brandPojo){
-        BrandData brandData = new BrandData();
-        brandData.setBrand(brandPojo.getBrand());
-        brandData.setCategory(brandPojo.getCategory());
-        brandData.setId(brandPojo.getId());
-        return brandData;
-    }
-
-    private static BrandPojo convertFormToPojo(BrandForm brandForm){
-        BrandPojo brandPojo = new BrandPojo();
-        brandPojo.setBrand(brandForm.getBrand());
-        brandPojo.setCategory(brandForm.getCategory());
-        return brandPojo;
     }
 
     private void checkInputValidity(BrandForm brandForm) {

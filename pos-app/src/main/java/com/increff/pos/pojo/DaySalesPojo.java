@@ -30,7 +30,6 @@ public class DaySalesPojo {
 
     @Column(nullable = false, name = "total_revenue")
     @Min(value = 0)
-    @NotBlank
     private Double totalRevenue;
 
 }

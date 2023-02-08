@@ -12,36 +12,36 @@ import java.util.List;
 <span class="nc" id="L12">public class UserService {</span>
 
 	@Autowired
-	private UserDao dao;
+	private UserDao userDao;
 
 	@Transactional
-	public void add(UserPojo p) throws ApiException {
-<span class="nc" id="L19">		normalize(p);</span>
-<span class="nc" id="L20">		UserPojo existing = dao.select(p.getEmail());</span>
+	public void add(UserPojo userPojo) throws ApiException {
+<span class="nc" id="L19">		normalize(userPojo);</span>
+<span class="nc" id="L20">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
 <span class="nc bnc" id="L21" title="All 2 branches missed.">		if (existing != null) {</span>
 <span class="nc" id="L22">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
 		}
-<span class="nc" id="L24">		dao.insert(p);</span>
+<span class="nc" id="L24">		userDao.insert(userPojo);</span>
 <span class="nc" id="L25">	}</span>
 
 	@Transactional(rollbackOn = ApiException.class)
 	public UserPojo get(String email) throws ApiException {
-<span class="nc" id="L29">		return dao.select(email);</span>
+<span class="nc" id="L29">		return userDao.select(email);</span>
 	}
 
 	@Transactional
 	public List&lt;UserPojo&gt; getAll() {
-<span class="nc" id="L34">		return dao.selectAll();</span>
+<span class="nc" id="L34">		return userDao.selectAll();</span>
 	}
 
 	@Transactional
 	public void delete(int id) {
-<span class="nc" id="L39">		dao.delete(id);</span>
+<span class="nc" id="L39">		userDao.delete(id);</span>
 <span class="nc" id="L40">	}</span>
 
-	protected static void normalize(UserPojo p) {
-<span class="nc" id="L43">		p.setEmail(p.getEmail().toLowerCase().trim());</span>
-<span class="nc" id="L44">		p.setRole(p.getRole().toLowerCase().trim());</span>
+	protected static void normalize(UserPojo userPojo) {
+<span class="nc" id="L43">		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());</span>
+<span class="nc" id="L44">		userPojo.setRole(userPojo.getRole().toLowerCase().trim());</span>
 <span class="nc" id="L45">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -56,6 +56,7 @@ com\increff\pos\controller\ProductController.class
 com\increff\pos\dao\InvoiceDao.class
 com\increff\pos\dao\OrderDao.class
 com\increff\pos\util\IOUtil.class
+com\increff\pos\util\ConvertUtil.class
 com\increff\pos\dao\OrderItemDao.class
 com\increff\pos\dto\BrandDto.class
 com\increff\pos\model\InvoiceResponse.class

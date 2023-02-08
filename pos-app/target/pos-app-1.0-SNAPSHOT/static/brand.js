@@ -4,12 +4,6 @@ function getBrandUrl(){
 	return baseUrl + "/api/brands";
 }
 
-function getRole(){
-    console.log($('#user-role').html());
-    return $('#user-role').html();
-}
-
-
 //BUTTON ACTIONS
 function addBrand(event){
 	//Set the values to update
@@ -34,7 +28,7 @@ function addBrand(event){
 }
 
 function updateBrand(event){
-	$('#edit-brand-modal').modal('toggle');
+	
 	//Get the ID
 	var id = $("#brand-edit-form input[name=brandId]").val();
 	var url = getBrandUrl() + "/" + id;
@@ -51,12 +45,14 @@ function updateBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+			$('#edit-brand-modal').modal('toggle');
 	   		getBrandList();   
 	   },
-	   error: handleAjaxError
+	   error: function(response){
+		handleAjaxError(response);
+	   }
 	});
 
-	return false;
 }
 
 
@@ -150,13 +146,13 @@ function displayBrandList(data){
 		var buttonHtml = '<button class="btn btn-edit button" onclick="displayEditBrand(' + b.id + 
 		')"><i class="bi bi-pen-fill"></i>Edit</button>';
 		var row = '<tr>'
-		+ '<td>' + b.id + '</td>'
 		+ '<td>' + b.brand + '</td>'
 		+ '<td>'  + b.category + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	checkRoleAndDisableEditBtns();
 }
 
 function displayEditBrand(id){
@@ -208,7 +204,6 @@ function displayBrand(data){
 	$('#edit-brand-modal').modal('toggle');
 }
 
-
 //INITIALIZATION CODE
 function init(){
 	$('#add-brand').click(addBrand);
@@ -217,9 +212,8 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
-    $('#brandFile').on('change', updateFileName)
+    $('#brandFile').on('change', updateFileName);
 }
 
 $(document).ready(init);
 $(document).ready(getBrandList);
-$(document).ready(getRole);

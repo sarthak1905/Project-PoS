@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.controller</a> &gt; <span class="el_source">AdminApiController.java</span></div><h1>AdminApiController.java</h1><pre class="source lang-java linenums">package com.increff.pos.controller;
 
+import com.increff.pos.dto.UserDto;
 import com.increff.pos.model.UserData;
 import com.increff.pos.model.UserForm;
 import com.increff.pos.pojo.UserPojo;
 import com.increff.pos.service.ApiException;
-import com.increff.pos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,46 +18,24 @@ import java.util.List;
 <span class="nc" id="L18">public class AdminApiController {</span>
 
 	@Autowired
-	private UserService service;
+	private UserDto userDto;
 
 	@ApiOperation(value = &quot;Adds a user&quot;)
 	@RequestMapping(path = &quot;/api/admin/user&quot;, method = RequestMethod.POST)
-	public void addUser(@RequestBody UserForm form) throws ApiException {
-<span class="nc" id="L26">		UserPojo p = convert(form);</span>
-<span class="nc" id="L27">		service.add(p);</span>
-<span class="nc" id="L28">	}</span>
+	public void addUser(@RequestBody UserForm userForm) throws ApiException {
+<span class="nc" id="L26">		userDto.add(userForm);</span>
+<span class="nc" id="L27">	}</span>
 
 	@ApiOperation(value = &quot;Deletes a user&quot;)
 	@RequestMapping(path = &quot;/api/admin/user/{id}&quot;, method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable Integer id) {
-<span class="nc" id="L33">		service.delete(id);</span>
-<span class="nc" id="L34">	}</span>
+<span class="nc" id="L32">		userDto.delete(id);</span>
+<span class="nc" id="L33">	}</span>
 
 	@ApiOperation(value = &quot;Gets list of all users&quot;)
 	@RequestMapping(path = &quot;/api/admin/user&quot;, method = RequestMethod.GET)
 	public List&lt;UserData&gt; getAllUser() {
-<span class="nc" id="L39">		List&lt;UserPojo&gt; list = service.getAll();</span>
-<span class="nc" id="L40">		List&lt;UserData&gt; list2 = new ArrayList&lt;UserData&gt;();</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">		for (UserPojo p : list) {</span>
-<span class="nc" id="L42">			list2.add(convert(p));</span>
-<span class="nc" id="L43">		}</span>
-<span class="nc" id="L44">		return list2;</span>
-	}
-
-	private static UserData convert(UserPojo p) {
-<span class="nc" id="L48">		UserData d = new UserData();</span>
-<span class="nc" id="L49">		d.setEmail(p.getEmail());</span>
-<span class="nc" id="L50">		d.setRole(p.getRole());</span>
-<span class="nc" id="L51">		d.setId(p.getId());</span>
-<span class="nc" id="L52">		return d;</span>
-	}
-
-	private static UserPojo convert(UserForm f) {
-<span class="nc" id="L56">		UserPojo p = new UserPojo();</span>
-<span class="nc" id="L57">		p.setEmail(f.getEmail());</span>
-<span class="nc" id="L58">		p.setRole(f.getRole());</span>
-<span class="nc" id="L59">		p.setPassword(f.getPassword());</span>
-<span class="nc" id="L60">		return p;</span>
+<span class="nc" id="L38">		return userDto.getAllUser();</span>
 	}
 
 }

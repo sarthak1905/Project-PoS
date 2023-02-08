@@ -145,6 +145,7 @@ function showBarcodeDropdownEdit(productData, element){
 	getUniqueBarcodes(productData, element);
 }
 
+
 function getUniqueBarcodes(productData, $selectBarcodeInput){
 	var id = $('#edit-order-id').val();
 	var url = getOrderUrl() + '/' + id + '/items';
@@ -175,10 +176,12 @@ function getUniqueBarcodes(productData, $selectBarcodeInput){
 	 });
 }
 
+
 function initOrderItemRow(){
 	var $selectField = $('#add-order-table').find('tbody tr:first td:first select');
 	getProductList($selectField);
 }
+
 
 function getOrderList(){
 	var url = getOrderUrl();
@@ -206,21 +209,36 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-edit button" onclick="downloadOrderInvoice(' + o.id + ')">Get Invoice</button>';
-		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-edit button" onclick="displayOrderItems(' + o.id + ')">View</button>';
+		var downloadIncvoiceButton = ' <button id="btn-invoice' 
+		+ o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' 
+		+ o.id + ')"><i class="bi bi-cloud-arrow-down-fill"></i> Get Invoice</button>';
+		
+		var actionsButton = ' <button id="btn-view' 
+		+ o.id + '"class="btn btn-view button" onclick="displayOrderItems(' 
+		+ o.id + ')"><i class="bi bi-eye-fill"></i> View</button>';
+		
+		var invoiceStatus = '';
 		if(o.invoiced === false){
-			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-edit button" onclick="displayEditOrder(' + o.id + ')">Edit</button>';
+			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-edit button" onclick="displayEditOrder(' + o.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>';
+			invoiceStatus = 'Created';
 		}
+		else{
+			invoiceStatus = 'Invoiced';
+		}
+
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
 		+ '<td>' + o.dateTime + '</td>'
 		+ '<td>' + o.orderTotal + '</td>'
+		+ '<td>' + invoiceStatus + '</td>'
 		+ '<td>' + actionsButton + '</td>'
 		+ '<td>' + downloadIncvoiceButton + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	checkRoleAndDisableEditBtns();
 }
+
 
 function displayOrderItems(id){
 	var url = getOrderUrl() + '/' + id + '/items';

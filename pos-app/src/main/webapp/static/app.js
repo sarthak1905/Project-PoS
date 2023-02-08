@@ -11,9 +11,39 @@ function toJson($form){
     return json;
 }
 
+function getRole(){
+    return $('#user-role').text().trim();
+}
+
+function displayOrHideButtons(){
+	var role = getRole();
+	if(role === 'operator'){
+		$('.btn-add').attr('disabled', true);
+        $('#add-order-dialog').removeAttr('disabled');
+		$('.btn-upload').attr('disabled', true);
+        $('.input-form :input').prop('disabled', true);
+        $('#refresh-data').removeAttr('disabled');
+	}
+}
+
 function handleAjaxError(response){
-	var response = JSON.parse(response.responseText);
-	alert(response.message);
+	var response = JSON.parse(response.responseText)['message'].replace('[', '').replace(']','');
+    Toastify({
+        text: response,
+        duration: 5000, 
+        close: true
+        }).showToast();
+}
+
+function checkRoleAndDisableEditBtns(){
+    var role = getRole();
+	if(role === 'operator'){
+		disableEditBtns();
+	}
+}
+
+function disableEditBtns(){
+    $('button.btn-edit').attr('disabled', true);
 }
 
 function readFileData(file, callback){
@@ -50,3 +80,5 @@ function writeFileData(arr){
     tempLink.setAttribute('download', 'download.tsv');
     tempLink.click(); 
 }
+
+$(document).ready(displayOrHideButtons);

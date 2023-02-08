@@ -22,7 +22,6 @@ function displayBrandList(data){
 	for(var i in data){
 		var b = data[i];
 		var row = '<tr>'
-		+ '<td>' + b.id + '</td>'
 		+ '<td>' + b.brand + '</td>'
 		+ '<td>'  + b.category + '</td>'
 		+ '</tr>';

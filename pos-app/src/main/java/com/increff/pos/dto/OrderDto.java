@@ -8,6 +8,7 @@ import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.service.*;
+import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,21 +52,22 @@ public class OrderDto {
         OrderPojo orderPojo = new OrderPojo();
         List<OrderItemPojo> orderItemPojos = new ArrayList<>();
         for(OrderItemForm orderItemForm: orderItemForms){
-            orderItemPojos.add(convertOrderItemFormToPojo(orderItemForm));
+            int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
+            orderItemPojos.add(ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId));
         }
         orderService.add(orderPojo, orderItemPojos);
     }
 
     public OrderData get(Integer id) throws ApiException{
         OrderPojo orderPojo = orderService.get(id);
-        return convertOrderPojoToData(orderPojo);
+        return ConvertUtil.convertOrderPojoToData(orderPojo);
     }
 
     public List<OrderData> getAll(){
         List<OrderPojo> orderList = orderService.getAll();
         List<OrderData> orderDataList = new ArrayList<>();
-        for(OrderPojo b: orderList){
-            orderDataList.add(convertOrderPojoToData(b));
+        for(OrderPojo orderPojo: orderList){
+            orderDataList.add(ConvertUtil.convertOrderPojoToData(orderPojo));
         }
         return orderDataList;
     }
@@ -74,7 +76,9 @@ public class OrderDto {
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo: orderItemPojos){
-            OrderItemData orderItemData  = convertOrderItemPojoToData(orderItemPojo);
+            String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());
+            String productName = productService.getProductNameFromProductId(orderItemPojo.getProductId());
+            OrderItemData orderItemData  = ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName);
             orderItemDataList.add(orderItemData);
         }
         return orderItemDataList;
@@ -100,8 +104,10 @@ public class OrderDto {
         OrderPojo orderPojo = orderService.get(orderId);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
-        for(OrderItemPojo obj:orderItemPojos){
-            orderItemDataList.add(convertOrderItemPojoToData(obj));
+        for(OrderItemPojo orderItemPojo: orderItemPojos){
+            String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());
+            String productName = productService.getProductNameFromProductId(orderItemPojo.getProductId());
+            orderItemDataList.add(ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName));
         }
 
         InvoicePojo invoicePojo = new InvoicePojo();
@@ -184,7 +190,8 @@ public class OrderDto {
     private OrderItemPojo getExistingPojoOrAddNew(OrderItemForm orderItemForm, Integer orderId,
                                                   HashMap<String, OrderItemPojo> existingOrderItems)
             throws ApiException {
-        OrderItemPojo newOrderItemPojo = convertOrderItemFormToPojo(orderItemForm);
+        int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
+        OrderItemPojo newOrderItemPojo = ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId);
         newOrderItemPojo.setOrderId(orderId);
         if(existingOrderItems.containsKey(orderItemForm.getBarcode())){
             OrderItemPojo existingOrderItemPojo = existingOrderItems.get(orderItemForm.getBarcode());
@@ -203,36 +210,6 @@ public class OrderDto {
             inventoryService.checkInventory(productId, orderItemForm.getQuantity());
             orderService.validateSellingPrice(productId, orderItemForm.getSellingPrice());
         }
-    }
-
-    private OrderData convertOrderPojoToData(OrderPojo orderPojo) {
-        OrderData orderData = new OrderData();
-        orderData.setId(orderPojo.getId());
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        orderData.setDateTime(orderPojo.getDateTime().format(dateTimeFormatter));
-        orderData.setInvoiced(orderPojo.isInvoiced());
-        orderData.setOrderTotal(orderPojo.getOrderTotal());
-        return orderData;
-    }
-
-    public OrderItemData convertOrderItemPojoToData(OrderItemPojo orderItemPojo) throws ApiException {
-        OrderItemData orderItemData = new OrderItemData();
-        orderItemData.setQuantity(orderItemPojo.getQuantity());
-        orderItemData.setId(orderItemPojo.getId());
-        orderItemData.setProductId(orderItemPojo.getProductId());
-        orderItemData.setOrderId(orderItemPojo.getOrderId());
-        orderItemData.setSellingPrice(orderItemPojo.getSellingPrice());
-        orderItemData.setBarcode(productService.getBarcodeFromProductId(orderItemPojo.getProductId()));
-        orderItemData.setProductName(productService.getProductNameFromProductId(orderItemPojo.getProductId()));
-        return orderItemData;
-    }
-
-    public OrderItemPojo convertOrderItemFormToPojo(OrderItemForm orderItemForm) throws ApiException {
-        OrderItemPojo orderItemPojo = new OrderItemPojo();
-        orderItemPojo.setQuantity(orderItemForm.getQuantity());
-        orderItemPojo.setSellingPrice(orderItemForm.getSellingPrice());
-        orderItemPojo.setProductId(productService.getProductIdFromBarcode(orderItemForm.getBarcode()));
-        return orderItemPojo;
     }
 
 }

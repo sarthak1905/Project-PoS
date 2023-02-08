@@ -168,10 +168,8 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var p = data[i];
-		//var buttonHtml = '<button class="btn btn-primary" onclick="deleteProduct(' + p.id + ')">Delete</button>'
-		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')">Edit</button>'
+		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')"><i class="bi bi-pen-fill"></i>Edit</button>'
 		var row = '<tr>'
-		+ '<td>' + p.id + '</td>'
 		+ '<td>'  + p.barcode + '</td>'
 		+ '<td>' + p.brand + '</td>'
 		+ '<td>'  + p.category + '</td>'
@@ -181,6 +179,7 @@ function displayProductList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	checkRoleAndDisableEditBtns();
 }
 
 function showBrandDropdown(brand, category, firstRun, isInEditModal){

@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head th:replace="snippets.html :: name_head"></head>
-<link rel="stylesheet" th:href="@{/static/order.css}">
 <body>
 
 <nav th:replace="snippets.html :: name_app_navbar"></nav>
@@ -26,26 +25,19 @@
 	</div>
 	
 	<div class="row">
-		<!-- Table -->
-		<div class="col-11 d-flex justify-content-center">
+		<div class="col-12 d-flex justify-content-center">
 			<table class="table table-striped table-bordered shadow" id="order-table">
 				<thead class="thead-dark">
 				<tr>
 					<th scope="col">Order ID</th>
 					<th scope="col">Order Created At</th>
 					<th scope="col">Order Total</th>
+					<th scope="col">Invoice Status</th>
 					<th scope="col">Actions</th>
 					<th scope="col">Inovoice</th>
 				</tr>
 				</thead>
 				<tbody>
-				<tr>
-					<td>1</td>
-					<td>Dummy</td>
-					<td>0.0</td>
-					<td>Dummy</td>
-					<td>Dummy</td>
-				</tr>
 				</tbody>
 			</table>
 		</div>
