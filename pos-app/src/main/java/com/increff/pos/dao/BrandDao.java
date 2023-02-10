@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+// TODO Have @Transactional
 public class BrandDao extends AbstractDao{
 
     private static String select_id = "select b from BrandPojo b where id=:id";
@@ -30,6 +31,7 @@ public class BrandDao extends AbstractDao{
         return getSingle(query);
     }
 
+    // TODO Remove functions if they're not required
     public BrandPojo select_brand(String brand){
         TypedQuery<BrandPojo> query = getQuery(select_brand, BrandPojo.class);
         query.setParameter("brand", brand);

@@ -55,7 +55,10 @@ public class BrandService {
     public BrandPojo getBrandCategory(String brand, String category){
         return brandDao.selectBrandCategory(brand, category);
     }
-    
+
+    // TODO Felt that the function can be named better.
+    //  Current name of existingBrandCategoryCombination, should ideally return true if brand-category combination exists.
+    //  But it is happening the other way
     private boolean existingBrandCategoryCombination(BrandPojo brandPojo){
         BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
         if (existingBrandPojo == null){

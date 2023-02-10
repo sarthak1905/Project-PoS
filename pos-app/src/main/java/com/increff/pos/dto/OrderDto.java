@@ -84,6 +84,7 @@ public class OrderDto {
         return orderItemDataList;
     }
 
+    // TODO If possible break this into smaller functions
     public ResponseEntity<byte[]> getOrderInvoice(Integer orderId) throws ApiException, IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

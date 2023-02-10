@@ -23,7 +23,10 @@ public class BrandDto {
 
     public void add(BrandForm brandForm) throws ApiException {
         ValidationUtil.validateForms(brandForm);
+
+        // TODO Rather than having normalize for each form in separate classes, have a single class Normalize, and have overloaded functions there.
         BrandUtil.normalize(brandForm);
+
         BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);
         brandService.add(brandPojo);
     }
@@ -33,6 +36,7 @@ public class BrandDto {
         return ConvertUtil.convertBrandPojoToData(brandPojo);
     }
 
+    // TODO remove if not required
     public BrandPojo getBrandCategory(String brand, String category) throws ApiException{
         brand = brand.toLowerCase().trim();
         category = category.toLowerCase().trim();

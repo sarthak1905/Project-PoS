@@ -63,6 +63,7 @@ public class InventoryDto {
         inventoryService.delete(id);
     }
 
+    // TODO Remove if not required
     public boolean isValidInventory(int id, int quantity) throws ApiException {
         InventoryPojo inventoryPojo = inventoryService.get(id);
         if(inventoryPojo.getQuantity() < quantity){

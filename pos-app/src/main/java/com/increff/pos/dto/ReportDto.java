@@ -59,6 +59,7 @@ public class ReportDto {
         return daySalesData;
     }
 
+    // TODO break into smaller functions if possible
     public List<SalesReportData> getSalesReport(SalesReportFilterForm salesReportFilterForm) throws ApiException {
         List<SalesReportData> salesReportDataList = new ArrayList<>();
         List<OrderPojo> orderPojoList = new ArrayList<>();

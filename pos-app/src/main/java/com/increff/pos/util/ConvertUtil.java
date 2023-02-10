@@ -5,6 +5,8 @@ import com.increff.pos.pojo.*;
 
 import java.time.format.DateTimeFormatter;
 
+// TODO Suggestion - Think of if there are ways to create a generic convert util function which assigns values
+//  if the member variable names match.
 public class ConvertUtil {
 
     public static UserData convertUserPojoToUserData(UserPojo userPojo) {

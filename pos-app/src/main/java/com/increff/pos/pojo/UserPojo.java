@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "users")
+// TODO add an unique constraint on email
 public class UserPojo {
 
 	@Id

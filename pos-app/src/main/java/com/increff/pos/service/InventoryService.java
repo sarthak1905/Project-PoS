@@ -58,6 +58,7 @@ public class InventoryService {
         }
     }
 
+    // Add @Transactional
     public void reduceInventory(int productId, int quantity) throws ApiException {
         InventoryPojo inventoryPojo = getCheck(productId);
         inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);

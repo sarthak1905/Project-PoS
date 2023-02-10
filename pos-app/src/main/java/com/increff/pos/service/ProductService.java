@@ -65,6 +65,7 @@ public class ProductService {
 
     public boolean isValidBarcode(String barcode){
         ProductPojo px = productDao.selectBarcode(barcode);
+        // TODO can simply such if-else to one-line. Here, just "return px == null"
         if(px != null){
             return false;
         }

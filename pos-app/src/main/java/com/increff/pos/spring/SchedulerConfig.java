@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class SchedulerConfig {
 
+    // TODO private
     @Autowired
     ReportDto reportDto;
 
