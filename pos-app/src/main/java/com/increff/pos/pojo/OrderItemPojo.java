@@ -6,14 +6,18 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_ITEMS_SEQ;
+import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
+
 @Entity
 @Getter
 @Setter
 @Table(name = "order_items")
-public class OrderItemPojo {
+public class OrderItemPojo extends AbstractVersionPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableGenerator(name = POS_ORDER_ITEMS_SEQ, pkColumnValue = POS_ORDER_ITEMS_SEQ, table = POS_TABLE_NAME)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_ITEMS_SEQ)
     private Integer id;
 
     @Column(nullable = false)

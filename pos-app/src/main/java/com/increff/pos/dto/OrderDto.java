@@ -115,23 +115,22 @@ public class OrderDto {
         invoicePojo.setOrderId(orderId);
         if(existingInvoicePojo == null) {
             invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
-            orderService.setInvoicedTrue(orderPojo.getId());
         }
         else{
             invoicePojo.setInvoiceDate(existingInvoicePojo.getInvoiceDate());
         }
 
-        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList,orderPojo,invoicePojo);
+        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
         RestTemplate restTemplate = new RestTemplate();
         String url = invoiceUrl;
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
             byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
             fos.write(contents);
-
             String path = "pos-app/generated/invoice" + orderId + ".pdf";
             invoicePojo.setPath(path);
             invoiceService.add(invoicePojo);
+            orderService.setInvoicedTrue(orderPojo.getId());
 
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
@@ -147,7 +146,7 @@ public class OrderDto {
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         invoiceForm.setInvoiceDate(invoicePojo.getInvoiceDate().format(dateTimeFormatter));
-        invoiceForm.setOrderDate(orderPojo.getDateTime().format(dateTimeFormatter));
+        invoiceForm.setOrderDate(orderPojo.getOrderDate().format(dateTimeFormatter));
         invoiceForm.setOrderTotal(orderPojo.getOrderTotal());
         invoiceForm.setOrderId(orderPojo.getId());
         return invoiceForm;
@@ -175,16 +174,18 @@ public class OrderDto {
         orderService.update(newOrderItemPojos, existingOrderItemMapByID, orderId, orderTotal);
     }
 
+    public void delete(Integer id) throws ApiException{
+        orderService.delete(id);
+    }
+
+    // -----------------------PRIVATE METHODS-------------------------------
+
     private double calculateOrderTotal(List<OrderItemForm> orderItemForms) {
         double orderTotal = 0.0;
         for(OrderItemForm orderItemForm: orderItemForms){
             orderTotal += orderItemForm.getQuantity() * orderItemForm.getSellingPrice();
         }
         return orderTotal;
-    }
-
-    public void delete(Integer id) throws ApiException{
-        orderService.delete(id);
     }
 
     private OrderItemPojo getExistingPojoOrAddNew(OrderItemForm orderItemForm, Integer orderId,

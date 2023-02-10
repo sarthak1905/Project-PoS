@@ -6,24 +6,28 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import static com.increff.pos.pojo.GeneratorTable.POS_BRAND_SEQ;
+import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
+
 @Entity
-@Table(indexes ={@Index(columnList = &quot;brand,category&quot;)},
+@Table(indexes ={@Index(name=&quot;brand_category_index&quot;, columnList = &quot;brand,category&quot;)},
         uniqueConstraints = {@UniqueConstraint(columnNames = {&quot;brand&quot;, &quot;category&quot;})}, name = &quot;brands&quot;)
 @Getter
-<span class="nc" id="L13">@Setter</span>
-<span class="nc" id="L14">public class BrandPojo {</span>
+<span class="nc" id="L16">@Setter</span>
+<span class="nc" id="L17">public class BrandPojo extends AbstractVersionPojo {</span>
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L18">    private Integer id;</span>
+    @TableGenerator(name = POS_BRAND_SEQ, pkColumnValue = POS_BRAND_SEQ, table = POS_TABLE_NAME)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_BRAND_SEQ)
+<span class="nc" id="L22">    private Integer id;</span>
 
     @Column(nullable = false)
     @NotBlank
-<span class="nc" id="L22">    private String brand;</span>
+<span class="nc" id="L26">    private String brand;</span>
 
     @Column(nullable = false)
     @NotBlank
-<span class="nc" id="L26">    private String category;</span>
+<span class="nc" id="L30">    private String category;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

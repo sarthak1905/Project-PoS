@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 <span class="nc" id="L16">public class SchedulerConfig {</span>
 
     @Autowired
-    ReportDto reportDto;
+    private ReportDto reportDto;
 
     @Async
     @Scheduled(cron = &quot;1 0 0 * * *&quot;)

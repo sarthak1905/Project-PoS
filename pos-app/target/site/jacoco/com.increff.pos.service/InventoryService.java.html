@@ -9,58 +9,53 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-<span class="nc" id="L12">public class InventoryService {</span>
+@Transactional(rollbackOn = ApiException.class)
+<span class="nc" id="L13">public class InventoryService {</span>
 
     @Autowired
     private InventoryDao inventoryDao;
 
-    @Transactional(rollbackOn = ApiException.class)
-    public void add(InventoryPojo p) throws ApiException {
-<span class="nc" id="L19">        inventoryDao.insert(p);</span>
+    public void add(InventoryPojo inventoryPojo) throws ApiException {
+<span class="nc" id="L19">        inventoryDao.insert(inventoryPojo);</span>
 <span class="nc" id="L20">    }</span>
 
-    @Transactional(rollbackOn = ApiException.class)
     public InventoryPojo get(int id) throws ApiException{
-<span class="nc" id="L24">        return getCheck(id);</span>
+<span class="nc" id="L23">        return getCheck(id);</span>
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public List&lt;InventoryPojo&gt; getAll(){
-<span class="nc" id="L29">        return inventoryDao.selectAll();</span>
+<span class="nc" id="L27">        return inventoryDao.selectAll();</span>
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
-    public void update(int id, InventoryPojo p) throws ApiException {
-<span class="nc" id="L34">        InventoryPojo px = getCheck(id);</span>
-<span class="nc" id="L35">        px.setQuantity(p.getQuantity());</span>
-<span class="nc" id="L36">    }</span>
+    public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
+<span class="nc" id="L31">        InventoryPojo px = getCheck(id);</span>
+<span class="nc" id="L32">        px.setQuantity(inventoryPojo.getQuantity());</span>
+<span class="nc" id="L33">    }</span>
 
-    @Transactional
     public void delete(int id) throws ApiException{
-<span class="nc" id="L40">        InventoryPojo p = getCheck(id);</span>
-<span class="nc" id="L41">        inventoryDao.delete(id);</span>
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L36">        InventoryPojo p = getCheck(id);</span>
+<span class="nc" id="L37">        inventoryDao.delete(id);</span>
+<span class="nc" id="L38">    }</span>
 
-    @Transactional
     public InventoryPojo getCheck(int id) throws ApiException{
-<span class="nc" id="L46">        InventoryPojo p = inventoryDao.select_id(id);</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if(p == null){</span>
-<span class="nc" id="L48">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
+<span class="nc" id="L41">        InventoryPojo inventoryPojo = inventoryDao.select_id(id);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if(inventoryPojo == null){</span>
+<span class="nc" id="L43">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
         }
-<span class="nc" id="L50">        return p;</span>
+<span class="nc" id="L45">        return inventoryPojo;</span>
     }
 
     public void checkInventory(int id, int quantity) throws ApiException {
-<span class="nc" id="L54">        InventoryPojo inventoryPojo = getCheck(id);</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if(inventoryPojo.getQuantity() &lt; quantity){</span>
-<span class="nc" id="L56">            throw new ApiException(&quot;Insufficient inventory for product with id:&quot; + id +</span>
-<span class="nc" id="L57">                    &quot;. Max available = &quot; + inventoryPojo.getQuantity() + &quot;. Order placed for = &quot; + quantity);</span>
+<span class="nc" id="L49">        InventoryPojo inventoryPojo = getCheck(id);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if(inventoryPojo.getQuantity() &lt; quantity){</span>
+<span class="nc" id="L51">            throw new ApiException(&quot;Insufficient inventory for product with id:&quot; + id +</span>
+<span class="nc" id="L52">                    &quot;. Max available = &quot; + inventoryPojo.getQuantity() + &quot;. Order placed for = &quot; + quantity);</span>
         }
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L54">    }</span>
 
     public void reduceInventory(int productId, int quantity) throws ApiException {
-<span class="nc" id="L62">        InventoryPojo inventoryPojo = getCheck(productId);</span>
-<span class="nc" id="L63">        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);</span>
-<span class="nc" id="L64">    }</span>
+<span class="nc" id="L57">        InventoryPojo inventoryPojo = getCheck(productId);</span>
+<span class="nc" id="L58">        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);</span>
+<span class="nc" id="L59">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "invoice")
-public class InvoicePojo {
+public class InvoicePojo extends AbstractVersionPojo {
 
     @Id
     @Column(name = "order_id")

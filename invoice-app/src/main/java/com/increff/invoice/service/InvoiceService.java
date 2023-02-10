@@ -96,7 +96,6 @@ public class InvoiceService {
 
             transformer.transform(domSource, streamResult);
 
-            System.out.println("Done creating XML File");
 
         } catch (ParserConfigurationException | TransformerException pce) {
             pce.printStackTrace();
@@ -110,7 +109,6 @@ public class InvoiceService {
             File pdfDir = new File("./Test");
             pdfDir.mkdirs();
             File pdfFile = new File(pdfDir, "invoice.pdf");
-            System.out.println(pdfFile.getAbsolutePath());
             // configure fopFactory as desired
             final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();

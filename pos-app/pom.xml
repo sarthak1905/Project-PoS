@@ -51,10 +51,8 @@
                     </httpConnector>
                     <webApp>
                         <contextPath>${jetty.context}</contextPath>
-                        <_initParams>
-                            <org.eclipse.jetty.servlet.Default.useFileMappedBuffer>false</org.eclipse.jetty.servlet.Default.useFileMappedBuffer>
-                        </_initParams>
                     </webApp>
+                    <reload>manual</reload>
                 </configuration>
             </plugin>
         </plugins>

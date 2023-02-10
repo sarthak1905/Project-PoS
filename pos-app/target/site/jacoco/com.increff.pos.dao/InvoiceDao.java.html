@@ -13,11 +13,11 @@ import java.util.List;
 @Transactional
 <span class="nc" id="L14">public class InvoiceDao extends AbstractDao{</span>
 
-<span class="nc" id="L16">    private static String select_id = &quot;select p from InvoicePojo p where order_id=:order_id&quot;;</span>
-<span class="nc" id="L17">    private static String select_all = &quot;select p from InvoicePojo p&quot;;</span>
-<span class="nc" id="L18">    private static String select_between_dates = &quot;select p from InvoicePojo p where invoice_date &quot; +</span>
+    private static final String SELECT_ID = &quot;select p from InvoicePojo p where order_id=:order_id&quot;;
+    private static final String SELECT_ALL = &quot;select p from InvoicePojo p&quot;;
+    private static final String SELECT_BETWEEN_DATES = &quot;select p from InvoicePojo p where invoice_date &quot; +
             &quot;between :start_date and :end_date&quot;;
-    private static final String select_first_order_date_time = &quot;select MIN(p.invoiceDate) &quot; +
+    private static final String SELECT_FIRST_ORDER_DATE_TIME = &quot;select MIN(p.invoiceDate) &quot; +
             &quot;from InvoicePojo p&quot;;
 
     public void insert(InvoicePojo invoicePojo){
@@ -25,24 +25,24 @@ import java.util.List;
 <span class="nc" id="L25">    }</span>
 
     public InvoicePojo select_id(Integer orderId){
-<span class="nc" id="L28">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_id, InvoicePojo.class);</span>
+<span class="nc" id="L28">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(SELECT_ID, InvoicePojo.class);</span>
 <span class="nc" id="L29">        query.setParameter(&quot;order_id&quot;, orderId);</span>
 <span class="nc" id="L30">        return getSingle(query);</span>
     }
 
     public List&lt;InvoicePojo&gt; selectAll(){
-<span class="nc" id="L34">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_all, InvoicePojo.class);</span>
+<span class="nc" id="L34">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(SELECT_ALL, InvoicePojo.class);</span>
 <span class="nc" id="L35">        return query.getResultList();</span>
     }
 
     public List&lt;InvoicePojo&gt; selectInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-<span class="nc" id="L39">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(select_between_dates, InvoicePojo.class);</span>
+<span class="nc" id="L39">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(SELECT_BETWEEN_DATES, InvoicePojo.class);</span>
 <span class="nc" id="L40">        query.setParameter(&quot;start_date&quot;, startDate).setParameter(&quot;end_date&quot;, endDate);</span>
 <span class="nc" id="L41">        return query.getResultList();</span>
     }
 
     public LocalDateTime selectFirstOrderDateTime() {
-<span class="nc" id="L45">        Query query = em().createQuery(select_first_order_date_time);</span>
+<span class="nc" id="L45">        Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);</span>
 <span class="nc" id="L46">        return (LocalDateTime)query.getSingleResult();</span>
     }
 }

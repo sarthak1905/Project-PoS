@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Table(name = "inventory")
-public class InventoryPojo {
+public class InventoryPojo extends AbstractVersionPojo {
 
     @Id
     private Integer id;

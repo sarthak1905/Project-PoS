@@ -4,21 +4,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+
+import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_SEQ;
+import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "orders")
-public class OrderPojo {
+@Table(name = "orders", indexes = {@Index(name = "order_date_index", columnList = "order_date"),
+                                   @Index(name = "is_invoiced_index", columnList = "is_invoiced")})
+public class OrderPojo extends AbstractVersionPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableGenerator(name = POS_ORDER_SEQ, pkColumnValue = POS_ORDER_SEQ, table = POS_TABLE_NAME)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_SEQ)
     private Integer id;
 
-    @Column(nullable = false)
-    private LocalDateTime dateTime;
+    @Column(nullable = false, name = "order_date")
+    private LocalDateTime orderDate;
 
     @Column(nullable = false, name = "is_invoiced")
     private boolean isInvoiced;

@@ -32,6 +32,9 @@ public class ProductService {
 
     public void update(int id, ProductPojo productPojo) throws ApiException {
         ProductPojo existingProductPojo = getCheck(id);
+        if(!existingProductPojo.getBarcode().equals(productPojo.getBarcode())){
+            throw new ApiException("Barcode must be same while updating!");
+        }
         existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
         existingProductPojo.setName(productPojo.getName());
         existingProductPojo.setMrp(productPojo.getMrp());
@@ -56,19 +59,16 @@ public class ProductService {
     }
 
     public int getProductIdFromBarcode(String barcode) throws ApiException {
-        ProductPojo px = productDao.selectBarcode(barcode);
-        if (px == null){
+        ProductPojo existingProductPojo = productDao.selectBarcode(barcode);
+        if (existingProductPojo == null){
             throw new ApiException("Product with given barcode" + barcode + " does not exist!");
         }
-        return px.getId();
+        return existingProductPojo.getId();
     }
 
     public boolean isValidBarcode(String barcode){
-        ProductPojo px = productDao.selectBarcode(barcode);
-        if(px != null){
-            return false;
-        }
-        return true;
+        ProductPojo existingProductPojo = productDao.selectBarcode(barcode);
+        return existingProductPojo == null;
     }
 
     public String getProductNameFromProductId(int productId) throws ApiException {

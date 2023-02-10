@@ -31,7 +31,7 @@ public class BrandService {
     }
     
     public void update(Integer id, BrandPojo brandPojo) throws ApiException {
-        if (!existingBrandCategoryCombination(brandPojo)) {
+        if (!existingBrandCategoryCombination(brandPojo, id)){
             throw new ApiException("Brand+category combination must be unique!");
         }
         BrandPojo bx = getCheck(id);
@@ -56,12 +56,22 @@ public class BrandService {
         return brandDao.selectBrandCategory(brand, category);
     }
     
+    private boolean existingBrandCategoryCombination(BrandPojo brandPojo, int id){
+        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
+        if (existingBrandPojo != null) {
+            if (existingBrandPojo.getId() != id) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean existingBrandCategoryCombination(BrandPojo brandPojo){
         BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
-        if (existingBrandPojo == null){
-            return true;
+        if (existingBrandPojo != null) {
+                return false;
         }
-        return false;
+        return true;
     }
     
 }

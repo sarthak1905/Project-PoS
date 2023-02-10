@@ -13,11 +13,11 @@ import java.util.List;
 @Transactional
 public class InvoiceDao extends AbstractDao{
 
-    private static String select_id = "select p from InvoicePojo p where order_id=:order_id";
-    private static String select_all = "select p from InvoicePojo p";
-    private static String select_between_dates = "select p from InvoicePojo p where invoice_date " +
+    private static final String SELECT_ID = "select p from InvoicePojo p where order_id=:order_id";
+    private static final String SELECT_ALL = "select p from InvoicePojo p";
+    private static final String SELECT_BETWEEN_DATES = "select p from InvoicePojo p where invoice_date " +
             "between :start_date and :end_date";
-    private static final String select_first_order_date_time = "select MIN(p.invoiceDate) " +
+    private static final String SELECT_FIRST_ORDER_DATE_TIME = "select MIN(p.invoiceDate) " +
             "from InvoicePojo p";
 
     public void insert(InvoicePojo invoicePojo){
@@ -25,24 +25,24 @@ public class InvoiceDao extends AbstractDao{
     }
 
     public InvoicePojo select_id(Integer orderId){
-        TypedQuery<InvoicePojo> query = getQuery(select_id, InvoicePojo.class);
+        TypedQuery<InvoicePojo> query = getQuery(SELECT_ID, InvoicePojo.class);
         query.setParameter("order_id", orderId);
         return getSingle(query);
     }
 
     public List<InvoicePojo> selectAll(){
-        TypedQuery<InvoicePojo> query = getQuery(select_all, InvoicePojo.class);
+        TypedQuery<InvoicePojo> query = getQuery(SELECT_ALL, InvoicePojo.class);
         return query.getResultList();
     }
 
     public List<InvoicePojo> selectInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        TypedQuery<InvoicePojo> query = getQuery(select_between_dates, InvoicePojo.class);
+        TypedQuery<InvoicePojo> query = getQuery(SELECT_BETWEEN_DATES, InvoicePojo.class);
         query.setParameter("start_date", startDate).setParameter("end_date", endDate);
         return query.getResultList();
     }
 
     public LocalDateTime selectFirstOrderDateTime() {
-        Query query = em().createQuery(select_first_order_date_time);
+        Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);
         return (LocalDateTime)query.getSingleResult();
     }
 }

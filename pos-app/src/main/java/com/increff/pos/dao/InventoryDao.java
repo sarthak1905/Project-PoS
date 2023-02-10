@@ -9,31 +9,31 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class InventoryDao extends AbstractDao{
 
-    private static String select_id = "select p from InventoryPojo p where id=:id";
-    private static String select_all = "select p from InventoryPojo p";
-    private static String delete_id = "delete from InventoryPojo p where id=:id";
+    private static final String SELECT_ID = "select p from InventoryPojo p where id=:id";
+    private static final String SELECT_ALL = "select p from InventoryPojo p";
+    private static final String DELETE_ID = "delete from InventoryPojo p where id=:id";
 
 
-    @Transactional
-    public void insert(InventoryPojo p){
-        em().persist(p);
+    public void insert(InventoryPojo inventoryPojo){
+        em().persist(inventoryPojo);
     }
 
     public InventoryPojo select_id(Integer id){
-        TypedQuery<InventoryPojo> query = getQuery(select_id, InventoryPojo.class);
+        TypedQuery<InventoryPojo> query = getQuery(SELECT_ID, InventoryPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
     }
 
     public List<InventoryPojo> selectAll(){
-        TypedQuery<InventoryPojo> query = getQuery(select_all, InventoryPojo.class);
+        TypedQuery<InventoryPojo> query = getQuery(SELECT_ALL, InventoryPojo.class);
         return query.getResultList();
     }
 
     public Integer delete(Integer id){
-        Query query = em().createQuery(delete_id);
+        Query query = em().createQuery(DELETE_ID);
         query.setParameter("id", id);
         return query.executeUpdate();
     }

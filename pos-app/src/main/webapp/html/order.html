@@ -14,7 +14,7 @@
 	<div class="row justify-content-center">
 		<div class="col-2">
 			<button type="button" class="btn btn-add button" id="add-order-dialog" data-toggle="modal" data-target="#add-order-modal">
-				<i class="fas fa-plus"></i>&nbsp; Add Order
+				<i class="fas fa-plus"></i> Add Order
 			</button>
 		</div>
 	</div>
@@ -32,12 +32,18 @@
 					<th scope="col">Order ID</th>
 					<th scope="col">Order Created At</th>
 					<th scope="col">Order Total</th>
-					<th scope="col">Invoice Status</th>
 					<th scope="col">Actions</th>
 					<th scope="col">Inovoice</th>
 				</tr>
 				</thead>
 				<tbody>
+				<tr>
+					<td>1</td>
+					<td>Dummy</td>
+					<td>0.0</td>
+					<td>Dummy</td>
+					<td>Dummy</td>
+				</tr>
 				</tbody>
 			</table>
 		</div>
@@ -67,7 +73,7 @@
 									</tr>
 									</thead>
 									<tbody id="add-order-tbody">
-									<tr class="add-order-row" id="add-order-row">
+									<tr class="add-order-row">
 										<td valign="center">
 											<select class="form-control col-12 js-select2" name="barcode">
 												<option>Dummy</option>
@@ -84,7 +90,7 @@
 											</div>
 										</td>
 										<td>
-											<button type="button" class="btn btn-danger" id="add-order-first-row-btn">Remove</button>
+											<button type="button" class="btn btn-remove button" id="add-order-first-row-btn">Remove</button>
 										</td>
 									</tr>
 									</tbody>
@@ -92,13 +98,13 @@
 							</form>
 						</div>
 						<div class="row col-12 d-flex justify-content-center">
-							<button type="button" class="btn btn-success" id="add-order-item">Add Item</button>
+							<button type="button" class="btn btn-add button" id="add-order-item"> <i class="fas fa-plus"></i> Add Item</button>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary button" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-add button" data-dismiss="modal" id="add-order">Add Order</button>
+					<button type="button" class="btn btn-remove button" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-add button" data-dismiss="modal" id="add-order"><i class="fas fa-plus"></i> Add Order</button>
 				</div>
 			</div>
 		</div>
@@ -169,15 +175,15 @@
 							</form>
 						</div>
 						<div class="row col-12 d-flex justify-content-center">
-							<button type="button" class="btn btn-add button" id="edit-add-order-item">Add Item</button>
+							<button type="button" class="btn btn-add button" id="edit-add-order-item"><i class="fas fa-plus"></i> Add Item</button>
 						</div>
 					</div>
 				</div>
 
 				<!--Button Actions-->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary button" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-add button" data-dismiss="modal" id="update-order">Update Order</button>
+					<button type="button" class="btn btn-remove button" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-add button" data-dismiss="modal" id="update-order"><i class="fas fa-plus"></i> Update Order</button>
 				</div>
 			</div>
 		</div>
@@ -234,7 +240,7 @@
 
 				<!--Button Actions-->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary button" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-remove button" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

@@ -9,46 +9,46 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-<span class="nc" id="L12">public class ProductDao extends AbstractDao{</span>
+@Transactional
+<span class="nc" id="L13">public class ProductDao extends AbstractDao{</span>
 
-<span class="nc" id="L14">    private static String select_id = &quot;select p from ProductPojo p where id=:id&quot;;</span>
-<span class="nc" id="L15">    private static String select_brand_category = &quot;select p from ProductPojo p where brand_category=:brand_category&quot;;</span>
-<span class="nc" id="L16">    private static String select_barcode = &quot;select p from ProductPojo p where barcode=:barcode&quot;;</span>
-<span class="nc" id="L17">    private static String select_name = &quot;select p from ProductPojo p where name=:name&quot;;</span>
-<span class="nc" id="L18">    private static String select_all = &quot;select p from ProductPojo p&quot;;</span>
-<span class="nc" id="L19">    private static String delete_id = &quot;delete from ProductPojo p where id=:id&quot;;</span>
+    private static final String SELECT_ID = &quot;select p from ProductPojo p where id=:id&quot;;
+    private static final String SELECT_BRAND_CATEGORY = &quot;select p from ProductPojo p where brand_category=:brand_category&quot;;
+    private static final String SELECT_BARCODE = &quot;select p from ProductPojo p where barcode=:barcode&quot;;
+    private static final String SELECT_NAME = &quot;select p from ProductPojo p where name=:name&quot;;
+    private static final String SELECT_ALL = &quot;select p from ProductPojo p&quot;;
+    private static final String DELETE_ID = &quot;delete from ProductPojo p where id=:id&quot;;
 
 
-    @Transactional
-    public void insert(ProductPojo p){
-<span class="nc" id="L24">        em().persist(p);</span>
+    public void insert(ProductPojo productPojo){
+<span class="nc" id="L24">        em().persist(productPojo);</span>
 <span class="nc" id="L25">    }</span>
 
     public ProductPojo selectId(int id){
-<span class="nc" id="L28">        TypedQuery&lt;ProductPojo&gt; query = getQuery(select_id, ProductPojo.class);</span>
+<span class="nc" id="L28">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ID, ProductPojo.class);</span>
 <span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L30">        return getSingle(query);</span>
     }
 
     public ProductPojo selectBarcode(String barcode){
-<span class="nc" id="L34">        TypedQuery&lt;ProductPojo&gt; query = getQuery(select_barcode, ProductPojo.class);</span>
+<span class="nc" id="L34">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_BARCODE, ProductPojo.class);</span>
 <span class="nc" id="L35">        query.setParameter(&quot;barcode&quot;, barcode);</span>
 <span class="nc" id="L36">        return getSingle(query);</span>
     }
 
     public ProductPojo selectName(String name){
-<span class="nc" id="L40">        TypedQuery&lt;ProductPojo&gt; query = getQuery(select_name, ProductPojo.class);</span>
+<span class="nc" id="L40">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_NAME, ProductPojo.class);</span>
 <span class="nc" id="L41">        query.setParameter(&quot;name&quot;, name);</span>
 <span class="nc" id="L42">        return getSingle(query);</span>
     }
 
     public List&lt;ProductPojo&gt; selectAll(){
-<span class="nc" id="L46">        TypedQuery&lt;ProductPojo&gt; query = getQuery(select_all, ProductPojo.class);</span>
+<span class="nc" id="L46">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ALL, ProductPojo.class);</span>
 <span class="nc" id="L47">        return query.getResultList();</span>
     }
 
     public int delete(int id){
-<span class="nc" id="L51">        Query query = em().createQuery(delete_id);</span>
+<span class="nc" id="L51">        Query query = em().createQuery(DELETE_ID);</span>
 <span class="nc" id="L52">        query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L53">        return query.executeUpdate();</span>
     }

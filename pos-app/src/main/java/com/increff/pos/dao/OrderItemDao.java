@@ -12,43 +12,43 @@ import java.util.List;
 @Transactional
 public class OrderItemDao extends AbstractDao{
 
-    private static String select_id = "select p from OrderItemPojo p where id=:id";
-    private static String select_all = "select p from OrderItemPojo p";
-    private static String delete_id = "delete from OrderItemPojo p where id=:id";
-    private static String select_productId_orderId = "select p from OrderItemPojo p where " +
+    private static final String SELECT_ID = "select p from OrderItemPojo p where id=:id";
+    private static final String SELECT_ALL = "select p from OrderItemPojo p";
+    private static final String DELETE_ID = "delete from OrderItemPojo p where id=:id";
+    private static final String SELECT_PRODUCT_ID_ORDER_ID = "select p from OrderItemPojo p where " +
                                                         "productId=:productId " +
                                                         "and orderId=:orderId";
-    private static String select_by_orderId = "select p from OrderItemPojo p where orderId=:orderId";
+    private static final String SELECT_BY_ORDER_ID = "select p from OrderItemPojo p where orderId=:orderId";
 
-    public void insert(OrderItemPojo p){
-        em().persist(p);
+    public void insert(OrderItemPojo orderItemPojo){
+        em().persist(orderItemPojo);
     }
 
     public OrderItemPojo select_id(int id){
-        TypedQuery<OrderItemPojo> query = getQuery(select_id, OrderItemPojo.class);
+        TypedQuery<OrderItemPojo> query = getQuery(SELECT_ID, OrderItemPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
     }
 
     public List<OrderItemPojo> selectByOrderId(int orderId) {
-        TypedQuery<OrderItemPojo> query = getQuery(select_by_orderId, OrderItemPojo.class);
+        TypedQuery<OrderItemPojo> query = getQuery(SELECT_BY_ORDER_ID, OrderItemPojo.class);
         query.setParameter("orderId", orderId);
         return query.getResultList();
     }
 
     public List<OrderItemPojo> selectAll(){
-        TypedQuery<OrderItemPojo> query = getQuery(select_all, OrderItemPojo.class);
+        TypedQuery<OrderItemPojo> query = getQuery(SELECT_ALL, OrderItemPojo.class);
         return query.getResultList();
     }
 
     public OrderItemPojo selectProductIdOrderId(Integer productId, Integer orderId){
-        TypedQuery<OrderItemPojo> query = getQuery(select_productId_orderId, OrderItemPojo.class);
+        TypedQuery<OrderItemPojo> query = getQuery(SELECT_PRODUCT_ID_ORDER_ID, OrderItemPojo.class);
         query.setParameter("productId", productId).setParameter("orderId", orderId);
         return getSingle(query);
     }
 
     public int delete(int id){
-        Query query = em().createQuery(delete_id);
+        Query query = em().createQuery(DELETE_ID);
         query.setParameter("id", id);
         return query.executeUpdate();
     }

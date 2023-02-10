@@ -28,7 +28,7 @@ public class OrderService {
     private InvoiceService invoiceService;
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
-        orderPojo.setDateTime(java.time.LocalDateTime.now());
+        orderPojo.setOrderDate(java.time.LocalDateTime.now());
         orderPojo.setInvoiced(false);
         orderDao.insert(orderPojo);
         double orderTotal = 0.0;
@@ -66,16 +66,16 @@ public class OrderService {
     }
 
     public void delete(int id) throws ApiException{
-        OrderPojo p = getCheck(id);
+        OrderPojo orderPojo = getCheck(id);
         orderDao.delete(id);
     }
 
     private OrderPojo getCheck(int id) throws ApiException {
-        OrderPojo p = orderDao.select_id(id);
-        if (p == null) {
+        OrderPojo orderPojo = orderDao.select_id(id);
+        if (orderPojo == null) {
             throw new ApiException("Order with given ID: " + id + " does not exist!");
         }
-        return p;
+        return orderPojo;
     }
 
     public void validateSellingPrice(int productId, double sellingPrice) throws ApiException {

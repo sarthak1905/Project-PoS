@@ -13,52 +13,52 @@ import java.util.List;
 @Transactional
 public class OrderDao extends AbstractDao{
 
-    private static final String select_id = "select p from OrderPojo p where id=:id";
-    private static final String select_all = "select p from OrderPojo p";
-    private static final String delete_id = "delete from OrderPojo p where id=:id";
-    private static final String select_between_dates = "select p from OrderPojo p where " +
+    private static final String SELECT_ID = "select p from OrderPojo p where id=:id";
+    private static final String SELECT_ALL = "select p from OrderPojo p";
+    private static final String DELETE_ID = "delete from OrderPojo p where id=:id";
+    private static final String SELECT_BETWEEN_DATES = "select p from OrderPojo p where " +
             "datetime between :startDate and :endDate";
-    private static final String select_after_date = "select p from OrderPojo p where " +
+    private static final String SELECT_AFTER_DATE = "select p from OrderPojo p where " +
             "datetime >= :startDate";
-    private static final String select_before_date = "select p from OrderPojo p where " +
+    private static final String SELECT_BEFORE_DATE = "select p from OrderPojo p where " +
             "datetime <= :endDate";
 
 
-    public void insert(OrderPojo p){
-        em().persist(p);
+    public void insert(OrderPojo orderPojo){
+        em().persist(orderPojo);
     }
 
     public OrderPojo select_id(int id){
-        TypedQuery<OrderPojo> query = getQuery(select_id, OrderPojo.class);
+        TypedQuery<OrderPojo> query = getQuery(SELECT_ID, OrderPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
     }
 
     public List<OrderPojo> selectAll(){
-        TypedQuery<OrderPojo> query = getQuery(select_all, OrderPojo.class);
+        TypedQuery<OrderPojo> query = getQuery(SELECT_ALL, OrderPojo.class);
         return query.getResultList();
     }
 
     public int delete(int id){
-        Query query = em().createQuery(delete_id);
+        Query query = em().createQuery(DELETE_ID);
         query.setParameter("id", id);
         return query.executeUpdate();
     }
 
     public List<OrderPojo> selectBeforeEndDate(LocalDateTime endDate) {
-        TypedQuery<OrderPojo> query = getQuery(select_before_date, OrderPojo.class);
+        TypedQuery<OrderPojo> query = getQuery(SELECT_BEFORE_DATE, OrderPojo.class);
         query.setParameter("endDate", endDate);
         return query.getResultList();
     }
 
     public List<OrderPojo> selectBetweenDates(LocalDateTime startDate,LocalDateTime endDate) {
-        TypedQuery<OrderPojo> query = getQuery(select_between_dates, OrderPojo.class);
+        TypedQuery<OrderPojo> query = getQuery(SELECT_BETWEEN_DATES, OrderPojo.class);
         query.setParameter("startDate", startDate).setParameter("endDate", endDate);
         return query.getResultList();
     }
 
     public List<OrderPojo> selectAfterStartDate(LocalDateTime startDate) {
-        TypedQuery<OrderPojo> query = getQuery(select_after_date, OrderPojo.class);
+        TypedQuery<OrderPojo> query = getQuery(SELECT_AFTER_DATE, OrderPojo.class);
         query.setParameter("startDate", startDate);
         return query.getResultList();
     }

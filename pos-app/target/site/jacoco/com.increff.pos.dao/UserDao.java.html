@@ -9,44 +9,41 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-<span class="nc" id="L12">public class UserDao extends AbstractDao {</span>
+@Transactional
+<span class="nc" id="L13">public class UserDao extends AbstractDao {</span>
 
-<span class="nc" id="L14">	private static String delete_id = &quot;delete from UserPojo p where id=:id&quot;;</span>
-<span class="nc" id="L15">	private static String select_id = &quot;select p from UserPojo p where id=:id&quot;;</span>
-<span class="nc" id="L16">	private static String select_email = &quot;select p from UserPojo p where email=:email&quot;;</span>
-<span class="nc" id="L17">	private static String select_all = &quot;select p from UserPojo p&quot;;</span>
+	private static final String DELETE_ID = &quot;delete from UserPojo p where id=:id&quot;;
+	private static final String SELECT_ID = &quot;select p from UserPojo p where id=:id&quot;;
+	private static final String SELECT_EMAIL = &quot;select p from UserPojo p where email=:email&quot;;
+	private static final String SELECT_ALL = &quot;select p from UserPojo p&quot;;
 
-	
-	@Transactional
-	public void insert(UserPojo p) {
-<span class="nc" id="L22">		em().persist(p);</span>
+
+	public void insert(UserPojo userPojo) {
+<span class="nc" id="L22">		em().persist(userPojo);</span>
 <span class="nc" id="L23">	}</span>
 
 	public int delete(int id) {
-<span class="nc" id="L26">		Query query = em().createQuery(delete_id);</span>
+<span class="nc" id="L26">		Query query = em().createQuery(DELETE_ID);</span>
 <span class="nc" id="L27">		query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L28">		return query.executeUpdate();</span>
 	}
 
 	public UserPojo select(int id) {
-<span class="nc" id="L32">		TypedQuery&lt;UserPojo&gt; query = getQuery(select_id, UserPojo.class);</span>
+<span class="nc" id="L32">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_ID, UserPojo.class);</span>
 <span class="nc" id="L33">		query.setParameter(&quot;id&quot;, id);</span>
 <span class="nc" id="L34">		return getSingle(query);</span>
 	}
 
 	public UserPojo select(String email) {
-<span class="nc" id="L38">		TypedQuery&lt;UserPojo&gt; query = getQuery(select_email, UserPojo.class);</span>
+<span class="nc" id="L38">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_EMAIL, UserPojo.class);</span>
 <span class="nc" id="L39">		query.setParameter(&quot;email&quot;, email);</span>
 <span class="nc" id="L40">		return getSingle(query);</span>
 	}
 
 	public List&lt;UserPojo&gt; selectAll() {
-<span class="nc" id="L44">		TypedQuery&lt;UserPojo&gt; query = getQuery(select_all, UserPojo.class);</span>
+<span class="nc" id="L44">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_ALL, UserPojo.class);</span>
 <span class="nc" id="L45">		return query.getResultList();</span>
 	}
-
-	public void update(UserPojo p) {
-<span class="nc" id="L49">	}</span>
 
 
 }

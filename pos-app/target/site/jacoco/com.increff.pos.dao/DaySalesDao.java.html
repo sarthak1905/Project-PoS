@@ -13,27 +13,27 @@ import java.util.List;
 @Transactional
 <span class="nc" id="L14">public class DaySalesDao extends AbstractDao {</span>
 
-<span class="nc" id="L16">    private static String select_all = &quot;select p from DaySalesPojo p&quot;;</span>
-<span class="nc" id="L17">    private static String select_by_date = &quot;select p from DaySalesPojo p where date=:date&quot;;</span>
-    private static final String select_latest_date = &quot;select max(p.date) from DaySalesPojo p&quot;;
+    private static final String SELECT_ALL = &quot;select p from DaySalesPojo p&quot;;
+    private static final String SELECT_BY_DATE = &quot;select p from DaySalesPojo p where date=:date&quot;;
+    private static final String SELECT_LATEST_DATE = &quot;select max(p.date) from DaySalesPojo p&quot;;
 
     public void insert(DaySalesPojo daySalesPojo){
 <span class="nc" id="L21">        em().persist(daySalesPojo);</span>
 <span class="nc" id="L22">    }</span>
 
     public DaySalesPojo selectByDate(LocalDate date){
-<span class="nc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_by_date, DaySalesPojo.class);</span>
+<span class="nc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BY_DATE, DaySalesPojo.class);</span>
 <span class="nc" id="L26">        query.setParameter(&quot;date&quot;, date);</span>
 <span class="nc" id="L27">        return getSingle(query);</span>
     }
 
     public List&lt;DaySalesPojo&gt; selectAll() {
-<span class="nc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(select_all, DaySalesPojo.class);</span>
+<span class="nc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
 <span class="nc" id="L32">        return query.getResultList();</span>
     }
 
     public LocalDate selectLatestDate() {
-<span class="nc" id="L36">        Query query = em().createQuery(select_latest_date);</span>
+<span class="nc" id="L36">        Query query = em().createQuery(SELECT_LATEST_DATE);</span>
 <span class="nc" id="L37">        return (LocalDate)query.getSingleResult();</span>
     }
 }

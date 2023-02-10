@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "pos_day_sales")
-public class DaySalesPojo {
+public class DaySalesPojo extends AbstractVersionPojo {
 
     @Id
     private LocalDate date;

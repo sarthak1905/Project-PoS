@@ -7,17 +7,23 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import static com.increff.pos.pojo.GeneratorTable.POS_PRODUCT_SEQ;
+import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
+
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"barcode"})}, name = "products")
+@Table (name="products",
+        indexes = {@Index(name="barcode_index", columnList = "barcode"),
+                   @Index(name="brand_category_index", columnList = "brand_category")})
 @Getter
 @Setter
-public class ProductPojo {
+public class ProductPojo extends AbstractVersionPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableGenerator(name = POS_PRODUCT_SEQ, pkColumnValue = POS_PRODUCT_SEQ, table = POS_TABLE_NAME)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_PRODUCT_SEQ)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank
     private String barcode;
 

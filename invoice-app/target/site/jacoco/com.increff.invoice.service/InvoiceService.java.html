@@ -96,50 +96,48 @@ import java.text.DecimalFormat;
 
 <span class="nc" id="L97">            transformer.transform(domSource, streamResult);</span>
 
-<span class="nc" id="L99">            System.out.println(&quot;Done creating XML File&quot;);</span>
 
-<span class="nc" id="L101">        } catch (ParserConfigurationException | TransformerException pce) {</span>
-<span class="nc" id="L102">            pce.printStackTrace();</span>
-<span class="nc" id="L103">        }</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L100">        } catch (ParserConfigurationException | TransformerException pce) {</span>
+<span class="nc" id="L101">            pce.printStackTrace();</span>
+<span class="nc" id="L102">        }</span>
+<span class="nc" id="L103">    }</span>
 
     public void createPDF() {
         try {
-<span class="nc" id="L108">            File xmlfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml\\Invoice.xml&quot;);</span>
-<span class="nc" id="L109">            File xsltfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xsl\\template.xsl&quot;);</span>
-<span class="nc" id="L110">            File pdfDir = new File(&quot;./Test&quot;);</span>
-<span class="nc" id="L111">            pdfDir.mkdirs();</span>
-<span class="nc" id="L112">            File pdfFile = new File(pdfDir, &quot;invoice.pdf&quot;);</span>
-<span class="nc" id="L113">            System.out.println(pdfFile.getAbsolutePath());</span>
+<span class="nc" id="L107">            File xmlfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml\\Invoice.xml&quot;);</span>
+<span class="nc" id="L108">            File xsltfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xsl\\template.xsl&quot;);</span>
+<span class="nc" id="L109">            File pdfDir = new File(&quot;./Test&quot;);</span>
+<span class="nc" id="L110">            pdfDir.mkdirs();</span>
+<span class="nc" id="L111">            File pdfFile = new File(pdfDir, &quot;invoice.pdf&quot;);</span>
             // configure fopFactory as desired
-<span class="nc" id="L115">            final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
-<span class="nc" id="L116">            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();</span>
+<span class="nc" id="L113">            final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
+<span class="nc" id="L114">            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();</span>
             // configure foUserAgent as desired
             // Setup output
-<span class="nc" id="L119">            OutputStream out = Files.newOutputStream(pdfFile.toPath());</span>
-<span class="nc" id="L120">            out = new java.io.BufferedOutputStream(out);</span>
+<span class="nc" id="L117">            OutputStream out = Files.newOutputStream(pdfFile.toPath());</span>
+<span class="nc" id="L118">            out = new java.io.BufferedOutputStream(out);</span>
             try {
                 // Construct fop with desired output format
                 Fop fop;
-<span class="nc" id="L124">                fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);</span>
+<span class="nc" id="L122">                fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);</span>
                 // Setup XSLT
-<span class="nc" id="L126">                TransformerFactory factory = TransformerFactory.newInstance();</span>
-<span class="nc" id="L127">                Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));</span>
+<span class="nc" id="L124">                TransformerFactory factory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L125">                Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));</span>
                 // Setup input for XSLT transformation
-<span class="nc" id="L129">                Source src = new StreamSource(xmlfile);</span>
+<span class="nc" id="L127">                Source src = new StreamSource(xmlfile);</span>
                 // Resulting SAX events (the generated FO) must be piped through to FOP
-<span class="nc" id="L131">                Result res = new SAXResult(fop.getDefaultHandler());</span>
+<span class="nc" id="L129">                Result res = new SAXResult(fop.getDefaultHandler());</span>
                 // Start XSLT transformation and FOP processing
-<span class="nc" id="L133">                transformer.transform(src, res);</span>
-<span class="nc" id="L134">            } catch (FOPException | TransformerException e) {</span>
-<span class="nc" id="L135">                e.printStackTrace();</span>
+<span class="nc" id="L131">                transformer.transform(src, res);</span>
+<span class="nc" id="L132">            } catch (FOPException | TransformerException e) {</span>
+<span class="nc" id="L133">                e.printStackTrace();</span>
             } finally {
-<span class="nc" id="L137">                out.close();</span>
+<span class="nc" id="L135">                out.close();</span>
             }
-<span class="nc" id="L139">        }catch(Exception exp){</span>
-<span class="nc" id="L140">            exp.printStackTrace();</span>
-<span class="nc" id="L141">        }</span>
-<span class="nc" id="L142">    }</span>
+<span class="nc" id="L137">        }catch(Exception exp){</span>
+<span class="nc" id="L138">            exp.printStackTrace();</span>
+<span class="nc" id="L139">        }</span>
+<span class="nc" id="L140">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

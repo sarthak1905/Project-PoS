@@ -84,9 +84,15 @@ function removeOrderItem(){
 }
 
 function addOrderItemRow() {
-    $('#add-order-row').clone().insertAfter('tr.add-order-row:last');
-	var $lastRowDropdown = $('tr.add-order-row:last td div datalist');
-	getProductList($lastRowDropdown, add=true);
+	var $tbody = $('#add-order-tbody');
+	var $lastRow = $('tr.add-order-row:last');
+	var $lastRowDropdown = $('tr.add-order-row:last td div .js-select2');
+    $lastRow.clone().insertAfter('tr.add-order-row:last');
+	var $newRow = $('tr.add-order-row:last');
+	var $newRowDropdown = $('tr.add-order-row:last .js-select2');
+	$newRow.find('span').remove();
+	getProductList($newRowDropdown, add=true);
+	$tbody.find('select').select2();
     $('tr.add-order-row:last input[name=quantity]').val('');
     $('tr.add-order-row:last input[name=sellingPrice]').val('');
     $('tr.add-order-row:last button').click(removeOrderItem);
@@ -101,7 +107,7 @@ function editAddOrderItemRow() {
 	getProductList($lastRowDropdown, add=false);
 	$('tr.edit-order-row:last input[name=quantity]').val('');
     $('tr.edit-order-row:last input[name=sellingPrice]').val('');
-	$('tr.edit-order-row:last button').replaceWith('<button type="button" class="btn btn-remove button">Remove</button>');
+	$('tr.edit-order-row:last button').replaceWith('<button type="button" class="btn btn-danger">Remove</button>');
     $('tr.edit-order-row:last button').click(removeOrderItem);
 }
 
@@ -145,7 +151,6 @@ function showBarcodeDropdownEdit(productData, element){
 	getUniqueBarcodes(productData, element);
 }
 
-
 function getUniqueBarcodes(productData, $selectBarcodeInput){
 	var id = $('#edit-order-id').val();
 	var url = getOrderUrl() + '/' + id + '/items';
@@ -176,12 +181,10 @@ function getUniqueBarcodes(productData, $selectBarcodeInput){
 	 });
 }
 
-
 function initOrderItemRow(){
 	var $selectField = $('#add-order-table').find('tbody tr:first td:first select');
 	getProductList($selectField);
 }
-
 
 function getOrderList(){
 	var url = getOrderUrl();
@@ -209,36 +212,21 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var downloadIncvoiceButton = ' <button id="btn-invoice' 
-		+ o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' 
-		+ o.id + ')"><i class="bi bi-cloud-arrow-down-fill"></i> Get Invoice</button>';
-		
-		var actionsButton = ' <button id="btn-view' 
-		+ o.id + '"class="btn btn-view button" onclick="displayOrderItems(' 
-		+ o.id + ')"><i class="bi bi-eye-fill"></i> View</button>';
-		
-		var invoiceStatus = '';
+		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' + o.id + ')"><i class="bi bi-cloud-arrow-down-fill"></i> Get Invoice</button>';
+		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-view button" onclick="displayOrderItems(' + o.id + ')"><i class="bi bi-eye-fill"></i> View</button>';
 		if(o.invoiced === false){
 			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-edit button" onclick="displayEditOrder(' + o.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>';
-			invoiceStatus = 'Created';
 		}
-		else{
-			invoiceStatus = 'Invoiced';
-		}
-
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
 		+ '<td>' + o.dateTime + '</td>'
 		+ '<td>' + o.orderTotal + '</td>'
-		+ '<td>' + invoiceStatus + '</td>'
 		+ '<td>' + actionsButton + '</td>'
 		+ '<td>' + downloadIncvoiceButton + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
-	checkRoleAndDisableEditBtns();
 }
-
 
 function displayOrderItems(id){
 	var url = getOrderUrl() + '/' + id + '/items';

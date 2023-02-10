@@ -9,45 +9,40 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(rollbackOn = ApiException.class)
 public class InventoryService {
 
     @Autowired
     private InventoryDao inventoryDao;
 
-    @Transactional(rollbackOn = ApiException.class)
-    public void add(InventoryPojo p) throws ApiException {
-        inventoryDao.insert(p);
+    public void add(InventoryPojo inventoryPojo) throws ApiException {
+        inventoryDao.insert(inventoryPojo);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public InventoryPojo get(int id) throws ApiException{
         return getCheck(id);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
     public List<InventoryPojo> getAll(){
         return inventoryDao.selectAll();
     }
 
-    @Transactional(rollbackOn  = ApiException.class)
-    public void update(int id, InventoryPojo p) throws ApiException {
+    public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
         InventoryPojo px = getCheck(id);
-        px.setQuantity(p.getQuantity());
+        px.setQuantity(inventoryPojo.getQuantity());
     }
 
-    @Transactional
     public void delete(int id) throws ApiException{
         InventoryPojo p = getCheck(id);
         inventoryDao.delete(id);
     }
 
-    @Transactional
     public InventoryPojo getCheck(int id) throws ApiException{
-        InventoryPojo p = inventoryDao.select_id(id);
-        if(p == null){
+        InventoryPojo inventoryPojo = inventoryDao.select_id(id);
+        if(inventoryPojo == null){
             throw new ApiException("Product with given ID does not exist");
         }
-        return p;
+        return inventoryPojo;
     }
 
     public void checkInventory(int id, int quantity) throws ApiException {

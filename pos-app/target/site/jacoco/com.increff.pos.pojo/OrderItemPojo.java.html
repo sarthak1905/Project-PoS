@@ -6,28 +6,32 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_ITEMS_SEQ;
+import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
+
 @Entity
 @Getter
-<span class="nc" id="L11">@Setter</span>
+<span class="nc" id="L14">@Setter</span>
 @Table(name = &quot;order_items&quot;)
-<span class="nc" id="L13">public class OrderItemPojo {</span>
+<span class="nc" id="L16">public class OrderItemPojo extends AbstractVersionPojo {</span>
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Integer id;</span>
+    @TableGenerator(name = POS_ORDER_ITEMS_SEQ, pkColumnValue = POS_ORDER_ITEMS_SEQ, table = POS_TABLE_NAME)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_ITEMS_SEQ)
+<span class="nc" id="L21">    private Integer id;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L20">    private Integer orderId;</span>
+<span class="nc" id="L24">    private Integer orderId;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L23">    private Integer productId;</span>
+<span class="nc" id="L27">    private Integer productId;</span>
 
     @Column(nullable = false)
-<span class="nc" id="L26">    private Integer quantity;</span>
+<span class="nc" id="L30">    private Integer quantity;</span>
 
     @Column(nullable = false)
     @Min(value=0)
-<span class="nc" id="L30">    private Double sellingPrice;</span>
+<span class="nc" id="L34">    private Double sellingPrice;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

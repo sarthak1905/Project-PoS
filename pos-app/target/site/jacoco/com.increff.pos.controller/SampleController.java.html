@@ -22,19 +22,18 @@ import java.io.InputStream;
 <span class="nc" id="L22">		response.setContentType(&quot;text/csv&quot;);</span>
 <span class="nc" id="L23">		response.addHeader(&quot;Content-disposition:&quot;, &quot;attachment; filename=&quot; + fileName);</span>
 <span class="nc" id="L24">		String fileClasspath = &quot;/com/increff/pos/&quot; + fileName;</span>
-<span class="nc" id="L25">		System.out.println(fileClasspath);</span>
-<span class="nc" id="L26">		InputStream is = SampleController.class.getResourceAsStream(fileClasspath);</span>
+<span class="nc" id="L25">		InputStream is = SampleController.class.getResourceAsStream(fileClasspath);</span>
 		// copy it to response's OutputStream
 		try {
-<span class="nc" id="L29">			IOUtils.copy(is, response.getOutputStream());</span>
-<span class="nc" id="L30">			response.flushBuffer();</span>
-<span class="nc" id="L31">		} catch (IOException e) {</span>
-<span class="nc" id="L32">			throw e;</span>
+<span class="nc" id="L28">			IOUtils.copy(is, response.getOutputStream());</span>
+<span class="nc" id="L29">			response.flushBuffer();</span>
+<span class="nc" id="L30">		} catch (IOException e) {</span>
+<span class="nc" id="L31">			throw e;</span>
 		} finally {
-<span class="nc" id="L34">			IOUtil.closeQuietly(is);</span>
+<span class="nc" id="L33">			IOUtil.closeQuietly(is);</span>
 		}
 
-<span class="nc" id="L37">	}</span>
+<span class="nc" id="L36">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

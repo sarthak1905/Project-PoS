@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 public class ConvertUtil {
 
-    public static UserData convertUserPojoToUserData(UserPojo userPojo) {
+    public static UserData convertUserPojoToUserData(UserPojo userPojo, String role) {
         UserData userData = new UserData();
         userData.setEmail(userPojo.getEmail());
-        userData.setRole(userPojo.getRole());
+        userData.setRole(role);
         userData.setId(userPojo.getId());
         return userData;
     }
@@ -18,7 +18,6 @@ public class ConvertUtil {
     public static UserPojo convertUserFormToUserPojo(UserForm userForm) {
         UserPojo userPojo = new UserPojo();
         userPojo.setEmail(userForm.getEmail());
-        userPojo.setRole(userForm.getRole());
         userPojo.setPassword(userForm.getPassword());
         return userPojo;
     }
@@ -77,7 +76,7 @@ public class ConvertUtil {
         OrderData orderData = new OrderData();
         orderData.setId(orderPojo.getId());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        orderData.setDateTime(orderPojo.getDateTime().format(dateTimeFormatter));
+        orderData.setDateTime(orderPojo.getOrderDate().format(dateTimeFormatter));
         orderData.setInvoiced(orderPojo.isInvoiced());
         orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
