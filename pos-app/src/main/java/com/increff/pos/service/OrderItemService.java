@@ -30,28 +30,19 @@ public class OrderItemService {
         return getCheck(id);
     }
 
-    public List<OrderItemPojo> getAll(){
-        return orderItemDao.selectAll();
-    }
-
-    public void update(int id, OrderItemPojo p) throws ApiException {
-        OrderItemPojo px = getCheck(id);
-        px.setProductId(p.getProductId());
-        px.setQuantity(p.getQuantity());
-        px.setSellingPrice(p.getSellingPrice());
-    }
-
-    public void delete(int id) throws ApiException{
-        OrderItemPojo p = getCheck(id);
-        orderItemDao.delete(id);
+    public void update(int id, OrderItemPojo orderItemPojo) throws ApiException {
+        OrderItemPojo existingOrderItemPojo = getCheck(id);
+        existingOrderItemPojo.setProductId(orderItemPojo.getProductId());
+        existingOrderItemPojo.setQuantity(orderItemPojo.getQuantity());
+        existingOrderItemPojo.setSellingPrice(orderItemPojo.getSellingPrice());
     }
 
     public OrderItemPojo getCheck(int id) throws ApiException {
-        OrderItemPojo p = orderItemDao.select_id(id);
-        if (p == null) {
+        OrderItemPojo orderItemPojo = orderItemDao.selectId(id);
+        if (orderItemPojo == null) {
             throw new ApiException("OrderItem with given ID:" + id + " does not exist");
         }
-        return p;
+        return orderItemPojo;
     }
 
     public List<OrderItemPojo> getByOrderId(int orderId) {

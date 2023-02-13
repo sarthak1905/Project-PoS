@@ -16,7 +16,7 @@ import java.util.List;
 @Api
 @RestController
 @RequestMapping(path = &quot;/api/orders&quot;)
-<span class="nc" id="L19">public class OrderController {</span>
+<span class="fc" id="L19">public class OrderController {</span>
 
     @Autowired
     private OrderDto orderDto;
@@ -57,10 +57,5 @@ import java.util.List;
 <span class="nc" id="L57">        orderDto.update(id, orderItemForms);</span>
 <span class="nc" id="L58">    }</span>
 
-    @ApiOperation(value = &quot;Deletes an order&quot;)
-    @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) throws ApiException{
-<span class="nc" id="L63">        orderDto.delete(id);</span>
-<span class="nc" id="L64">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

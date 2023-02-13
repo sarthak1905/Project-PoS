@@ -5,8 +5,8 @@ import com.increff.pos.model.BrandForm;
 import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.BrandService;
-import com.increff.pos.util.BrandUtil;
 import com.increff.pos.util.ConvertUtil;
+import com.increff.pos.util.NormalizeUtil;
 import com.increff.pos.util.StringUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-<span class="nc" id="L19">public class BrandDto {</span>
+<span class="fc" id="L19">public class BrandDto {</span>
 
     @Autowired
     private BrandService brandService;
 
     public void add(BrandForm brandForm) throws ApiException {
 <span class="nc" id="L25">        ValidationUtil.validateForms(brandForm);</span>
-<span class="nc" id="L26">        BrandUtil.normalize(brandForm);</span>
+<span class="nc" id="L26">        NormalizeUtil.normalize(brandForm);</span>
 <span class="nc" id="L27">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
 <span class="nc" id="L28">        brandService.add(brandPojo);</span>
 <span class="nc" id="L29">    }</span>
@@ -56,18 +56,14 @@ import java.util.List;
 
     public void update(int id, BrandForm brandForm) throws ApiException {
 <span class="nc" id="L58">        checkInputValidity(brandForm);</span>
-<span class="nc" id="L59">        BrandUtil.normalize(brandForm);</span>
+<span class="nc" id="L59">        NormalizeUtil.normalize(brandForm);</span>
 <span class="nc" id="L60">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
 <span class="nc" id="L61">        brandService.update(id, brandPojo);</span>
 <span class="nc" id="L62">    }</span>
 
-    public void delete(int id) throws ApiException {
-<span class="nc" id="L65">        brandService.delete(id);</span>
-<span class="nc" id="L66">    }</span>
-
     private void checkInputValidity(BrandForm brandForm) {
-<span class="nc" id="L69">        ValidationUtil.validateForms(brandForm);</span>
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L65">        ValidationUtil.validateForms(brandForm);</span>
+<span class="nc" id="L66">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

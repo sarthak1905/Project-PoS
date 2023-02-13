@@ -59,10 +59,6 @@ public class InventoryDto {
         inventoryService.update(productId, inventoryPojo);
     }
 
-    public void delete(int id) throws ApiException{
-        inventoryService.delete(id);
-    }
-
     public boolean isValidInventory(int id, int quantity) throws ApiException {
         InventoryPojo inventoryPojo = inventoryService.get(id);
         if(inventoryPojo.getQuantity() < quantity){

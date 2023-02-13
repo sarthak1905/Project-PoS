@@ -49,10 +49,4 @@ public class InventoryController {
         inventoryDto.updateByBarcode(barcode, form);
     }
 
-    @ApiOperation(value = "Deletes an inventory")
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) throws ApiException{
-        inventoryDto.delete(id);
-    }
-
 }

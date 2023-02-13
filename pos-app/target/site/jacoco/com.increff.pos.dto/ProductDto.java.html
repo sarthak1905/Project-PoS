@@ -10,7 +10,7 @@ import com.increff.pos.service.BrandService;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
 import com.increff.pos.util.ConvertUtil;
-import com.increff.pos.util.ProductUtil;
+import com.increff.pos.util.NormalizeUtil;
 import com.increff.pos.util.StringUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.ConversionNotSupportedException;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-<span class="nc" id="L24">public class ProductDto {</span>
+<span class="fc" id="L24">public class ProductDto {</span>
 
     @Autowired
     private InventoryService inventoryService;
@@ -32,7 +32,7 @@ import java.util.List;
 
     public void add(ProductForm productForm) throws ApiException {
 <span class="nc" id="L34">        validateForm(productForm, false);</span>
-<span class="nc" id="L35">        ProductUtil.normalize(productForm);</span>
+<span class="nc" id="L35">        NormalizeUtil.normalize(productForm);</span>
 <span class="nc" id="L36">        String brand = productForm.getBrand();</span>
 <span class="nc" id="L37">        String category = productForm.getCategory();</span>
 <span class="nc" id="L38">        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);</span>
@@ -68,7 +68,7 @@ import java.util.List;
 
     public void update(int id, ProductForm productForm) throws ApiException{
 <span class="nc" id="L70">        validateForm(productForm, true);</span>
-<span class="nc" id="L71">        ProductUtil.normalize(productForm);</span>
+<span class="nc" id="L71">        NormalizeUtil.normalize(productForm);</span>
 <span class="nc" id="L72">        String brand = productForm.getBrand();</span>
 <span class="nc" id="L73">        String category = productForm.getCategory();</span>
 <span class="nc" id="L74">        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);</span>
@@ -78,25 +78,21 @@ import java.util.List;
 <span class="nc" id="L78">        productService.update(id, productPojo);</span>
 <span class="nc" id="L79">    }</span>
 
-    public void delete(int id) throws ApiException{
-<span class="nc" id="L82">        productService.delete(id);</span>
-<span class="nc" id="L83">    }</span>
-
     private void checkBrandPojo(BrandPojo brandPojo) throws ApiException {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (brandPojo == null) {</span>
-<span class="nc" id="L87">            throw new ApiException(&quot;Brand-category combination does not exist!&quot;);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (brandPojo == null) {</span>
+<span class="nc" id="L83">            throw new ApiException(&quot;Brand-category combination does not exist!&quot;);</span>
         }
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L85">    }</span>
 
 
     private void validateForm(ProductForm productForm, boolean update) throws ApiException {
-<span class="nc" id="L93">        ValidationUtil.validateForms(productForm);</span>
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (!update) {</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (!productService.isValidBarcode(productForm.getBarcode())) {</span>
-<span class="nc" id="L96">                throw new ApiException(&quot;Barcode already exists!&quot;);</span>
+<span class="nc" id="L89">        ValidationUtil.validateForms(productForm);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (!update) {</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if (!productService.isValidBarcode(productForm.getBarcode())) {</span>
+<span class="nc" id="L92">                throw new ApiException(&quot;Barcode already exists!&quot;);</span>
             }
         }
-<span class="nc" id="L99">    }</span>
+<span class="nc" id="L95">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

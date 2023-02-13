@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableScheduling
-<span class="nc" id="L16">public class SchedulerConfig {</span>
+<span class="fc" id="L16">public class SchedulerConfig {</span>
 
     @Autowired
     private ReportDto reportDto;
@@ -26,8 +26,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 
     @EventListener(ContextRefreshedEvent.class)
     public void refreshDaySalesEntity() throws ApiException {
-<span class="nc" id="L29">        reportDto.refreshDaySalesEntity();</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L29">        reportDto.refreshDaySalesEntity();</span>
+<span class="fc" id="L30">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

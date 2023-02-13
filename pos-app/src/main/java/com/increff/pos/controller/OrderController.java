@@ -57,9 +57,4 @@ public class OrderController {
         orderDto.update(id, orderItemForms);
     }
 
-    @ApiOperation(value = "Deletes an order")
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) throws ApiException{
-        orderDto.delete(id);
-    }
 }

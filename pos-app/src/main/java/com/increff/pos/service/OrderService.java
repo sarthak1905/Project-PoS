@@ -65,13 +65,8 @@ public class OrderService {
         }
     }
 
-    public void delete(int id) throws ApiException{
-        OrderPojo orderPojo = getCheck(id);
-        orderDao.delete(id);
-    }
-
     private OrderPojo getCheck(int id) throws ApiException {
-        OrderPojo orderPojo = orderDao.select_id(id);
+        OrderPojo orderPojo = orderDao.selectId(id);
         if (orderPojo == null) {
             throw new ApiException("Order with given ID: " + id + " does not exist!");
         }

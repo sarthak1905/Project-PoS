@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L13">public class OrderItemService {</span>
+<span class="fc" id="L13">public class OrderItemService {</span>
 
     @Autowired
     private OrderItemDao orderItemDao;
@@ -30,32 +30,23 @@ import java.util.List;
 <span class="nc" id="L30">        return getCheck(id);</span>
     }
 
-    public List&lt;OrderItemPojo&gt; getAll(){
-<span class="nc" id="L34">        return orderItemDao.selectAll();</span>
-    }
-
-    public void update(int id, OrderItemPojo p) throws ApiException {
-<span class="nc" id="L38">        OrderItemPojo px = getCheck(id);</span>
-<span class="nc" id="L39">        px.setProductId(p.getProductId());</span>
-<span class="nc" id="L40">        px.setQuantity(p.getQuantity());</span>
-<span class="nc" id="L41">        px.setSellingPrice(p.getSellingPrice());</span>
-<span class="nc" id="L42">    }</span>
-
-    public void delete(int id) throws ApiException{
-<span class="nc" id="L45">        OrderItemPojo p = getCheck(id);</span>
-<span class="nc" id="L46">        orderItemDao.delete(id);</span>
-<span class="nc" id="L47">    }</span>
+    public void update(int id, OrderItemPojo orderItemPojo) throws ApiException {
+<span class="nc" id="L34">        OrderItemPojo existingOrderItemPojo = getCheck(id);</span>
+<span class="nc" id="L35">        existingOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
+<span class="nc" id="L36">        existingOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L37">        existingOrderItemPojo.setSellingPrice(orderItemPojo.getSellingPrice());</span>
+<span class="nc" id="L38">    }</span>
 
     public OrderItemPojo getCheck(int id) throws ApiException {
-<span class="nc" id="L50">        OrderItemPojo p = orderItemDao.select_id(id);</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (p == null) {</span>
-<span class="nc" id="L52">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
+<span class="nc" id="L41">        OrderItemPojo orderItemPojo = orderItemDao.selectId(id);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (orderItemPojo == null) {</span>
+<span class="nc" id="L43">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
         }
-<span class="nc" id="L54">        return p;</span>
+<span class="nc" id="L45">        return orderItemPojo;</span>
     }
 
     public List&lt;OrderItemPojo&gt; getByOrderId(int orderId) {
-<span class="nc" id="L58">        return orderItemDao.selectByOrderId(orderId);</span>
+<span class="nc" id="L49">        return orderItemDao.selectByOrderId(orderId);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

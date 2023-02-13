@@ -19,6 +19,12 @@ public class ProductService {
     private ProductDao productDao;
 
     public void add(ProductPojo productPojo) throws ApiException {
+        if(productPojo == null){
+            throw new ApiException("ProductPojo is null!");
+        }
+        if (!isValidBarcode(productPojo.getBarcode())) {
+            throw new ApiException("Barcode already exists!");
+        }
         productDao.insert(productPojo);
     }
 
@@ -30,19 +36,17 @@ public class ProductService {
         return productDao.selectAll();
     }
 
-    public void update(int id, ProductPojo productPojo) throws ApiException {
+    public void update(Integer id, ProductPojo productPojo) throws ApiException {
         ProductPojo existingProductPojo = getCheck(id);
+        if(productPojo == null){
+            throw new ApiException("ProductPojo is null!");
+        }
         if(!existingProductPojo.getBarcode().equals(productPojo.getBarcode())){
             throw new ApiException("Barcode must be same while updating!");
         }
         existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
         existingProductPojo.setName(productPojo.getName());
         existingProductPojo.setMrp(productPojo.getMrp());
-    }
-
-    public void delete(int id) throws ApiException{
-        ProductPojo p = getCheck(id);
-        productDao.delete(id);
     }
 
     public ProductPojo getCheck(int id) throws ApiException{

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L19">public class DaySalesService {</span>
+<span class="fc" id="L19">public class DaySalesService {</span>
 
     @Autowired
     DaySalesDao daySalesDao;
@@ -44,7 +44,7 @@ import java.util.List;
     }
 
     public LocalDate getLastDate() {
-<span class="nc" id="L47">        return daySalesDao.selectLatestDate();</span>
+<span class="fc" id="L47">        return daySalesDao.selectLatestDate();</span>
     }
 
     public void createDaySalesEntry(LocalDate date) throws ApiException {

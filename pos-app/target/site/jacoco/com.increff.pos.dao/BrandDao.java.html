@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class BrandDao extends AbstractDao{</span>
+<span class="fc" id="L13">public class BrandDao extends AbstractDao{</span>
 
     private static final String SELECT_ID = &quot;select b from BrandPojo b where id=:id&quot;;
     private static final String SELECT_BRAND = &quot;select b from BrandPojo b where brand=:brand&quot;;
@@ -21,42 +21,36 @@ import java.util.List;
 
 
     public void insert(BrandPojo brandPojo){
-<span class="nc" id="L24">        em().persist(brandPojo);</span>
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L24">        em().persist(brandPojo);</span>
+<span class="fc" id="L25">    }</span>
 
-    public BrandPojo select_id(Integer id){
-<span class="nc" id="L28">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ID, BrandPojo.class);</span>
-<span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L30">        return getSingle(query);</span>
+    public BrandPojo selectId(int id){
+<span class="fc" id="L28">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ID, BrandPojo.class);</span>
+<span class="fc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L30">        return getSingle(query);</span>
     }
 
-    public BrandPojo select_brand(String brand){
-<span class="nc" id="L34">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND, BrandPojo.class);</span>
-<span class="nc" id="L35">        query.setParameter(&quot;brand&quot;, brand);</span>
-<span class="nc" id="L36">        return getSingle(query);</span>
+    public BrandPojo selectBrand(String brand){
+<span class="fc" id="L34">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND, BrandPojo.class);</span>
+<span class="fc" id="L35">        query.setParameter(&quot;brand&quot;, brand);</span>
+<span class="fc" id="L36">        return getSingle(query);</span>
     }
 
-    public BrandPojo select_category(String category){
-<span class="nc" id="L40">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_CATEGORY, BrandPojo.class);</span>
-<span class="nc" id="L41">        query.setParameter(&quot;category&quot;, category);</span>
-<span class="nc" id="L42">        return getSingle(query);</span>
+    public BrandPojo selectCategory(String category){
+<span class="fc" id="L40">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_CATEGORY, BrandPojo.class);</span>
+<span class="fc" id="L41">        query.setParameter(&quot;category&quot;, category);</span>
+<span class="fc" id="L42">        return getSingle(query);</span>
     }
 
     public List&lt;BrandPojo&gt; selectAll(){
-<span class="nc" id="L46">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ALL, BrandPojo.class);</span>
-<span class="nc" id="L47">        return query.getResultList();</span>
+<span class="fc" id="L46">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ALL, BrandPojo.class);</span>
+<span class="fc" id="L47">        return query.getResultList();</span>
     }
 
     public BrandPojo selectBrandCategory(String brand, String category){
-<span class="nc" id="L51">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);</span>
-<span class="nc" id="L52">        query.setParameter(&quot;brand&quot;, brand).setParameter(&quot;category&quot;, category);</span>
-<span class="nc" id="L53">        return getSingle(query);</span>
-    }
-
-    public Integer delete(Integer id){
-<span class="nc" id="L57">        Query query = em().createQuery(DELETE_ID);</span>
-<span class="nc" id="L58">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L59">        return query.executeUpdate();</span>
+<span class="fc" id="L51">        TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);</span>
+<span class="fc" id="L52">        query.setParameter(&quot;brand&quot;, brand).setParameter(&quot;category&quot;, category);</span>
+<span class="fc" id="L53">        return getSingle(query);</span>
     }
 
 }

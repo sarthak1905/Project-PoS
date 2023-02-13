@@ -43,10 +43,5 @@ public class BrandController {
         brandDto.update(id, form);
     }
 
-    @ApiOperation(value = "Deletes a Brand")
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) throws ApiException{
-        brandDto.delete(id);
-    }
 
 }

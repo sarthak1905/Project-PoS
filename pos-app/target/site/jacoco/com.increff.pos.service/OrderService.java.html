@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L17">public class OrderService {</span>
+<span class="fc" id="L17">public class OrderService {</span>
 
     @Autowired
     private OrderDao orderDao;
@@ -65,48 +65,43 @@ import java.util.List;
 <span class="nc" id="L65">        }</span>
 <span class="nc" id="L66">    }</span>
 
-    public void delete(int id) throws ApiException{
-<span class="nc" id="L69">        OrderPojo orderPojo = getCheck(id);</span>
-<span class="nc" id="L70">        orderDao.delete(id);</span>
-<span class="nc" id="L71">    }</span>
-
     private OrderPojo getCheck(int id) throws ApiException {
-<span class="nc" id="L74">        OrderPojo orderPojo = orderDao.select_id(id);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (orderPojo == null) {</span>
-<span class="nc" id="L76">            throw new ApiException(&quot;Order with given ID: &quot; + id + &quot; does not exist!&quot;);</span>
+<span class="nc" id="L69">        OrderPojo orderPojo = orderDao.selectId(id);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (orderPojo == null) {</span>
+<span class="nc" id="L71">            throw new ApiException(&quot;Order with given ID: &quot; + id + &quot; does not exist!&quot;);</span>
         }
-<span class="nc" id="L78">        return orderPojo;</span>
+<span class="nc" id="L73">        return orderPojo;</span>
     }
 
     public void validateSellingPrice(int productId, double sellingPrice) throws ApiException {
-<span class="nc" id="L82">        ProductPojo productPojo = productService.getCheck(productId);</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
-<span class="nc" id="L84">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
+<span class="nc" id="L77">        ProductPojo productPojo = productService.getCheck(productId);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
+<span class="nc" id="L79">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
         }
-<span class="nc" id="L86">    }</span>
+<span class="nc" id="L81">    }</span>
 
     public void setInvoicedTrue(Integer id) throws ApiException {
-<span class="nc" id="L89">        OrderPojo orderPojo = getCheck(id);</span>
-<span class="nc" id="L90">        orderPojo.setInvoiced(true);</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L84">        OrderPojo orderPojo = getCheck(id);</span>
+<span class="nc" id="L85">        orderPojo.setInvoiced(true);</span>
+<span class="nc" id="L86">    }</span>
 
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
-<span class="nc" id="L94">        OrderPojo orderPojo = get(orderId);</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if(orderPojo.isInvoiced()){</span>
-<span class="nc" id="L96">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
+<span class="nc" id="L89">        OrderPojo orderPojo = get(orderId);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(orderPojo.isInvoiced()){</span>
+<span class="nc" id="L91">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
         }
-<span class="nc" id="L98">    }</span>
+<span class="nc" id="L93">    }</span>
 
     public List&lt;OrderPojo&gt; getBeforeEndDate(LocalDateTime endDate) {
-<span class="nc" id="L101">        return orderDao.selectBeforeEndDate(endDate);</span>
+<span class="nc" id="L96">        return orderDao.selectBeforeEndDate(endDate);</span>
     }
 
     public List&lt;OrderPojo&gt; getAfterStartDate(LocalDateTime startDate) {
-<span class="nc" id="L105">        return orderDao.selectAfterStartDate(startDate);</span>
+<span class="nc" id="L100">        return orderDao.selectAfterStartDate(startDate);</span>
     }
 
     public List&lt;OrderPojo&gt; getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-<span class="nc" id="L109">        return orderDao.selectBetweenDates(startDate, endDate);</span>
+<span class="nc" id="L104">        return orderDao.selectBetweenDates(startDate, endDate);</span>
     }
 
 }

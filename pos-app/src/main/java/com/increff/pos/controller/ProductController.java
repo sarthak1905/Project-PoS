@@ -43,10 +43,4 @@ public class ProductController {
         productDto.update(id, form);
     }
 
-    @ApiOperation(value = "Deletes a product")
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) throws ApiException{
-        productDto.delete(id);
-    }
-
 }

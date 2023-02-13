@@ -174,9 +174,6 @@ public class OrderDto {
         orderService.update(newOrderItemPojos, existingOrderItemMapByID, orderId, orderTotal);
     }
 
-    public void delete(Integer id) throws ApiException{
-        orderService.delete(id);
-    }
 
     // -----------------------PRIVATE METHODS-------------------------------
 

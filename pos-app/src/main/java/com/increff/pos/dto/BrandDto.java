@@ -5,8 +5,8 @@ import com.increff.pos.model.BrandForm;
 import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.BrandService;
-import com.increff.pos.util.BrandUtil;
 import com.increff.pos.util.ConvertUtil;
+import com.increff.pos.util.NormalizeUtil;
 import com.increff.pos.util.StringUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class BrandDto {
 
     public void add(BrandForm brandForm) throws ApiException {
         ValidationUtil.validateForms(brandForm);
-        BrandUtil.normalize(brandForm);
+        NormalizeUtil.normalize(brandForm);
         BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);
         brandService.add(brandPojo);
     }
@@ -42,7 +42,7 @@ public class BrandDto {
         if (StringUtil.isEmpty(category)){
             throw new ApiException("Brand category cannot be empty!");
         }
-        return brandService.getBrandCategory(brand, category);
+        return brandService.getByBrandCategory(brand, category);
     }
 
     public List<BrandData> getAll() {
@@ -56,13 +56,9 @@ public class BrandDto {
 
     public void update(int id, BrandForm brandForm) throws ApiException {
         checkInputValidity(brandForm);
-        BrandUtil.normalize(brandForm);
+        NormalizeUtil.normalize(brandForm);
         BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);
         brandService.update(id, brandPojo);
-    }
-
-    public void delete(int id) throws ApiException {
-        brandService.delete(id);
     }
 
     private void checkInputValidity(BrandForm brandForm) {

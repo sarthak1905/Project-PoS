@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L14">public class DaySalesDao extends AbstractDao {</span>
+<span class="fc" id="L14">public class DaySalesDao extends AbstractDao {</span>
 
     private static final String SELECT_ALL = &quot;select p from DaySalesPojo p&quot;;
     private static final String SELECT_BY_DATE = &quot;select p from DaySalesPojo p where date=:date&quot;;
@@ -33,8 +33,8 @@ import java.util.List;
     }
 
     public LocalDate selectLatestDate() {
-<span class="nc" id="L36">        Query query = em().createQuery(SELECT_LATEST_DATE);</span>
-<span class="nc" id="L37">        return (LocalDate)query.getSingleResult();</span>
+<span class="fc" id="L36">        Query query = em().createQuery(SELECT_LATEST_DATE);</span>
+<span class="fc" id="L37">        return (LocalDate)query.getSingleResult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

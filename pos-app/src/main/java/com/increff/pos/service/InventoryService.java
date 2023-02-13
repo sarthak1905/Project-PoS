@@ -32,13 +32,8 @@ public class InventoryService {
         px.setQuantity(inventoryPojo.getQuantity());
     }
 
-    public void delete(int id) throws ApiException{
-        InventoryPojo p = getCheck(id);
-        inventoryDao.delete(id);
-    }
-
     public InventoryPojo getCheck(int id) throws ApiException{
-        InventoryPojo inventoryPojo = inventoryDao.select_id(id);
+        InventoryPojo inventoryPojo = inventoryDao.selectId(id);
         if(inventoryPojo == null){
             throw new ApiException("Product with given ID does not exist");
         }

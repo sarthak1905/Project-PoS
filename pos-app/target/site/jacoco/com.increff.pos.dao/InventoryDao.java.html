@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class InventoryDao extends AbstractDao{</span>
+<span class="fc" id="L13">public class InventoryDao extends AbstractDao{</span>
 
     private static final String SELECT_ID = &quot;select p from InventoryPojo p where id=:id&quot;;
     private static final String SELECT_ALL = &quot;select p from InventoryPojo p&quot;;
@@ -18,24 +18,18 @@ import java.util.List;
 
 
     public void insert(InventoryPojo inventoryPojo){
-<span class="nc" id="L21">        em().persist(inventoryPojo);</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L21">        em().persist(inventoryPojo);</span>
+<span class="fc" id="L22">    }</span>
 
-    public InventoryPojo select_id(Integer id){
-<span class="nc" id="L25">        TypedQuery&lt;InventoryPojo&gt; query = getQuery(SELECT_ID, InventoryPojo.class);</span>
-<span class="nc" id="L26">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L27">        return getSingle(query);</span>
+    public InventoryPojo selectId(Integer id){
+<span class="fc" id="L25">        TypedQuery&lt;InventoryPojo&gt; query = getQuery(SELECT_ID, InventoryPojo.class);</span>
+<span class="fc" id="L26">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L27">        return getSingle(query);</span>
     }
 
     public List&lt;InventoryPojo&gt; selectAll(){
-<span class="nc" id="L31">        TypedQuery&lt;InventoryPojo&gt; query = getQuery(SELECT_ALL, InventoryPojo.class);</span>
-<span class="nc" id="L32">        return query.getResultList();</span>
-    }
-
-    public Integer delete(Integer id){
-<span class="nc" id="L36">        Query query = em().createQuery(DELETE_ID);</span>
-<span class="nc" id="L37">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L38">        return query.executeUpdate();</span>
+<span class="fc" id="L31">        TypedQuery&lt;InventoryPojo&gt; query = getQuery(SELECT_ALL, InventoryPojo.class);</span>
+<span class="fc" id="L32">        return query.getResultList();</span>
     }
 
 }

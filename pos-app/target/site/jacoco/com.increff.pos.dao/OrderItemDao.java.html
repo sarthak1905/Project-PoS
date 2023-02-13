@@ -10,47 +10,34 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class OrderItemDao extends AbstractDao{</span>
+<span class="fc" id="L13">public class OrderItemDao extends AbstractDao{</span>
 
     private static final String SELECT_ID = &quot;select p from OrderItemPojo p where id=:id&quot;;
-    private static final String SELECT_ALL = &quot;select p from OrderItemPojo p&quot;;
-    private static final String DELETE_ID = &quot;delete from OrderItemPojo p where id=:id&quot;;
     private static final String SELECT_PRODUCT_ID_ORDER_ID = &quot;select p from OrderItemPojo p where &quot; +
                                                         &quot;productId=:productId &quot; +
                                                         &quot;and orderId=:orderId&quot;;
     private static final String SELECT_BY_ORDER_ID = &quot;select p from OrderItemPojo p where orderId=:orderId&quot;;
 
     public void insert(OrderItemPojo orderItemPojo){
-<span class="nc" id="L24">        em().persist(orderItemPojo);</span>
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L22">        em().persist(orderItemPojo);</span>
+<span class="fc" id="L23">    }</span>
 
-    public OrderItemPojo select_id(int id){
-<span class="nc" id="L28">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_ID, OrderItemPojo.class);</span>
-<span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L30">        return getSingle(query);</span>
+    public OrderItemPojo selectId(int id){
+<span class="fc" id="L26">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_ID, OrderItemPojo.class);</span>
+<span class="fc" id="L27">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L28">        return getSingle(query);</span>
     }
 
     public List&lt;OrderItemPojo&gt; selectByOrderId(int orderId) {
-<span class="nc" id="L34">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_BY_ORDER_ID, OrderItemPojo.class);</span>
-<span class="nc" id="L35">        query.setParameter(&quot;orderId&quot;, orderId);</span>
-<span class="nc" id="L36">        return query.getResultList();</span>
-    }
-
-    public List&lt;OrderItemPojo&gt; selectAll(){
-<span class="nc" id="L40">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_ALL, OrderItemPojo.class);</span>
-<span class="nc" id="L41">        return query.getResultList();</span>
+<span class="fc" id="L32">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_BY_ORDER_ID, OrderItemPojo.class);</span>
+<span class="fc" id="L33">        query.setParameter(&quot;orderId&quot;, orderId);</span>
+<span class="fc" id="L34">        return query.getResultList();</span>
     }
 
     public OrderItemPojo selectProductIdOrderId(Integer productId, Integer orderId){
-<span class="nc" id="L45">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_PRODUCT_ID_ORDER_ID, OrderItemPojo.class);</span>
-<span class="nc" id="L46">        query.setParameter(&quot;productId&quot;, productId).setParameter(&quot;orderId&quot;, orderId);</span>
-<span class="nc" id="L47">        return getSingle(query);</span>
-    }
-
-    public int delete(int id){
-<span class="nc" id="L51">        Query query = em().createQuery(DELETE_ID);</span>
-<span class="nc" id="L52">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L53">        return query.executeUpdate();</span>
+<span class="fc" id="L38">        TypedQuery&lt;OrderItemPojo&gt; query = getQuery(SELECT_PRODUCT_ID_ORDER_ID, OrderItemPojo.class);</span>
+<span class="fc" id="L39">        query.setParameter(&quot;productId&quot;, productId).setParameter(&quot;orderId&quot;, orderId);</span>
+<span class="fc" id="L40">        return getSingle(query);</span>
     }
 
 }

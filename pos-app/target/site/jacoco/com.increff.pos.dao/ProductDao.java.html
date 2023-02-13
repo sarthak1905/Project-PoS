@@ -10,47 +10,34 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L13">public class ProductDao extends AbstractDao{</span>
+<span class="fc" id="L13">public class ProductDao extends AbstractDao{</span>
 
     private static final String SELECT_ID = &quot;select p from ProductPojo p where id=:id&quot;;
     private static final String SELECT_BRAND_CATEGORY = &quot;select p from ProductPojo p where brand_category=:brand_category&quot;;
     private static final String SELECT_BARCODE = &quot;select p from ProductPojo p where barcode=:barcode&quot;;
-    private static final String SELECT_NAME = &quot;select p from ProductPojo p where name=:name&quot;;
     private static final String SELECT_ALL = &quot;select p from ProductPojo p&quot;;
     private static final String DELETE_ID = &quot;delete from ProductPojo p where id=:id&quot;;
 
 
     public void insert(ProductPojo productPojo){
-<span class="nc" id="L24">        em().persist(productPojo);</span>
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L23">        em().persist(productPojo);</span>
+<span class="fc" id="L24">    }</span>
 
     public ProductPojo selectId(int id){
-<span class="nc" id="L28">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ID, ProductPojo.class);</span>
-<span class="nc" id="L29">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L30">        return getSingle(query);</span>
+<span class="fc" id="L27">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ID, ProductPojo.class);</span>
+<span class="fc" id="L28">        query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L29">        return getSingle(query);</span>
     }
 
     public ProductPojo selectBarcode(String barcode){
-<span class="nc" id="L34">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_BARCODE, ProductPojo.class);</span>
-<span class="nc" id="L35">        query.setParameter(&quot;barcode&quot;, barcode);</span>
-<span class="nc" id="L36">        return getSingle(query);</span>
-    }
-
-    public ProductPojo selectName(String name){
-<span class="nc" id="L40">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_NAME, ProductPojo.class);</span>
-<span class="nc" id="L41">        query.setParameter(&quot;name&quot;, name);</span>
-<span class="nc" id="L42">        return getSingle(query);</span>
+<span class="fc" id="L33">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_BARCODE, ProductPojo.class);</span>
+<span class="fc" id="L34">        query.setParameter(&quot;barcode&quot;, barcode);</span>
+<span class="fc" id="L35">        return getSingle(query);</span>
     }
 
     public List&lt;ProductPojo&gt; selectAll(){
-<span class="nc" id="L46">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ALL, ProductPojo.class);</span>
-<span class="nc" id="L47">        return query.getResultList();</span>
-    }
-
-    public int delete(int id){
-<span class="nc" id="L51">        Query query = em().createQuery(DELETE_ID);</span>
-<span class="nc" id="L52">        query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L53">        return query.executeUpdate();</span>
+<span class="fc" id="L39">        TypedQuery&lt;ProductPojo&gt; query = getQuery(SELECT_ALL, ProductPojo.class);</span>
+<span class="fc" id="L40">        return query.getResultList();</span>
     }
 
 }

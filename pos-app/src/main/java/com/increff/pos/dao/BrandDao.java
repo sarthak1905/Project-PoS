@@ -24,19 +24,19 @@ public class BrandDao extends AbstractDao{
         em().persist(brandPojo);
     }
 
-    public BrandPojo select_id(Integer id){
+    public BrandPojo selectId(int id){
         TypedQuery<BrandPojo> query = getQuery(SELECT_ID, BrandPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
     }
 
-    public BrandPojo select_brand(String brand){
+    public BrandPojo selectBrand(String brand){
         TypedQuery<BrandPojo> query = getQuery(SELECT_BRAND, BrandPojo.class);
         query.setParameter("brand", brand);
         return getSingle(query);
     }
 
-    public BrandPojo select_category(String category){
+    public BrandPojo selectCategory(String category){
         TypedQuery<BrandPojo> query = getQuery(SELECT_CATEGORY, BrandPojo.class);
         query.setParameter("category", category);
         return getSingle(query);
@@ -51,12 +51,6 @@ public class BrandDao extends AbstractDao{
         TypedQuery<BrandPojo> query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);
         query.setParameter("brand", brand).setParameter("category", category);
         return getSingle(query);
-    }
-
-    public Integer delete(Integer id){
-        Query query = em().createQuery(DELETE_ID);
-        query.setParameter("id", id);
-        return query.executeUpdate();
     }
 
 }

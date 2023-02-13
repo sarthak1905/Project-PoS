@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L13">public class InventoryService {</span>
+<span class="fc" id="L13">public class InventoryService {</span>
 
     @Autowired
     private InventoryDao inventoryDao;
@@ -32,30 +32,25 @@ import java.util.List;
 <span class="nc" id="L32">        px.setQuantity(inventoryPojo.getQuantity());</span>
 <span class="nc" id="L33">    }</span>
 
-    public void delete(int id) throws ApiException{
-<span class="nc" id="L36">        InventoryPojo p = getCheck(id);</span>
-<span class="nc" id="L37">        inventoryDao.delete(id);</span>
-<span class="nc" id="L38">    }</span>
-
     public InventoryPojo getCheck(int id) throws ApiException{
-<span class="nc" id="L41">        InventoryPojo inventoryPojo = inventoryDao.select_id(id);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if(inventoryPojo == null){</span>
-<span class="nc" id="L43">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
+<span class="nc" id="L36">        InventoryPojo inventoryPojo = inventoryDao.selectId(id);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if(inventoryPojo == null){</span>
+<span class="nc" id="L38">            throw new ApiException(&quot;Product with given ID does not exist&quot;);</span>
         }
-<span class="nc" id="L45">        return inventoryPojo;</span>
+<span class="nc" id="L40">        return inventoryPojo;</span>
     }
 
     public void checkInventory(int id, int quantity) throws ApiException {
-<span class="nc" id="L49">        InventoryPojo inventoryPojo = getCheck(id);</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if(inventoryPojo.getQuantity() &lt; quantity){</span>
-<span class="nc" id="L51">            throw new ApiException(&quot;Insufficient inventory for product with id:&quot; + id +</span>
-<span class="nc" id="L52">                    &quot;. Max available = &quot; + inventoryPojo.getQuantity() + &quot;. Order placed for = &quot; + quantity);</span>
+<span class="nc" id="L44">        InventoryPojo inventoryPojo = getCheck(id);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if(inventoryPojo.getQuantity() &lt; quantity){</span>
+<span class="nc" id="L46">            throw new ApiException(&quot;Insufficient inventory for product with id:&quot; + id +</span>
+<span class="nc" id="L47">                    &quot;. Max available = &quot; + inventoryPojo.getQuantity() + &quot;. Order placed for = &quot; + quantity);</span>
         }
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L49">    }</span>
 
     public void reduceInventory(int productId, int quantity) throws ApiException {
-<span class="nc" id="L57">        InventoryPojo inventoryPojo = getCheck(productId);</span>
-<span class="nc" id="L58">        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L52">        InventoryPojo inventoryPojo = getCheck(productId);</span>
+<span class="nc" id="L53">        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);</span>
+<span class="nc" id="L54">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

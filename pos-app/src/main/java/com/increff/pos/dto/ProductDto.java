@@ -10,10 +10,8 @@ import com.increff.pos.service.BrandService;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
 import com.increff.pos.util.ConvertUtil;
-import com.increff.pos.util.ProductUtil;
-import com.increff.pos.util.StringUtil;
+import com.increff.pos.util.NormalizeUtil;
 import com.increff.pos.util.ValidationUtil;
-import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +30,10 @@ public class ProductDto {
 
     public void add(ProductForm productForm) throws ApiException {
         validateForm(productForm, false);
-        ProductUtil.normalize(productForm);
+        NormalizeUtil.normalize(productForm);
         String brand = productForm.getBrand();
         String category = productForm.getCategory();
-        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);
+        BrandPojo brandPojo = brandService.getByBrandCategory(brand, category);
         checkBrandPojo(brandPojo);
 
         int brandId = brandPojo.getId();
@@ -68,18 +66,14 @@ public class ProductDto {
 
     public void update(int id, ProductForm productForm) throws ApiException{
         validateForm(productForm, true);
-        ProductUtil.normalize(productForm);
+        NormalizeUtil.normalize(productForm);
         String brand = productForm.getBrand();
         String category = productForm.getCategory();
-        BrandPojo brandPojo = brandService.getBrandCategory(brand, category);
+        BrandPojo brandPojo = brandService.getByBrandCategory(brand, category);
         checkBrandPojo(brandPojo);
         int brandId = brandPojo.getId();
         ProductPojo productPojo = ConvertUtil.convertProductFormToPojo(productForm, brandId);
         productService.update(id, productPojo);
-    }
-
-    public void delete(int id) throws ApiException{
-        productService.delete(id);
     }
 
     private void checkBrandPojo(BrandPojo brandPojo) throws ApiException {

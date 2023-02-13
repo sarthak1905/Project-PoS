@@ -10,68 +10,64 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="nc" id="L13">public class BrandService {</span>
+<span class="fc" id="L13">public class BrandService {</span>
 
     @Autowired
     private BrandDao brandDao;
     
     public void add(BrandPojo brandPojo) throws ApiException {
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (!existingBrandCategoryCombination(brandPojo)) {</span>
-<span class="nc" id="L20">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if(brandPojo == null){</span>
+<span class="fc" id="L20">            throw new ApiException(&quot;BrandPojo is null!&quot;);</span>
         }
-<span class="nc" id="L22">        brandDao.insert(brandPojo);</span>
-<span class="nc" id="L23">    }</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (!brandCategoryCombinationExists(brandPojo)) {</span>
+<span class="fc" id="L23">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+        }
+<span class="fc" id="L25">        brandDao.insert(brandPojo);</span>
+<span class="fc" id="L26">    }</span>
     
     public BrandPojo get(int id) throws ApiException{
-<span class="nc" id="L26">        return getCheck(id);</span>
+<span class="fc" id="L29">        return getCheck(id);</span>
     }
     
     public List&lt;BrandPojo&gt; getAll(){
-<span class="nc" id="L30">        return brandDao.selectAll();</span>
+<span class="fc" id="L33">        return brandDao.selectAll();</span>
     }
     
     public void update(Integer id, BrandPojo brandPojo) throws ApiException {
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (!existingBrandCategoryCombination(brandPojo, id)){</span>
-<span class="nc" id="L35">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(brandPojo == null){</span>
+<span class="fc" id="L38">            throw new ApiException(&quot;BrandPojo is null!&quot;);</span>
         }
-<span class="nc" id="L37">        BrandPojo bx = getCheck(id);</span>
-<span class="nc" id="L38">        bx.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L39">        bx.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L40">    }</span>
-    
-    public void delete(Integer id) throws ApiException{
-<span class="nc" id="L43">        BrandPojo b = getCheck(id);</span>
-<span class="nc" id="L44">        brandDao.delete(id);</span>
-<span class="nc" id="L45">    }</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (!brandCategoryCombinationExists(brandPojo, id)){</span>
+<span class="nc" id="L41">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+        }
+<span class="fc" id="L43">        BrandPojo existingBrandPojo = getCheck(id);</span>
+<span class="fc" id="L44">        existingBrandPojo.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L45">        existingBrandPojo.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L46">    }</span>
     
     public BrandPojo getCheck(Integer id) throws ApiException{
-<span class="nc" id="L48">        BrandPojo b = brandDao.select_id(id);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if(b == null){</span>
-<span class="nc" id="L50">            throw new ApiException(&quot;Brand with given ID does not exist&quot;);</span>
+<span class="fc" id="L49">        BrandPojo brandPojo = brandDao.selectId(id);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(brandPojo == null){</span>
+<span class="fc" id="L51">            throw new ApiException(&quot;Brand with given ID does not exist&quot;);</span>
         }
-<span class="nc" id="L52">        return b;</span>
+<span class="fc" id="L53">        return brandPojo;</span>
     }
     
     public BrandPojo getBrandCategory(String brand, String category){
-<span class="nc" id="L56">        return brandDao.selectBrandCategory(brand, category);</span>
+<span class="nc" id="L57">        return brandDao.selectBrandCategory(brand, category);</span>
     }
     
-    private boolean existingBrandCategoryCombination(BrandPojo brandPojo, int id){
-<span class="nc" id="L60">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (existingBrandPojo != null) {</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">            if (existingBrandPojo.getId() != id) {</span>
-<span class="nc" id="L63">                return false;</span>
-            }
+    private boolean brandCategoryCombinationExists(BrandPojo brandPojo, int id){
+<span class="fc" id="L61">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (existingBrandPojo != null) {</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            return existingBrandPojo.getId() == id;</span>
         }
-<span class="nc" id="L66">        return true;</span>
+<span class="nc" id="L65">        return true;</span>
     }
 
-    private boolean existingBrandCategoryCombination(BrandPojo brandPojo){
-<span class="nc" id="L70">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (existingBrandPojo != null) {</span>
-<span class="nc" id="L72">                return false;</span>
-        }
-<span class="nc" id="L74">        return true;</span>
+    private boolean brandCategoryCombinationExists(BrandPojo brandPojo){
+<span class="fc" id="L69">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        return existingBrandPojo == null;</span>
     }
     
 }

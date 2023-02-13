@@ -14,7 +14,7 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
 <span class="nc" id="L14">@Setter</span>
 @Table(name = &quot;orders&quot;, indexes = {@Index(name = &quot;order_date_index&quot;, columnList = &quot;order_date&quot;),
                                    @Index(name = &quot;is_invoiced_index&quot;, columnList = &quot;is_invoiced&quot;)})
-<span class="nc" id="L17">public class OrderPojo extends AbstractVersionPojo {</span>
+<span class="fc" id="L17">public class OrderPojo extends AbstractVersionPojo {</span>
 
     @Id
     @TableGenerator(name = POS_ORDER_SEQ, pkColumnValue = POS_ORDER_SEQ, table = POS_TABLE_NAME)

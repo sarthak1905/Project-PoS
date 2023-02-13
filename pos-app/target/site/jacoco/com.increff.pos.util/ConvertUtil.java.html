@@ -102,5 +102,15 @@ import java.time.format.DateTimeFormatter;
 <span class="nc" id="L102">        return orderItemPojo;</span>
     }
 
+    public static DaySalesData convertDaySalesPojoToData(DaySalesPojo daySalesPojo) {
+<span class="nc" id="L106">        DaySalesData daySalesData = new DaySalesData();</span>
+<span class="nc" id="L107">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L108">        daySalesData.setDate(daySalesPojo.getDate().format(dateTimeFormatter));</span>
+<span class="nc" id="L109">        daySalesData.setTotalRevenue(daySalesPojo.getTotalRevenue());</span>
+<span class="nc" id="L110">        daySalesData.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());</span>
+<span class="nc" id="L111">        daySalesData.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());</span>
+<span class="nc" id="L112">        return daySalesData;</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

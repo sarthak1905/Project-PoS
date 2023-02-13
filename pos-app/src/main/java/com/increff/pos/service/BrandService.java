@@ -16,7 +16,10 @@ public class BrandService {
     private BrandDao brandDao;
     
     public void add(BrandPojo brandPojo) throws ApiException {
-        if (!existingBrandCategoryCombination(brandPojo)) {
+        if(brandPojo == null){
+            throw new ApiException("BrandPojo is null!");
+        }
+        if (!brandCategoryCombinationExists(brandPojo)) {
             throw new ApiException("Brand+category combination must be unique!");
         }
         brandDao.insert(brandPojo);
@@ -31,47 +34,40 @@ public class BrandService {
     }
     
     public void update(Integer id, BrandPojo brandPojo) throws ApiException {
-        if (!existingBrandCategoryCombination(brandPojo, id)){
+        if(brandPojo == null){
+            throw new ApiException("BrandPojo is null!");
+        }
+        if (!brandCategoryCombinationExists(brandPojo, id)){
             throw new ApiException("Brand+category combination must be unique!");
         }
-        BrandPojo bx = getCheck(id);
-        bx.setBrand(brandPojo.getBrand());
-        bx.setCategory(brandPojo.getCategory());
-    }
-    
-    public void delete(Integer id) throws ApiException{
-        BrandPojo b = getCheck(id);
-        brandDao.delete(id);
+        BrandPojo existingBrandPojo = getCheck(id);
+        existingBrandPojo.setBrand(brandPojo.getBrand());
+        existingBrandPojo.setCategory(brandPojo.getCategory());
     }
     
     public BrandPojo getCheck(Integer id) throws ApiException{
-        BrandPojo b = brandDao.select_id(id);
-        if(b == null){
+        BrandPojo brandPojo = brandDao.selectId(id);
+        if(brandPojo == null){
             throw new ApiException("Brand with given ID does not exist");
         }
-        return b;
+        return brandPojo;
     }
     
-    public BrandPojo getBrandCategory(String brand, String category){
+    public BrandPojo getByBrandCategory(String brand, String category){
         return brandDao.selectBrandCategory(brand, category);
     }
     
-    private boolean existingBrandCategoryCombination(BrandPojo brandPojo, int id){
+    private boolean brandCategoryCombinationExists(BrandPojo brandPojo, int id){
         BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
         if (existingBrandPojo != null) {
-            if (existingBrandPojo.getId() != id) {
-                return false;
-            }
+            return existingBrandPojo.getId() == id;
         }
         return true;
     }
 
-    private boolean existingBrandCategoryCombination(BrandPojo brandPojo){
+    private boolean brandCategoryCombinationExists(BrandPojo brandPojo){
         BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());
-        if (existingBrandPojo != null) {
-                return false;
-        }
-        return true;
+        return existingBrandPojo == null;
     }
     
 }

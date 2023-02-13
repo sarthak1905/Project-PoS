@@ -102,4 +102,14 @@ public class ConvertUtil {
         return orderItemPojo;
     }
 
+    public static DaySalesData convertDaySalesPojoToData(DaySalesPojo daySalesPojo) {
+        DaySalesData daySalesData = new DaySalesData();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        daySalesData.setDate(daySalesPojo.getDate().format(dateTimeFormatter));
+        daySalesData.setTotalRevenue(daySalesPojo.getTotalRevenue());
+        daySalesData.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());
+        daySalesData.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());
+        return daySalesData;
+    }
+
 }

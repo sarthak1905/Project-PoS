@@ -28,7 +28,7 @@ public class OrderDao extends AbstractDao{
         em().persist(orderPojo);
     }
 
-    public OrderPojo select_id(int id){
+    public OrderPojo selectId(int id){
         TypedQuery<OrderPojo> query = getQuery(SELECT_ID, OrderPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
@@ -37,12 +37,6 @@ public class OrderDao extends AbstractDao{
     public List<OrderPojo> selectAll(){
         TypedQuery<OrderPojo> query = getQuery(SELECT_ALL, OrderPojo.class);
         return query.getResultList();
-    }
-
-    public int delete(int id){
-        Query query = em().createQuery(DELETE_ID);
-        query.setParameter("id", id);
-        return query.executeUpdate();
     }
 
     public List<OrderPojo> selectBeforeEndDate(LocalDateTime endDate) {

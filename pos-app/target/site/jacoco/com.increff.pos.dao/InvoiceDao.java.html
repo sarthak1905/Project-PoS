@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L14">public class InvoiceDao extends AbstractDao{</span>
+<span class="fc" id="L14">public class InvoiceDao extends AbstractDao{</span>
 
     private static final String SELECT_ID = &quot;select p from InvoicePojo p where order_id=:order_id&quot;;
     private static final String SELECT_ALL = &quot;select p from InvoicePojo p&quot;;
@@ -42,8 +42,8 @@ import java.util.List;
     }
 
     public LocalDateTime selectFirstOrderDateTime() {
-<span class="nc" id="L45">        Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);</span>
-<span class="nc" id="L46">        return (LocalDateTime)query.getSingleResult();</span>
+<span class="fc" id="L45">        Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);</span>
+<span class="fc" id="L46">        return (LocalDateTime)query.getSingleResult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
