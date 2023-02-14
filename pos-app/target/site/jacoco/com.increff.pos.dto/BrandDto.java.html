@@ -22,48 +22,36 @@ import java.util.List;
     private BrandService brandService;
 
     public void add(BrandForm brandForm) throws ApiException {
-<span class="nc" id="L25">        ValidationUtil.validateForms(brandForm);</span>
-<span class="nc" id="L26">        NormalizeUtil.normalize(brandForm);</span>
-<span class="nc" id="L27">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
-<span class="nc" id="L28">        brandService.add(brandPojo);</span>
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L25">        ValidationUtil.validateForms(brandForm);</span>
+<span class="fc" id="L26">        NormalizeUtil.normalize(brandForm);</span>
+<span class="fc" id="L27">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
+<span class="fc" id="L28">        brandService.add(brandPojo);</span>
+<span class="fc" id="L29">    }</span>
 
     public BrandData get(int id) throws ApiException{
-<span class="nc" id="L32">        BrandPojo brandPojo = brandService.get(id);</span>
-<span class="nc" id="L33">        return ConvertUtil.convertBrandPojoToData(brandPojo);</span>
-    }
-
-    public BrandPojo getBrandCategory(String brand, String category) throws ApiException{
-<span class="nc" id="L37">        brand = brand.toLowerCase().trim();</span>
-<span class="nc" id="L38">        category = category.toLowerCase().trim();</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (StringUtil.isEmpty(brand)){</span>
-<span class="nc" id="L40">            throw new ApiException(&quot;Brand name cannot be empty!&quot;);</span>
-        }
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (StringUtil.isEmpty(category)){</span>
-<span class="nc" id="L43">            throw new ApiException(&quot;Brand category cannot be empty!&quot;);</span>
-        }
-<span class="nc" id="L45">        return brandService.getBrandCategory(brand, category);</span>
+<span class="fc" id="L32">        BrandPojo brandPojo = brandService.get(id);</span>
+<span class="fc" id="L33">        return ConvertUtil.convertBrandPojoToData(brandPojo);</span>
     }
 
     public List&lt;BrandData&gt; getAll() {
-<span class="nc" id="L49">        List&lt;BrandPojo&gt; brandList = brandService.getAll();</span>
-<span class="nc" id="L50">        List&lt;BrandData&gt; brandDataList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        for (BrandPojo brandPojo : brandList) {</span>
-<span class="nc" id="L52">            brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));</span>
-<span class="nc" id="L53">        }</span>
-<span class="nc" id="L54">        return brandDataList;</span>
+<span class="fc" id="L37">        List&lt;BrandPojo&gt; brandList = brandService.getAll();</span>
+<span class="fc" id="L38">        List&lt;BrandData&gt; brandDataList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        for (BrandPojo brandPojo : brandList) {</span>
+<span class="fc" id="L40">            brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));</span>
+<span class="fc" id="L41">        }</span>
+<span class="fc" id="L42">        return brandDataList;</span>
     }
 
     public void update(int id, BrandForm brandForm) throws ApiException {
-<span class="nc" id="L58">        checkInputValidity(brandForm);</span>
-<span class="nc" id="L59">        NormalizeUtil.normalize(brandForm);</span>
-<span class="nc" id="L60">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
-<span class="nc" id="L61">        brandService.update(id, brandPojo);</span>
-<span class="nc" id="L62">    }</span>
+<span class="fc" id="L46">        checkInputValidity(brandForm);</span>
+<span class="fc" id="L47">        NormalizeUtil.normalize(brandForm);</span>
+<span class="fc" id="L48">        BrandPojo brandPojo = ConvertUtil.convertBrandFormToPojo(brandForm);</span>
+<span class="fc" id="L49">        brandService.update(id, brandPojo);</span>
+<span class="fc" id="L50">    }</span>
 
     private void checkInputValidity(BrandForm brandForm) {
-<span class="nc" id="L65">        ValidationUtil.validateForms(brandForm);</span>
-<span class="nc" id="L66">    }</span>
+<span class="fc" id="L53">        ValidationUtil.validateForms(brandForm);</span>
+<span class="fc" id="L54">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

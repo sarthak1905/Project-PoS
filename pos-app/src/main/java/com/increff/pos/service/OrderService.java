@@ -31,15 +31,12 @@ public class OrderService {
         orderPojo.setOrderDate(java.time.LocalDateTime.now());
         orderPojo.setInvoiced(false);
         orderDao.insert(orderPojo);
-        double orderTotal = 0.0;
         for (OrderItemPojo orderItemPojo: orderItemPojos){
             orderItemPojo.setOrderId(orderPojo.getId());
             inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
             double itemTotal = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();
             orderItemService.add(orderItemPojo);
-            orderTotal += itemTotal;
         }
-        orderPojo.setOrderTotal(orderTotal);
     }
 
 

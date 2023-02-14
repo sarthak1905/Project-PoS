@@ -33,18 +33,6 @@ public class BrandDto {
         return ConvertUtil.convertBrandPojoToData(brandPojo);
     }
 
-    public BrandPojo getBrandCategory(String brand, String category) throws ApiException{
-        brand = brand.toLowerCase().trim();
-        category = category.toLowerCase().trim();
-        if (StringUtil.isEmpty(brand)){
-            throw new ApiException("Brand name cannot be empty!");
-        }
-        if (StringUtil.isEmpty(category)){
-            throw new ApiException("Brand category cannot be empty!");
-        }
-        return brandService.getByBrandCategory(brand, category);
-    }
-
     public List<BrandData> getAll() {
         List<BrandPojo> brandList = brandService.getAll();
         List<BrandData> brandDataList = new ArrayList<>();

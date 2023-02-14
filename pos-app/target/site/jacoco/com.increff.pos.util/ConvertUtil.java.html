@@ -23,18 +23,18 @@ import java.time.format.DateTimeFormatter;
     }
 
     public static BrandData convertBrandPojoToData(BrandPojo brandPojo){
-<span class="nc" id="L26">        BrandData brandData = new BrandData();</span>
-<span class="nc" id="L27">        brandData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L28">        brandData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L29">        brandData.setId(brandPojo.getId());</span>
-<span class="nc" id="L30">        return brandData;</span>
+<span class="fc" id="L26">        BrandData brandData = new BrandData();</span>
+<span class="fc" id="L27">        brandData.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L28">        brandData.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L29">        brandData.setId(brandPojo.getId());</span>
+<span class="fc" id="L30">        return brandData;</span>
     }
 
     public static BrandPojo convertBrandFormToPojo(BrandForm brandForm){
-<span class="nc" id="L34">        BrandPojo brandPojo = new BrandPojo();</span>
-<span class="nc" id="L35">        brandPojo.setBrand(brandForm.getBrand());</span>
-<span class="nc" id="L36">        brandPojo.setCategory(brandForm.getCategory());</span>
-<span class="nc" id="L37">        return brandPojo;</span>
+<span class="fc" id="L34">        BrandPojo brandPojo = new BrandPojo();</span>
+<span class="fc" id="L35">        brandPojo.setBrand(brandForm.getBrand());</span>
+<span class="fc" id="L36">        brandPojo.setCategory(brandForm.getCategory());</span>
+<span class="fc" id="L37">        return brandPojo;</span>
     }
 
     public static InventoryData convertInventoryPojoToData(InventoryPojo inventoryPojo, String barcode) {
@@ -53,23 +53,23 @@ import java.time.format.DateTimeFormatter;
     }
 
     public static ProductData convertProductPojoToData(ProductPojo productPojo, String brand, String category) {
-<span class="nc" id="L56">        ProductData productData = new ProductData();</span>
-<span class="nc" id="L57">        productData.setId(productPojo.getId());</span>
-<span class="nc" id="L58">        productData.setName(productPojo.getName());</span>
-<span class="nc" id="L59">        productData.setBrand(brand);</span>
-<span class="nc" id="L60">        productData.setCategory(category);</span>
-<span class="nc" id="L61">        productData.setBarcode(productPojo.getBarcode());</span>
-<span class="nc" id="L62">        productData.setMrp(productPojo.getMrp());</span>
-<span class="nc" id="L63">        return productData;</span>
+<span class="fc" id="L56">        ProductData productData = new ProductData();</span>
+<span class="fc" id="L57">        productData.setId(productPojo.getId());</span>
+<span class="fc" id="L58">        productData.setName(productPojo.getName());</span>
+<span class="fc" id="L59">        productData.setBrand(brand);</span>
+<span class="fc" id="L60">        productData.setCategory(category);</span>
+<span class="fc" id="L61">        productData.setBarcode(productPojo.getBarcode());</span>
+<span class="fc" id="L62">        productData.setMrp(productPojo.getMrp());</span>
+<span class="fc" id="L63">        return productData;</span>
     }
 
     public static ProductPojo convertProductFormToPojo(ProductForm productForm, int brandId) {
-<span class="nc" id="L67">        ProductPojo productPojo = new ProductPojo();</span>
-<span class="nc" id="L68">        productPojo.setBrandCategory(brandId);</span>
-<span class="nc" id="L69">        productPojo.setBarcode(productForm.getBarcode());</span>
-<span class="nc" id="L70">        productPojo.setName(productForm.getName());</span>
-<span class="nc" id="L71">        productPojo.setMrp(productForm.getMrp());</span>
-<span class="nc" id="L72">        return productPojo;</span>
+<span class="fc" id="L67">        ProductPojo productPojo = new ProductPojo();</span>
+<span class="fc" id="L68">        productPojo.setBrandCategory(brandId);</span>
+<span class="fc" id="L69">        productPojo.setBarcode(productForm.getBarcode());</span>
+<span class="fc" id="L70">        productPojo.setName(productForm.getName());</span>
+<span class="fc" id="L71">        productPojo.setMrp(productForm.getMrp());</span>
+<span class="fc" id="L72">        return productPojo;</span>
     }
 
     public static OrderData convertOrderPojoToData(OrderPojo orderPojo) {

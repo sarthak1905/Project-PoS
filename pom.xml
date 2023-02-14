@@ -24,6 +24,7 @@
     <javax.servlet.version>3.1.0</javax.servlet.version>
     <commons-dbcp.version>1.4</commons-dbcp.version>
     <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+    <javax.el.version>3.0.0</javax.el.version>
   </properties>
 
   <dependencies>
@@ -180,6 +181,18 @@
       <artifactId>hibernate-validator</artifactId>
       <version>${hibernate-validator.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
+<!--    <dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>javax.el-api</artifactId>
+      <version>2.2.4</version>
+    </dependency>-->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.el</artifactId>
+      <version>${javax.el.version}</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

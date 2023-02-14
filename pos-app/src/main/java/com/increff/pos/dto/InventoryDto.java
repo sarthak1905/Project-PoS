@@ -22,13 +22,6 @@ public class InventoryDto {
     @Autowired
     private ProductService productService;
 
-    public void add(InventoryForm inventoryForm) throws ApiException {
-        ValidationUtil.validateForms(inventoryForm);
-        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());
-        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);
-        inventoryService.add(inventoryPojo);
-    }
-
     public InventoryData get(int id) throws ApiException{
         InventoryPojo inventoryPojo = inventoryService.get(id);
         String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());
@@ -57,14 +50,6 @@ public class InventoryDto {
         int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());
         InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);
         inventoryService.update(productId, inventoryPojo);
-    }
-
-    public boolean isValidInventory(int id, int quantity) throws ApiException {
-        InventoryPojo inventoryPojo = inventoryService.get(id);
-        if(inventoryPojo.getQuantity() < quantity){
-            return false;
-        }
-        return true;
     }
 
 }

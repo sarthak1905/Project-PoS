@@ -55,6 +55,8 @@ public class OrderDto {
             int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
             orderItemPojos.add(ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId));
         }
+        double orderTotal = calculateOrderTotal(orderItemForms);
+        orderPojo.setOrderTotal(orderTotal);
         orderService.add(orderPojo, orderItemPojos);
     }
 
@@ -93,15 +95,15 @@ public class OrderDto {
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         String invoiceDirectoryString = "./generated/invoice"+ orderId +".pdf";
         File file = new File(invoiceDirectoryString);
+        OrderPojo orderPojo = orderService.get(orderId);
 
-        if(file.exists()){
+        if(file.exists() && orderPojo.isInvoiced()){
             Path invoicePath = Paths.get(invoiceDirectoryString);
             byte[] contents = Files.readAllBytes(invoicePath);
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
 
         List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
-        OrderPojo orderPojo = orderService.get(orderId);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo: orderItemPojos){

@@ -30,13 +30,6 @@ public class OrderItemService {
         return getCheck(id);
     }
 
-    public void update(int id, OrderItemPojo orderItemPojo) throws ApiException {
-        OrderItemPojo existingOrderItemPojo = getCheck(id);
-        existingOrderItemPojo.setProductId(orderItemPojo.getProductId());
-        existingOrderItemPojo.setQuantity(orderItemPojo.getQuantity());
-        existingOrderItemPojo.setSellingPrice(orderItemPojo.getSellingPrice());
-    }
-
     public OrderItemPojo getCheck(int id) throws ApiException {
         OrderItemPojo orderItemPojo = orderItemDao.selectId(id);
         if (orderItemPojo == null) {

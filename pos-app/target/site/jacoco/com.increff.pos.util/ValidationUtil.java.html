@@ -6,13 +6,13 @@ import java.util.Set;
 <span class="nc" id="L6">public class ValidationUtil {</span>
 
     public static &lt;T&gt; void validateForms(T form){
-<span class="nc" id="L9">        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
-<span class="nc" id="L10">        Validator validator = factory.getValidator();</span>
-<span class="nc" id="L11">        Set&lt;ConstraintViolation&lt;T&gt;&gt; violations = validator.validate(form);</span>
-<span class="nc bnc" id="L12" title="All 2 branches missed.">        if (!violations.isEmpty()) {</span>
+<span class="fc" id="L9">        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L10">        Validator validator = factory.getValidator();</span>
+<span class="fc" id="L11">        Set&lt;ConstraintViolation&lt;T&gt;&gt; violations = validator.validate(form);</span>
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">        if (!violations.isEmpty()) {</span>
 <span class="nc" id="L13">            throw new ConstraintViolationException(violations);</span>
         }
-<span class="nc" id="L15">    }</span>
+<span class="fc" id="L15">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
