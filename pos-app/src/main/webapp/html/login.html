@@ -29,7 +29,10 @@
 				<div class="form-group">
 					<label for="password" class="col-sm-10 col-form-label">Password</label>
 					<div class="col-sm-10">
-					<input type="text" class="form-control" name="password" id="password" placeholder="password" requried>
+					<input type="password" class="form-control" name="password" id="password" placeholder="password" requried>
+					<span id="password-error"></span>
+					<br>
+					<input type="checkbox" id="show-password-checkbox"> Show Password
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary" id="login">Go</button>
@@ -50,5 +53,5 @@
 <footer th:replace="snippets.html :: name_footer"></footer>
 
 </body>
-
+<script th:src="@{/static/authentication.js}"></script>
 </html>

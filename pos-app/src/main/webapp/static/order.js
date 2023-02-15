@@ -25,7 +25,9 @@ function addOrder(event){
        },	   
 	   success: function(response) {
 	   		getOrderList();
-			   $('#add-order-modal').modal('toggle');
+			$('#add-order-modal').modal('toggle');
+			message = 'Order placed successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: handleAjaxError
 	});
@@ -65,7 +67,9 @@ function updateOrder(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getOrderList();   
+	   		getOrderList();
+			message = 'Order updated successfully!';
+			showSuccessMessage(message);   
 	   },
 	   error: handleAjaxError
 	});
@@ -212,15 +216,23 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var o = data[i];
-		var downloadIncvoiceButton = ' <button id="btn-invoice' + o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' + o.id + ')"><i class="bi bi-cloud-arrow-down-fill"></i> Get Invoice</button>';
+		var downloadIncvoiceButton = '';
+		var invoiceStatus = '';
 		var actionsButton = ' <button id="btn-view' + o.id + '"class="btn btn-view button" onclick="displayOrderItems(' + o.id + ')"><i class="bi bi-eye-fill"></i> View</button>';
 		if(o.invoiced === false){
+			invoiceStatus += 'Not Invoiced';
+			downloadIncvoiceButton +=' <button id="btn-invoice' + o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' + o.id + ')"><i class="fas fa-sync-alt"></i> Generate</button>';
 			actionsButton += ' <button id="btn-edit' + o.id + '"class="btn btn-edit button" onclick="displayEditOrder(' + o.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>';
+		}
+		else{
+			invoiceStatus += 'Invoiced';
+			downloadIncvoiceButton += ' <button id="btn-invoice' + o.id + '"class="btn btn-view button" onclick="downloadOrderInvoice(' + o.id + ')"><i class="bi bi-cloud-arrow-down-fill"></i> Download</button>';
 		}
 		var row = '<tr>'
 		+ '<td>' + o.id + '</td>'
 		+ '<td>' + o.dateTime + '</td>'
 		+ '<td>' + o.orderTotal + '</td>'
+		+ '<td>' + invoiceStatus + '</td>'
 		+ '<td>' + actionsButton + '</td>'
 		+ '<td>' + downloadIncvoiceButton + '</td>'
 		+ '</tr>';

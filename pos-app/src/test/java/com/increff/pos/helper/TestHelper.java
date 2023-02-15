@@ -1,9 +1,13 @@
 package com.increff.pos.helper;
 
+import com.increff.pos.model.LoginForm;
 import com.increff.pos.model.OrderItemForm;
 import com.increff.pos.model.ProductForm;
+import com.increff.pos.model.UserForm;
 import com.increff.pos.pojo.*;
+import org.h2.engine.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TestHelper {
@@ -64,5 +68,51 @@ public class TestHelper {
         orderPojo.setOrderTotal(orderTotal);
         orderPojo.setInvoiced(invoiced);
         return orderPojo;
+    }
+
+    public static OrderItemPojo convertOrderItemFormToPojo(OrderItemForm orderItemForm, int productId){
+        OrderItemPojo orderItemPojo = new OrderItemPojo();
+        orderItemPojo.setQuantity(orderItemForm.getQuantity());
+        orderItemPojo.setSellingPrice(orderItemForm.getSellingPrice());
+        orderItemPojo.setProductId(productId);
+        return orderItemPojo;
+    }
+
+    public static InvoicePojo createInvoicePojo(Integer orderId, LocalDateTime orderTime, String tempPath) {
+        InvoicePojo invoicePojo = new InvoicePojo();
+        invoicePojo.setOrderId(orderId);
+        invoicePojo.setInvoiceDate(orderTime);
+        invoicePojo.setPath(tempPath);
+        return invoicePojo;
+    }
+
+    public static UserPojo createUserPojo(String email, String password) {
+        UserPojo userPojo = new UserPojo();
+        userPojo.setEmail(email);
+        userPojo.setPassword(password);
+        return userPojo;
+    }
+
+    public static UserForm createUserForm(String email, String password) {
+        UserForm userForm = new UserForm();
+        userForm.setEmail(email);
+        userForm.setPassword(password);
+        return userForm;
+    }
+
+    public static LoginForm createLoginForm(String operatorEmail1, String password) {
+        LoginForm loginForm = new LoginForm();
+        loginForm.setEmail(operatorEmail1);
+        loginForm.setPassword(password);
+        return loginForm;
+    }
+
+    public static DaySalesPojo createDaySalesPojo(LocalDate date, Integer invoicedOrdersCount, Integer invoicedItemsCount, Double totalRevenue) {
+        DaySalesPojo daySalesPojo = new DaySalesPojo();
+        daySalesPojo.setDate(date);
+        daySalesPojo.setInvoicedOrdersCount(invoicedOrdersCount);
+        daySalesPojo.setInvoicedItemsCount(invoicedItemsCount);
+        daySalesPojo.setTotalRevenue(totalRevenue);
+        return daySalesPojo;
     }
 }

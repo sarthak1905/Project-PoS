@@ -27,65 +27,61 @@ import java.util.List;
     private List&lt;String&gt; supervisorEmails;
 
     public String getRoleFromEmail(String email) throws ApiException {
-<span class="nc" id="L30">        UserPojo userPojo = userService.get(email);</span>
-<span class="nc" id="L31">        return getRoleFromPojo(userPojo);</span>
+<span class="fc" id="L30">        UserPojo userPojo = userService.get(email);</span>
+<span class="fc" id="L31">        return getRoleFromPojo(userPojo);</span>
     }
 
     public void add(UserForm userForm) throws ApiException {
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(supervisorEmails.contains(userForm.getEmail())) {</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if(supervisorEmails.contains(userForm.getEmail())) {</span>
 <span class="nc" id="L36">            userForm.setRole(&quot;supervisor&quot;);</span>
         }
         else {
-<span class="nc" id="L39">            userForm.setRole(&quot;operator&quot;);</span>
+<span class="fc" id="L39">            userForm.setRole(&quot;operator&quot;);</span>
         }
-<span class="nc" id="L41">        UserPojo userPojo = ConvertUtil.convertUserFormToUserPojo(userForm);</span>
-<span class="nc" id="L42">        userService.add(userPojo);</span>
-<span class="nc" id="L43">    }</span>
-
-    public void delete(Integer id) {
-<span class="nc" id="L46">        userService.delete(id);</span>
-<span class="nc" id="L47">    }</span>
+<span class="fc" id="L41">        UserPojo userPojo = ConvertUtil.convertUserFormToUserPojo(userForm);</span>
+<span class="fc" id="L42">        userService.add(userPojo);</span>
+<span class="fc" id="L43">    }</span>
 
     public List&lt;UserPojo&gt; getAll() {
-<span class="nc" id="L50">        return userService.getAll();</span>
+<span class="fc" id="L46">        return userService.getAll();</span>
     }
 
     public List&lt;UserData&gt; getAllUser() {
-<span class="nc" id="L54">        List&lt;UserPojo&gt; list = getAll();</span>
-<span class="nc" id="L55">        List&lt;UserData&gt; list2 = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (UserPojo userPojo : list) {</span>
-<span class="nc" id="L57">            String role = getRoleFromPojo(userPojo);</span>
-<span class="nc" id="L58">            list2.add(ConvertUtil.convertUserPojoToUserData(userPojo, role));</span>
-<span class="nc" id="L59">        }</span>
-<span class="nc" id="L60">        return list2;</span>
+<span class="fc" id="L50">        List&lt;UserPojo&gt; list = getAll();</span>
+<span class="fc" id="L51">        List&lt;UserData&gt; list2 = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (UserPojo userPojo : list) {</span>
+<span class="fc" id="L53">            String role = getRoleFromPojo(userPojo);</span>
+<span class="fc" id="L54">            list2.add(ConvertUtil.convertUserPojoToUserData(userPojo, role));</span>
+<span class="fc" id="L55">        }</span>
+<span class="fc" id="L56">        return list2;</span>
     }
 
     public UserPojo get(LoginForm loginForm) throws ApiException {
-<span class="nc" id="L64">        return userService.get(loginForm.getEmail());</span>
+<span class="fc" id="L60">        return userService.get(loginForm.getEmail());</span>
     }
 
     public Authentication convertUserPojoToAuthentication(UserPojo userPojo) {
         // Create principal
-<span class="nc" id="L69">        UserPrincipal principal = new UserPrincipal();</span>
-<span class="nc" id="L70">        principal.setEmail(userPojo.getEmail());</span>
-<span class="nc" id="L71">        principal.setId(userPojo.getId());</span>
+<span class="fc" id="L65">        UserPrincipal principal = new UserPrincipal();</span>
+<span class="fc" id="L66">        principal.setEmail(userPojo.getEmail());</span>
+<span class="fc" id="L67">        principal.setId(userPojo.getId());</span>
 
         // Create Authorities
-<span class="nc" id="L74">        ArrayList&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L75">        authorities.add(new SimpleGrantedAuthority(getRoleFromPojo(userPojo)));</span>
+<span class="fc" id="L70">        ArrayList&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L71">        authorities.add(new SimpleGrantedAuthority(getRoleFromPojo(userPojo)));</span>
         // you can add more roles if required
 
         // Create Authentication
-<span class="nc" id="L79">        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, null,</span>
+<span class="fc" id="L75">        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, null,</span>
                 authorities);
-<span class="nc" id="L81">        return token;</span>
+<span class="fc" id="L77">        return token;</span>
     }
 
     private String getRoleFromPojo(UserPojo userPojo){
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if(supervisorEmails.contains(userPojo.getEmail())){</span>
-<span class="nc" id="L86">            return &quot;supervisor&quot;;</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if(supervisorEmails.contains(userPojo.getEmail())){</span>
+<span class="nc" id="L82">            return &quot;supervisor&quot;;</span>
         }
-<span class="nc" id="L88">        return &quot;operator&quot;;</span>
+<span class="fc" id="L84">        return &quot;operator&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

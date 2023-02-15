@@ -17,11 +17,11 @@ public class OrderDao extends AbstractDao{
     private static final String SELECT_ALL = "select p from OrderPojo p";
     private static final String DELETE_ID = "delete from OrderPojo p where id=:id";
     private static final String SELECT_BETWEEN_DATES = "select p from OrderPojo p where " +
-            "datetime between :startDate and :endDate";
+            "orderDate between :startDate and :endDate";
     private static final String SELECT_AFTER_DATE = "select p from OrderPojo p where " +
-            "datetime >= :startDate";
+            "orderDate >= :startDate";
     private static final String SELECT_BEFORE_DATE = "select p from OrderPojo p where " +
-            "datetime <= :endDate";
+            "orderDate <= :endDate";
 
 
     public void insert(OrderPojo orderPojo){

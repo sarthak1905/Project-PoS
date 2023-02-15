@@ -32,10 +32,6 @@ public class UserService {
 		return userDao.selectAll();
 	}
 
-	public void delete(int id) {
-		userDao.delete(id);
-	}
-
 	protected static void normalize(UserPojo userPojo) {
 		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());
 	}

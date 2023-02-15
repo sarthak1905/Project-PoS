@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-<span class="nc" id="L15">@Setter</span>
+<span class="fc" id="L15">@Setter</span>
 @Table(name = &quot;invoice&quot;)
-<span class="nc" id="L17">public class InvoicePojo extends AbstractVersionPojo {</span>
+<span class="fc" id="L17">public class InvoicePojo extends AbstractVersionPojo {</span>
 
     @Id
     @Column(name = &quot;order_id&quot;)
 <span class="nc" id="L21">    private Integer orderId;</span>
 
     @Column(nullable = false, name = &quot;invoice_date&quot;)
-<span class="nc" id="L24">    private LocalDateTime invoiceDate;</span>
+<span class="fc" id="L24">    private LocalDateTime invoiceDate;</span>
 
     @Column(nullable = false)
     @NotBlank

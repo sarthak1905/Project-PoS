@@ -23,7 +23,9 @@ function updateInventory(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getInventoryList();   
+	   		getInventoryList();
+			message = 'Inventory updated successfully!';
+			showSuccessMessage(message);   
 	   },
 	   error: handleAjaxError
 	});
@@ -39,19 +41,6 @@ function getInventoryList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayInventoryList(data);
-	   },
-	   error: handleAjaxError
-	});
-}
-
-function deleteInventory(id){
-	var url = getInventoryUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getInventoryList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -119,7 +108,7 @@ function displayInventoryList(data){
 	$tbody.empty();
 	for(var i in data){
 		var b = data[i];
-		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditInventory(' + b.id + ')"><i class="bi bi-pen-fill"></i>Edit</button>'
+		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditInventory(' + b.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + b.barcode + '</td>'
 		+ '<td>'  + b.quantity + '</td>'

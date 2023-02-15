@@ -2,6 +2,7 @@ package com.increff.pos.dto;
 
 import com.increff.pos.model.*;
 import com.increff.pos.pojo.*;
+import com.increff.pos.pojo.DaySalesPojo;
 import com.increff.pos.service.*;
 import com.increff.pos.util.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;

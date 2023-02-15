@@ -22,12 +22,6 @@ public class UserDao extends AbstractDao {
 		em().persist(userPojo);
 	}
 
-	public int delete(int id) {
-		Query query = em().createQuery(DELETE_ID);
-		query.setParameter("id", id);
-		return query.executeUpdate();
-	}
-
 	public UserPojo select(int id) {
 		TypedQuery<UserPojo> query = getQuery(SELECT_ID, UserPojo.class);
 		query.setParameter("id", id);

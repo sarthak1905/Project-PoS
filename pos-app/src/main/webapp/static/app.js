@@ -31,8 +31,24 @@ function handleAjaxError(response){
     Toastify({
         text: response,
         duration: 5000, 
-        close: true
+        close: true,
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #EC3F2C, #FF5733)",
+        },
         }).showToast();
+}
+
+function showSuccessMessage(message){
+    Toastify({
+        text: message,
+        duration: 5000,
+        close: true,
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #349E10, #40E408)",
+        },
+    }).showToast();
 }
 
 function checkRoleAndDisableEditBtns(){

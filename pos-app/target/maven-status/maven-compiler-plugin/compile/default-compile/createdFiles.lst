@@ -31,7 +31,6 @@ com\increff\pos\pojo\ProductPojo.class
 com\increff\pos\spring\SecurityConfig.class
 com\increff\pos\spring\SpringSecurityInitializer.class
 com\increff\pos\service\ProductService.class
-com\increff\pos\spring\SchedulerInitializer.class
 com\increff\pos\controller\AppUiController.class
 com\increff\pos\controller\OrderController.class
 com\increff\pos\dao\ProductDao.class

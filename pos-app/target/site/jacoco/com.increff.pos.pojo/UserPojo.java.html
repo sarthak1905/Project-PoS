@@ -11,19 +11,19 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
 
 @Entity
 @Getter
-<span class="nc" id="L14">@Setter</span>
+<span class="pc" id="L14">@Setter</span>
 @Table(name = &quot;users&quot;, indexes = @Index(name=&quot;email_index&quot;, columnList = &quot;email&quot;))
 <span class="fc" id="L16">public class UserPojo extends AbstractVersionPojo {</span>
 
 	@Id
 	@TableGenerator(name = POS_USER_SEQ, pkColumnValue = POS_USER_SEQ, table = POS_TABLE_NAME)
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = POS_USER_SEQ)
-<span class="nc" id="L21">	private int id;</span>
+<span class="fc" id="L21">	private int id;</span>
 	@Column(nullable = false, unique = true)
 	@NotBlank
-<span class="nc" id="L24">	private String email;</span>
+<span class="fc" id="L24">	private String email;</span>
 	@Column(nullable = false)
 	@NotBlank
-<span class="nc" id="L27">	private String password;</span>
+<span class="fc" id="L27">	private String password;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

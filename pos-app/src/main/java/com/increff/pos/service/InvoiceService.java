@@ -24,22 +24,9 @@ public class InvoiceService {
         }
     }
     
-    public InvoicePojo get(int id) throws ApiException{
-        return getCheck(id);
-    }
-    
     public List<InvoicePojo> getAll(){
         return invoiceDao.selectAll();
     }
-    
-    public InvoicePojo getCheck(Integer id) throws ApiException{
-        InvoicePojo invoicePojo = invoiceDao.select_id(id);
-        if(invoicePojo == null){
-            throw new ApiException("Invoice with given ID does not exist");
-        }
-        return invoicePojo;
-    }
-
 
     public List<InvoicePojo> getInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
         if(startDate.isAfter(endDate)){

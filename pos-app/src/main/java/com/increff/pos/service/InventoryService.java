@@ -28,8 +28,8 @@ public class InventoryService {
     }
 
     public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
-        InventoryPojo px = getCheck(id);
-        px.setQuantity(inventoryPojo.getQuantity());
+        InventoryPojo existingInventoryPojo = getCheck(id);
+        existingInventoryPojo.setQuantity(inventoryPojo.getQuantity());
     }
 
     public InventoryPojo getCheck(int id) throws ApiException{

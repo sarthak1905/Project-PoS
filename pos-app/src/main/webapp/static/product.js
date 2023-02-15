@@ -28,6 +28,8 @@ function addProduct(event){
        },	   
 	   success: function(response) {
 	   		getProductList();
+			message = 'Product added successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: handleAjaxError
 	});
@@ -55,6 +57,8 @@ function updateProduct(event){
        },	   
 	   success: function(response) {
 	   		getProductList();
+			message = 'Product updated successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: handleAjaxError
 	});
@@ -92,19 +96,6 @@ function generateBrandCategoriesMap(){
 			showBrandDropdown(Object.keys(brandCategoriesMap)[0], undefined, true, false);
 		},
 		error: handleAjaxError
-	});
-}
-
-function deleteProduct(id){
-	var url = getProductUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
 	});
 }
 
@@ -168,7 +159,7 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var p = data[i];
-		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')"><i class="bi bi-pen-fill"></i>Edit</button>'
+		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>'
 		var row = '<tr>'
 		+ '<td>'  + p.barcode + '</td>'
 		+ '<td>' + p.brand + '</td>'

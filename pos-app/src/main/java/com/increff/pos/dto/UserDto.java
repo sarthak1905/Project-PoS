@@ -42,10 +42,6 @@ public class UserDto {
         userService.add(userPojo);
     }
 
-    public void delete(Integer id) {
-        userService.delete(id);
-    }
-
     public List<UserPojo> getAll() {
         return userService.getAll();
     }

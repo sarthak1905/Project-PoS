@@ -16,37 +16,30 @@ import java.util.List;
     private OrderItemDao orderItemDao;
 
     public void add(OrderItemPojo orderItemPojo) throws ApiException {
-<span class="nc" id="L19">        Integer productId = orderItemPojo.getProductId();</span>
-<span class="nc" id="L20">        Integer orderId = orderItemPojo.getOrderId();</span>
-<span class="nc" id="L21">        OrderItemPojo existingOrderItem = orderItemDao.selectProductIdOrderId(productId, orderId);</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if(existingOrderItem != null){</span>
+<span class="fc" id="L19">        Integer productId = orderItemPojo.getProductId();</span>
+<span class="fc" id="L20">        Integer orderId = orderItemPojo.getOrderId();</span>
+<span class="fc" id="L21">        OrderItemPojo existingOrderItem = orderItemDao.selectProductIdOrderId(productId, orderId);</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if(existingOrderItem != null){</span>
 <span class="nc" id="L23">            throw new ApiException(&quot;Order item with id:&quot; + orderItemPojo.getId() +</span>
 <span class="nc" id="L24">                    &quot; already exists for order with id: &quot; + orderItemPojo.getOrderId());</span>
         }
-<span class="nc" id="L26">        orderItemDao.insert(orderItemPojo);</span>
-<span class="nc" id="L27">    }</span>
+<span class="fc" id="L26">        orderItemDao.insert(orderItemPojo);</span>
+<span class="fc" id="L27">    }</span>
 
     public OrderItemPojo get(int id) throws ApiException{
-<span class="nc" id="L30">        return getCheck(id);</span>
+<span class="fc" id="L30">        return getCheck(id);</span>
     }
 
-    public void update(int id, OrderItemPojo orderItemPojo) throws ApiException {
-<span class="nc" id="L34">        OrderItemPojo existingOrderItemPojo = getCheck(id);</span>
-<span class="nc" id="L35">        existingOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
-<span class="nc" id="L36">        existingOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L37">        existingOrderItemPojo.setSellingPrice(orderItemPojo.getSellingPrice());</span>
-<span class="nc" id="L38">    }</span>
-
     public OrderItemPojo getCheck(int id) throws ApiException {
-<span class="nc" id="L41">        OrderItemPojo orderItemPojo = orderItemDao.selectId(id);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (orderItemPojo == null) {</span>
-<span class="nc" id="L43">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
+<span class="fc" id="L34">        OrderItemPojo orderItemPojo = orderItemDao.selectId(id);</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (orderItemPojo == null) {</span>
+<span class="nc" id="L36">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
         }
-<span class="nc" id="L45">        return orderItemPojo;</span>
+<span class="fc" id="L38">        return orderItemPojo;</span>
     }
 
     public List&lt;OrderItemPojo&gt; getByOrderId(int orderId) {
-<span class="nc" id="L49">        return orderItemDao.selectByOrderId(orderId);</span>
+<span class="fc" id="L42">        return orderItemDao.selectByOrderId(orderId);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

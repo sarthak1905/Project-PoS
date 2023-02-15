@@ -81,7 +81,7 @@ public class OrderDtoTest extends AbstractUnitTest {
     @Test
     public void testGetOrderItems() throws ApiException {
         int indexVal = 3;
-        List<OrderItemForm> orderItemFormList = createOrderItemList(indexVal);
+        List<OrderItemForm> orderItemFormList = createOrderItemList(indexVal, false);
         orderDto.add(orderItemFormList);
         List<OrderData> orderDataList = orderDto.getAll();
         if(orderDataList.size() != 2){
@@ -124,15 +124,15 @@ public class OrderDtoTest extends AbstractUnitTest {
         }
         OrderPojo orderPojo = orderPojoList.get(0);
         int indexVal = 3;
-        List<OrderItemForm> orderItemFormList = createOrderItemList(3);
+        List<OrderItemForm> orderItemFormList = createOrderItemList(0, true);
         orderDto.update(orderPojo.getId(), orderItemFormList);
         List<OrderItemData> orderItemDataList = orderDto.getOrderItems(orderPojo.getId());
-/*        if(orderItemDataList.size() != orderItemFormList.size()){
+        if(orderItemDataList.size() != orderItemFormList.size()){
             fail();
-        }*/
+        }
         int endIndex = indexVal + orderItemsCount;
         int i = indexVal;
-        while(i > endIndex){
+        while(i < endIndex){
             OrderItemForm orderItemForm = orderItemFormList.get(i - indexVal);
             OrderItemData orderItemData = orderItemDataList.get(i - indexVal);
             assertEquals(orderItemData.getBarcode(), orderItemForm.getBarcode());
@@ -144,16 +144,17 @@ public class OrderDtoTest extends AbstractUnitTest {
 
     @Before
     public void initOrder() throws ApiException {
-        List<OrderItemForm> orderItemFormList = createOrderItemList(0);
+        List<OrderItemForm> orderItemFormList = createOrderItemList(0, false);
         orderDto.add(orderItemFormList);
     }
 
-    private List<OrderItemForm> createOrderItemList(int indexVal) {
+    private List<OrderItemForm> createOrderItemList(int indexVal, boolean isUpdate) {
         List<OrderItemForm> orderItemFormList = new ArrayList<>();
         for(int i = indexVal; i < indexVal + orderItemsCount; ++i){
-            ProductPojo productPojo = createTemplateProductPojo(productName + i, productCategory + i,
-                    productBrand + i, productBarcode + i, productMrp + i, quantity + i);
-            int productId = productPojo.getId();
+            if(!isUpdate) {
+                ProductPojo productPojo = createTemplateProductPojo(productName + i, productCategory + i,
+                        productBrand + i, productBarcode + i, productMrp + i, quantity + i);
+            }
             OrderItemForm orderItemForm = TestHelper.createOrderItemForm(productBarcode + i, 1, sellingPrice);
             orderItemFormList.add(orderItemForm);
         }

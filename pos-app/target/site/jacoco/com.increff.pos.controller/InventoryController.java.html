@@ -19,35 +19,29 @@ import java.util.List;
     @Autowired
     private InventoryDto inventoryDto;
 
-    @ApiOperation(value = &quot;Adds an inventory&quot;)
-    @RequestMapping(path = &quot;&quot;, method = RequestMethod.POST)
-    public void add(@RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L25">        inventoryDto.add(form);</span>
-<span class="nc" id="L26">    }</span>
-
     @ApiOperation(value = &quot;Gets an inventory&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
     public InventoryData get(@PathVariable Integer id) throws ApiException{
-<span class="nc" id="L31">        return inventoryDto.get(id);</span>
+<span class="nc" id="L25">        return inventoryDto.get(id);</span>
     }
 
     @ApiOperation(value = &quot;Gets all inventory&quot;)
     @RequestMapping(path = &quot;&quot;, method = RequestMethod.GET)
     public List&lt;InventoryData&gt; getAll(){
-<span class="nc" id="L37">        return inventoryDto.getAll();</span>
+<span class="nc" id="L31">        return inventoryDto.getAll();</span>
     }
 
     @ApiOperation(value = &quot;Updates an inventory&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
     public void update(@PathVariable Integer id, @RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L43">        inventoryDto.update(id, form);</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L37">        inventoryDto.update(id, form);</span>
+<span class="nc" id="L38">    }</span>
 
     @ApiOperation(value = &quot;Updates an inventory by barcode&quot;)
     @RequestMapping(path = &quot;/file-upload/{barcode}&quot;, method = RequestMethod.PUT)
     public void updateByBarcode(@PathVariable String barcode, @RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L49">        inventoryDto.updateByBarcode(barcode, form);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L43">        inventoryDto.updateByBarcode(barcode, form);</span>
+<span class="nc" id="L44">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

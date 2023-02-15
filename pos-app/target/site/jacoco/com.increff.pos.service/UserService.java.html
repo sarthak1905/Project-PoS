@@ -16,28 +16,24 @@ import java.util.List;
 	private UserDao userDao;
 
 	public void add(UserPojo userPojo) throws ApiException {
-<span class="nc" id="L19">		normalize(userPojo);</span>
-<span class="nc" id="L20">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">		if (existing != null) {</span>
+<span class="fc" id="L19">		normalize(userPojo);</span>
+<span class="fc" id="L20">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">		if (existing != null) {</span>
 <span class="nc" id="L22">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
 		}
-<span class="nc" id="L24">		userDao.insert(userPojo);</span>
-<span class="nc" id="L25">	}</span>
+<span class="fc" id="L24">		userDao.insert(userPojo);</span>
+<span class="fc" id="L25">	}</span>
 
 	public UserPojo get(String email) throws ApiException {
-<span class="nc" id="L28">		return userDao.select(email);</span>
+<span class="fc" id="L28">		return userDao.select(email);</span>
 	}
 
 	public List&lt;UserPojo&gt; getAll() {
-<span class="nc" id="L32">		return userDao.selectAll();</span>
+<span class="fc" id="L32">		return userDao.selectAll();</span>
 	}
 
-	public void delete(int id) {
-<span class="nc" id="L36">		userDao.delete(id);</span>
-<span class="nc" id="L37">	}</span>
-
 	protected static void normalize(UserPojo userPojo) {
-<span class="nc" id="L40">		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());</span>
-<span class="nc" id="L41">	}</span>
+<span class="fc" id="L36">		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());</span>
+<span class="fc" id="L37">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -19,7 +19,9 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();  
+	   		getBrandList();
+			message = 'Brand added successfully!';
+			showSuccessMessage(message);  
 	   },
 	   error: handleAjaxError
 	});
@@ -47,6 +49,8 @@ function updateBrand(event){
 	   success: function(response) {
 			$('#edit-brand-modal').modal('toggle');
 	   		getBrandList();   
+			message = 'Brand updated successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: function(response){
 		handleAjaxError(response);
@@ -63,19 +67,6 @@ function getBrandList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayBrandList(data);
-	   },
-	   error: handleAjaxError
-	});
-}
-
-function deleteBrand(id){
-	var url = getBrandUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getBrandList();  
 	   },
 	   error: handleAjaxError
 	});
@@ -144,7 +135,7 @@ function displayBrandList(data){
 	for(var i in data){
 		var b = data[i];
 		var buttonHtml = '<button class="btn btn-edit button" onclick="displayEditBrand(' + b.id + 
-		')"><i class="bi bi-pen-fill"></i>Edit</button>';
+		')"><i class="bi bi-pen-fill"></i> Edit</button>';
 		var row = '<tr>'
 		+ '<td>' + b.brand + '</td>'
 		+ '<td>'  + b.category + '</td>'

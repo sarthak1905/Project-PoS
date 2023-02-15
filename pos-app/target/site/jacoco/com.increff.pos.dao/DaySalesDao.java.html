@@ -18,18 +18,18 @@ import java.util.List;
     private static final String SELECT_LATEST_DATE = &quot;select max(p.date) from DaySalesPojo p&quot;;
 
     public void insert(DaySalesPojo daySalesPojo){
-<span class="nc" id="L21">        em().persist(daySalesPojo);</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L21">        em().persist(daySalesPojo);</span>
+<span class="fc" id="L22">    }</span>
 
     public DaySalesPojo selectByDate(LocalDate date){
-<span class="nc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BY_DATE, DaySalesPojo.class);</span>
-<span class="nc" id="L26">        query.setParameter(&quot;date&quot;, date);</span>
-<span class="nc" id="L27">        return getSingle(query);</span>
+<span class="fc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BY_DATE, DaySalesPojo.class);</span>
+<span class="fc" id="L26">        query.setParameter(&quot;date&quot;, date);</span>
+<span class="fc" id="L27">        return getSingle(query);</span>
     }
 
     public List&lt;DaySalesPojo&gt; selectAll() {
-<span class="nc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
-<span class="nc" id="L32">        return query.getResultList();</span>
+<span class="fc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
+<span class="fc" id="L32">        return query.getResultList();</span>
     }
 
     public LocalDate selectLatestDate() {

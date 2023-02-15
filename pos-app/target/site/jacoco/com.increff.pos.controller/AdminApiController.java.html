@@ -26,16 +26,10 @@ import java.util.List;
 <span class="nc" id="L26">		userDto.add(userForm);</span>
 <span class="nc" id="L27">	}</span>
 
-	@ApiOperation(value = &quot;Deletes a user&quot;)
-	@RequestMapping(path = &quot;/api/admin/user/{id}&quot;, method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable Integer id) {
-<span class="nc" id="L32">		userDto.delete(id);</span>
-<span class="nc" id="L33">	}</span>
-
 	@ApiOperation(value = &quot;Gets list of all users&quot;)
 	@RequestMapping(path = &quot;/api/admin/user&quot;, method = RequestMethod.GET)
 	public List&lt;UserData&gt; getAllUser() {
-<span class="nc" id="L38">		return userDto.getAllUser();</span>
+<span class="nc" id="L32">		return userDto.getAllUser();</span>
 	}
 
 }

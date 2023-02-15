@@ -2,6 +2,7 @@ package com.increff.pos.util;
 
 import com.increff.pos.model.*;
 import com.increff.pos.pojo.*;
+import com.increff.pos.pojo.DaySalesPojo;
 
 import java.time.format.DateTimeFormatter;
 
@@ -102,8 +103,8 @@ public class ConvertUtil {
         return orderItemPojo;
     }
 
-    public static DaySalesData convertDaySalesPojoToData(DaySalesPojo daySalesPojo) {
-        DaySalesData daySalesData = new DaySalesData();
+    public static com.increff.pos.model.DaySalesData convertDaySalesPojoToData(DaySalesPojo daySalesPojo) {
+        com.increff.pos.model.DaySalesData daySalesData = new com.increff.pos.model.DaySalesData();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         daySalesData.setDate(daySalesPojo.getDate().format(dateTimeFormatter));
         daySalesData.setTotalRevenue(daySalesPojo.getTotalRevenue());
