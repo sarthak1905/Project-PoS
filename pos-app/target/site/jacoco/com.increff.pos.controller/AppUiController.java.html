@@ -13,49 +13,44 @@ import org.springframework.web.servlet.ModelAndView;
 <span class="nc" id="L13">		return mav(&quot;home.html&quot;);</span>
 	}
 
-	@RequestMapping(value = &quot;/ui/admin&quot;)
-	public ModelAndView admin() throws ApiException {
-<span class="nc" id="L18">		return mav(&quot;user.html&quot;);</span>
-	}
-
 	@RequestMapping(value = &quot;/ui/brands&quot;)
 	public ModelAndView brand() throws ApiException {
-<span class="nc" id="L23">		return mav(&quot;brand.html&quot;);</span>
+<span class="nc" id="L18">		return mav(&quot;brand.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/products&quot;)
 	public ModelAndView product() throws ApiException {
-<span class="nc" id="L28">		return mav(&quot;product.html&quot;);</span>
+<span class="nc" id="L23">		return mav(&quot;product.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/inventory&quot;)
 	public ModelAndView inventory() throws ApiException {
-<span class="nc" id="L33">		return mav(&quot;inventory.html&quot;);</span>
+<span class="nc" id="L28">		return mav(&quot;inventory.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/orders&quot;)
 	public ModelAndView order() throws ApiException {
-<span class="nc" id="L38">		return mav(&quot;order.html&quot;);</span>
+<span class="nc" id="L33">		return mav(&quot;order.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/reports/day-sales&quot;)
 	public ModelAndView daySalesReport() throws ApiException {
-<span class="nc" id="L43">		return mav(&quot;day-sales.html&quot;);</span>
+<span class="nc" id="L38">		return mav(&quot;day-sales.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/reports/filtered-sales&quot;)
 	public ModelAndView filteredSalesReport() throws ApiException {
-<span class="nc" id="L48">		return mav(&quot;filtered-sales.html&quot;);</span>
+<span class="nc" id="L43">		return mav(&quot;filtered-sales.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/reports/brand&quot;)
 	public ModelAndView brandsReport() throws ApiException {
-<span class="nc" id="L53">		return mav(&quot;brand-report.html&quot;);</span>
+<span class="nc" id="L48">		return mav(&quot;brand-report.html&quot;);</span>
 	}
 
 	@RequestMapping(value = &quot;/ui/reports/inventory&quot;)
 	public ModelAndView inventoryReport() throws ApiException {
-<span class="nc" id="L58">		return mav(&quot;inventory-report.html&quot;);</span>
+<span class="nc" id="L53">		return mav(&quot;inventory-report.html&quot;);</span>
 	}
 
 

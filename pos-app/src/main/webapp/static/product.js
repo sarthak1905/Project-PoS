@@ -27,7 +27,7 @@ function addProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getProductList();
+	   		refreshTable();
 			message = 'Product added successfully!';
 			showSuccessMessage(message);
 	   },
@@ -56,7 +56,7 @@ function updateProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getProductList();
+	   		refreshTable();
 			message = 'Product updated successfully!';
 			showSuccessMessage(message);
 	   },
@@ -73,6 +73,7 @@ function getProductList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayProductList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -107,11 +108,15 @@ var processCount = 0;
 
 function processProductData(){
 	var file = $('#productFile')[0].files[0];
+	resetProductUploadDialog();
 	readFileData(file, readProductFileDataCallback);
 }
 
 function readProductFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadProductRows();
 }
 
@@ -120,6 +125,9 @@ function uploadProductRows(){
 	updateProductUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
@@ -241,6 +249,8 @@ function displayEditProduct(id){
 }
 
 function resetProductUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#productFile');
 	$file.val('');
@@ -261,8 +271,13 @@ function updateProductUploadDialog(){
 
 function updateProductFileName(){
 	var $file = $('#productFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("productFile").files[0].name;
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
 	$('#productFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayProductUploadData(){
@@ -276,9 +291,13 @@ function displayProduct(data){
 	$('#product-edit-form input[name=category]').val(data.category);
 	$('#product-edit-form input[name=barcode]').val(data.barcode);
 	$('#product-edit-form input[name=mrp]').val(data.mrp);
-	$('#product-edit-form input[name=id]').val(data.id);
 	showBrandDropdown(data.brand, data.category, true, true);
 	$('#edit-product-modal').modal('toggle');
+}
+
+function refreshTable(){
+	destroyTablize();
+	getProductList();
 }
 
 
@@ -286,18 +305,18 @@ function displayProduct(data){
 function init(){
 	$('#add-product').click(addProduct);
 	$('#update-product').click(updateProduct);
-	$('#refresh-data').click(getProductList);
+	$('#refresh-data').click(refreshTable);
 	$('#upload-data').click(displayProductUploadData);
 	$('#process-data').click(processProductData);
 	$('#download-errors').click(downloadProductErrors);
     $('#productFile').on('change', updateProductFileName);
 	$('#inputProductBrandName').on('select2:select', function(e){
 		var data = e.params.data.text;
-		showBrandDropdown(data, undefined, false, false);
+		showBrandDropdown(data, undefined, firstRun=false, isInEditModal=false);
 	});
 	$('#updateProductBrandName').on('select2:select', function(e){
 		var data = e.params.data.text;
-		showBrandDropdown(data, undefined, false, true);
+		showBrandDropdown(data, undefined, firstRun=false, isInEditModal=true);
 	});
 }
 

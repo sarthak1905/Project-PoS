@@ -10,15 +10,15 @@ function getLoginUrl(){
 }
 
 function submitSignupRequest(){
+	
 	var $form = $('#signup-form');
 	var password = $('#password').val();
 	var email = $('#signup-email').val();
-	var $emailErrorField = $('#signup-email-error');
-	var $passwordErrorField = $('#password-error');
-	$emailErrorField.empty();
-	$passwordErrorField.empty();
 
 	if(isValidEmail(email) && isValidPassword(password)){
+		console.log(password);
+		console.log(email);
+		console.log($form);
 		var json = toJson($form);
 		console.log(json);
 		var url = getSignupUrl();
@@ -39,15 +39,14 @@ function submitSignupRequest(){
 		}
 
 	if(!isValidPassword(password)){
-		var $errorMessage = '<small>Password must have at least 1 uppercase,' 
-		+ ' lowercase, special char, and number each</small>';
-		$passwordErrorField.append($errorMessage);
+		var errorMessage = 'Password must have at least 1 uppercase,' 
+		+ ' lowercase, special char, and number each';
+		showErrorMessage(errorMessage);
 	}
 
 	if(!isValidEmail(email)){
-		$emailErrorField.empty();
-		var $errorMessage = '<small>Please enter a valid email</small>';
-		$emailErrorField.append($errorMessage);
+		var errorMessage = 'Please enter a valid email';
+		showErrorMessage(errorMessage);
 	}
 }
 
@@ -70,7 +69,6 @@ function isValidEmail(email) {
 
 function togglePassword() {
 	$passwordInput =  $('#password')[0];
-	console.log($passwordInput);
 	if ($passwordInput.type === "password") {
 	  $passwordInput.type = "text";
 	} else {
@@ -78,9 +76,29 @@ function togglePassword() {
 	}
   }
 
+function checkInfoMessageAfterSubmit(){
+	wait(500);
+	checkInfoMessage();
+}
+
+function checkInfoMessage(){
+	if(location.href === 'http://localhost:9000' + getLoginUrl()){
+		var message = $('#info-message').text().trim();
+		console.log(message);
+		console.log('reaching here');
+		if(message === 'Signed up successfully!' || message == 'Logged out successfully'){
+			showSuccessMessage(message);
+		}
+		else if (message === 'Invalid username or password'){
+			showErrorMessage(message);
+		}
+	}
+}
+
 function init(){
 	$('#signup-btn').click(submitSignupRequest);
-	$('#show-password-checkbox').click(togglePassword);
+	$('#show-password-button').click(togglePassword);
 }
 
 $(document).ready(init);
+$(document).ready(checkInfoMessage);

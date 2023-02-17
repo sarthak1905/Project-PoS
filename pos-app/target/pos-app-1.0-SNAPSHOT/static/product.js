@@ -28,6 +28,8 @@ function addProduct(event){
        },	   
 	   success: function(response) {
 	   		getProductList();
+			message = 'Product added successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: handleAjaxError
 	});
@@ -55,6 +57,8 @@ function updateProduct(event){
        },	   
 	   success: function(response) {
 	   		getProductList();
+			message = 'Product updated successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: handleAjaxError
 	});
@@ -95,19 +99,6 @@ function generateBrandCategoriesMap(){
 	});
 }
 
-function deleteProduct(id){
-	var url = getProductUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
-	});
-}
-
 // FILE UPLOAD METHODS
 var fileData = [];
 var errorData = [];
@@ -121,6 +112,9 @@ function processProductData(){
 
 function readProductFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadProductRows();
 }
 
@@ -129,6 +123,9 @@ function uploadProductRows(){
 	updateProductUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
@@ -168,7 +165,7 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var p = data[i];
-		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')"><i class="bi bi-pen-fill"></i>Edit</button>'
+		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditProduct(' + p.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>'
 		var row = '<tr>'
 		+ '<td>'  + p.barcode + '</td>'
 		+ '<td>' + p.brand + '</td>'
@@ -250,6 +247,8 @@ function displayEditProduct(id){
 }
 
 function resetProductUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#productFile');
 	$file.val('');
@@ -271,7 +270,12 @@ function updateProductUploadDialog(){
 function updateProductFileName(){
 	var $file = $('#productFile');
 	var fileName = $file.val();
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
 	$('#productFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayProductUploadData(){
@@ -285,7 +289,6 @@ function displayProduct(data){
 	$('#product-edit-form input[name=category]').val(data.category);
 	$('#product-edit-form input[name=barcode]').val(data.barcode);
 	$('#product-edit-form input[name=mrp]').val(data.mrp);
-	$('#product-edit-form input[name=id]').val(data.id);
 	showBrandDropdown(data.brand, data.category, true, true);
 	$('#edit-product-modal').modal('toggle');
 }

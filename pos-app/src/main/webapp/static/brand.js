@@ -19,7 +19,7 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();
+	   		refreshTable();
 			message = 'Brand added successfully!';
 			showSuccessMessage(message);  
 	   },
@@ -48,7 +48,7 @@ function updateBrand(event){
        },	   
 	   success: function(response) {
 			$('#edit-brand-modal').modal('toggle');
-	   		getBrandList();   
+	   		refreshTable();  
 			message = 'Brand updated successfully!';
 			showSuccessMessage(message);
 	   },
@@ -67,6 +67,7 @@ function getBrandList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayBrandList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -80,11 +81,15 @@ var processCount = 0;
 
 function processData(){
 	var file = $('#brandFile')[0].files[0];
+	resetUploadDialog();
 	readFileData(file, readFileDataCallback);
 }
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadRows();
 }
 
@@ -93,6 +98,9 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
@@ -159,6 +167,8 @@ function displayEditBrand(id){
 }
 
 function resetUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#brandFile');
 	$file.val('');
@@ -179,13 +189,23 @@ function updateUploadDialog(){
 
 function updateFileName(){
 	var $file = $('#brandFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("brandFile").files[0].name;
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
 	$('#brandFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayUploadData(){
  	resetUploadDialog(); 	
 	$('#upload-brand-modal').modal('toggle');
+}
+
+function refreshTable(){
+	destroyTablize();
+	getBrandList();
 }
 
 function displayBrand(data){
@@ -199,7 +219,7 @@ function displayBrand(data){
 function init(){
 	$('#add-brand').click(addBrand);
 	$('#update-brand').click(updateBrand);
-	$('#refresh-data').click(getBrandList);
+	$('#refresh-data').click(refreshTable);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);

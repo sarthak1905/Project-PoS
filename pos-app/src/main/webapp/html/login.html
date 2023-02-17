@@ -1,57 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
+  <head th:replace="snippets.html :: name_head"></head>
+  <link rel="stylesheet" th:href="@{/static/auth.css}">
 
-<head th:replace="snippets.html :: name_head"></head>
+  <body>
 
-<body>
+    <div class="container-fluid">
+      <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+      
+      
+        <!-- The content half -->
+        <div class="col-md-6 bg-light">
+        <div class="login d-flex align-items-center py-5">
+      
+          <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-xl-7 mx-auto">
+            <h3 class="display-4">Login</h3>
+            <p class="text-muted mb-4">Please enter your details to login!</p>
+            <form class="form" id="login-form" method="POST" th:action="@{/session/login}">
+              <div class="form-group mb-3">
+              <input id="login-email" name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+              </div>
+    
+              <div class="form-group mb-3">
+              <input id="password" name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+              </div>
+              
+              <div class="custom-control custom-checkbox mb-3">
+              <input id="show-password-button" type="checkbox" class="custom-control-input">
+              <label for="show-password-button" class="custom-control-label">Show Password</label>
+              </div>				
+              
+              <button id="login" onclick="checkInfoMessageAfterSubmit()" type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Login</button>
+              <div class="text-center d-flex justify-content-between mt-4">
+              <p>Don't have an account? <a th:href="@{/site/signup}" class="font-italic text-muted">
+                <u>Sign Up</u></a></p>
+              </div>
+            
+            </form>
+            </div>
+          </div>
+          </div><!-- End -->
+      
+        </div>
+        </div><!-- End -->
+      
+      </div>
+      </div>
 
-<nav th:replace="snippets.html :: name_site_navbar"></nav>
 
-
-<div class="container">
-
-<div class="row">
-<div class="col-6">
-	
-	<div class="card">
-		<div class="card-header">
-			<h3>Login</h3>
-		</div>
-		<div class="card-body">
-			<form class="form" id="login-form" method="POST" th:action="@{/session/login}">
-				<div class="form-group">
-					<label for="email" class="col-sm-10 col-form-label">Email</label>
-					<div class="col-sm-10">
-					<input type="text" class="form-control" name="email" id="email" placeholder="enter email" requried>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="password" class="col-sm-10 col-form-label">Password</label>
-					<div class="col-sm-10">
-					<input type="password" class="form-control" name="password" id="password" placeholder="password" requried>
-					<span id="password-error"></span>
-					<br>
-					<input type="checkbox" id="show-password-checkbox"> Show Password
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary" id="login">Go</button>
-			</form>
-		</div>
-		<div class="card-footer text-danger">
-			[[${info.getMessage()}]]
-		</div>
-	</div>
-	
-	
-
-</div> <!-- Col -->
-</div> <!-- Row -->
-
-</div> <!-- Container-->
-
-<footer th:replace="snippets.html :: name_footer"></footer>
-
-</body>
-<script th:src="@{/static/authentication.js}"></script>
+    <!-- <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>Login</h4>
+            </div>
+            <div class="card-body">
+              <form
+                class="form"
+                id="login-form"
+                method="POST"
+                th:action="@{/session/login}"
+              >
+                <div class="form-group">
+                  <label for="email" class="col-form-label">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    placeholder="Enter email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password" class="col-form-label">Password</label>
+                  <div class="input-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        id="show-password-button"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block"
+                  id="login"
+				          onclick="checkInfoMessageAfterSubmit()"
+                >
+                  Sign in
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div id="info-message" hidden>[[${info.getMessage()}]]</div>
+  </body>
+  <footer th:replace="snippets.html :: name_footer"></footer>
+  <script th:src="@{/static/authentication.js}"></script>
 </html>

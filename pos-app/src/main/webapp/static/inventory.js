@@ -41,6 +41,7 @@ function getInventoryList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayInventoryList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -54,11 +55,15 @@ var processCount = 0;
 
 function processData(){
 	var file = $('#inventoryFile')[0].files[0];
+	resetUploadDialog();
 	readFileData(file, readFileDataCallback);
 }
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadRows();
 }
 
@@ -67,13 +72,15 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
 	//Process next row
 	var row = fileData[processCount];
 	processCount++;
-	console.log(row);
 	var json = JSON.stringify(row);
 	var url = getInventoryUrl() + "/file-upload/"+ row["barcode"];
 
@@ -132,10 +139,14 @@ function displayEditInventory(id){
 }
 
 function resetUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#inventoryFile');
 	$file.val('');
 	$('#inventoryFileName').html("Choose File");
+
+
 	//Reset various counts
 	processCount = 0;
 	fileData = [];
@@ -152,12 +163,19 @@ function updateUploadDialog(){
 
 function updateFileName(){
 	var $file = $('#inventoryFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("inventoryFile").files[0].name;
+
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
+
 	$('#inventoryFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayUploadData(){
- 	resetUploadDialog(); 	
+ 	resetUploadDialog();	
 	$('#upload-inventory-modal').modal('toggle');
 }
 

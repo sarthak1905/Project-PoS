@@ -19,7 +19,7 @@ public class SiteUiController extends AbstractUiController {
 	// WEBSITE PAGES
 	@RequestMapping(value = "")
 	public ModelAndView index() throws ApiException {
-		return mav("index.html");
+		return mav("redirect:/site/login");
 	}
 
 	@ApiOperation(value = "Signup page")
@@ -36,7 +36,8 @@ public class SiteUiController extends AbstractUiController {
 
 	@RequestMapping(value = "/site/logout")
 	public ModelAndView logout() throws ApiException {
-		return mav("logout.html");
+		info.setMessage("Logged out successfully");
+		return mav("redirect:/site/login");
 	}
 
 }

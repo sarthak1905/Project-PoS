@@ -19,7 +19,9 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();  
+	   		getBrandList();
+			message = 'Brand added successfully!';
+			showSuccessMessage(message);  
 	   },
 	   error: handleAjaxError
 	});
@@ -47,6 +49,8 @@ function updateBrand(event){
 	   success: function(response) {
 			$('#edit-brand-modal').modal('toggle');
 	   		getBrandList();   
+			message = 'Brand updated successfully!';
+			showSuccessMessage(message);
 	   },
 	   error: function(response){
 		handleAjaxError(response);
@@ -68,19 +72,6 @@ function getBrandList(){
 	});
 }
 
-function deleteBrand(id){
-	var url = getBrandUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getBrandList();  
-	   },
-	   error: handleAjaxError
-	});
-}
-
 // FILE UPLOAD METHODS
 var fileData = [];
 var errorData = [];
@@ -94,6 +85,9 @@ function processData(){
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadRows();
 }
 
@@ -102,6 +96,9 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
@@ -144,7 +141,7 @@ function displayBrandList(data){
 	for(var i in data){
 		var b = data[i];
 		var buttonHtml = '<button class="btn btn-edit button" onclick="displayEditBrand(' + b.id + 
-		')"><i class="bi bi-pen-fill"></i>Edit</button>';
+		')"><i class="bi bi-pen-fill"></i> Edit</button>';
 		var row = '<tr>'
 		+ '<td>' + b.brand + '</td>'
 		+ '<td>'  + b.category + '</td>'
@@ -168,6 +165,8 @@ function displayEditBrand(id){
 }
 
 function resetUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#brandFile');
 	$file.val('');
@@ -189,7 +188,12 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#brandFile');
 	var fileName = $file.val();
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
 	$('#brandFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayUploadData(){

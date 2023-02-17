@@ -18,6 +18,7 @@ function getSalesList(){
 	   data: json,
 	   success: function(data) {
 	   		displaySalesList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});

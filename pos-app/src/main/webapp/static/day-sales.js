@@ -11,6 +11,7 @@ function getDaySalesList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayDaySalesList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});

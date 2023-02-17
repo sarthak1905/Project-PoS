@@ -13,11 +13,6 @@ public class AppUiController extends AbstractUiController {
 		return mav("home.html");
 	}
 
-	@RequestMapping(value = "/ui/admin")
-	public ModelAndView admin() throws ApiException {
-		return mav("user.html");
-	}
-
 	@RequestMapping(value = "/ui/brands")
 	public ModelAndView brand() throws ApiException {
 		return mav("brand.html");

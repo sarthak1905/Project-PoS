@@ -23,7 +23,9 @@ function updateInventory(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getInventoryList();   
+	   		getInventoryList();
+			message = 'Inventory updated successfully!';
+			showSuccessMessage(message);   
 	   },
 	   error: handleAjaxError
 	});
@@ -44,19 +46,6 @@ function getInventoryList(){
 	});
 }
 
-function deleteInventory(id){
-	var url = getInventoryUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getInventoryList();  
-	   },
-	   error: handleAjaxError
-	});
-}
-
 // FILE UPLOAD METHODS
 var fileData = [];
 var errorData = [];
@@ -70,6 +59,9 @@ function processData(){
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length > 5000){
+		showErrorMessage('Row limit of 5000 exceeded!');
+	}
 	uploadRows();
 }
 
@@ -78,13 +70,15 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+		if(errorData.length != 0){
+			$('#download-errors').attr('disabled',false);
+		}
 		return;
 	}
 	
 	//Process next row
 	var row = fileData[processCount];
 	processCount++;
-	console.log(row);
 	var json = JSON.stringify(row);
 	var url = getInventoryUrl() + "/file-upload/"+ row["barcode"];
 
@@ -119,7 +113,7 @@ function displayInventoryList(data){
 	$tbody.empty();
 	for(var i in data){
 		var b = data[i];
-		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditInventory(' + b.id + ')"><i class="bi bi-pen-fill"></i>Edit</button>'
+		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditInventory(' + b.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + b.barcode + '</td>'
 		+ '<td>'  + b.quantity + '</td>'
@@ -143,10 +137,14 @@ function displayEditInventory(id){
 }
 
 function resetUploadDialog(){
+	$('#download-errors').attr('disabled', true);
+	$('#process-data').attr('disabled', true);
 	//Reset file name
 	var $file = $('#inventoryFile');
 	$file.val('');
 	$('#inventoryFileName').html("Choose File");
+
+
 	//Reset various counts
 	processCount = 0;
 	fileData = [];
@@ -164,11 +162,18 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#inventoryFile');
 	var fileName = $file.val();
+
+	if(fileName.slice(-4) != '.tsv'){
+		showErrorMessage('Please upload .tsv file only!');
+		return;
+	}
+
 	$('#inventoryFileName').html(fileName);
+	$('#process-data').attr('disabled', false);
 }
 
 function displayUploadData(){
- 	resetUploadDialog(); 	
+ 	resetUploadDialog();	
 	$('#upload-inventory-modal').modal('toggle');
 }
 

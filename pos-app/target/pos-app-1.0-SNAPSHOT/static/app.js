@@ -15,6 +15,10 @@ function getRole(){
     return $('#user-role').text().trim();
 }
 
+function getInfoMessage(){
+    return $('#info-message').text().trim();
+}
+
 function displayOrHideButtons(){
 	var role = getRole();
 	if(role === 'operator'){
@@ -27,12 +31,33 @@ function displayOrHideButtons(){
 }
 
 function handleAjaxError(response){
-	var response = JSON.parse(response.responseText)['message'].replace('[', '').replace(']','');
+	var message = JSON.parse(response.responseText)['message'].replace('[', '').replace(']','');
+    showErrorMessage(message);
+}
+
+function showErrorMessage(message){
     Toastify({
-        text: response,
+        text: message,
         duration: 5000, 
-        close: true
+        close: true,
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #EC3F2C, #FF5733)",
+        },
         }).showToast();
+    throw new Error(message);
+}
+
+function showSuccessMessage(message){
+    Toastify({
+        text: message,
+        duration: 5000,
+        close: true,
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #349E10, #40E408)",
+        },
+    }).showToast();
 }
 
 function checkRoleAndDisableEditBtns(){

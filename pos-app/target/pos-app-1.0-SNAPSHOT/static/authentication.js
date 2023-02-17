@@ -11,10 +11,10 @@ function getLoginUrl(){
 
 function submitSignupRequest(){
 	var $form = $('#signup-form');
-	var password = $('#signup-password').val();
+	var password = $('#password').val();
 	var email = $('#signup-email').val();
 	var $emailErrorField = $('#signup-email-error');
-	var $passwordErrorField = $('#signup-password-error');
+	var $passwordErrorField = $('#password-error');
 	$emailErrorField.empty();
 	$passwordErrorField.empty();
 
@@ -69,7 +69,8 @@ function isValidEmail(email) {
 }
 
 function togglePassword() {
-	var $passwordInput =  $('#signup-password');
+	$passwordInput =  $('#password')[0];
+	console.log($passwordInput);
 	if ($passwordInput.type === "password") {
 	  $passwordInput.type = "text";
 	} else {
@@ -77,9 +78,23 @@ function togglePassword() {
 	}
   }
 
+function checkInfoMessageAfterSubmit(){
+	wait(500);
+	checkInfoMessage();
+}
+
+function checkInfoMessage(){
+	var message = $('#info-message').text().trim();
+	if(message === 'Signed up successfully!'){
+		$('#info-message').removeClass('tex-danger');
+		$('#info-message').addClass('text-success');
+	}
+}
+
 function init(){
 	$('#signup-btn').click(submitSignupRequest);
-	$('#show-password-checkbox').click(togglePassword);
+	$('#show-password-button').click(togglePassword);
 }
 
 $(document).ready(init);
+$(document).ready(checkInfoMessage);

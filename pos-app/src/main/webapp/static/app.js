@@ -1,10 +1,14 @@
 
 //HELPER METHOD
 function toJson($form){
+    console.log("In To JSON function");
     var serialized = $form.serializeArray();
+    console.log($form);
+    console.log(serialized);
     var s = '';
     var data = {};
     for(s in serialized){
+        console.log(s);
         data[serialized[s]['name']] = serialized[s]['value']
     }
     var json = JSON.stringify(data);
@@ -13,6 +17,10 @@ function toJson($form){
 
 function getRole(){
     return $('#user-role').text().trim();
+}
+
+function getInfoMessage(){
+    return $('#info-message').text().trim();
 }
 
 function displayOrHideButtons(){
@@ -27,9 +35,13 @@ function displayOrHideButtons(){
 }
 
 function handleAjaxError(response){
-	var response = JSON.parse(response.responseText)['message'].replace('[', '').replace(']','');
+	var message = JSON.parse(response.responseText)['message'].replace('[', '').replace(']','');
+    showErrorMessage(message);
+}
+
+function showErrorMessage(message){
     Toastify({
-        text: response,
+        text: message,
         duration: 5000, 
         close: true,
         stopOnFocus: true,
@@ -37,6 +49,7 @@ function handleAjaxError(response){
           background: "linear-gradient(to right, #EC3F2C, #FF5733)",
         },
         }).showToast();
+    throw new Error(message);
 }
 
 function showSuccessMessage(message){
@@ -60,6 +73,15 @@ function checkRoleAndDisableEditBtns(){
 
 function disableEditBtns(){
     $('button.btn-edit').attr('disabled', true);
+    $('.order-add').attr('disabled', false);
+}
+
+function dataTablize() {
+    $('.display-table').DataTable();
+}
+
+function destroyTablize(){
+    $('.display-table').DataTable().destroy();
 }
 
 function readFileData(file, callback){
@@ -98,3 +120,4 @@ function writeFileData(arr){
 }
 
 $(document).ready(displayOrHideButtons);
+

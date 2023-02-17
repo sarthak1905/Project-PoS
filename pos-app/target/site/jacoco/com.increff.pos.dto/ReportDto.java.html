@@ -119,64 +119,65 @@ import java.util.Map;
         LocalDateTime endDate;
 <span class="fc" id="L120">        String filterStartDate = salesReportFilterForm.getStartDate();</span>
 <span class="fc" id="L121">        String filterEndDate = salesReportFilterForm.getEndDate();</span>
-<span class="fc" id="L122">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
-<span class="fc" id="L123">        List&lt;OrderPojo&gt; orderPojoList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L124" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterStartDate) &amp;&amp; checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L125">            orderPojoList = orderService.getAll();</span>
+<span class="fc" id="L122">        System.out.println(filterStartDate);</span>
+<span class="fc" id="L123">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L124">        List&lt;OrderPojo&gt; orderPojoList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterStartDate) &amp;&amp; checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L126">            orderPojoList = orderService.getAll();</span>
         }
 
-<span class="fc bfc" id="L128" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterStartDate) &amp;&amp; !checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L129">            endDate = LocalDateTime.of(LocalDate.parse(filterEndDate, dateTimeFormatter), LocalTime.MAX);</span>
-<span class="fc" id="L130">            orderPojoList = orderService.getBeforeEndDate(endDate);</span>
+<span class="fc bfc" id="L129" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterStartDate) &amp;&amp; !checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L130">            endDate = LocalDateTime.of(LocalDate.parse(filterEndDate, dateTimeFormatter), LocalTime.MAX);</span>
+<span class="fc" id="L131">            orderPojoList = orderService.getBeforeEndDate(endDate);</span>
         }
 
-<span class="fc bfc" id="L133" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterEndDate) &amp;&amp; !checkIfNullOrEmpty(filterStartDate)){</span>
-<span class="fc" id="L134">            startDate = LocalDate.parse(filterStartDate, dateTimeFormatter).atStartOfDay();</span>
-<span class="fc" id="L135">            orderPojoList = orderService.getAfterStartDate(startDate);</span>
+<span class="fc bfc" id="L134" title="All 4 branches covered.">        if(checkIfNullOrEmpty(filterEndDate) &amp;&amp; !checkIfNullOrEmpty(filterStartDate)){</span>
+<span class="fc" id="L135">            startDate = LocalDate.parse(filterStartDate, dateTimeFormatter).atStartOfDay();</span>
+<span class="fc" id="L136">            orderPojoList = orderService.getAfterStartDate(startDate);</span>
         }
 
-<span class="fc bfc" id="L138" title="All 4 branches covered.">        if(!checkIfNullOrEmpty(filterStartDate) &amp;&amp; !checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L139">            startDate = LocalDate.parse(filterStartDate, dateTimeFormatter).atStartOfDay();</span>
-<span class="fc" id="L140">            endDate = LocalDateTime.of(LocalDate.parse(filterEndDate, dateTimeFormatter), LocalTime.MAX);</span>
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">            if(startDate.isAfter(endDate)){</span>
-<span class="nc" id="L142">                throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
+<span class="fc bfc" id="L139" title="All 4 branches covered.">        if(!checkIfNullOrEmpty(filterStartDate) &amp;&amp; !checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L140">            startDate = LocalDate.parse(filterStartDate, dateTimeFormatter).atStartOfDay();</span>
+<span class="fc" id="L141">            endDate = LocalDateTime.of(LocalDate.parse(filterEndDate, dateTimeFormatter), LocalTime.MAX);</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">            if(startDate.isAfter(endDate)){</span>
+<span class="nc" id="L143">                throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
             }
-<span class="fc" id="L144">            orderPojoList = orderService.getBetweenDates(startDate, endDate);</span>
+<span class="fc" id="L145">            orderPojoList = orderService.getBetweenDates(startDate, endDate);</span>
         }
-<span class="fc" id="L146">        return orderPojoList;</span>
+<span class="fc" id="L147">        return orderPojoList;</span>
     }
 
     private List&lt;SalesReportData&gt; generateSalesReportDataList(List&lt;OrderItemPojo&gt; allOrderItemList, String filterBrandName, String filterCategoryName) throws ApiException {
-<span class="fc" id="L150">        HashMap&lt;Integer, Integer&gt; brandIdToQuantityMap = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L151">        HashMap&lt;Integer, Double&gt; brandIdToRevenueMap = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L152">        List&lt;SalesReportData&gt; salesReportDataList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L153" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: allOrderItemList){</span>
-<span class="fc" id="L154">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="fc" id="L155">            BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());</span>
-<span class="pc bpc" id="L156" title="2 of 4 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;)) {</span>
-<span class="pc bpc" id="L157" title="2 of 4 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L158">                    Integer brandId = brandPojo.getId();</span>
-<span class="fc" id="L159">                    Integer quantity = orderItemPojo.getQuantity();</span>
-<span class="fc" id="L160">                    Double revenue = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();</span>
-<span class="fc" id="L161">                    brandIdToQuantityMap.put(brandId, brandIdToQuantityMap.getOrDefault(brandId, 0) + quantity);</span>
-<span class="fc" id="L162">                    brandIdToRevenueMap.put(brandId, brandIdToRevenueMap.getOrDefault(brandId, 0.0) + revenue);</span>
+<span class="fc" id="L151">        HashMap&lt;Integer, Integer&gt; brandIdToQuantityMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L152">        HashMap&lt;Integer, Double&gt; brandIdToRevenueMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L153">        List&lt;SalesReportData&gt; salesReportDataList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: allOrderItemList){</span>
+<span class="fc" id="L155">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="fc" id="L156">            BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());</span>
+<span class="pc bpc" id="L157" title="2 of 4 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;)) {</span>
+<span class="pc bpc" id="L158" title="2 of 4 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L159">                    Integer brandId = brandPojo.getId();</span>
+<span class="fc" id="L160">                    Integer quantity = orderItemPojo.getQuantity();</span>
+<span class="fc" id="L161">                    Double revenue = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();</span>
+<span class="fc" id="L162">                    brandIdToQuantityMap.put(brandId, brandIdToQuantityMap.getOrDefault(brandId, 0) + quantity);</span>
+<span class="fc" id="L163">                    brandIdToRevenueMap.put(brandId, brandIdToRevenueMap.getOrDefault(brandId, 0.0) + revenue);</span>
                 }
             }
-<span class="fc" id="L165">        }</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">        for(Map.Entry&lt;Integer, Integer&gt; entry : brandIdToQuantityMap.entrySet()){</span>
-<span class="fc" id="L167">            SalesReportData salesReportData = new SalesReportData();</span>
-<span class="fc" id="L168">            BrandPojo brandPojo = brandService.get(entry.getKey());</span>
-<span class="fc" id="L169">            salesReportData.setBrand(brandPojo.getBrand());</span>
-<span class="fc" id="L170">            salesReportData.setCategory(brandPojo.getCategory());</span>
-<span class="fc" id="L171">            salesReportData.setQuantity(entry.getValue());</span>
-<span class="fc" id="L172">            salesReportData.setRevenue(brandIdToRevenueMap.get(entry.getKey()));</span>
-<span class="fc" id="L173">            salesReportDataList.add(salesReportData);</span>
-<span class="fc" id="L174">        }</span>
-<span class="fc" id="L175">        return salesReportDataList;</span>
+<span class="fc" id="L166">        }</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        for(Map.Entry&lt;Integer, Integer&gt; entry : brandIdToQuantityMap.entrySet()){</span>
+<span class="fc" id="L168">            SalesReportData salesReportData = new SalesReportData();</span>
+<span class="fc" id="L169">            BrandPojo brandPojo = brandService.get(entry.getKey());</span>
+<span class="fc" id="L170">            salesReportData.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L171">            salesReportData.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L172">            salesReportData.setQuantity(entry.getValue());</span>
+<span class="fc" id="L173">            salesReportData.setRevenue(brandIdToRevenueMap.get(entry.getKey()));</span>
+<span class="fc" id="L174">            salesReportDataList.add(salesReportData);</span>
+<span class="fc" id="L175">        }</span>
+<span class="fc" id="L176">        return salesReportDataList;</span>
     }
 
     private boolean checkIfNullOrEmpty(String inputString) {
-<span class="pc bpc" id="L179" title="1 of 4 branches missed.">        return inputString == null || inputString.equals(&quot;&quot;);</span>
+<span class="pc bpc" id="L180" title="1 of 4 branches missed.">        return inputString == null || inputString.equals(&quot;&quot;);</span>
     }
 
 }
