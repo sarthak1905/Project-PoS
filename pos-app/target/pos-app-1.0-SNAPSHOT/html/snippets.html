@@ -7,6 +7,7 @@
 
     <script src="https://kit.fontawesome.com/c30beb553f.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -18,7 +19,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-1" th:fragment="name_site_navbar">
     <a class="navbar-brand" th:href="@{/}">
-      <img th:src="@{/static/logo.jpg}" class="d-inline-block align-top" alt="">
+      <img th:src="@{/static/logo.png}" class="d-inline-block align-top" alt="">
     </a>
   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +41,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light  mb-1" th:fragment="name_app_navbar">
     <a class="navbar-brand" th:href="@{/}">
-        <img th:src="@{/static/logo.jpg}" class="d-inline-block align-top" alt="">
+        <img th:src="@{/static/logo.png}" class="d-inline-block align-top" alt="">
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,9 +93,8 @@
 </nav>
 
 <footer class="footer  mt-1" th:fragment="name_footer">
-    Copyright Increff 2019
-    &nbsp;
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

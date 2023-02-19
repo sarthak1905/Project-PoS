@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 	// WEBSITE PAGES
 	@RequestMapping(value = &quot;&quot;)
 	public ModelAndView index() throws ApiException {
-<span class="nc" id="L22">		return mav(&quot;index.html&quot;);</span>
+<span class="nc" id="L22">		return mav(&quot;redirect:/site/login&quot;);</span>
 	}
 
 	@ApiOperation(value = &quot;Signup page&quot;)
@@ -36,7 +36,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 	@RequestMapping(value = &quot;/site/logout&quot;)
 	public ModelAndView logout() throws ApiException {
-<span class="nc" id="L39">		return mav(&quot;logout.html&quot;);</span>
+<span class="nc" id="L39">		info.setMessage(&quot;Logged out successfully&quot;);</span>
+<span class="nc" id="L40">		return mav(&quot;redirect:/site/login&quot;);</span>
 	}
 
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -14,8 +15,10 @@ public class OrderItemForm {
     @NotBlank
     private String barcode;
     @Min(value = 1)
+    @NotNull
     private int quantity;
     @Min(value = 0)
+    @NotNull
     private double sellingPrice;
 
 }

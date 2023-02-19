@@ -18,6 +18,7 @@ function getSalesList(){
 	   data: json,
 	   success: function(data) {
 	   		displaySalesList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -43,6 +44,7 @@ function displaySalesList(data){
 //INITIALIZATION CODE
 function init(){
 	$('#generate-report-btn').click(getSalesList);
+	displayOrHideButtons();
 }
 
 $(document).ready(init);

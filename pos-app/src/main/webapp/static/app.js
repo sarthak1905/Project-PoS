@@ -1,14 +1,10 @@
 
 //HELPER METHOD
 function toJson($form){
-    console.log("In To JSON function");
     var serialized = $form.serializeArray();
-    console.log($form);
-    console.log(serialized);
     var s = '';
     var data = {};
     for(s in serialized){
-        console.log(s);
         data[serialized[s]['name']] = serialized[s]['value']
     }
     var json = JSON.stringify(data);
@@ -31,6 +27,8 @@ function displayOrHideButtons(){
 		$('.btn-upload').attr('disabled', true);
         $('.input-form :input').prop('disabled', true);
         $('#refresh-data').removeAttr('disabled');
+        $('.order-add').attr('disabled', false);
+        $('.sales-btn').attr('disabled', false);
 	}
 }
 
@@ -73,7 +71,6 @@ function checkRoleAndDisableEditBtns(){
 
 function disableEditBtns(){
     $('button.btn-edit').attr('disabled', true);
-    $('.order-add').attr('disabled', false);
 }
 
 function dataTablize() {

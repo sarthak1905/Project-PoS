@@ -10,36 +10,40 @@
 
 <div class="container">
 
-	<h3>Brands</h3>
+	<div class="row">
+		<div class="col-11 mx-auto">
+			<h3>Brands</h3>
+		</div>
+	</div>
+
+	<!-- Blank Row -->
+	<div class="row">
+		&nbsp;
+	</div>
 
 	<!-- Top row with form-->
 	<div class="row">
-		<div class="col-12">
+		<div class="col-11 mx-auto">
 			<form class="form-inline input-form" id="brand-form">
-
-				<div class="form-group">
-					<label for="inputBrandName" class="col-sm-2 col-form-label">Brand Name</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="brand" id="inputBrandName" placeholder="Enter Brand name">
-					</div>
+				<div class="form-group mr-3">
+					<label for="inputBrandName" class="col-form-label mr-2">Brand Name</label>
+					<input type="text" class="form-control" name="brand" id="inputBrandName" placeholder="Enter Brand name">
 				</div>
-
-				<div class="form-group">
-					<label for="inputBrandCategory" class="col-sm-2 col-form-label">Brand Category</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="category" id="inputBrandCategory" placeholder="Enter Brand category">
-					</div>
+				<div class="form-group mr-3">
+					<label for="inputBrandCategory" class="col-form-label mr-2">Brand Category</label>
+					<input type="text" class="form-control" name="category" id="inputBrandCategory" placeholder="Enter Brand category">
 				</div>
-				<button type="button" class="button btn btn-add" id="add-brand">
-					<i class="fas fa-plus"></i>&nbsp; Add</button>
-				&nbsp;
-				<button type="button" class="button btn btn-refresh" id="refresh-data">
-					<i class="fas fa-sync-alt"></i>&nbsp; Refresh</button>
-				&nbsp;
+				<button type="button" class="button btn btn-add mr-2" id="add-brand">
+					<i class="fas fa-plus"></i>&nbsp; Add
+				</button>
+				<button type="button" class="button btn btn-refresh mr-2" id="refresh-data">
+					<i class="fas fa-sync-alt"></i>&nbsp; Refresh
+				</button>
 				<button type="button" class="button btn btn-upload" id="upload-data">
-					<i class="fas fa-arrow-up"></i>&nbsp; Upload</button>
+					<i class="fas fa-arrow-up"></i>&nbsp; Upload
+				</button>
 			</form>
-		</div>
+		</div>		
 	</div>
 
 
@@ -49,8 +53,8 @@
 	</div>
 
 	<div class="row">
-		<div class="col-12 d-flex justify-content-center">
-		  <table class="table table-striped table-bordered shadow" id="brand-table">
+		<div class="col-11 mx-auto">
+		  <table class="table table-striped table-bordered shadow display-table" id="brand-table">
 			<thead class="thead-dark">
 			  <tr>
 				<th scope="col">Brand Name</th>

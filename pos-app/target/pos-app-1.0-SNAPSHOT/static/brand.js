@@ -19,7 +19,7 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getBrandList();
+	   		refreshTable();
 			message = 'Brand added successfully!';
 			showSuccessMessage(message);  
 	   },
@@ -48,7 +48,7 @@ function updateBrand(event){
        },	   
 	   success: function(response) {
 			$('#edit-brand-modal').modal('toggle');
-	   		getBrandList();   
+	   		refreshTable();  
 			message = 'Brand updated successfully!';
 			showSuccessMessage(message);
 	   },
@@ -67,6 +67,7 @@ function getBrandList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayBrandList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -80,6 +81,7 @@ var processCount = 0;
 
 function processData(){
 	var file = $('#brandFile')[0].files[0];
+	resetUploadDialog();
 	readFileData(file, readFileDataCallback);
 }
 
@@ -187,7 +189,7 @@ function updateUploadDialog(){
 
 function updateFileName(){
 	var $file = $('#brandFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("brandFile").files[0].name;
 	if(fileName.slice(-4) != '.tsv'){
 		showErrorMessage('Please upload .tsv file only!');
 		return;
@@ -201,6 +203,11 @@ function displayUploadData(){
 	$('#upload-brand-modal').modal('toggle');
 }
 
+function refreshTable(){
+	destroyTablize();
+	getBrandList();
+}
+
 function displayBrand(data){
 	$("#brand-edit-form input[name=brand]").val(data.brand);	
 	$("#brand-edit-form input[name=category]").val(data.category);	
@@ -212,7 +219,7 @@ function displayBrand(data){
 function init(){
 	$('#add-brand').click(addBrand);
 	$('#update-brand').click(updateBrand);
-	$('#refresh-data').click(getBrandList);
+	$('#refresh-data').click(refreshTable);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);

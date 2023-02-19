@@ -27,7 +27,7 @@ function addProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getProductList();
+	   		refreshTable();
 			message = 'Product added successfully!';
 			showSuccessMessage(message);
 	   },
@@ -56,7 +56,7 @@ function updateProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getProductList();
+	   		refreshTable();
 			message = 'Product updated successfully!';
 			showSuccessMessage(message);
 	   },
@@ -73,6 +73,7 @@ function getProductList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayProductList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -107,6 +108,7 @@ var processCount = 0;
 
 function processProductData(){
 	var file = $('#productFile')[0].files[0];
+	resetProductUploadDialog();
 	readFileData(file, readProductFileDataCallback);
 }
 
@@ -269,7 +271,7 @@ function updateProductUploadDialog(){
 
 function updateProductFileName(){
 	var $file = $('#productFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("productFile").files[0].name;
 	if(fileName.slice(-4) != '.tsv'){
 		showErrorMessage('Please upload .tsv file only!');
 		return;
@@ -293,23 +295,28 @@ function displayProduct(data){
 	$('#edit-product-modal').modal('toggle');
 }
 
+function refreshTable(){
+	destroyTablize();
+	getProductList();
+}
+
 
 //INITIALIZATION CODE
 function init(){
 	$('#add-product').click(addProduct);
 	$('#update-product').click(updateProduct);
-	$('#refresh-data').click(getProductList);
+	$('#refresh-data').click(refreshTable);
 	$('#upload-data').click(displayProductUploadData);
 	$('#process-data').click(processProductData);
 	$('#download-errors').click(downloadProductErrors);
     $('#productFile').on('change', updateProductFileName);
 	$('#inputProductBrandName').on('select2:select', function(e){
 		var data = e.params.data.text;
-		showBrandDropdown(data, undefined, false, false);
+		showBrandDropdown(data, undefined, firstRun=false, isInEditModal=false);
 	});
 	$('#updateProductBrandName').on('select2:select', function(e){
 		var data = e.params.data.text;
-		showBrandDropdown(data, undefined, false, true);
+		showBrandDropdown(data, undefined, firstRun=false, isInEditModal=true);
 	});
 }
 

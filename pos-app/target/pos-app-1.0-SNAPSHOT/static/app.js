@@ -27,6 +27,8 @@ function displayOrHideButtons(){
 		$('.btn-upload').attr('disabled', true);
         $('.input-form :input').prop('disabled', true);
         $('#refresh-data').removeAttr('disabled');
+        $('.order-add').attr('disabled', false);
+        $('.sales-btn').attr('disabled', false);
 	}
 }
 
@@ -71,6 +73,14 @@ function disableEditBtns(){
     $('button.btn-edit').attr('disabled', true);
 }
 
+function dataTablize() {
+    $('.display-table').DataTable();
+}
+
+function destroyTablize(){
+    $('.display-table').DataTable().destroy();
+}
+
 function readFileData(file, callback){
 	var config = {
 		header: true,
@@ -107,3 +117,4 @@ function writeFileData(arr){
 }
 
 $(document).ready(displayOrHideButtons);
+

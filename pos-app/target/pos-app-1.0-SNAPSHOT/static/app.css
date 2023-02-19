@@ -107,10 +107,6 @@ input:disabled {
   border-radius: 15px 15px 0 0;
 }
 
-#login-form {
-  padding: 20px;
-}
-
 .form-control {
   border-radius: 10px;
   padding: 10px;
@@ -152,3 +148,9 @@ input:disabled {
 .text-danger {
   color: #dc3545;
 }
+
+#product-form .btn {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+

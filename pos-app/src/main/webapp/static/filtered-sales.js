@@ -44,6 +44,7 @@ function displaySalesList(data){
 //INITIALIZATION CODE
 function init(){
 	$('#generate-report-btn').click(getSalesList);
+	displayOrHideButtons();
 }
 
 $(document).ready(init);

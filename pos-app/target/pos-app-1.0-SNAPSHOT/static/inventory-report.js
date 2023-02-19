@@ -11,6 +11,7 @@ function getInventoryList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayInventoryList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});

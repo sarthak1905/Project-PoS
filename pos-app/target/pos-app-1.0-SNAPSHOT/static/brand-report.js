@@ -11,6 +11,7 @@ function getBrandList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayBrandList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});

@@ -13,6 +13,7 @@ function addOrder(event) {
   //Set the values to update
   var $form = $("#add-order-form");
   var jsonList = convertOrderForm($form);
+  console.log(jsonList);
   var url = getOrderUrl();
 
   $.ajax({
@@ -23,7 +24,7 @@ function addOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      getOrderList();
+      refreshTable();
       $("#add-order-modal").modal("toggle");
       message = "Order placed successfully!";
       showSuccessMessage(message);
@@ -36,9 +37,11 @@ function addOrder(event) {
 
 function convertOrderForm($form) {
   var serializedData = $form.serializeArray();
+  console.log('Printing serialized data...');
+  console.log(serializedData);
   var listLength = serializedData.length / 3;
   var jsonList = [];
-  for (let i = 0; i < listLength; i++) {
+  for (let i = 1; i < listLength; i++) {
     var jsonData = {};
     for (let j = i * 3; j < i * 3 + 3; j++) {
       jsonData[serializedData[j]["name"]] = serializedData[j]["value"];
@@ -50,8 +53,8 @@ function convertOrderForm($form) {
 
 function updateOrder(event) {
   $("#edit-order-modal").modal("toggle");
-  //Get the ID
-  var id = $("#edit-order-id").val();
+  //Gets the ID
+  var id = $("#edit-order-id").html();
   var url = getOrderUrl() + "/" + id;
 
   //Set the values to update
@@ -66,7 +69,7 @@ function updateOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      getOrderList();
+      refreshTable();
       message = "Order updated successfully!";
       showSuccessMessage(message);
     },
@@ -79,7 +82,7 @@ function updateOrder(event) {
 function removeOrderItem() {
   var tableId = $(this).closest("table").attr("id");
   var rowCount = $("#" + tableId + " tr").length - 1;
-  if (rowCount == 1) {
+  if (rowCount == 2) {
     alert("Minimum 1 order item required!");
     return;
   }
@@ -88,14 +91,13 @@ function removeOrderItem() {
 
 function addOrderItemRow() {
   var $tbody = $("#add-order-tbody");
-  var $lastRow = $("tr.add-order-row:last");
-  var $lastRowDropdown = $("tr.add-order-row:last td div .js-select2");
-  $lastRow.clone().insertAfter("tr.add-order-row:last");
+  var $rowToClone = $("tr.add-order-row:first");
+  $rowToClone.clone().insertAfter("tr.add-order-row:last");
   var $newRow = $("tr.add-order-row:last");
-  var $newRowDropdown = $("tr.add-order-row:last .js-select2");
-  $newRow.find("span").remove();
+  var $newRowDropdown = $("tr.add-order-row:last td select");
   getProductList($newRowDropdown, (add = true));
-  $tbody.find("select").select2();
+  $newRowDropdown.select2();
+  $newRow.removeAttr('hidden');
   $("tr.add-order-row:last input[name=quantity]").val("");
   $("tr.add-order-row:last input[name=sellingPrice]").val("");
   $("tr.add-order-row:last button").click(removeOrderItem);
@@ -103,14 +105,14 @@ function addOrderItemRow() {
 
 function editAddOrderItemRow() {
   var $tbody = $('#edit-order-tbody');
-  var $lastRow = $("tr.edit-order-row:last");
-  var $lastRowDropdown = $("tr.edit-order-row:last td div .js-select2");
-  $lastRow.clone().insertAfter("tr.edit-order-row:last");
+  var $rowToClone = $("tr.edit-order-row:first");
+  $rowToClone.clone().insertAfter("tr.edit-order-row:last");
   var $newRow = $("tr.edit-order-row:last");
-  var $newRowDropdown = $("tr.edit-order-row:last .js-select2");
-  $newRow.find("span").remove();
+  var $newRowDropdown = $("tr.edit-order-row:last td select");
   getProductList($newRowDropdown, (add = false));
-  $tbody.find("select").select2();
+  $newRow.find('td select').removeAttr('readonly');
+  $newRow.find('td select').select2();
+  $newRow.removeAttr('hidden');
   $("tr.edit-order-row:last input[name=quantity]").val("");
   $("tr.edit-order-row:last input[name=sellingPrice]").val("");
   $("tr.edit-order-row:last button").replaceWith(
@@ -162,7 +164,7 @@ function showBarcodeDropdownEdit(productData, element) {
 }
 
 function getUniqueBarcodes(productData, $selectBarcodeInput) {
-  var id = $("#edit-order-id").val();
+  var id = $("#edit-order-id").html();
   var url = getOrderUrl() + "/" + id + "/items";
   $.ajax({
     url: url,
@@ -187,17 +189,19 @@ function getUniqueBarcodes(productData, $selectBarcodeInput) {
           );
         }
       }
-      $selectBarcodeInput.select2();
     },
     error: handleAjaxError,
   });
 }
 
 function initOrderItemRow() {
+  $("#edit-order-tbody tr:not(:first-child)").remove();
+  $('tr.add-order-row:first').clone().insertAfter("tr.add-order-row:last");
   var $selectField = $("#add-order-table").find(
-    "tbody tr:first td:first select"
+    "tbody tr:last td select"
   );
   getProductList($selectField, isAdd=true);
+  $('tr.add-order-row:last').removeAttr('hidden');
 }
 
 function getOrderList() {
@@ -207,6 +211,7 @@ function getOrderList() {
     type: "GET",
     success: function (data) {
       displayOrderList(data);
+      dataTablize();
     },
     error: handleAjaxError,
   });
@@ -245,7 +250,7 @@ function displayOrderList(data) {
       actionsButton +=
         ' <button id="btn-edit' +
         o.id +
-        '"class="btn btn-edit button" onclick="displayEditOrder(' +
+        '"class="btn btn-edit button order-add" onclick="displayEditOrder(' +
         o.id +
         ')"><i class="bi bi-pen-fill"></i> Edit</button>';
     } else {
@@ -293,6 +298,7 @@ function viewOrderItems(data, id) {
     var row =
       "<tr>" + 
       "<td>" + item.barcode + "</td>" +
+      "<td>" + item.productName + "</td>" +
       "<td>" + item.quantity + "</td>" +
       "<td>" + item.sellingPrice + "</td>" +
       "<td>" + itemTotal + "</td>" +
@@ -317,8 +323,9 @@ function displayEditOrder(id) {
 }
 
 function displayOrderForm(data, id) {
-  $("#edit-order-id").val(id);
+  $("#edit-order-id").html(id);
   var $editTbody = $("#edit-order-tbody");
+  var orderTotal = 0.0;
   $("#edit-order-tbody tr:not(:first-child)").remove();
   for (let i = 0; i < data.length; i++) {
     $editTbody.find("tr.edit-order-row:first").clone().insertAfter("tr.edit-order-row:last");
@@ -331,11 +338,16 @@ function displayOrderForm(data, id) {
     
     $row.find("td div input[name=quantity]").val(data[i].quantity);
     $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice);
+    var itemTotal = data[i].quantity * data[i].sellingPrice;
+    orderTotal += itemTotal;
   }
-  $editTbody.find('tr td select').select2();
-  $editTbody.find('tr td select').attr('disabled', true);
-  $editTbody.find('tr td input').attr('disabled', true);
+  $('#edit-order-total').html(orderTotal);
   $("#edit-order-modal").modal("toggle");
+}
+
+function refreshTable(){
+	destroyTablize();
+	getOrderList();
 }
 
 //INITIALIZATION CODE
@@ -346,7 +358,8 @@ function init() {
   $("#add-order").click(addOrder);
   $("#add-order-first-row-btn").click(removeOrderItem);
   $("#update-order").click(updateOrder);
-  $("#refresh-data").click(getOrderList);
+  $("#refresh-data").click(refreshTable);
+  checkRoleAndDisableEditBtns();
 }
 
 $(document).ready(init);

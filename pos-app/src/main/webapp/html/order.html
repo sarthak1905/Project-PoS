@@ -20,8 +20,8 @@
 		&nbsp;
 	</div>
 
-	<div class="row justify-content-center">
-		<div class="col-2">
+	<div class="row">
+		<div class="col-11 mx-auto">
 			<button type="button" class="btn btn-add button order-add" id="add-order-dialog" data-toggle="modal" data-target="#add-order-modal">
 				<i class="fas fa-plus"></i> Add Order
 			</button>
@@ -86,12 +86,12 @@
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-12" name="quantity" placeholder="Quantity">
+												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-12" name="quantity" placeholder="Quantity" required>
 											</div>
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-12" name="sellingPrice" placeholder="Selling Price">
+												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-12" name="sellingPrice" placeholder="Selling Price" required>
 											</div>
 										</td>
 										<td>
@@ -162,12 +162,12 @@
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-12" name="quantity" placeholder="Quantity">
+												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-12" name="quantity" placeholder="Quantity" required>
 											</div>
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-12" name="sellingPrice" placeholder="Selling Price">
+												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-12" name="sellingPrice" placeholder="Selling Price" required>
 											</div>
 										</td>
 										<td>
@@ -226,6 +226,7 @@
 							  <thead class="thead-dark">
 								<tr>
 								  <th scope="col">Barcode</th>
+								  <th scope="col">Name</th>
 								  <th scope="col">Quantity</th>
 								  <th scope="col">Selling Price</th>
 								  <th scope="col">Subtotal</th>

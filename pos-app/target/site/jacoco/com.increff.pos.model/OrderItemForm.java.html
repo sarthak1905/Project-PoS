@@ -6,17 +6,20 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
-<span class="fc" id="L11">@Setter</span>
-<span class="fc" id="L12">public class OrderItemForm {</span>
+<span class="fc" id="L12">@Setter</span>
+<span class="fc" id="L13">public class OrderItemForm {</span>
 
     @NotBlank
-<span class="fc" id="L15">    private String barcode;</span>
+<span class="fc" id="L16">    private String barcode;</span>
     @Min(value = 1)
-<span class="fc" id="L17">    private int quantity;</span>
+    @NotNull
+<span class="fc" id="L19">    private int quantity;</span>
     @Min(value = 0)
-<span class="fc" id="L19">    private double sellingPrice;</span>
+    @NotNull
+<span class="fc" id="L22">    private double sellingPrice;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

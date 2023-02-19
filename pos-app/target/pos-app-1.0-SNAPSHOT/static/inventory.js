@@ -41,6 +41,7 @@ function getInventoryList(){
 	   type: 'GET',
 	   success: function(data) {
 	   		displayInventoryList(data);
+			dataTablize();
 	   },
 	   error: handleAjaxError
 	});
@@ -54,6 +55,7 @@ var processCount = 0;
 
 function processData(){
 	var file = $('#inventoryFile')[0].files[0];
+	resetUploadDialog();
 	readFileData(file, readFileDataCallback);
 }
 
@@ -161,7 +163,7 @@ function updateUploadDialog(){
 
 function updateFileName(){
 	var $file = $('#inventoryFile');
-	var fileName = $file.val();
+	var fileName = document.getElementById("inventoryFile").files[0].name;
 
 	if(fileName.slice(-4) != '.tsv'){
 		showErrorMessage('Please upload .tsv file only!');

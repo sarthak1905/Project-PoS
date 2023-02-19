@@ -298,6 +298,7 @@ function viewOrderItems(data, id) {
     var row =
       "<tr>" + 
       "<td>" + item.barcode + "</td>" +
+      "<td>" + item.productName + "</td>" +
       "<td>" + item.quantity + "</td>" +
       "<td>" + item.sellingPrice + "</td>" +
       "<td>" + itemTotal + "</td>" +

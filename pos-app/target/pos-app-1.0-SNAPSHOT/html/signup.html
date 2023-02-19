@@ -3,13 +3,58 @@
 <html lang="en">
 
 <head th:replace="snippets.html :: name_head"></head>
+<link rel="stylesheet" th:href="@{/static/auth.css}">
 
 <body>
 
-<nav th:replace="snippets.html :: name_site_navbar"></nav>
+<div class="container-fluid">
+	<div class="row no-gutter">
+	  <!-- The image half -->
+	  <div class="col-md-6 d-none d-md-flex bg-image"></div>
+  
+  
+	  <!-- The content half -->
+	  <div class="col-md-6 bg-light">
+		<div class="login d-flex align-items-center py-5">
+  
+		  <div class="container">
+			<div class="row">
+			  <div class="col-lg-10 col-xl-7 mx-auto">
+				<h3 class="display-4">Sign Up</h3>
+				<p class="text-muted mb-4">Please enter your details to sign up!</p>
+				<form class="form" id="signup-form">
+				  <div class="form-group mb-3">
+					<input id="signup-email" name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+				  </div>
 
+				  <div class="form-group mb-3">
+					<input id="password" type="password" name="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+				  </div>
+				  
+				  <div class="custom-control custom-checkbox mb-3">
+					<input id="show-password-button" type="checkbox" class="custom-control-input">
+					<label for="show-password-button" class="custom-control-label">Show Password</label>
+				  </div>				
+				  
+				  <button type="button" id="signup-btn" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign up</button>
+				  <div class="text-center d-flex justify-content-between mt-4">
+					<p>Already have an account? <a th:href="@{/site/login}" class="font-italic text-muted">
+						<u>Login</u></a></p>
+				  </div>
+				
+				</form>
+			  </div>
+			</div>
+		  </div><!-- End -->
+  
+		</div>
+	  </div><!-- End -->
+  
+	</div>
+  </div>
+  
 
-<div class="container">
+<!-- <div class="container">
 
 <div class="row justify-content-center">
 <div class="col-md-4">
@@ -64,13 +109,13 @@
 	
 	
 
-</div> <!-- Col -->
-</div> <!-- Row -->
+</div> 
+</div> 
 
-</div> <!-- Container-->
-
-<footer th:replace="snippets.html :: name_footer"></footer>
+</div>  -->
 
 </body>
+<footer th:replace="snippets.html :: name_footer"></footer>
+<script th:src="@{/static/app.js}"></script>
 <script th:src="@{/static/authentication.js}"></script>
 </html>
