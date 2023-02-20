@@ -35,7 +35,7 @@ function displaySalesList(data){
 		+ '<td>' + s.brand + '</td>'
 		+ '<td>' + s.category + '</td>'
 		+ '<td>' + s.quantity + '</td>'
-		+ '<td>' + s.revenue + '</td>'
+		+ '<td>' + s.revenue.toFixed(2) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -23,7 +24,8 @@ public class ProductForm {
     @NotBlank
     private String name;
 
+    @NotNull
     @Min(value = 0)
-    private double mrp;
+    private Double mrp;
 
 }

@@ -20,6 +20,7 @@
 		  <div class="container">
 			<div class="row">
 			  <div class="col-lg-10 col-xl-7 mx-auto">
+				<img th:src="@{/static/logo.png}" class="d-inline-block align-top" alt="">
 				<h3 class="display-4">Sign Up</h3>
 				<p class="text-muted mb-4">Please enter your details to sign up!</p>
 				<form class="form" id="signup-form">
@@ -52,67 +53,6 @@
   
 	</div>
   </div>
-  
-
-<!-- <div class="container">
-
-<div class="row justify-content-center">
-<div class="col-md-4">
-	
-	<div class="card">
-  	<div class="card-header bg-primary text-white">
-    	<h4>Signup</h4>
-  	</div>
-  	<div class="card-body">
-		<form class="form" id="signup-form">
-			<div class="form-group">
-				<label for="signup-email" class="col-form-label">Email</label>
-				<input
-				  type="text"
-				  class="form-control"
-				  name="email"
-				  id="signup-email"
-				  placeholder="Enter email"
-				  required
-				/>
-			  </div>
-			<div class="form-group">
-				<label for="password" class="col-form-label">Password</label>
-				<div class="input-group">
-				  <input
-					type="password"
-					class="form-control"
-					name="password"
-					id="password"
-					placeholder="Password"
-					required
-				  />
-				  <div class="input-group-append">
-					<button
-					  class="btn btn-outline-secondary"
-					  type="button"
-					  id="show-password-button"
-					>
-					  <i class="bi bi-eye"></i>
-					</button>
-				  </div>
-				</div>
-			  </div>
-			<button type="button" class="btn btn-primary" id="signup-btn">Sign up</button>
-		</form>
-	</div>
-	<div class="card-footer text-danger">
-		[[${info.getMessage()}]]
-	</div>
-	
-	</div>
-	
-	
-
-</div> 
-</div> 
-
-</div>  -->
 
 </body>
 <footer th:replace="snippets.html :: name_footer"></footer>

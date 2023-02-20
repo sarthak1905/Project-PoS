@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -38,7 +38,15 @@ public class AppRestControllerAdvice {
 				.map(e -> e.getPropertyPath() +" " + e.getMessage())
 				.collect(Collectors.toList());
 		MessageData data = new MessageData();
-		data.setMessage(details.toString());
+		String detailsString = details.toString();
+		detailsString = detailsString.replace("[","").replace("]", "");
+		String[] stringArray = detailsString.split(",");
+		Arrays.parallelSetAll(stringArray, (i) -> stringArray[i].trim());
+		HashSet<String> stringHashSet = new HashSet<>(Arrays.asList(stringArray));
+		final StringBuilder finalString = new StringBuilder();
+		stringHashSet.forEach((String string)-> finalString.append(", ").append(string));
+		String resultString = finalString.substring(2);
+		data.setMessage(resultString);
 		return data;
 	}
 }

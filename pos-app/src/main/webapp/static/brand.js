@@ -20,6 +20,7 @@ function addBrand(event){
        },	   
 	   success: function(response) {
 	   		refreshTable();
+			$('#add-brand-modal').modal('toggle');
 			message = 'Brand added successfully!';
 			showSuccessMessage(message);  
 	   },

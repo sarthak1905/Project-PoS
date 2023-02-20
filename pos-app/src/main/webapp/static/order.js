@@ -37,8 +37,6 @@ function addOrder(event) {
 
 function convertOrderForm($form) {
   var serializedData = $form.serializeArray();
-  console.log('Printing serialized data...');
-  console.log(serializedData);
   var listLength = serializedData.length / 3;
   var jsonList = [];
   for (let i = 1; i < listLength; i++) {
@@ -127,7 +125,6 @@ function getProductList(element, isAdd) {
     url: url,
     type: "GET",
     success: function (data) {
-      console.log(data);
       if (isAdd) {
         showBarcodeDropdownAdd(data, element);
       } else {
@@ -196,6 +193,7 @@ function getUniqueBarcodes(productData, $selectBarcodeInput) {
 
 function initOrderItemRow() {
   $("#edit-order-tbody tr:not(:first-child)").remove();
+  $("#add-order-tbody tr:not(:first-child)").remove();
   $('tr.add-order-row:first').clone().insertAfter("tr.add-order-row:last");
   var $selectField = $("#add-order-table").find(
     "tbody tr:last td select"
@@ -266,7 +264,7 @@ function displayOrderList(data) {
       "<tr>" + 
 	    "<td>" + o.id + "</td>" +
       "<td>" + o.dateTime + "</td>" +
-      "<td>" + o.orderTotal + "</td>" +
+      "<td>" + o.orderTotal.toFixed(2) + "</td>" +
       "<td>" + invoiceStatus + "</td>" +
       "<td>" + actionsButton + "</td>" +
       "<td>" + downloadIncvoiceButton + "</td>" +
@@ -300,13 +298,13 @@ function viewOrderItems(data, id) {
       "<td>" + item.barcode + "</td>" +
       "<td>" + item.productName + "</td>" +
       "<td>" + item.quantity + "</td>" +
-      "<td>" + item.sellingPrice + "</td>" +
-      "<td>" + itemTotal + "</td>" +
+      "<td>" + item.sellingPrice.toFixed(2) + "</td>" +
+      "<td>" + itemTotal.toFixed(2) + "</td>" +
       "</tr>";
       orderTotal += itemTotal;
     $tbody.append(row);
   }
-  $('#view-order-total').html(orderTotal);
+  $('#view-order-total').html(orderTotal.toFixed(2));
   $("#view-order-modal").modal("toggle");
 }
 
@@ -337,11 +335,11 @@ function displayOrderForm(data, id) {
     $row.find("td select").val(data[i].barcode);
     
     $row.find("td div input[name=quantity]").val(data[i].quantity);
-    $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice);
+    $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice.toFixed(2));
     var itemTotal = data[i].quantity * data[i].sellingPrice;
     orderTotal += itemTotal;
   }
-  $('#edit-order-total').html(orderTotal);
+  $('#edit-order-total').html(orderTotal.toFixed(2));
   $("#edit-order-modal").modal("toggle");
 }
 

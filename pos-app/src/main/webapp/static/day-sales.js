@@ -28,7 +28,7 @@ function displayDaySalesList(data){
 		+ '<td>' + d.date + '</td>'
 		+ '<td>' + d.invoicedOrdersCount + '</td>'
 		+ '<td>'  + d.invoicedItemsCount + '</td>'
-		+ '<td>' + d.totalRevenue + '</td>'
+		+ '<td>' + d.totalRevenue.toFixed(2) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

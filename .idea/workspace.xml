@@ -6,17 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="2dd2c2fd-be7c-4c29-bb35-cb867ce1850d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AboutApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/EmployeeData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/EmployeeForm.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/OrderItemForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/OrderItemForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/ProductForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/ProductForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/AboutAppService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/brand.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/filtered-sales.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/filtered-sales.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/inventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/brand.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/brand.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/day-sales.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/day-sales.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/filtered-sales.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/filtered-sales.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/product.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +31,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageOptionsProvider">
-    <option name="myAddOrReplace" value="0" />
+    <option name="myAddOrReplace" value="1" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -67,18 +74,18 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8 (2)&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Java-Projects/Maven/Increff-Training/pos-project/pos-app/src/main/webapp/html&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "1.8 (2)",
+    "last_opened_file_path": "D:/Java-Projects/Maven/Increff-Training/pos-project/pos-app/src/main/webapp/html",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "coverage"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\webapp\html" />
@@ -101,8 +108,32 @@
       <recent name="com.incref.pos_project.models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in pos-app (1)">
+  <component name="RunManager" selected="JUnit.All in pos-app (4)">
     <configuration name="All in pos-app (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pos-app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in pos-app (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pos-app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in pos-app (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pos-app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in pos-app (4)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pos-app" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
@@ -122,7 +153,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DaySalesServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InvoiceServiceTest.testInvalidGetInvoicedOrdersBetweenDates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pos-app" />
       <extension name="coverage">
         <pattern>
@@ -131,54 +162,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.increff.pos.service" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.DaySalesServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DaySalesServiceTest.testUpdateAddOrUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pos-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.increff.pos.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.increff.pos.service" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.DaySalesServiceTest" />
-      <option name="METHOD_NAME" value="testUpdateAddOrUpdate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InventoryServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pos-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.increff.pos.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.increff.pos.service" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.InventoryServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InventoryServiceTest.testInvalidInventory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pos-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.increff.pos.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.increff.pos.service" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.InventoryServiceTest" />
-      <option name="METHOD_NAME" value="testInvalidInventory" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.InvoiceServiceTest" />
+      <option name="METHOD_NAME" value="testInvalidGetInvoicedOrdersBetweenDates" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -186,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in pos-app (4)" />
         <item itemvalue="JUnit.All in pos-app (1)" />
-        <item itemvalue="JUnit.DaySalesServiceTest" />
-        <item itemvalue="JUnit.DaySalesServiceTest.testUpdateAddOrUpdate" />
-        <item itemvalue="JUnit.InventoryServiceTest" />
-        <item itemvalue="JUnit.InventoryServiceTest.testInvalidInventory" />
+        <item itemvalue="JUnit.All in pos-app (3)" />
+        <item itemvalue="JUnit.All in pos-app (2)" />
+        <item itemvalue="JUnit.InvoiceServiceTest.testInvalidGetInvoicedOrdersBetweenDates" />
       </list>
     </recent_temporary>
   </component>
@@ -234,8 +219,8 @@
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$All_in_pos_project.ic" NAME="All in pos-project Coverage Results" MODIFIED="1676439492450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__4_.ic" NAME="All in pos-app (4) Coverage Results" MODIFIED="1676454999289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__2_.ic" NAME="All in pos-app (2) Coverage Results" MODIFIED="1676457958076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__4_.ic" NAME="All in pos-app (4) Coverage Results" MODIFIED="1676898593780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__2_.ic" NAME="All in pos-app (2) Coverage Results" MODIFIED="1676898137667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/pos_project$InventoryDaoTest.ic" NAME="InventoryDaoTest Coverage Results" MODIFIED="1676279216153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
     </SUITE>
@@ -254,7 +239,7 @@
     <SUITE FILE_PATH="coverage/pos_project$ProductDaoTest.ic" NAME="ProductDaoTest Coverage Results" MODIFIED="1676273018355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__3_.ic" NAME="All in pos-app (3) Coverage Results" MODIFIED="1676454905175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__3_.ic" NAME="All in pos-app (3) Coverage Results" MODIFIED="1676898446112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/pos_project$UserDtoTest_testGet.ic" NAME="UserDtoTest.testGet Coverage Results" MODIFIED="1676457940313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
@@ -276,6 +261,6 @@
     <SUITE FILE_PATH="coverage/pos_project$OrderDtoTest_testGet.ic" NAME="OrderDtoTest.testGet Coverage Results" MODIFIED="1676370899275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__1_.ic" NAME="All in pos-app (1) Coverage Results" MODIFIED="1676460291416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__1_.ic" NAME="All in pos-app (1) Coverage Results" MODIFIED="1676897034597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
