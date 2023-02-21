@@ -23,7 +23,7 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
     @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_PRODUCT_SEQ)
 <span class="fc" id="L24">    private Integer id;</span>
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 10)
     @NotBlank
 <span class="fc" id="L28">    private String barcode;</span>
 
@@ -34,7 +34,7 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
     @Min(value=0)
 <span class="fc" id="L35">    private Double mrp;</span>
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
 <span class="fc" id="L39">    private String name;</span>
 

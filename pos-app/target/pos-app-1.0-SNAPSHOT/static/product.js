@@ -28,6 +28,7 @@ function addProduct(event){
        },	   
 	   success: function(response) {
 	   		refreshTable();
+			$('#add-product-modal').modal('toggle');
 			message = 'Product added successfully!';
 			showSuccessMessage(message);
 	   },
@@ -173,7 +174,7 @@ function displayProductList(data){
 		+ '<td>' + p.brand + '</td>'
 		+ '<td>'  + p.category + '</td>'
 		+ '<td>'  + p.name + '</td>'
-		+ '<td>'  + p.mrp + '</td>'
+		+ '<td>'  + p.mrp.toFixed(2) + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -290,7 +291,7 @@ function displayProduct(data){
 	$('#product-edit-form input[name=brand]').val(data.brand);
 	$('#product-edit-form input[name=category]').val(data.category);
 	$('#product-edit-form input[name=barcode]').val(data.barcode);
-	$('#product-edit-form input[name=mrp]').val(data.mrp);
+	$('#product-edit-form input[name=mrp]').val(data.mrp.toFixed(2));
 	showBrandDropdown(data.brand, data.category, true, true);
 	$('#edit-product-modal').modal('toggle');
 }

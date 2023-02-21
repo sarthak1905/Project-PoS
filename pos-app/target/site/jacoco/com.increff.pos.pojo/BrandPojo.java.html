@@ -21,11 +21,11 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
     @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_BRAND_SEQ)
 <span class="fc" id="L22">    private Integer id;</span>
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
 <span class="fc" id="L26">    private String brand;</span>
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
 <span class="fc" id="L30">    private String category;</span>
 

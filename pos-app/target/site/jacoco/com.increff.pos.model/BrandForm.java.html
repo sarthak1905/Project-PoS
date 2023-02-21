@@ -4,16 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
-<span class="fc" id="L9">@Setter</span>
-<span class="fc" id="L10">public class BrandForm {</span>
+<span class="fc" id="L10">@Setter</span>
+<span class="fc" id="L11">public class BrandForm {</span>
 
     @NotBlank
-<span class="fc" id="L13">    private String brand;</span>
+    @Size(min = 1, max = 30)
+<span class="fc" id="L15">    private String brand;</span>
 
     @NotBlank
-<span class="fc" id="L16">    private String category;</span>
+    @Size(min = 1, max = 30)
+<span class="fc" id="L19">    private String category;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

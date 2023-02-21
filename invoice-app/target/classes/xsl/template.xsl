@@ -91,13 +91,13 @@
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
-                            <fo:block>Name</fo:block>
+                            <fo:block>NAME</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
                             <fo:block>QTY</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
-                            <fo:block>Unit Price</fo:block>
+                            <fo:block>UNIT PRICE</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
                             <fo:block>AMOUNT</fo:block>
@@ -110,7 +110,7 @@
 
                     <fo:table-row font-weight="bold">
                         <fo:table-cell number-columns-spanned="4" text-align="right" padding-right="3pt">
-                            <fo:block>Total</fo:block>
+                            <fo:block>TOTAL</fo:block>
                         </fo:table-cell>
                         <fo:table-cell  text-align="right" padding-right="3pt" background-color="#f5f5f5" border="1px solid #b8b6b6" >
                             <fo:block>

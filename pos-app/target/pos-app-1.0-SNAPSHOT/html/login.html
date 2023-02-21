@@ -14,36 +14,38 @@
       
         <!-- The content half -->
         <div class="col-md-6 bg-light">
+  
         <div class="login d-flex align-items-center py-5">
       
           <div class="container">
-          <div class="row">
-            <div class="col-lg-10 col-xl-7 mx-auto">
-            <h3 class="display-4">Login</h3>
-            <p class="text-muted mb-4">Please enter your details to login!</p>
-            <form class="form" id="login-form" method="POST" th:action="@{/session/login}">
-              <div class="form-group mb-3">
-              <input id="login-email" name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
-              </div>
-    
-              <div class="form-group mb-3">
-              <input id="password" name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
-              </div>
+            <div class="row">
+              <div class="col-lg-10 col-xl-7 mx-auto">
+              <img th:src="@{/static/logo.png}" class="d-inline-block align-top" alt="">
+              <h3 class="display-4">Login</h3>
+              <p class="text-muted mb-4">Please enter your details to login!</p>
+              <form class="form" id="login-form" method="POST" th:action="@{/session/login}">
+                <div class="form-group mb-3">
+                <input id="login-email" name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                </div>
+      
+                <div class="form-group mb-3">
+                <input id="password" name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                </div>
+                
+                <div class="custom-control custom-checkbox mb-3">
+                <input id="show-password-button" type="checkbox" class="custom-control-input">
+                <label for="show-password-button" class="custom-control-label">Show Password</label>
+                </div>				
+                
+                <button id="login" onclick="checkInfoMessageAfterSubmit()" type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Login</button>
+                <div class="text-center d-flex justify-content-between mt-4">
+                <p>Don't have an account? <a th:href="@{/site/signup}" class="font-italic text-muted">
+                  <u>Sign Up</u></a></p>
+                </div>
               
-              <div class="custom-control custom-checkbox mb-3">
-              <input id="show-password-button" type="checkbox" class="custom-control-input">
-              <label for="show-password-button" class="custom-control-label">Show Password</label>
-              </div>				
-              
-              <button id="login" onclick="checkInfoMessageAfterSubmit()" type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Login</button>
-              <div class="text-center d-flex justify-content-between mt-4">
-              <p>Don't have an account? <a th:href="@{/site/signup}" class="font-italic text-muted">
-                <u>Sign Up</u></a></p>
+              </form>
               </div>
-            
-            </form>
             </div>
-          </div>
           </div><!-- End -->
       
         </div>

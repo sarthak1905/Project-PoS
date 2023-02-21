@@ -21,11 +21,11 @@ public class BrandPojo extends AbstractVersionPojo {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_BRAND_SEQ)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
     private String brand;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
     private String category;
 

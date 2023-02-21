@@ -18,8 +18,8 @@ import java.util.List;
 	public void add(UserPojo userPojo) throws ApiException {
 <span class="fc" id="L19">		normalize(userPojo);</span>
 <span class="fc" id="L20">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
-<span class="pc bpc" id="L21" title="1 of 2 branches missed.">		if (existing != null) {</span>
-<span class="nc" id="L22">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">		if (existing != null) {</span>
+<span class="fc" id="L22">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
 		}
 <span class="fc" id="L24">		userDao.insert(userPojo);</span>
 <span class="fc" id="L25">	}</span>

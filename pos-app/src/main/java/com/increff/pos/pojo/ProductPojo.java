@@ -23,7 +23,7 @@ public class ProductPojo extends AbstractVersionPojo {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_PRODUCT_SEQ)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 10)
     @NotBlank
     private String barcode;
 
@@ -34,7 +34,7 @@ public class ProductPojo extends AbstractVersionPojo {
     @Min(value=0)
     private Double mrp;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
     private String name;
 

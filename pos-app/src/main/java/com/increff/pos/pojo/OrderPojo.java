@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_SEQ;

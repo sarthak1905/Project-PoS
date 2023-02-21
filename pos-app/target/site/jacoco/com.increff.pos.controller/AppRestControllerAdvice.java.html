@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -38,8 +38,16 @@ import java.util.stream.Collectors;
 <span class="nc" id="L38">				.map(e -&gt; e.getPropertyPath() +&quot; &quot; + e.getMessage())</span>
 <span class="nc" id="L39">				.collect(Collectors.toList());</span>
 <span class="nc" id="L40">		MessageData data = new MessageData();</span>
-<span class="nc" id="L41">		data.setMessage(details.toString());</span>
-<span class="nc" id="L42">		return data;</span>
+<span class="nc" id="L41">		String detailsString = details.toString();</span>
+<span class="nc" id="L42">		detailsString = detailsString.replace(&quot;[&quot;,&quot;&quot;).replace(&quot;]&quot;, &quot;&quot;);</span>
+<span class="nc" id="L43">		String[] stringArray = detailsString.split(&quot;,&quot;);</span>
+<span class="nc" id="L44">		Arrays.parallelSetAll(stringArray, (i) -&gt; stringArray[i].trim());</span>
+<span class="nc" id="L45">		HashSet&lt;String&gt; stringHashSet = new HashSet&lt;&gt;(Arrays.asList(stringArray));</span>
+<span class="nc" id="L46">		final StringBuilder finalString = new StringBuilder();</span>
+<span class="nc" id="L47">		stringHashSet.forEach((String string)-&gt; finalString.append(&quot;, &quot;).append(string));</span>
+<span class="nc" id="L48">		String resultString = finalString.substring(2);</span>
+<span class="nc" id="L49">		data.setMessage(resultString);</span>
+<span class="nc" id="L50">		return data;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

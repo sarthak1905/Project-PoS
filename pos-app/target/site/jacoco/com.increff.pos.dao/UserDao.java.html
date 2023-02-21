@@ -22,21 +22,15 @@ import java.util.List;
 <span class="fc" id="L22">		em().persist(userPojo);</span>
 <span class="fc" id="L23">	}</span>
 
-	public UserPojo select(int id) {
-<span class="nc" id="L26">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_ID, UserPojo.class);</span>
-<span class="nc" id="L27">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L28">		return getSingle(query);</span>
-	}
-
 	public UserPojo select(String email) {
-<span class="fc" id="L32">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_EMAIL, UserPojo.class);</span>
-<span class="fc" id="L33">		query.setParameter(&quot;email&quot;, email);</span>
-<span class="fc" id="L34">		return getSingle(query);</span>
+<span class="fc" id="L26">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_EMAIL, UserPojo.class);</span>
+<span class="fc" id="L27">		query.setParameter(&quot;email&quot;, email);</span>
+<span class="fc" id="L28">		return getSingle(query);</span>
 	}
 
 	public List&lt;UserPojo&gt; selectAll() {
-<span class="fc" id="L38">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_ALL, UserPojo.class);</span>
-<span class="fc" id="L39">		return query.getResultList();</span>
+<span class="fc" id="L32">		TypedQuery&lt;UserPojo&gt; query = getQuery(SELECT_ALL, UserPojo.class);</span>
+<span class="fc" id="L33">		return query.getResultList();</span>
 	}
 
 

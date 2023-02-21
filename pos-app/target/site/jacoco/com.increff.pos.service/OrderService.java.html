@@ -63,28 +63,28 @@ import java.util.List;
 
     private OrderPojo getCheck(int id) throws ApiException {
 <span class="fc" id="L65">        OrderPojo orderPojo = orderDao.selectId(id);</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if (orderPojo == null) {</span>
-<span class="nc" id="L67">            throw new ApiException(&quot;Order with given ID: &quot; + id + &quot; does not exist!&quot;);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (orderPojo == null) {</span>
+<span class="fc" id="L67">            throw new ApiException(&quot;Order with given ID: &quot; + id + &quot; does not exist!&quot;);</span>
         }
 <span class="fc" id="L69">        return orderPojo;</span>
     }
 
     public void validateSellingPrice(int productId, double sellingPrice) throws ApiException {
 <span class="fc" id="L73">        ProductPojo productPojo = productService.getCheck(productId);</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
-<span class="nc" id="L75">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
+<span class="fc" id="L75">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
         }
 <span class="fc" id="L77">    }</span>
 
     public void setInvoicedTrue(Integer id) throws ApiException {
-<span class="nc" id="L80">        OrderPojo orderPojo = getCheck(id);</span>
-<span class="nc" id="L81">        orderPojo.setInvoiced(true);</span>
-<span class="nc" id="L82">    }</span>
+<span class="fc" id="L80">        OrderPojo orderPojo = getCheck(id);</span>
+<span class="fc" id="L81">        orderPojo.setInvoiced(true);</span>
+<span class="fc" id="L82">    }</span>
 
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
 <span class="fc" id="L85">        OrderPojo orderPojo = get(orderId);</span>
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if(orderPojo.isInvoiced()){</span>
-<span class="nc" id="L87">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if(orderPojo.isInvoiced()){</span>
+<span class="fc" id="L87">            throw new ApiException(&quot;Invoiced order cannot be edited!&quot;);</span>
         }
 <span class="fc" id="L89">    }</span>
 

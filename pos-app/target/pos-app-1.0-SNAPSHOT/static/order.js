@@ -29,7 +29,9 @@ function addOrder(event) {
       message = "Order placed successfully!";
       showSuccessMessage(message);
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 
   return false;
@@ -37,8 +39,6 @@ function addOrder(event) {
 
 function convertOrderForm($form) {
   var serializedData = $form.serializeArray();
-  console.log('Printing serialized data...');
-  console.log(serializedData);
   var listLength = serializedData.length / 3;
   var jsonList = [];
   for (let i = 1; i < listLength; i++) {
@@ -73,7 +73,9 @@ function updateOrder(event) {
       message = "Order updated successfully!";
       showSuccessMessage(message);
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 
   return false;
@@ -90,22 +92,23 @@ function removeOrderItem() {
 }
 
 function addOrderItemRow() {
-  var $tbody = $("#add-order-tbody");
   var $rowToClone = $("tr.add-order-row:first");
+  var $lastRow = $('tr.add-order-row:last');
   $rowToClone.clone().insertAfter("tr.add-order-row:last");
   var $newRow = $("tr.add-order-row:last");
   var $newRowDropdown = $("tr.add-order-row:last td select");
   getProductList($newRowDropdown, (add = true));
   $newRowDropdown.select2();
   $newRow.removeAttr('hidden');
+  $lastRow.find('td select').attr('disabled', true);
   $("tr.add-order-row:last input[name=quantity]").val("");
   $("tr.add-order-row:last input[name=sellingPrice]").val("");
   $("tr.add-order-row:last button").click(removeOrderItem);
 }
 
 function editAddOrderItemRow() {
-  var $tbody = $('#edit-order-tbody');
   var $rowToClone = $("tr.edit-order-row:first");
+  var $lastRow = $("tr.edit-order-row:last");
   $rowToClone.clone().insertAfter("tr.edit-order-row:last");
   var $newRow = $("tr.edit-order-row:last");
   var $newRowDropdown = $("tr.edit-order-row:last td select");
@@ -113,6 +116,7 @@ function editAddOrderItemRow() {
   $newRow.find('td select').removeAttr('readonly');
   $newRow.find('td select').select2();
   $newRow.removeAttr('hidden');
+  $lastRow.find('td select').attr('disabled', true);
   $("tr.edit-order-row:last input[name=quantity]").val("");
   $("tr.edit-order-row:last input[name=sellingPrice]").val("");
   $("tr.edit-order-row:last button").replaceWith(
@@ -127,14 +131,15 @@ function getProductList(element, isAdd) {
     url: url,
     type: "GET",
     success: function (data) {
-      console.log(data);
       if (isAdd) {
         showBarcodeDropdownAdd(data, element);
       } else {
         showBarcodeDropdownEdit(data, element);
       }
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
@@ -190,12 +195,15 @@ function getUniqueBarcodes(productData, $selectBarcodeInput) {
         }
       }
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
 function initOrderItemRow() {
   $("#edit-order-tbody tr:not(:first-child)").remove();
+  $("#add-order-tbody tr:not(:first-child)").remove();
   $('tr.add-order-row:first').clone().insertAfter("tr.add-order-row:last");
   var $selectField = $("#add-order-table").find(
     "tbody tr:last td select"
@@ -213,15 +221,32 @@ function getOrderList() {
       displayOrderList(data);
       dataTablize();
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
 function downloadOrderInvoice(id) {
   var url = getOrderUrl();
   url += "/" + id + "/invoice";
-  $("#btn-edit" + id).remove();
-  window.location.href = url;
+
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(){
+      message = 'Please check your downloads for the invoice';
+      showSuccessMessage(message);
+      $("#btn-edit" + id).remove();
+      $("#btn-invoice" + id).html('<i class="bi bi-cloud-arrow-down-fill"></i> Download');
+      window.location.href = url;
+    },
+    error: function(response){
+      message = "There was a problem generating the invoice, please try again later";
+      showErrorMessage(message);
+    }
+  })
+
 }
 
 //UI DISPLAY METHODS
@@ -266,7 +291,7 @@ function displayOrderList(data) {
       "<tr>" + 
 	    "<td>" + o.id + "</td>" +
       "<td>" + o.dateTime + "</td>" +
-      "<td>" + o.orderTotal + "</td>" +
+      "<td>" + o.orderTotal.toFixed(2) + "</td>" +
       "<td>" + invoiceStatus + "</td>" +
       "<td>" + actionsButton + "</td>" +
       "<td>" + downloadIncvoiceButton + "</td>" +
@@ -283,7 +308,9 @@ function displayOrderItems(id) {
     success: function (data) {
       viewOrderItems(data, id);
     },
-    error: handleAjaxError,
+    error: function(response){
+      handleAjaxError(response);
+    } 
   });
 }
 
@@ -300,13 +327,13 @@ function viewOrderItems(data, id) {
       "<td>" + item.barcode + "</td>" +
       "<td>" + item.productName + "</td>" +
       "<td>" + item.quantity + "</td>" +
-      "<td>" + item.sellingPrice + "</td>" +
-      "<td>" + itemTotal + "</td>" +
+      "<td>" + item.sellingPrice.toFixed(2) + "</td>" +
+      "<td>" + itemTotal.toFixed(2) + "</td>" +
       "</tr>";
       orderTotal += itemTotal;
     $tbody.append(row);
   }
-  $('#view-order-total').html(orderTotal);
+  $('#view-order-total').html(orderTotal.toFixed(2));
   $("#view-order-modal").modal("toggle");
 }
 
@@ -318,7 +345,9 @@ function displayEditOrder(id) {
     success: function (data) {
       displayOrderForm(data, id);
     },
-    error: handleAjaxError,
+    error: function(response){
+      handleAjaxError(response);
+    } 
   });
 }
 
@@ -337,11 +366,11 @@ function displayOrderForm(data, id) {
     $row.find("td select").val(data[i].barcode);
     
     $row.find("td div input[name=quantity]").val(data[i].quantity);
-    $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice);
+    $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice.toFixed(2));
     var itemTotal = data[i].quantity * data[i].sellingPrice;
     orderTotal += itemTotal;
   }
-  $('#edit-order-total').html(orderTotal);
+  $('#edit-order-total').html(orderTotal.toFixed(2));
   $("#edit-order-modal").modal("toggle");
 }
 

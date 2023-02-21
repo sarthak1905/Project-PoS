@@ -23,7 +23,7 @@ public class InvoicePojo extends AbstractVersionPojo {
     @Column(nullable = false, name = "invoice_date")
     private LocalDateTime invoiceDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @NotBlank
     private String path;
 }

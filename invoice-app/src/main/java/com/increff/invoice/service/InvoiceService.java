@@ -3,6 +3,7 @@ package com.increff.invoice.service;
 import com.increff.invoice.models.InvoiceForm;
 import com.increff.invoice.models.OrderItemData;
 import org.apache.fop.apps.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -26,8 +27,10 @@ import java.text.DecimalFormat;
 @Service
 public class InvoiceService {
 
-    private static final String xmlFilePath = "D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml" +
-            "\\Invoice.xml";
+    @Value("${path.xml}")
+    private String xmlFilePath;
+    @Value("${path.xsl}")
+    private String xslFilePath;
 
     public void generateInvoice(InvoiceForm invoiceForm) {
         createXML(invoiceForm);
@@ -92,6 +95,7 @@ public class InvoiceService {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
+            System.out.println(xmlFilePath);
             StreamResult streamResult = new StreamResult(new File(xmlFilePath));
 
             transformer.transform(domSource, streamResult);
@@ -104,8 +108,8 @@ public class InvoiceService {
 
     public void createPDF() {
         try {
-            File xmlfile = new File("D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml\\Invoice.xml");
-            File xsltfile = new File("D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xsl\\template.xsl");
+            File xmlfile = new File(xmlFilePath);
+            File xsltfile = new File(xslFilePath);
             File pdfDir = new File("./Test");
             pdfDir.mkdirs();
             File pdfFile = new File(pdfDir, "invoice.pdf");

@@ -20,10 +20,13 @@ function addBrand(event){
        },	   
 	   success: function(response) {
 	   		refreshTable();
+			$('#add-brand-modal').modal('toggle');
 			message = 'Brand added successfully!';
 			showSuccessMessage(message);  
 	   },
-	   error: handleAjaxError
+	   error: function(response){ 
+		handleAjaxError(response);
+	   }
 	});
 
 	return false;
@@ -69,7 +72,9 @@ function getBrandList(){
 	   		displayBrandList(data);
 			dataTablize();
 	   },
-	   error: handleAjaxError
+	   error: function(response){
+		handleAjaxError(response);
+	   }
 	});
 }
 
@@ -162,7 +167,9 @@ function displayEditBrand(id){
 	   success: function(data) {
 	   		displayBrand(data);   
 	   },
-	   error: handleAjaxError
+	   error: function(response){
+		handleAjaxError(response);
+	   } 
 	});	
 }
 

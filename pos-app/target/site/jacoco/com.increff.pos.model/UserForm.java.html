@@ -4,21 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
-<span class="fc" id="L9">@Setter</span>
-<span class="fc" id="L10">public class UserForm {</span>
+<span class="fc" id="L10">@Setter</span>
+<span class="fc" id="L11">public class UserForm {</span>
 
 	@NotBlank
-<span class="fc" id="L13">	private String email;</span>
+<span class="fc" id="L14">	private String email;</span>
 	@NotBlank
-<span class="fc" id="L15">	private String password;</span>
+<span class="fc" id="L16">	private String password;</span>
 	@NotBlank
-<span class="nc" id="L17">	private String role;</span>
+<span class="nc" id="L18">	private String role;</span>
 
 	@Override
 	public String toString() {
-<span class="nc" id="L21">		return &quot;UserForm{&quot; +</span>
+<span class="nc" id="L22">		return &quot;UserForm{&quot; +</span>
 				&quot;email='&quot; + email + '\'' +
 				&quot;, password='&quot; + password + '\'' +
 				&quot;, role='&quot; + role + '\'' +

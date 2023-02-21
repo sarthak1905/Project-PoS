@@ -3,6 +3,7 @@
 import com.increff.invoice.models.InvoiceForm;
 import com.increff.invoice.models.OrderItemData;
 import org.apache.fop.apps.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -24,120 +25,123 @@ import java.text.DecimalFormat;
 
 @Component
 @Service
-<span class="nc" id="L27">public class InvoiceService {</span>
+<span class="nc" id="L28">public class InvoiceService {</span>
 
-    private static final String xmlFilePath = &quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml&quot; +
-            &quot;\\Invoice.xml&quot;;
+    @Value(&quot;${path.xml}&quot;)
+    private String xmlFilePath;
+    @Value(&quot;${path.xsl}&quot;)
+    private String xslFilePath;
 
     public void generateInvoice(InvoiceForm invoiceForm) {
-<span class="nc" id="L33">        createXML(invoiceForm);</span>
-<span class="nc" id="L34">        createPDF();</span>
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L36">        createXML(invoiceForm);</span>
+<span class="nc" id="L37">        createPDF();</span>
+<span class="nc" id="L38">    }</span>
 
     private void createXML(InvoiceForm invoiceForm) {
         try {
-<span class="nc" id="L39">            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L40">            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();</span>
-<span class="nc" id="L41">            Document document = documentBuilder.newDocument();</span>
+<span class="nc" id="L42">            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L43">            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();</span>
+<span class="nc" id="L44">            Document document = documentBuilder.newDocument();</span>
 
             // root element
-<span class="nc" id="L44">            Element root = document.createElement(&quot;invoice&quot;);</span>
-<span class="nc" id="L45">            document.appendChild(root);</span>
+<span class="nc" id="L47">            Element root = document.createElement(&quot;invoice&quot;);</span>
+<span class="nc" id="L48">            document.appendChild(root);</span>
 
-<span class="nc" id="L47">            Element order_id = document.createElement(&quot;order_id&quot;);</span>
-<span class="nc" id="L48">            order_id.appendChild(document.createTextNode(invoiceForm.getOrderId().toString()));</span>
-<span class="nc" id="L49">            root.appendChild(order_id);</span>
+<span class="nc" id="L50">            Element order_id = document.createElement(&quot;order_id&quot;);</span>
+<span class="nc" id="L51">            order_id.appendChild(document.createTextNode(invoiceForm.getOrderId().toString()));</span>
+<span class="nc" id="L52">            root.appendChild(order_id);</span>
 
-<span class="nc" id="L51">            Element order_date = document.createElement(&quot;order_date&quot;);</span>
-<span class="nc" id="L52">            order_date.appendChild(document.createTextNode(invoiceForm.getOrderDate()));</span>
-<span class="nc" id="L53">            root.appendChild(order_date);</span>
+<span class="nc" id="L54">            Element order_date = document.createElement(&quot;order_date&quot;);</span>
+<span class="nc" id="L55">            order_date.appendChild(document.createTextNode(invoiceForm.getOrderDate()));</span>
+<span class="nc" id="L56">            root.appendChild(order_date);</span>
 
-<span class="nc" id="L55">            Element invoice_date = document.createElement(&quot;invoice_date&quot;);</span>
-<span class="nc" id="L56">            invoice_date.appendChild(document.createTextNode(invoiceForm.getInvoiceDate()));</span>
-<span class="nc" id="L57">            root.appendChild(invoice_date);</span>
+<span class="nc" id="L58">            Element invoice_date = document.createElement(&quot;invoice_date&quot;);</span>
+<span class="nc" id="L59">            invoice_date.appendChild(document.createTextNode(invoiceForm.getInvoiceDate()));</span>
+<span class="nc" id="L60">            root.appendChild(invoice_date);</span>
 
             // order item element
-<span class="nc bnc" id="L60" title="All 2 branches missed.">            for (OrderItemData o : invoiceForm.getOrderItemData()){</span>
-<span class="nc" id="L61">                DecimalFormat df = new DecimalFormat(&quot;#.##&quot;);</span>
-<span class="nc" id="L62">                Element order_item = document.createElement(&quot;order_item&quot;);</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            for (OrderItemData o : invoiceForm.getOrderItemData()){</span>
+<span class="nc" id="L64">                DecimalFormat df = new DecimalFormat(&quot;#.##&quot;);</span>
+<span class="nc" id="L65">                Element order_item = document.createElement(&quot;order_item&quot;);</span>
 
-<span class="nc" id="L64">                root.appendChild(order_item);</span>
+<span class="nc" id="L67">                root.appendChild(order_item);</span>
 
-<span class="nc" id="L66">                Element id = document.createElement(&quot;id&quot;);</span>
-<span class="nc" id="L67">                id.appendChild(document.createTextNode(o.getId().toString()));</span>
-<span class="nc" id="L68">                order_item.appendChild(id);</span>
+<span class="nc" id="L69">                Element id = document.createElement(&quot;id&quot;);</span>
+<span class="nc" id="L70">                id.appendChild(document.createTextNode(o.getId().toString()));</span>
+<span class="nc" id="L71">                order_item.appendChild(id);</span>
 
-<span class="nc" id="L70">                Element ProductId = document.createElement(&quot;product_name&quot;);</span>
-<span class="nc" id="L71">                ProductId.appendChild(document.createTextNode(o.getProductName()));</span>
-<span class="nc" id="L72">                order_item.appendChild(ProductId);</span>
+<span class="nc" id="L73">                Element ProductId = document.createElement(&quot;product_name&quot;);</span>
+<span class="nc" id="L74">                ProductId.appendChild(document.createTextNode(o.getProductName()));</span>
+<span class="nc" id="L75">                order_item.appendChild(ProductId);</span>
 
-<span class="nc" id="L74">                Element quantity = document.createElement(&quot;quantity&quot;);</span>
-<span class="nc" id="L75">                quantity.appendChild(document.createTextNode(o.getQuantity().toString()));</span>
-<span class="nc" id="L76">                order_item.appendChild(quantity);</span>
+<span class="nc" id="L77">                Element quantity = document.createElement(&quot;quantity&quot;);</span>
+<span class="nc" id="L78">                quantity.appendChild(document.createTextNode(o.getQuantity().toString()));</span>
+<span class="nc" id="L79">                order_item.appendChild(quantity);</span>
 
-<span class="nc" id="L78">                Element sellingPrice = document.createElement(&quot;selling_price&quot;);</span>
-<span class="nc" id="L79">                sellingPrice.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice())).toString()));</span>
-<span class="nc" id="L80">                order_item.appendChild(sellingPrice);</span>
+<span class="nc" id="L81">                Element sellingPrice = document.createElement(&quot;selling_price&quot;);</span>
+<span class="nc" id="L82">                sellingPrice.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice())).toString()));</span>
+<span class="nc" id="L83">                order_item.appendChild(sellingPrice);</span>
 
-<span class="nc" id="L82">                Element amt = document.createElement(&quot;amt&quot;);</span>
-<span class="nc" id="L83">                amt.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice() * o.getQuantity())).toString()));</span>
-<span class="nc" id="L84">                order_item.appendChild(amt);</span>
-<span class="nc" id="L85">            }</span>
+<span class="nc" id="L85">                Element amt = document.createElement(&quot;amt&quot;);</span>
+<span class="nc" id="L86">                amt.appendChild(document.createTextNode(Double.valueOf(df.format(o.getSellingPrice() * o.getQuantity())).toString()));</span>
+<span class="nc" id="L87">                order_item.appendChild(amt);</span>
+<span class="nc" id="L88">            }</span>
 
-<span class="nc" id="L87">            Element amount = document.createElement(&quot;amount&quot;);</span>
-<span class="nc" id="L88">            amount.appendChild(document.createTextNode(invoiceForm.getOrderTotal().toString()));</span>
-<span class="nc" id="L89">            root.appendChild(amount);</span>
+<span class="nc" id="L90">            Element amount = document.createElement(&quot;amount&quot;);</span>
+<span class="nc" id="L91">            amount.appendChild(document.createTextNode(invoiceForm.getOrderTotal().toString()));</span>
+<span class="nc" id="L92">            root.appendChild(amount);</span>
             // create the xml file
             //transform the DOM Object to an XML File
-<span class="nc" id="L92">            TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
-<span class="nc" id="L93">            Transformer transformer = transformerFactory.newTransformer();</span>
-<span class="nc" id="L94">            DOMSource domSource = new DOMSource(document);</span>
-<span class="nc" id="L95">            StreamResult streamResult = new StreamResult(new File(xmlFilePath));</span>
+<span class="nc" id="L95">            TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L96">            Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="nc" id="L97">            DOMSource domSource = new DOMSource(document);</span>
+<span class="nc" id="L98">            System.out.println(xmlFilePath);</span>
+<span class="nc" id="L99">            StreamResult streamResult = new StreamResult(new File(xmlFilePath));</span>
 
-<span class="nc" id="L97">            transformer.transform(domSource, streamResult);</span>
+<span class="nc" id="L101">            transformer.transform(domSource, streamResult);</span>
 
 
-<span class="nc" id="L100">        } catch (ParserConfigurationException | TransformerException pce) {</span>
-<span class="nc" id="L101">            pce.printStackTrace();</span>
-<span class="nc" id="L102">        }</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L104">        } catch (ParserConfigurationException | TransformerException pce) {</span>
+<span class="nc" id="L105">            pce.printStackTrace();</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">    }</span>
 
     public void createPDF() {
         try {
-<span class="nc" id="L107">            File xmlfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xml\\Invoice.xml&quot;);</span>
-<span class="nc" id="L108">            File xsltfile = new File(&quot;D:\\Java-Projects\\Maven\\Increff-Training\\pos-project\\invoice-app\\src\\main\\resources\\xsl\\template.xsl&quot;);</span>
-<span class="nc" id="L109">            File pdfDir = new File(&quot;./Test&quot;);</span>
-<span class="nc" id="L110">            pdfDir.mkdirs();</span>
-<span class="nc" id="L111">            File pdfFile = new File(pdfDir, &quot;invoice.pdf&quot;);</span>
+<span class="nc" id="L111">            File xmlfile = new File(xmlFilePath);</span>
+<span class="nc" id="L112">            File xsltfile = new File(xslFilePath);</span>
+<span class="nc" id="L113">            File pdfDir = new File(&quot;./Test&quot;);</span>
+<span class="nc" id="L114">            pdfDir.mkdirs();</span>
+<span class="nc" id="L115">            File pdfFile = new File(pdfDir, &quot;invoice.pdf&quot;);</span>
             // configure fopFactory as desired
-<span class="nc" id="L113">            final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
-<span class="nc" id="L114">            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();</span>
+<span class="nc" id="L117">            final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
+<span class="nc" id="L118">            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();</span>
             // configure foUserAgent as desired
             // Setup output
-<span class="nc" id="L117">            OutputStream out = Files.newOutputStream(pdfFile.toPath());</span>
-<span class="nc" id="L118">            out = new java.io.BufferedOutputStream(out);</span>
+<span class="nc" id="L121">            OutputStream out = Files.newOutputStream(pdfFile.toPath());</span>
+<span class="nc" id="L122">            out = new java.io.BufferedOutputStream(out);</span>
             try {
                 // Construct fop with desired output format
                 Fop fop;
-<span class="nc" id="L122">                fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);</span>
+<span class="nc" id="L126">                fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);</span>
                 // Setup XSLT
-<span class="nc" id="L124">                TransformerFactory factory = TransformerFactory.newInstance();</span>
-<span class="nc" id="L125">                Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));</span>
+<span class="nc" id="L128">                TransformerFactory factory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L129">                Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));</span>
                 // Setup input for XSLT transformation
-<span class="nc" id="L127">                Source src = new StreamSource(xmlfile);</span>
+<span class="nc" id="L131">                Source src = new StreamSource(xmlfile);</span>
                 // Resulting SAX events (the generated FO) must be piped through to FOP
-<span class="nc" id="L129">                Result res = new SAXResult(fop.getDefaultHandler());</span>
+<span class="nc" id="L133">                Result res = new SAXResult(fop.getDefaultHandler());</span>
                 // Start XSLT transformation and FOP processing
-<span class="nc" id="L131">                transformer.transform(src, res);</span>
-<span class="nc" id="L132">            } catch (FOPException | TransformerException e) {</span>
-<span class="nc" id="L133">                e.printStackTrace();</span>
+<span class="nc" id="L135">                transformer.transform(src, res);</span>
+<span class="nc" id="L136">            } catch (FOPException | TransformerException e) {</span>
+<span class="nc" id="L137">                e.printStackTrace();</span>
             } finally {
-<span class="nc" id="L135">                out.close();</span>
+<span class="nc" id="L139">                out.close();</span>
             }
-<span class="nc" id="L137">        }catch(Exception exp){</span>
-<span class="nc" id="L138">            exp.printStackTrace();</span>
-<span class="nc" id="L139">        }</span>
-<span class="nc" id="L140">    }</span>
+<span class="nc" id="L141">        }catch(Exception exp){</span>
+<span class="nc" id="L142">            exp.printStackTrace();</span>
+<span class="nc" id="L143">        }</span>
+<span class="nc" id="L144">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

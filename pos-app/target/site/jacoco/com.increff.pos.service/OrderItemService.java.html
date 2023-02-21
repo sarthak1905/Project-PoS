@@ -19,9 +19,9 @@ import java.util.List;
 <span class="fc" id="L19">        Integer productId = orderItemPojo.getProductId();</span>
 <span class="fc" id="L20">        Integer orderId = orderItemPojo.getOrderId();</span>
 <span class="fc" id="L21">        OrderItemPojo existingOrderItem = orderItemDao.selectProductIdOrderId(productId, orderId);</span>
-<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if(existingOrderItem != null){</span>
-<span class="nc" id="L23">            throw new ApiException(&quot;Order item with id:&quot; + orderItemPojo.getId() +</span>
-<span class="nc" id="L24">                    &quot; already exists for order with id: &quot; + orderItemPojo.getOrderId());</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if(existingOrderItem != null){</span>
+<span class="fc" id="L23">            throw new ApiException(&quot;Order item with id:&quot; + orderItemPojo.getId() +</span>
+<span class="fc" id="L24">                    &quot; already exists for order with id: &quot; + orderItemPojo.getOrderId());</span>
         }
 <span class="fc" id="L26">        orderItemDao.insert(orderItemPojo);</span>
 <span class="fc" id="L27">    }</span>
@@ -32,8 +32,8 @@ import java.util.List;
 
     public OrderItemPojo getCheck(int id) throws ApiException {
 <span class="fc" id="L34">        OrderItemPojo orderItemPojo = orderItemDao.selectId(id);</span>
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (orderItemPojo == null) {</span>
-<span class="nc" id="L36">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (orderItemPojo == null) {</span>
+<span class="fc" id="L36">            throw new ApiException(&quot;OrderItem with given ID:&quot; + id + &quot; does not exist&quot;);</span>
         }
 <span class="fc" id="L38">        return orderItemPojo;</span>
     }

@@ -18,19 +18,19 @@ import java.util.List;
     private InvoiceDao invoiceDao;
     
     public void add(InvoicePojo invoicePojo) throws ApiException {
-<span class="nc" id="L21">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if(existingPojo == null) {</span>
-<span class="nc" id="L23">            invoiceDao.insert(invoicePojo);</span>
+<span class="fc" id="L21">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if(existingPojo == null) {</span>
+<span class="fc" id="L23">            invoiceDao.insert(invoicePojo);</span>
         }
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L25">    }</span>
     
     public List&lt;InvoicePojo&gt; getAll(){
-<span class="nc" id="L28">        return invoiceDao.selectAll();</span>
+<span class="fc" id="L28">        return invoiceDao.selectAll();</span>
     }
 
     public List&lt;InvoicePojo&gt; getInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if(startDate.isAfter(endDate)){</span>
-<span class="nc" id="L33">            throw new ApiException(&quot;Start date cannot be after end date for scheduler!&quot;);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if(startDate.isAfter(endDate)){</span>
+<span class="fc" id="L33">            throw new ApiException(&quot;Start date cannot be after end date for scheduler!&quot;);</span>
         }
 <span class="fc" id="L35">        return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);</span>
     }

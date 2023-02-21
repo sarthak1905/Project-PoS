@@ -8,12 +8,13 @@ function getProductUrl() {
   return baseUrl + "/api/products";
 }
 
+var barcodes = new Set();
+
 //BUTTON ACTIONS
 function addOrder(event) {
   //Set the values to update
   var $form = $("#add-order-form");
   var jsonList = convertOrderForm($form);
-  console.log(jsonList);
   var url = getOrderUrl();
 
   $.ajax({
@@ -29,7 +30,9 @@ function addOrder(event) {
       message = "Order placed successfully!";
       showSuccessMessage(message);
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 
   return false;
@@ -37,9 +40,11 @@ function addOrder(event) {
 
 function convertOrderForm($form) {
   var serializedData = $form.serializeArray();
-  var listLength = serializedData.length / 3;
+  console.log(serializedData);
+  var listLength = (serializedData.length - 3) / 3;
   var jsonList = [];
-  for (let i = 1; i < listLength; i++) {
+  
+  for (let i = 1; i <= listLength; i++) {
     var jsonData = {};
     for (let j = i * 3; j < i * 3 + 3; j++) {
       jsonData[serializedData[j]["name"]] = serializedData[j]["value"];
@@ -71,39 +76,71 @@ function updateOrder(event) {
       message = "Order updated successfully!";
       showSuccessMessage(message);
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 
   return false;
 }
 
+function initOrderItemRow() {
+  barcodes.clear();
+  populateBarcodeSet();
+  $("#edit-order-tbody tr:not(:first-child)").remove();
+  $("#add-order-tbody tr:not(:first-child)").remove();
+  $('tr.add-order-row:first').clone().insertAfter("tr.add-order-row:last");
+  var $selectField = $("#add-order-table").find(
+    "tbody tr:last td select"
+  );
+  showBarcodeDropdown($selectField);
+  $('tr.add-order-row:last').removeAttr('hidden');
+  $("tr.add-order-row:last button").click(removeOrderItem);
+}
+
 function removeOrderItem() {
+  console.log('reaching');
   var tableId = $(this).closest("table").attr("id");
   var rowCount = $("#" + tableId + " tr").length - 1;
   if (rowCount == 2) {
     alert("Minimum 1 order item required!");
     return;
   }
-  $(this).closest("tr").remove();
+  var $rowToDelete = $(this).closest('tr');
+  var $lastRow = $('#' + tableId + ' tr:last');
+  if(!$rowToDelete.is($lastRow)){
+    var selectedField = $rowToDelete.find('td select').select2('data');
+    console.log(selectedField);
+    var selectedField0 = selectedField[0];
+    console.log(selectedField0);
+    var barcode = selectedField0.text;
+    console.log(barcode);
+    barcodes.add(barcode);
+    showBarcodeDropdown($lastRow.find('td select'));
+  } 
+  $rowToDelete.remove();
 }
 
 function addOrderItemRow() {
-  var $tbody = $("#add-order-tbody");
   var $rowToClone = $("tr.add-order-row:first");
+  var $lastRow = $('tr.add-order-row:last');
+  var lastBarcode = $lastRow.find('td select').select2('data')[0].text;
+  barcodes.delete(lastBarcode);
   $rowToClone.clone().insertAfter("tr.add-order-row:last");
   var $newRow = $("tr.add-order-row:last");
   var $newRowDropdown = $("tr.add-order-row:last td select");
-  getProductList($newRowDropdown, (add = true));
+  showBarcodeDropdown($newRowDropdown);
   $newRowDropdown.select2();
   $newRow.removeAttr('hidden');
+  $lastRow.find('td select span span span input').prop('readonly', true);
   $("tr.add-order-row:last input[name=quantity]").val("");
   $("tr.add-order-row:last input[name=sellingPrice]").val("");
   $("tr.add-order-row:last button").click(removeOrderItem);
 }
 
 function editAddOrderItemRow() {
-  var $tbody = $('#edit-order-tbody');
   var $rowToClone = $("tr.edit-order-row:first");
+  var $lastRow = $("tr.edit-order-row:last");
   $rowToClone.clone().insertAfter("tr.edit-order-row:last");
   var $newRow = $("tr.edit-order-row:last");
   var $newRowDropdown = $("tr.edit-order-row:last td select");
@@ -111,12 +148,31 @@ function editAddOrderItemRow() {
   $newRow.find('td select').removeAttr('readonly');
   $newRow.find('td select').select2();
   $newRow.removeAttr('hidden');
+  $lastRow.find('td select').attr('readonly', true);
   $("tr.edit-order-row:last input[name=quantity]").val("");
   $("tr.edit-order-row:last input[name=sellingPrice]").val("");
   $("tr.edit-order-row:last button").replaceWith(
     '<button type="button" class="btn btn-remove button">Remove</button>'
   );
   $("tr.edit-order-row:last button").click(removeOrderItem);
+}
+
+function populateBarcodeSet() {
+  var url = getProductUrl();
+  $.ajax({
+    url: url,
+    type: "GET",
+    async: false,
+    success: function (data) {
+        for(var i in data){
+          var product = data[i];
+          barcodes.add(product.barcode);
+        }
+    },
+    error: function(response) {
+      handleAjaxError(response);
+    }
+  });
 }
 
 function getProductList(element, isAdd) {
@@ -131,20 +187,15 @@ function getProductList(element, isAdd) {
         showBarcodeDropdownEdit(data, element);
       }
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
-function showBarcodeDropdownAdd(data, element) {
-  const barcodes = new Set();
+function showBarcodeDropdown(element) {
   var $selectBarcodeInput = element;
   $selectBarcodeInput.empty();
-
-  for (var i in data) {
-    var productDetails = data[i];
-    barcodes.add(productDetails.barcode);
-  }
-
   for (barcode of barcodes.values()) {
     $selectBarcodeInput.append(
       $("<option></option>").attr("value", barcode).text(barcode)
@@ -187,20 +238,12 @@ function getUniqueBarcodes(productData, $selectBarcodeInput) {
         }
       }
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
-function initOrderItemRow() {
-  $("#edit-order-tbody tr:not(:first-child)").remove();
-  $("#add-order-tbody tr:not(:first-child)").remove();
-  $('tr.add-order-row:first').clone().insertAfter("tr.add-order-row:last");
-  var $selectField = $("#add-order-table").find(
-    "tbody tr:last td select"
-  );
-  getProductList($selectField, isAdd=true);
-  $('tr.add-order-row:last').removeAttr('hidden');
-}
 
 function getOrderList() {
   var url = getOrderUrl();
@@ -211,15 +254,32 @@ function getOrderList() {
       displayOrderList(data);
       dataTablize();
     },
-    error: handleAjaxError,
+    error: function(response) {
+      handleAjaxError(response);
+    }
   });
 }
 
 function downloadOrderInvoice(id) {
   var url = getOrderUrl();
   url += "/" + id + "/invoice";
-  $("#btn-edit" + id).remove();
-  window.location.href = url;
+
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(){
+      message = 'Please check your downloads for the invoice';
+      showSuccessMessage(message);
+      $("#btn-edit" + id).remove();
+      $("#btn-invoice" + id).html('<i class="bi bi-cloud-arrow-down-fill"></i> Download');
+      window.location.href = url;
+    },
+    error: function(response){
+      message = "There was a problem generating the invoice, please try again later";
+      showErrorMessage(message);
+    }
+  })
+
 }
 
 //UI DISPLAY METHODS
@@ -281,7 +341,9 @@ function displayOrderItems(id) {
     success: function (data) {
       viewOrderItems(data, id);
     },
-    error: handleAjaxError,
+    error: function(response){
+      handleAjaxError(response);
+    } 
   });
 }
 
@@ -309,14 +371,18 @@ function viewOrderItems(data, id) {
 }
 
 function displayEditOrder(id) {
+  barcodes.empty();
   var url = getOrderUrl() + "/" + id + "/items";
   $.ajax({
     url: url,
     type: "GET",
     success: function (data) {
       displayOrderForm(data, id);
+      getProductList()
     },
-    error: handleAjaxError,
+    error: function(response){
+      handleAjaxError(response);
+    } 
   });
 }
 
@@ -354,7 +420,6 @@ function init() {
   $("#edit-add-order-item").click(editAddOrderItemRow);
   $("#add-order-dialog").click(initOrderItemRow);
   $("#add-order").click(addOrder);
-  $("#add-order-first-row-btn").click(removeOrderItem);
   $("#update-order").click(updateOrder);
   $("#refresh-data").click(refreshTable);
   checkRoleAndDisableEditBtns();

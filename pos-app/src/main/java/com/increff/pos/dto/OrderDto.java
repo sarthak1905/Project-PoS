@@ -124,10 +124,9 @@ public class OrderDto {
 
         InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
         RestTemplate restTemplate = new RestTemplate();
-        String url = invoiceUrl;
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
-            byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(url, invoiceForm, byte[].class).getBody());
+            byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(invoiceUrl, invoiceForm, byte[].class).getBody());
             fos.write(contents);
             String path = "pos-app/generated/invoice" + orderId + ".pdf";
             invoicePojo.setPath(path);

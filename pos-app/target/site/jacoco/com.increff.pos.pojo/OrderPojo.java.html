@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_SEQ;
@@ -11,24 +12,24 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
 
 @Entity
 @Getter
-<span class="fc" id="L14">@Setter</span>
+<span class="fc" id="L15">@Setter</span>
 @Table(name = &quot;orders&quot;, indexes = {@Index(name = &quot;order_date_index&quot;, columnList = &quot;order_date&quot;),
                                    @Index(name = &quot;is_invoiced_index&quot;, columnList = &quot;is_invoiced&quot;)})
-<span class="fc" id="L17">public class OrderPojo extends AbstractVersionPojo {</span>
+<span class="fc" id="L18">public class OrderPojo extends AbstractVersionPojo {</span>
 
     @Id
     @TableGenerator(name = POS_ORDER_SEQ, pkColumnValue = POS_ORDER_SEQ, table = POS_TABLE_NAME)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_SEQ)
-<span class="fc" id="L22">    private Integer id;</span>
+<span class="fc" id="L23">    private Integer id;</span>
 
     @Column(nullable = false, name = &quot;order_date&quot;)
-<span class="fc" id="L25">    private LocalDateTime orderDate;</span>
+<span class="fc" id="L26">    private LocalDateTime orderDate;</span>
 
     @Column(nullable = false, name = &quot;is_invoiced&quot;)
-<span class="fc" id="L28">    private boolean isInvoiced;</span>
+<span class="fc" id="L29">    private boolean isInvoiced;</span>
 
     @Column(name = &quot;order_total&quot;)
-<span class="fc" id="L31">    private Double orderTotal;</span>
+<span class="fc" id="L32">    private Double orderTotal;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
