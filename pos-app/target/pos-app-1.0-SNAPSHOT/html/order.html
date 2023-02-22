@@ -80,22 +80,22 @@
 									<tbody id="add-order-tbody">
 									<tr class="add-order-row" hidden>
 										<td valign="center">
-											<select class="form-control col-12 js-select2" name="barcode">
+											<select class="form-control form-group col-12 js-select2" name="barcode">
 												<option>Dummy</option>
 											</select>
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control col-12" name="quantity" placeholder="Quantity" required>
+												<input type="number" min="1" oninput="validity.valid||(value='');" class="form-control form-group col-12" name="quantity" placeholder="Quantity" required>
 											</div>
 										</td>
 										<td>
 											<div class="d-flex justify-content-center">
-												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control col-12" name="sellingPrice" placeholder="Selling Price" required>
+												<input type="number" min="1" step="0.001" oninput="validity.valid||(value='');" class="form-control form-group col-12" name="sellingPrice" placeholder="Selling Price" required>
 											</div>
 										</td>
 										<td>
-											<button type="button" class="btn btn-remove button" id="add-order-first-row-btn">Remove</button>
+											<button type="button" class="btn btn-remove button">Remove</button>
 										</td>
 									</tr>
 									</tbody>

@@ -9,7 +9,6 @@ com\increff\pos\dao\InventoryDao.class
 com\increff\pos\dao\UserDao.class
 com\increff\pos\service\OrderService.class
 com\increff\pos\model\UserData.class
-com\increff\pos\controller\AdminApiController.class
 com\increff\pos\util\CookieUtil.class
 com\increff\pos\pojo\InventoryPojo.class
 com\increff\pos\model\OrderItemForm.class

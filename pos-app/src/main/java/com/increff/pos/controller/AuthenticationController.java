@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,8 @@ public class AuthenticationController extends AbstractUiController {
 	private UserDto userDto;
 	@Autowired
 	private InfoData info;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@ApiOperation(value = "Initializes application")
 	@RequestMapping(path = "/site/signup", method = RequestMethod.POST)
@@ -41,7 +44,7 @@ public class AuthenticationController extends AbstractUiController {
 	@RequestMapping(path = "/session/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView login(HttpServletRequest req, LoginForm loginForm) throws ApiException {
 		UserPojo userPojo = userDto.get(loginForm);
-		boolean authenticated = (userPojo != null && Objects.equals(userPojo.getPassword(), loginForm.getPassword()));
+		boolean authenticated = (userPojo != null && passwordEncoder.matches(loginForm.getPassword(), userPojo.getPassword()));
 		if (!authenticated) {
 			info.setMessage("Invalid username or password");
 			return new ModelAndView("redirect:/site/login");

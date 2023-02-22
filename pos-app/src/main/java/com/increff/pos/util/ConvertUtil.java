@@ -38,10 +38,11 @@ public class ConvertUtil {
         return brandPojo;
     }
 
-    public static InventoryData convertInventoryPojoToData(InventoryPojo inventoryPojo, String barcode) {
+    public static InventoryData convertInventoryPojoToData(InventoryPojo inventoryPojo, String barcode, String name) {
         InventoryData inventoryData = new InventoryData();
         inventoryData.setQuantity(inventoryPojo.getQuantity());
         inventoryData.setBarcode(barcode);
+        inventoryData.setName(name);
         inventoryData.setId(inventoryPojo.getId());
         return inventoryData;
     }

@@ -55,7 +55,6 @@ function convertOrderForm($form) {
 }
 
 function updateOrder(event) {
-  $("#edit-order-modal").modal("toggle");
   //Gets the ID
   var id = $("#edit-order-id").html();
   var url = getOrderUrl() + "/" + id;
@@ -75,6 +74,7 @@ function updateOrder(event) {
       refreshTable();
       message = "Order updated successfully!";
       showSuccessMessage(message);
+      $("#edit-order-modal").modal("toggle");
     },
     error: function(response) {
       handleAjaxError(response);
@@ -103,7 +103,8 @@ function removeOrderItem() {
   var tableId = $(this).closest("table").attr("id");
   var rowCount = $("#" + tableId + " tr").length - 1;
   if (rowCount == 2) {
-    alert("Minimum 1 order item required!");
+    message = "Minimum 1 order item required!";
+    showErrorMessage(message);
     return;
   }
   var $rowToDelete = $(this).closest('tr');
@@ -132,7 +133,7 @@ function addOrderItemRow() {
   showBarcodeDropdown($newRowDropdown);
   $newRowDropdown.select2();
   $newRow.removeAttr('hidden');
-  $lastRow.find('td select span span span input').prop('readonly', true);
+  $lastRow.find('td select').attr('readonly', true);
   $("tr.add-order-row:last input[name=quantity]").val("");
   $("tr.add-order-row:last input[name=sellingPrice]").val("");
   $("tr.add-order-row:last button").click(removeOrderItem);
@@ -141,18 +142,20 @@ function addOrderItemRow() {
 function editAddOrderItemRow() {
   var $rowToClone = $("tr.edit-order-row:first");
   var $lastRow = $("tr.edit-order-row:last");
+  var lastBarcode = $lastRow.find('td select').select2('data')[0].text;
+  barcodes.delete(lastBarcode);
   $rowToClone.clone().insertAfter("tr.edit-order-row:last");
   var $newRow = $("tr.edit-order-row:last");
   var $newRowDropdown = $("tr.edit-order-row:last td select");
-  getProductList($newRowDropdown, (add = false));
-  $newRow.find('td select').removeAttr('readonly');
+  showBarcodeDropdown($newRowDropdown);
+  $newRow.find('td select').attr('readonly', false);
   $newRow.find('td select').select2();
   $newRow.removeAttr('hidden');
   $lastRow.find('td select').attr('readonly', true);
   $("tr.edit-order-row:last input[name=quantity]").val("");
   $("tr.edit-order-row:last input[name=sellingPrice]").val("");
   $("tr.edit-order-row:last button").replaceWith(
-    '<button type="button" class="btn btn-remove button">Remove</button>'
+    '<button type="button" class="btn btn-remove button"><i class="bi bi-trash"></i> Remove</button>'
   );
   $("tr.edit-order-row:last button").click(removeOrderItem);
 }
@@ -175,23 +178,6 @@ function populateBarcodeSet() {
   });
 }
 
-function getProductList(element, isAdd) {
-  var url = getProductUrl();
-  $.ajax({
-    url: url,
-    type: "GET",
-    success: function (data) {
-      if (isAdd) {
-        showBarcodeDropdownAdd(data, element);
-      } else {
-        showBarcodeDropdownEdit(data, element);
-      }
-    },
-    error: function(response) {
-      handleAjaxError(response);
-    }
-  });
-}
 
 function showBarcodeDropdown(element) {
   var $selectBarcodeInput = element;
@@ -203,47 +189,6 @@ function showBarcodeDropdown(element) {
   }
   $selectBarcodeInput.select2();
 }
-
-function showBarcodeDropdownEdit(productData, element) {
-  var $selectBarcodeInput = element;
-  $selectBarcodeInput.empty();
-
-  getUniqueBarcodes(productData, element);
-}
-
-function getUniqueBarcodes(productData, $selectBarcodeInput) {
-  var id = $("#edit-order-id").html();
-  var url = getOrderUrl() + "/" + id + "/items";
-  $.ajax({
-    url: url,
-    type: "GET",
-    success: function (data) {
-      const barcodes = new Set();
-      var map = new Map();
-      for (var i in data) {
-        var orderItemDetails = data[i];
-        map.set(orderItemDetails.barcode, 1);
-      }
-      for (var i in productData) {
-        var productDetials = productData[i];
-        if (map.get(productDetials.barcode) == undefined) {
-          barcodes.add(productDetials.barcode);
-        }
-      }
-      if (barcodes != undefined) {
-        for (barcode of barcodes.values()) {
-          $selectBarcodeInput.append(
-            $("<option></option>").attr("value", barcode).text(barcode)
-          );
-        }
-      }
-    },
-    error: function(response) {
-      handleAjaxError(response);
-    }
-  });
-}
-
 
 function getOrderList() {
   var url = getOrderUrl();
@@ -371,14 +316,14 @@ function viewOrderItems(data, id) {
 }
 
 function displayEditOrder(id) {
-  barcodes.empty();
+  barcodes.clear();
+  populateBarcodeSet();
   var url = getOrderUrl() + "/" + id + "/items";
   $.ajax({
     url: url,
     type: "GET",
     success: function (data) {
       displayOrderForm(data, id);
-      getProductList()
     },
     error: function(response){
       handleAjaxError(response);
@@ -399,6 +344,9 @@ function displayOrderForm(data, id) {
 
     $row.find("td select").append('<option>'+ data[i].barcode +'</option>');
     $row.find("td select").val(data[i].barcode);
+    $row.find("td select").select2();
+    $row.find("td select").attr('readonly', true);
+    barcodes.delete(data[i].barcode);
     
     $row.find("td div input[name=quantity]").val(data[i].quantity);
     $row.find("td div input[name=sellingPrice]").val(data[i].sellingPrice.toFixed(2));

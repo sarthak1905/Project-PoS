@@ -13,11 +13,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
+import static junit.framework.TestCase.*;
 
 public class UserDtoTest extends AbstractUnitTest {
 
@@ -28,6 +28,9 @@ public class UserDtoTest extends AbstractUnitTest {
     private UserDao userDao;
     @Autowired
     private UserDto userDto;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @Test
     public void testGetRoleFromEmail() throws ApiException {
@@ -68,7 +71,7 @@ public class UserDtoTest extends AbstractUnitTest {
         LoginForm loginForm = TestHelper.createLoginForm(operatorEmail1, password);
         UserPojo userPojo = userDto.get(loginForm);
         assertEquals(operatorEmail1, userPojo.getEmail());
-        assertEquals(password, userPojo.getPassword());
+        assertTrue(passwordEncoder.matches(password, userPojo.getPassword()));
     }
 
     @Before

@@ -17,12 +17,4 @@ public class UserForm {
 	@NotBlank
 	private String role;
 
-	@Override
-	public String toString() {
-		return "UserForm{" +
-				"email='" + email + '\'' +
-				", password='" + password + '\'' +
-				", role='" + role + '\'' +
-				'}';
-	}
 }

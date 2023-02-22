@@ -2,6 +2,7 @@ package com.increff.pos.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -25,4 +26,9 @@ public class UserPojo extends AbstractVersionPojo {
 	@Column(nullable = false)
 	@NotBlank
 	private String password;
+
+	public void setPassword(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.password = passwordEncoder.encode(password);
+	}
 }

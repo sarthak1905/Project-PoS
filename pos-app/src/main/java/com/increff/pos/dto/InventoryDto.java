@@ -25,15 +25,17 @@ public class InventoryDto {
     public InventoryData get(int id) throws ApiException{
         InventoryPojo inventoryPojo = inventoryService.get(id);
         String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());
-        return ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode);
+        String name = productService.getProductNameFromProductId(inventoryPojo.getId());
+        return ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name);
     }
 
-    public List<InventoryData> getAll() {
+    public List<InventoryData> getAll() throws ApiException {
         List<InventoryPojo> inventoryList = inventoryService.getAll();
         List<InventoryData> inventoryDataList = new ArrayList<>();
         for(InventoryPojo inventoryPojo: inventoryList){
             String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());
-            inventoryDataList.add(ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode));
+            String name = productService.getProductNameFromProductId(inventoryPojo.getId());
+            inventoryDataList.add(ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name));
         }
         return inventoryDataList;
     }

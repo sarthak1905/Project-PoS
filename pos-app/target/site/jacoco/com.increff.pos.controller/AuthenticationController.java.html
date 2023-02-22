@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,47 +24,49 @@ import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @RestController
-<span class="fc" id="L26">public class AuthenticationController extends AbstractUiController {</span>
+<span class="fc" id="L27">public class AuthenticationController extends AbstractUiController {</span>
 
 	@Autowired
 	private UserDto userDto;
 	@Autowired
 	private InfoData info;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@ApiOperation(value = &quot;Initializes application&quot;)
 	@RequestMapping(path = &quot;/site/signup&quot;, method = RequestMethod.POST)
 	public void signupUser(@RequestBody UserForm userForm) throws ApiException {
-<span class="nc" id="L36">		userDto.add(userForm);</span>
-<span class="nc" id="L37">		info.setMessage(&quot;Signed up successfully!&quot;);</span>
-<span class="nc" id="L38">	}</span>
+<span class="nc" id="L39">		userDto.add(userForm);</span>
+<span class="nc" id="L40">		info.setMessage(&quot;Signed up successfully!&quot;);</span>
+<span class="nc" id="L41">	}</span>
 
 	@ApiOperation(value = &quot;Logs in a user&quot;)
 	@RequestMapping(path = &quot;/session/login&quot;, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView login(HttpServletRequest req, LoginForm loginForm) throws ApiException {
-<span class="nc" id="L43">		UserPojo userPojo = userDto.get(loginForm);</span>
-<span class="nc bnc" id="L44" title="All 4 branches missed.">		boolean authenticated = (userPojo != null &amp;&amp; Objects.equals(userPojo.getPassword(), loginForm.getPassword()));</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">		if (!authenticated) {</span>
-<span class="nc" id="L46">			info.setMessage(&quot;Invalid username or password&quot;);</span>
-<span class="nc" id="L47">			return new ModelAndView(&quot;redirect:/site/login&quot;);</span>
+<span class="nc" id="L46">		UserPojo userPojo = userDto.get(loginForm);</span>
+<span class="nc bnc" id="L47" title="All 4 branches missed.">		boolean authenticated = (userPojo != null &amp;&amp; passwordEncoder.matches(userPojo.getPassword(), loginForm.getPassword()));</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">		if (!authenticated) {</span>
+<span class="nc" id="L49">			info.setMessage(&quot;Invalid username or password&quot;);</span>
+<span class="nc" id="L50">			return new ModelAndView(&quot;redirect:/site/login&quot;);</span>
 		}
 
 		// Create authentication object
-<span class="nc" id="L51">		Authentication authentication = userDto.convertUserPojoToAuthentication(userPojo);</span>
+<span class="nc" id="L54">		Authentication authentication = userDto.convertUserPojoToAuthentication(userPojo);</span>
 		// Create new session
-<span class="nc" id="L53">		HttpSession session = req.getSession(true);</span>
+<span class="nc" id="L56">		HttpSession session = req.getSession(true);</span>
 		// Attach Spring SecurityContext to this new session
-<span class="nc" id="L55">		SecurityUtil.createContext(session);</span>
+<span class="nc" id="L58">		SecurityUtil.createContext(session);</span>
 		// Attach Authentication object to the Security Context
-<span class="nc" id="L57">		SecurityUtil.setAuthentication(authentication);</span>
+<span class="nc" id="L60">		SecurityUtil.setAuthentication(authentication);</span>
 
-<span class="nc" id="L59">		return new ModelAndView(&quot;redirect:/ui/orders&quot;);</span>
+<span class="nc" id="L62">		return new ModelAndView(&quot;redirect:/ui/orders&quot;);</span>
 
 	}
 
 	@RequestMapping(path = &quot;/session/logout&quot;, method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
-<span class="nc" id="L65">		request.getSession().invalidate();</span>
-<span class="nc" id="L66">		return new ModelAndView(&quot;redirect:/site/logout&quot;);</span>
+<span class="nc" id="L68">		request.getSession().invalidate();</span>
+<span class="nc" id="L69">		return new ModelAndView(&quot;redirect:/site/logout&quot;);</span>
 	}
 
 }

@@ -118,6 +118,7 @@ function displayInventoryList(data){
 		var buttonHtml = ' <button class="btn btn-edit button" onclick="displayEditInventory(' + b.id + ')"><i class="bi bi-pen-fill"></i> Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + b.barcode + '</td>'
+		+ '<td>' + b.name + '</td>'
 		+ '<td>'  + b.quantity + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
@@ -180,8 +181,8 @@ function displayUploadData(){
 }
 
 function displayInventory(data){
-	$("#inventory-edit-form input[name=id]").val(data.id);	
-	$("#inventory-edit-form input[name=barcode]").val(data.barcode);	
+	$("#inventory-edit-form input[name=barcode]").val(data.barcode);
+	$("#inventory-edit-form input[name=name]").val(data.name);	
 	$("#inventory-edit-form input[name=quantity]").val(data.quantity);
 	$('#edit-inventory-modal').modal('toggle');
 }

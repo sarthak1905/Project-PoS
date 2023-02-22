@@ -136,21 +136,8 @@ public class OrderDto {
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
         catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
-        InvoiceForm invoiceForm = new InvoiceForm();
-        invoiceForm.setOrderItemData(orderItemDataList);
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        invoiceForm.setInvoiceDate(invoicePojo.getInvoiceDate().format(dateTimeFormatter));
-        invoiceForm.setOrderDate(orderPojo.getOrderDate().format(dateTimeFormatter));
-        invoiceForm.setOrderTotal(orderPojo.getOrderTotal());
-        invoiceForm.setOrderId(orderPojo.getId());
-        return invoiceForm;
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
@@ -184,6 +171,18 @@ public class OrderDto {
             orderTotal += orderItemForm.getQuantity() * orderItemForm.getSellingPrice();
         }
         return orderTotal;
+    }
+
+    private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
+        InvoiceForm invoiceForm = new InvoiceForm();
+        invoiceForm.setOrderItemData(orderItemDataList);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        invoiceForm.setInvoiceDate(invoicePojo.getInvoiceDate().format(dateTimeFormatter));
+        invoiceForm.setOrderDate(orderPojo.getOrderDate().format(dateTimeFormatter));
+        invoiceForm.setOrderTotal(orderPojo.getOrderTotal());
+        invoiceForm.setOrderId(orderPojo.getId());
+        return invoiceForm;
     }
 
     private OrderItemPojo getExistingPojoOrAddNew(OrderItemForm orderItemForm, Integer orderId,
