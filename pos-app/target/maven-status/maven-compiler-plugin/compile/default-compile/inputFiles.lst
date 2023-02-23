@@ -8,6 +8,7 @@ D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\in
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\service\InventoryService.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\SiteUiController.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\util\ValidationUtil.java
+D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\OrderFilterForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\controller\AppRestControllerAdvice.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\LoginForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\util\ConvertUtil.java
@@ -18,6 +19,7 @@ D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\in
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\dao\InventoryDao.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\spring\SpringConfig.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\service\ApiException.java
+D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\DaySalesForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\InventoryPojo.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\spring\ControllerConfig.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\util\CookieUtil.java
@@ -29,6 +31,7 @@ D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\in
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\UserData.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\OrderItemPojo.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\ProductForm.java
+D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\BrandReportFilterForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\OrderItemForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\dao\AbstractDao.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\dto\BrandDto.java
@@ -57,6 +60,7 @@ D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\in
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\spring\DbConfig.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\ProductData.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\AbstractVersionPojo.java
+D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\InventoryReportFilterForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\model\UserForm.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\pojo\OrderPojo.java
 D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\java\com\increff\pos\util\NormalizeUtil.java

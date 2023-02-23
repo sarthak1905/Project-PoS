@@ -15,26 +15,34 @@ import java.util.List;
 
     private static final String SELECT_ALL = &quot;select p from DaySalesPojo p&quot;;
     private static final String SELECT_BY_DATE = &quot;select p from DaySalesPojo p where date=:date&quot;;
+    private static final String SELECT_BETWEEN_DATES = &quot;select p from DaySalesPojo p where &quot; +
+            &quot;date between :startDate and :endDate&quot;;
     private static final String SELECT_LATEST_DATE = &quot;select max(p.date) from DaySalesPojo p&quot;;
 
     public void insert(DaySalesPojo daySalesPojo){
-<span class="fc" id="L21">        em().persist(daySalesPojo);</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L23">        em().persist(daySalesPojo);</span>
+<span class="fc" id="L24">    }</span>
 
     public DaySalesPojo selectByDate(LocalDate date){
-<span class="fc" id="L25">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BY_DATE, DaySalesPojo.class);</span>
-<span class="fc" id="L26">        query.setParameter(&quot;date&quot;, date);</span>
-<span class="fc" id="L27">        return getSingle(query);</span>
+<span class="fc" id="L27">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BY_DATE, DaySalesPojo.class);</span>
+<span class="fc" id="L28">        query.setParameter(&quot;date&quot;, date);</span>
+<span class="fc" id="L29">        return getSingle(query);</span>
     }
 
     public List&lt;DaySalesPojo&gt; selectAll() {
-<span class="fc" id="L31">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
-<span class="fc" id="L32">        return query.getResultList();</span>
+<span class="fc" id="L33">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
+<span class="fc" id="L34">        return query.getResultList();</span>
     }
 
     public LocalDate selectLatestDate() {
-<span class="fc" id="L36">        Query query = em().createQuery(SELECT_LATEST_DATE);</span>
-<span class="fc" id="L37">        return (LocalDate)query.getSingleResult();</span>
+<span class="fc" id="L38">        Query query = em().createQuery(SELECT_LATEST_DATE);</span>
+<span class="fc" id="L39">        return (LocalDate)query.getSingleResult();</span>
+    }
+
+    public List&lt;DaySalesPojo&gt; selectBetweenDates(LocalDate startDate, LocalDate endDate) {
+<span class="nc" id="L43">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BETWEEN_DATES, DaySalesPojo.class);</span>
+<span class="nc" id="L44">        query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate);</span>
+<span class="nc" id="L45">        return query.getResultList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

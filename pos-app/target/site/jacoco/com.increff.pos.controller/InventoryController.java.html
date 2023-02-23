@@ -27,7 +27,7 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Gets all inventory&quot;)
     @RequestMapping(path = &quot;&quot;, method = RequestMethod.GET)
-    public List&lt;InventoryData&gt; getAll(){
+    public List&lt;InventoryData&gt; getAll() throws ApiException {
 <span class="nc" id="L31">        return inventoryDto.getAll();</span>
     }
 

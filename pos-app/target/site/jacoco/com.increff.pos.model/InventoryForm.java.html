@@ -3,15 +3,19 @@
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 
 @Getter
-<span class="fc" id="L10">@Setter</span>
-<span class="fc" id="L11">public class InventoryForm {</span>
+<span class="fc" id="L12">@Setter</span>
+<span class="fc" id="L13">public class InventoryForm {</span>
 
     @NotBlank
-<span class="fc" id="L14">    private String barcode;</span>
-<span class="fc" id="L15">    private Integer quantity;</span>
+<span class="fc" id="L16">    private String barcode;</span>
+    @Max(value = 999999)
+    @Min(value = 0)
+<span class="fc" id="L19">    private Integer quantity;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

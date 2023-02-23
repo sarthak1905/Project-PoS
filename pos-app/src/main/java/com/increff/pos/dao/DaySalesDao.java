@@ -15,6 +15,8 @@ public class DaySalesDao extends AbstractDao {
 
     private static final String SELECT_ALL = "select p from DaySalesPojo p";
     private static final String SELECT_BY_DATE = "select p from DaySalesPojo p where date=:date";
+    private static final String SELECT_BETWEEN_DATES = "select p from DaySalesPojo p where " +
+            "date between :startDate and :endDate";
     private static final String SELECT_LATEST_DATE = "select max(p.date) from DaySalesPojo p";
 
     public void insert(DaySalesPojo daySalesPojo){
@@ -35,5 +37,11 @@ public class DaySalesDao extends AbstractDao {
     public LocalDate selectLatestDate() {
         Query query = em().createQuery(SELECT_LATEST_DATE);
         return (LocalDate)query.getSingleResult();
+    }
+
+    public List<DaySalesPojo> selectBetweenDates(LocalDate startDate, LocalDate endDate) {
+        TypedQuery<DaySalesPojo> query = getQuery(SELECT_BETWEEN_DATES, DaySalesPojo.class);
+        query.setParameter("startDate", startDate).setParameter("endDate", endDate);
+        return query.getResultList();
     }
 }

@@ -5,12 +5,12 @@ import com.increff.pos.pojo.*;
 import com.increff.pos.pojo.DaySalesPojo;
 import com.increff.pos.service.*;
 import com.increff.pos.util.ConvertUtil;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import javax.validation.Valid;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -36,13 +36,27 @@ public class ReportDto {
     @Autowired
     private DaySalesService daySalesService;
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     public void createDailyReport() throws ApiException {
         LocalDate localDate = java.time.LocalDate.now().minus(1, ChronoUnit.DAYS);
         daySalesService.createDaySalesEntry(localDate);
     }
 
-    public List<DaySalesData> getDaySalesReport() {
-        List<DaySalesPojo> daySalesPojoList = daySalesService.getAll();
+    public List<DaySalesData> getFilteredDaySalesReport(DaySalesForm daySalesForm) throws ApiException {
+        ValidationUtil.validateForms(daySalesForm);
+        String filteredStartDate = daySalesForm.getStartDate();
+        String filteredEndDate = daySalesForm.getEndDate();
+        LocalDate startDate = LocalDate.parse(filteredStartDate, dateTimeFormatter);
+        LocalDate endDate = LocalDate.parse(filteredEndDate, dateTimeFormatter);
+        if(startDate.isAfter(endDate)){
+            throw new ApiException("Start date cannot be after end date!");
+        }
+        if(ChronoUnit.DAYS.between(startDate, endDate) > 90){
+            throw new ApiException("Max duration between start date and end date is 90 days");
+        }
+
+        List<DaySalesPojo> daySalesPojoList = daySalesService.getBetweenDates(startDate, endDate);
         List<DaySalesData> daySalesDataList = new ArrayList<>();
         for(DaySalesPojo daySalesPojo : daySalesPojoList){
             daySalesDataList.add(ConvertUtil.convertDaySalesPojoToData(daySalesPojo));
@@ -67,26 +81,45 @@ public class ReportDto {
         return generateSalesReportDataList(allOrderItemList, filterBrandName, filterCategoryName);
     }
 
-    public List<BrandData> getBrandReport() {
+    public List<BrandData> getBrandReport(BrandReportFilterForm brandReportFilterForm) {
+        String filterBrandName = brandReportFilterForm.getBrand();
+        if(filterBrandName == null){filterBrandName = "";}
+        String filterCategoryName = brandReportFilterForm.getCategory();
+        if(filterCategoryName == null){filterCategoryName = "";}
+
         List<BrandPojo> brandPojoList = brandService.getAll();
         List<BrandData> brandDataList = new ArrayList<>();
         for(BrandPojo brandPojo: brandPojoList){
-            brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));
+            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("")) {
+                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("")) {
+                    brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));
+                }
+            }
         }
         return brandDataList;
     }
 
-    public List<InventoryReportData> getInventoryReport() throws ApiException {
+    public List<InventoryReportData> getFilteredInventoryReport(InventoryReportFilterForm inventoryReportFilterForm) throws ApiException {
+        String filterBrandName = inventoryReportFilterForm.getBrand();
+        if(filterBrandName == null){filterBrandName = "";}
+        String filterCategoryName = inventoryReportFilterForm.getCategory();
+        if(filterCategoryName == null){filterCategoryName = "";}
+
         List<InventoryReportData> inventoryReportDataList = new ArrayList<>();
         List<ProductPojo> productPojoList = productService.getAll();
         HashMap<Integer, Integer> brandIdToQuantityMap = new HashMap<>();
         for(ProductPojo productPojo: productPojoList){
             BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());
-            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
-            Integer quantity = inventoryPojo.getQuantity();
-            Integer brandId = brandPojo.getId();
-            brandIdToQuantityMap.put(brandId, brandIdToQuantityMap.getOrDefault(brandId, 0) + quantity);
+            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("")) {
+                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("")) {
+                    InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+                    Integer quantity = inventoryPojo.getQuantity();
+                    Integer brandId = brandPojo.getId();
+                    brandIdToQuantityMap.put(brandId, brandIdToQuantityMap.getOrDefault(brandId, 0) + quantity);
+                }
+            }
         }
+
         for(Map.Entry<Integer, Integer> entry : brandIdToQuantityMap.entrySet()){
             InventoryReportData inventoryReportData = new InventoryReportData();
             BrandPojo brandPojo = brandService.get(entry.getKey());
@@ -119,7 +152,7 @@ public class ReportDto {
         LocalDateTime endDate;
         String filterStartDate = salesReportFilterForm.getStartDate();
         String filterEndDate = salesReportFilterForm.getEndDate();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         List<OrderPojo> orderPojoList = new ArrayList<>();
         if(checkIfNullOrEmpty(filterStartDate) && checkIfNullOrEmpty(filterEndDate)){
             orderPojoList = orderService.getAll();
@@ -140,6 +173,9 @@ public class ReportDto {
             endDate = LocalDateTime.of(LocalDate.parse(filterEndDate, dateTimeFormatter), LocalTime.MAX);
             if(startDate.isAfter(endDate)){
                 throw new ApiException("Start date cannot be after end date!");
+            }
+            if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
+                throw new ApiException("Max duration between start date and end date is 90 days");
             }
             orderPojoList = orderService.getBetweenDates(startDate, endDate);
         }

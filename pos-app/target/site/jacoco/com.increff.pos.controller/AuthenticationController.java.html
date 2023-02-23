@@ -44,7 +44,7 @@ import java.util.Objects;
 	@RequestMapping(path = &quot;/session/login&quot;, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView login(HttpServletRequest req, LoginForm loginForm) throws ApiException {
 <span class="nc" id="L46">		UserPojo userPojo = userDto.get(loginForm);</span>
-<span class="nc bnc" id="L47" title="All 4 branches missed.">		boolean authenticated = (userPojo != null &amp;&amp; passwordEncoder.matches(userPojo.getPassword(), loginForm.getPassword()));</span>
+<span class="nc bnc" id="L47" title="All 4 branches missed.">		boolean authenticated = (userPojo != null &amp;&amp; passwordEncoder.matches(loginForm.getPassword(), userPojo.getPassword()));</span>
 <span class="nc bnc" id="L48" title="All 2 branches missed.">		if (!authenticated) {</span>
 <span class="nc" id="L49">			info.setMessage(&quot;Invalid username or password&quot;);</span>
 <span class="nc" id="L50">			return new ModelAndView(&quot;redirect:/site/login&quot;);</span>

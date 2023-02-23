@@ -6,14 +6,24 @@ function getInventoryReportUrl(){
 
 function getInventoryList(){
 	var url = getInventoryReportUrl();
+	var $form = $("#filter-form");
+	var json = toJson($form);
+
 	$.ajax({
 	   url: url,
-	   type: 'GET',
+	   type: 'POST',
+	   data: json,
+	   headers: {
+       	'Content-Type': 'application/json'
+       },	
 	   success: function(data) {
+			destroyTablize();
 	   		displayInventoryList(data);
 			dataTablize();
 	   },
-	   error: handleAjaxError
+	   error: function(response){
+			handleAjaxError(response);
+	   }
 	});
 }
 
@@ -32,8 +42,7 @@ function displayInventoryList(data){
 }
 
 function init(){
-	$('#refresh-btn').click(getInventoryList);
+	$('#filter-btn').click(getInventoryList);
 }
 
 $(document).ready(init);
-$(document).ready(getInventoryList);

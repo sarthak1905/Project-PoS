@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 @Api
 @RestController
 @RequestMapping(path = &quot;/api/orders&quot;)
-<span class="fc" id="L19">public class OrderController {</span>
+<span class="fc" id="L18">public class OrderController {</span>
 
     @Autowired
     private OrderDto orderDto;
@@ -24,38 +23,38 @@ import java.util.List;
     @ApiOperation(value = &quot;Adds an order&quot;)
     @RequestMapping(path = &quot;&quot;, method = RequestMethod.POST)
     public void add(@RequestBody List&lt;OrderItemForm&gt; forms) throws ApiException {
-<span class="nc" id="L27">        orderDto.add(forms);</span>
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L26">        orderDto.add(forms);</span>
+<span class="nc" id="L27">    }</span>
 
     @ApiOperation(value = &quot;Gets an order&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
     public OrderData get(@PathVariable Integer id) throws ApiException{
-<span class="nc" id="L33">        return orderDto.get(id);</span>
+<span class="nc" id="L32">        return orderDto.get(id);</span>
     }
 
-    @ApiOperation(value = &quot;Gets all order&quot;)
-    @RequestMapping(path = &quot;&quot;, method = RequestMethod.GET)
-    public List&lt;OrderData&gt; getAll(){
-<span class="nc" id="L39">        return orderDto.getAll();</span>
+    @ApiOperation(value = &quot;Gets orders based on input dates&quot;)
+    @RequestMapping(path = &quot;/filtered&quot;, method = RequestMethod.POST)
+    public List&lt;OrderData&gt; getFilteredOrders(@RequestBody OrderFilterForm orderFilterForm) throws ApiException {
+<span class="nc" id="L38">        return orderDto.getFilteredOrders(orderFilterForm);</span>
     }
 
     @ApiOperation(value = &quot;Gets all order items of an order&quot;)
     @RequestMapping(path = &quot;/{id}/items&quot;, method = RequestMethod.GET)
     public List&lt;OrderItemData&gt; getOrderItems(@PathVariable Integer id) throws ApiException {
-<span class="nc" id="L45">        return orderDto.getOrderItems(id);</span>
+<span class="nc" id="L44">        return orderDto.getOrderItems(id);</span>
     }
 
     @ApiOperation(value = &quot;Generates order invoice&quot;)
     @RequestMapping(path = &quot;/{id}/invoice&quot;, method = RequestMethod.GET)
     public ResponseEntity&lt;byte[]&gt; getOrderInvoice(@PathVariable Integer id) throws ApiException, IOException {
-<span class="nc" id="L51">        return orderDto.getOrderInvoice(id);</span>
+<span class="nc" id="L50">        return orderDto.getOrderInvoice(id);</span>
     }
 
     @ApiOperation(value = &quot;Updates an order&quot;)
     @RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
     public void update(@PathVariable Integer id, @RequestBody List&lt;OrderItemForm&gt; orderItemForms) throws ApiException {
-<span class="nc" id="L57">        orderDto.update(id, orderItemForms);</span>
-<span class="nc" id="L58">    }</span>
+<span class="nc" id="L56">        orderDto.update(id, orderItemForms);</span>
+<span class="nc" id="L57">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

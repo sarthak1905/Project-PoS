@@ -65,12 +65,12 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGet" time="0.008"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGetByBrandCategory" time="0.007"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGet" time="0.009"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGetByBrandCategory" time="0.006"/>
   <testcase classname="com.increff.pos.service.BrandServiceTest" name="testRepeatedBrandCategoryAdd" time="0.008"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testNullUpdate" time="0.006"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGetAll" time="0.007"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testInvalidIdGet" time="0.009"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testUpdate" time="0.007"/>
-  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testNullAdd" time="0.006"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testNullUpdate" time="0.005"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testGetAll" time="0.008"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testInvalidIdGet" time="0.006"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testUpdate" time="0.011"/>
+  <testcase classname="com.increff.pos.service.BrandServiceTest" name="testNullAdd" time="0.005"/>
 </testsuite>

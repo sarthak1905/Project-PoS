@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,10 +32,10 @@ public class OrderController {
         return orderDto.get(id);
     }
 
-    @ApiOperation(value = "Gets all order")
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<OrderData> getAll(){
-        return orderDto.getAll();
+    @ApiOperation(value = "Gets orders based on input dates")
+    @RequestMapping(path = "/filtered", method = RequestMethod.POST)
+    public List<OrderData> getFilteredOrders(@RequestBody OrderFilterForm orderFilterForm) throws ApiException {
+        return orderDto.getFilteredOrders(orderFilterForm);
     }
 
     @ApiOperation(value = "Gets all order items of an order")

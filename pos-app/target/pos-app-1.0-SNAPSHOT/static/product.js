@@ -42,13 +42,14 @@ function updateProduct(event){
 	$('#edit-product-modal').modal('toggle');
 	//Get the ID
 	console.log('reaching here');
-	var id = $("#product-edit-form input[name=id]").val();
+	var id = $("#productId").val();
+	console.log(id);
 	var url = getProductUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#product-edit-form");
 	var json = toJson($form);
-
+	console.log(json);
 	$.ajax({
 	   url: url,
 	   type: 'PUT',
@@ -243,7 +244,7 @@ function displayEditProduct(id){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayProduct(data);
+	   		displayProduct(data, id);
 	   },
 	   error: handleAjaxError
 	});	
@@ -286,7 +287,8 @@ function displayProductUploadData(){
 	$('#upload-product-modal').modal('toggle');
 }
 
-function displayProduct(data){
+function displayProduct(data, id){
+	$('#productId').val(data.id);
 	$('#product-edit-form input[name=name]').val(data.name);
 	$('#product-edit-form input[name=brand]').val(data.brand);
 	$('#product-edit-form input[name=category]').val(data.category);

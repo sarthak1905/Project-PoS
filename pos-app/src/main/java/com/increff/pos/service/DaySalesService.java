@@ -68,4 +68,8 @@ public class DaySalesService {
         daySalesPojo.setTotalRevenue(totalRevenue);
         addOrUpdate(daySalesPojo);
     }
+
+    public List<DaySalesPojo> getBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return daySalesDao.selectBetweenDates(startDate, endDate);
+    }
 }

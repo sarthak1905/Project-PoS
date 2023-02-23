@@ -25,7 +25,6 @@ function addOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      refreshTable();
       $("#add-order-modal").modal("toggle");
       message = "Order placed successfully!";
       showSuccessMessage(message);
@@ -71,7 +70,6 @@ function updateOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      refreshTable();
       message = "Order updated successfully!";
       showSuccessMessage(message);
       $("#edit-order-modal").modal("toggle");
@@ -99,7 +97,6 @@ function initOrderItemRow() {
 }
 
 function removeOrderItem() {
-  console.log('reaching');
   var tableId = $(this).closest("table").attr("id");
   var rowCount = $("#" + tableId + " tr").length - 1;
   if (rowCount == 2) {
@@ -191,13 +188,22 @@ function showBarcodeDropdown(element) {
 }
 
 function getOrderList() {
-  var url = getOrderUrl();
+  var url = getOrderUrl() + '/filtered';
+	var $form = $("#filter-form");
+	var json = toJson($form);
+
   $.ajax({
     url: url,
-    type: "GET",
+    type: "POST",
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},	
     success: function (data) {
+      destroyTablize();
       displayOrderList(data);
       dataTablize();
+      $('#order-table').removeAttr('hidden');
     },
     error: function(response) {
       handleAjaxError(response);
@@ -357,11 +363,6 @@ function displayOrderForm(data, id) {
   $("#edit-order-modal").modal("toggle");
 }
 
-function refreshTable(){
-	destroyTablize();
-	getOrderList();
-}
-
 //INITIALIZATION CODE
 function init() {
   $("#add-order-item").click(addOrderItemRow);
@@ -369,9 +370,8 @@ function init() {
   $("#add-order-dialog").click(initOrderItemRow);
   $("#add-order").click(addOrder);
   $("#update-order").click(updateOrder);
-  $("#refresh-data").click(refreshTable);
+  $("#filter-btn").click(getOrderList);
   checkRoleAndDisableEditBtns();
 }
 
 $(document).ready(init);
-$(document).ready(getOrderList);

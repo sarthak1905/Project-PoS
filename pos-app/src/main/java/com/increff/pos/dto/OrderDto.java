@@ -1,9 +1,6 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.InvoiceForm;
-import com.increff.pos.model.OrderData;
-import com.increff.pos.model.OrderItemData;
-import com.increff.pos.model.OrderItemForm;
+import com.increff.pos.model.*;
 import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
@@ -25,6 +22,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -65,8 +66,22 @@ public class OrderDto {
         return ConvertUtil.convertOrderPojoToData(orderPojo);
     }
 
-    public List<OrderData> getAll(){
-        List<OrderPojo> orderList = orderService.getAll();
+    public List<OrderData> getFilteredOrders(OrderFilterForm orderFilterForm) throws ApiException {
+        ValidationUtil.validateForms(orderFilterForm);
+        String filteredStartDate = orderFilterForm.getStartDate();
+        String filteredEndDate = orderFilterForm.getEndDate();
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime startDate = LocalDate.parse(filteredStartDate, dateTimeFormatter).atStartOfDay();
+        LocalDateTime endDate = LocalDate.parse(filteredEndDate, dateTimeFormatter).atTime(LocalTime.MAX);
+        if(startDate.isAfter(endDate)){
+            throw new ApiException("Start date cannot be after end date!");
+        }
+        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
+            throw new ApiException("Max duration between start date and end date is 90 days");
+        }
+
+        List<OrderPojo> orderList = orderService.getBetweenDates(startDate, endDate);
         List<OrderData> orderDataList = new ArrayList<>();
         for(OrderPojo orderPojo: orderList){
             orderDataList.add(ConvertUtil.convertOrderPojoToData(orderPojo));

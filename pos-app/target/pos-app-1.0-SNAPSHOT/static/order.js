@@ -25,7 +25,6 @@ function addOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      refreshTable();
       $("#add-order-modal").modal("toggle");
       message = "Order placed successfully!";
       showSuccessMessage(message);
@@ -71,7 +70,6 @@ function updateOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      refreshTable();
       message = "Order updated successfully!";
       showSuccessMessage(message);
       $("#edit-order-modal").modal("toggle");
@@ -99,11 +97,11 @@ function initOrderItemRow() {
 }
 
 function removeOrderItem() {
-  console.log('reaching');
   var tableId = $(this).closest("table").attr("id");
   var rowCount = $("#" + tableId + " tr").length - 1;
   if (rowCount == 2) {
-    alert("Minimum 1 order item required!");
+    message = "Minimum 1 order item required!";
+    showErrorMessage(message);
     return;
   }
   var $rowToDelete = $(this).closest('tr');
@@ -154,7 +152,7 @@ function editAddOrderItemRow() {
   $("tr.edit-order-row:last input[name=quantity]").val("");
   $("tr.edit-order-row:last input[name=sellingPrice]").val("");
   $("tr.edit-order-row:last button").replaceWith(
-    '<button type="button" class="btn btn-remove button">Remove</button>'
+    '<button type="button" class="btn btn-remove button"><i class="bi bi-trash"></i> Remove</button>'
   );
   $("tr.edit-order-row:last button").click(removeOrderItem);
 }
@@ -190,11 +188,19 @@ function showBarcodeDropdown(element) {
 }
 
 function getOrderList() {
-  var url = getOrderUrl();
+  var url = getOrderUrl() + '/filtered';
+	var $form = $("#filter-form");
+	var json = toJson($form);
+
   $.ajax({
     url: url,
-    type: "GET",
+    type: "POST",
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},	
     success: function (data) {
+      destroyTablize();
       displayOrderList(data);
       dataTablize();
     },
@@ -356,11 +362,6 @@ function displayOrderForm(data, id) {
   $("#edit-order-modal").modal("toggle");
 }
 
-function refreshTable(){
-	destroyTablize();
-	getOrderList();
-}
-
 //INITIALIZATION CODE
 function init() {
   $("#add-order-item").click(addOrderItemRow);
@@ -368,9 +369,8 @@ function init() {
   $("#add-order-dialog").click(initOrderItemRow);
   $("#add-order").click(addOrder);
   $("#update-order").click(updateOrder);
-  $("#refresh-data").click(refreshTable);
+  $("#filtet-btn").click(getOrderList);
   checkRoleAndDisableEditBtns();
 }
 
 $(document).ready(init);
-$(document).ready(getOrderList);

@@ -6,15 +6,26 @@ function getBrandReportUrl(){
 
 function getBrandList(){
 	var url = getBrandReportUrl();
+	var $form = $("#filter-form");
+	var json = toJson($form);
+
 	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrandList(data);
+		url: url,
+		type: 'POST',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},	
+		success: function(data) {
+			destroyTablize();
+			displayBrandList(data);
 			dataTablize();
-	   },
-	   error: handleAjaxError
-	});
+			$('#brand-report-table').removeAttr('hidden');
+		},
+		error: function(response){
+			 handleAjaxError(response);
+		}
+	 });
 }
 
 function displayBrandList(data){
@@ -32,8 +43,8 @@ function displayBrandList(data){
 
 //INITIALIZATION CODE
 function init(){
-	$('#refresh-btn').click(getBrandList);
+	$('#filter-btn').click(getBrandList);
+	displayOrHideButtons();
 }
 
 $(document).ready(init);
-$(document).ready(getBrandList);

@@ -52,7 +52,7 @@ public class InventoryDtoTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetAll(){
+    public void testGetAll() throws ApiException {
         ProductPojo productPojo = createTemplateProductPojo();
         Integer quantity2 = 200;
         String barcode2 = productPojo.getBarcode();

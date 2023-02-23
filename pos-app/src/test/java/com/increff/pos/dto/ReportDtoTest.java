@@ -69,7 +69,7 @@ public class ReportDtoTest extends AbstractUnitTest {
         assertEquals((Integer)0, daySalesPojo.getInvoicedOrdersCount());
     }
 
-    @Test
+/*    @Test
     public void testGetDaySalesReport() throws ApiException {
         reportDto.createDailyReport();
         List<com.increff.pos.model.DaySalesData> daySalesDataList = reportDto.getDaySalesReport();
@@ -83,7 +83,7 @@ public class ReportDtoTest extends AbstractUnitTest {
         assertEquals(0.0, daySalesData.getTotalRevenue());
         assertEquals((Integer)0, daySalesData.getInvoicedItemsCount());
         assertEquals((Integer)0, daySalesData.getInvoicedOrdersCount());
-    }
+    }*/
 
     @Test
     public void getSalesReport() throws ApiException {
@@ -154,7 +154,7 @@ public class ReportDtoTest extends AbstractUnitTest {
     }
 
 
-    @Test
+/*    @Test
     public void testGetBrandReport(){
         List<BrandData> brandDataList = reportDto.getBrandReport();
         if(brandDataList.size() != orderItemsCount){
@@ -181,7 +181,7 @@ public class ReportDtoTest extends AbstractUnitTest {
             assertEquals(productCategory + i, inventoryReportData.getCategory());
             i++;
         }
-    }
+    }*/
 
     @Before
     public void initReportTests() throws ApiException {

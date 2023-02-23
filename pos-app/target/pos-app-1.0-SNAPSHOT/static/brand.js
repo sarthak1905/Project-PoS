@@ -62,7 +62,6 @@ function updateBrand(event){
 
 }
 
-
 function getBrandList(){
 	var url = getBrandUrl();
 	$.ajax({

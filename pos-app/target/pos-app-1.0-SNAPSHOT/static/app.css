@@ -94,7 +94,7 @@ input:disabled {
 }
 
 .btn-remove {
-  background-color: darksalmon;
+  background-color: #FB5B4A ;
 }
 
 .btn-view {
@@ -151,7 +151,7 @@ input:disabled {
 }
 
 .text-danger {
-  color: #dc3545;
+  color: #F83C27;
 }
 
 #product-form .btn {
