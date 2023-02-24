@@ -40,9 +40,9 @@ import java.util.List;
     }
 
     public List&lt;DaySalesPojo&gt; selectBetweenDates(LocalDate startDate, LocalDate endDate) {
-<span class="nc" id="L43">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BETWEEN_DATES, DaySalesPojo.class);</span>
-<span class="nc" id="L44">        query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate);</span>
-<span class="nc" id="L45">        return query.getResultList();</span>
+<span class="fc" id="L43">        TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_BETWEEN_DATES, DaySalesPojo.class);</span>
+<span class="fc" id="L44">        query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate);</span>
+<span class="fc" id="L45">        return query.getResultList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

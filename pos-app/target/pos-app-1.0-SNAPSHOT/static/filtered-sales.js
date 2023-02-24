@@ -17,8 +17,10 @@ function getSalesList(){
 		},	
 	   data: json,
 	   success: function(data) {
+			destroyTablize();
 	   		displaySalesList(data);
 			dataTablize();
+			$('#sales-table').removeAttr('hidden');
 	   },
 	   error: handleAjaxError
 	});
@@ -48,4 +50,3 @@ function init(){
 }
 
 $(document).ready(init);
-$(document).ready(getSalesList);

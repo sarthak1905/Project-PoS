@@ -69,10 +69,11 @@ public class ReportDtoTest extends AbstractUnitTest {
         assertEquals((Integer)0, daySalesPojo.getInvoicedOrdersCount());
     }
 
-/*    @Test
+    @Test
     public void testGetDaySalesReport() throws ApiException {
         reportDto.createDailyReport();
-        List<com.increff.pos.model.DaySalesData> daySalesDataList = reportDto.getDaySalesReport();
+        DaySalesForm daySalesForm = createTemplateDaySalesForm();
+        List<com.increff.pos.model.DaySalesData> daySalesDataList = reportDto.getFilteredDaySalesReport(daySalesForm);
         if(daySalesDataList.size() != 1){
             fail();
         }
@@ -83,7 +84,7 @@ public class ReportDtoTest extends AbstractUnitTest {
         assertEquals(0.0, daySalesData.getTotalRevenue());
         assertEquals((Integer)0, daySalesData.getInvoicedItemsCount());
         assertEquals((Integer)0, daySalesData.getInvoicedOrdersCount());
-    }*/
+    }
 
     @Test
     public void getSalesReport() throws ApiException {
@@ -154,9 +155,10 @@ public class ReportDtoTest extends AbstractUnitTest {
     }
 
 
-/*    @Test
+    @Test
     public void testGetBrandReport(){
-        List<BrandData> brandDataList = reportDto.getBrandReport();
+        BrandReportFilterForm brandReportFilterForm = createTemplateBrandFilterForm();
+        List<BrandData> brandDataList = reportDto.getBrandReport(brandReportFilterForm);
         if(brandDataList.size() != orderItemsCount){
             fail();
         }
@@ -170,7 +172,8 @@ public class ReportDtoTest extends AbstractUnitTest {
 
     @Test
     public void testGetInventoryReport() throws ApiException {
-        List<InventoryReportData> inventoryReportDataList = reportDto.getInventoryReport();
+        InventoryReportFilterForm inventoryReportFilterForm = createTemplateInventoryReportFilterForm();
+        List<InventoryReportData> inventoryReportDataList = reportDto.getFilteredInventoryReport(inventoryReportFilterForm);
         if(inventoryReportDataList.size() != orderItemsCount){
             fail();
         }
@@ -181,7 +184,7 @@ public class ReportDtoTest extends AbstractUnitTest {
             assertEquals(productCategory + i, inventoryReportData.getCategory());
             i++;
         }
-    }*/
+    }
 
     @Before
     public void initReportTests() throws ApiException {
@@ -292,6 +295,28 @@ public class ReportDtoTest extends AbstractUnitTest {
         brandPojo = brandDao.selectBrandCategory(brand, category);
         int brandId = brandPojo.getId();
         return TestHelper.createProduct(name, barcode, brandId, mrp);
+    }
+
+    private DaySalesForm createTemplateDaySalesForm() {
+        DaySalesForm daySalesForm = new DaySalesForm();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        daySalesForm.setStartDate(LocalDate.now().minus(1, ChronoUnit.DAYS).format(dateTimeFormatter));
+        daySalesForm.setEndDate(LocalDate.now().minus(1, ChronoUnit.DAYS).format(dateTimeFormatter));
+        return daySalesForm;
+    }
+
+    private BrandReportFilterForm createTemplateBrandFilterForm() {
+        BrandReportFilterForm brandReportFilterForm = new BrandReportFilterForm();
+        brandReportFilterForm.setBrand("");
+        brandReportFilterForm.setCategory("");
+        return brandReportFilterForm;
+    }
+
+    private InventoryReportFilterForm createTemplateInventoryReportFilterForm() {
+        InventoryReportFilterForm inventoryReportFilterForm = new InventoryReportFilterForm();
+        inventoryReportFilterForm.setBrand("");
+        inventoryReportFilterForm.setCategory("");
+        return inventoryReportFilterForm;
     }
 
 }

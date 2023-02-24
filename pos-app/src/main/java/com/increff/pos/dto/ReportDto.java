@@ -90,8 +90,8 @@ public class ReportDto {
         List<BrandPojo> brandPojoList = brandService.getAll();
         List<BrandData> brandDataList = new ArrayList<>();
         for(BrandPojo brandPojo: brandPojoList){
-            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("")) {
-                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("")) {
+            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("") || filterBrandName.equals("---All---")) {
+                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("") || filterCategoryName.equals("---All---")) {
                     brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));
                 }
             }
@@ -110,8 +110,8 @@ public class ReportDto {
         HashMap<Integer, Integer> brandIdToQuantityMap = new HashMap<>();
         for(ProductPojo productPojo: productPojoList){
             BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());
-            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("")) {
-                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("")) {
+            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("") || filterBrandName.equals("---All---")) {
+                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("") || filterCategoryName.equals("---All---")) {
                     InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
                     Integer quantity = inventoryPojo.getQuantity();
                     Integer brandId = brandPojo.getId();
@@ -189,8 +189,8 @@ public class ReportDto {
         for(OrderItemPojo orderItemPojo: allOrderItemList){
             ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
             BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());
-            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("")) {
-                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("")) {
+            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals("") || filterBrandName.equals("---All---")) {
+                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals("") || filterCategoryName.equals("---All---")) {
                     Integer brandId = brandPojo.getId();
                     Integer quantity = orderItemPojo.getQuantity();
                     Double revenue = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();

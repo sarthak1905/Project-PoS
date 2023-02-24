@@ -4,23 +4,8 @@ function getDaySalesReportUrl(){
 	return baseUrl + "/api/reports/day-sales";
 }
 
-function getDaySalesList(){
-	var url = getDaySalesReportUrl();
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayDaySalesList(data);
-			dataTablize();
-	   },
-	   error: function(response) {
-			handleAjaxError(response);
-	   }
-	});
-}
-
 function getFilteredList(){
-	var url = getDaySalesReportUrl() + '/filter';
+	var url = getDaySalesReportUrl();
 	var $form = $("#filter-form");
 	var json = toJson($form);
 	
@@ -34,6 +19,7 @@ function getFilteredList(){
 		success: function(data) {
 			displayDaySalesList(data);
 			dataTablize();
+			$('#day-sales-table').removeAttr('hidden');
 		},
 		error: function(response) {
 			handleAjaxError(response);
@@ -62,7 +48,7 @@ function displayDaySalesList(data){
 function init(){
 	//$('#refresh-data').click(getDaySalesList);
 	$('#filter-report-btn').click(getFilteredList);
+	displayOrHideButtons();
 }
 
 $(document).ready(init);
-$(document).ready(getDaySalesList);

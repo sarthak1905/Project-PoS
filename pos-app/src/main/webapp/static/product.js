@@ -10,7 +10,7 @@ function getBrandUrl(){
 }
 
 // Global variables 
-const brandCategoriesMap = {}
+const brandCategoriesMap = {};
 
 //BUTTON ACTIONS
 function addProduct(event){
@@ -98,7 +98,9 @@ function generateBrandCategoriesMap(){
 			}
 			showBrandDropdown(Object.keys(brandCategoriesMap)[0], undefined, true, false);
 		},
-		error: handleAjaxError
+		error: function(response){
+			handleAjaxError(response);
+		}
 	});
 }
 
@@ -228,8 +230,8 @@ function showBrandDropdown(brand, category, firstRun, isInEditModal){
 	}
 
 	if(firstRun){
-		$selectBrandName.select2();
-		$selectCategoryName.select2();
+		$selectBrandName.select2({ width: '100%' });
+		$selectCategoryName.select2({ width: '100%' });
 	}
 
 	if(isInEditModal){

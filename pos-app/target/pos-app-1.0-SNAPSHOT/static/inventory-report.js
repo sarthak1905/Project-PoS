@@ -20,6 +20,7 @@ function getInventoryList(){
 			destroyTablize();
 	   		displayInventoryList(data);
 			dataTablize();
+			$('#inventory-report-table').removeAttr('hidden');
 	   },
 	   error: function(response){
 			handleAjaxError(response);
@@ -43,6 +44,7 @@ function displayInventoryList(data){
 
 function init(){
 	$('#filter-btn').click(getInventoryList);
+	displayOrHideButtons();
 }
 
 $(document).ready(init);

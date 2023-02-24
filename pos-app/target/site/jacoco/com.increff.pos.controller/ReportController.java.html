@@ -21,33 +21,27 @@ import java.util.List;
     private ReportDto reportDto;
 
     @ApiOperation(value = &quot;Gets the pos-day-sales table&quot;)
-    @RequestMapping(path = &quot;/day-sales&quot;, method = RequestMethod.GET)
-    public List&lt;DaySalesData&gt; getDaySalesReport() {
-<span class="nc" id="L26">        return reportDto.getDaySalesReport();</span>
-    }
-
-    @ApiOperation(value = &quot;Gets the pos-day-sales table&quot;)
-    @RequestMapping(path = &quot;/day-sales/filter&quot;, method = RequestMethod.POST)
+    @RequestMapping(path = &quot;/day-sales&quot;, method = RequestMethod.POST)
     public List&lt;DaySalesData&gt; getFilteredDaySalesReport(@RequestBody DaySalesForm daySalesForm) throws ApiException {
-<span class="nc" id="L32">        return reportDto.getFilteredDaySalesReport(daySalesForm);</span>
+<span class="nc" id="L26">        return reportDto.getFilteredDaySalesReport(daySalesForm);</span>
     }
 
     @ApiOperation(value = &quot;Gets sales report&quot;)
     @RequestMapping(path = &quot;/sales&quot;, method = RequestMethod.POST)
     public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportFilterForm salesReportFilterForm) throws ApiException {
-<span class="nc" id="L38">        return reportDto.getSalesReport(salesReportFilterForm);</span>
+<span class="nc" id="L32">        return reportDto.getSalesReport(salesReportFilterForm);</span>
     }
 
     @ApiOperation(value = &quot;Gets brand report&quot;)
     @RequestMapping(path = &quot;/brand&quot;, method = RequestMethod.POST)
     public List&lt;BrandData&gt; getBrandReport(@RequestBody BrandReportFilterForm brandReportFilterForm){
-<span class="nc" id="L44">        return reportDto.getBrandReport(brandReportFilterForm);</span>
+<span class="nc" id="L38">        return reportDto.getBrandReport(brandReportFilterForm);</span>
     }
 
     @ApiOperation(value = &quot;Gets inventory report&quot;)
     @RequestMapping(path = &quot;/inventory&quot;, method = RequestMethod.POST)
     public List&lt;InventoryReportData&gt; getFilteredInventoryReport(@RequestBody InventoryReportFilterForm inventoryReportFilterForm) throws ApiException {
-<span class="nc" id="L50">        return reportDto.getFilteredInventoryReport(inventoryReportFilterForm);</span>
+<span class="nc" id="L44">        return reportDto.getFilteredInventoryReport(inventoryReportFilterForm);</span>
     }
 
 }

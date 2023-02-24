@@ -203,6 +203,7 @@ function getOrderList() {
       destroyTablize();
       displayOrderList(data);
       dataTablize();
+      $('#order-table').removeAttr('hidden');
     },
     error: function(response) {
       handleAjaxError(response);
@@ -369,7 +370,7 @@ function init() {
   $("#add-order-dialog").click(initOrderItemRow);
   $("#add-order").click(addOrder);
   $("#update-order").click(updateOrder);
-  $("#filtet-btn").click(getOrderList);
+  $("#filter-btn").click(getOrderList);
   checkRoleAndDisableEditBtns();
 }
 
