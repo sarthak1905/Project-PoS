@@ -217,6 +217,9 @@ public class OrderDto {
     }
 
     private void validateOrderItemInputForms(List<OrderItemForm> orderItemForms) throws ApiException {
+        if(orderItemForms.size() == 0){
+            throw new ApiException("Minimum 1 order item must exist to place order!");
+        }
         for(OrderItemForm orderItemForm: orderItemForms){
             ValidationUtil.validateForms(orderItemForm);
             int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
