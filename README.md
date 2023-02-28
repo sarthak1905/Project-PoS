@@ -1,1 +1,1 @@
-# employee-spring
+# PoS Project based on Spring
