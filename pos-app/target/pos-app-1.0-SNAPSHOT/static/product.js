@@ -230,8 +230,8 @@ function showBrandDropdown(brand, category, firstRun, isInEditModal){
 	}
 
 	if(firstRun){
-		$selectBrandName.select2();
-		$selectCategoryName.select2();
+		$selectBrandName.select2({ width: '100%' });
+		$selectCategoryName.select2({ width: '100%' });
 	}
 
 	if(isInEditModal){

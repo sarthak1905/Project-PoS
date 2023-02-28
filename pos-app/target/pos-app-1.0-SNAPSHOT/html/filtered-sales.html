@@ -25,9 +25,11 @@
 			<form class="form-inline" id="filter-form">
 				<div class="col-5">
 					<div class="form-group">
-						<label for="inputBrandName" class="col-sm-2 col-form-label">Brand</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="brand" id="inputBrandName" placeholder="Enter Brand">
+						<label for="brand-name" class="col-sm-2 col-form-label">Brand</label>
+						<div class="col-sm-6">
+							<select class="form-control" name="brand" id="brand-name">
+								<option></option>
+							</select>
 						</div>
 					</div>
 
@@ -37,14 +39,16 @@
 					</div>	
 
 					<div class="form-group">
-						<label for="inputBrandCategory" class="col-sm-2 col-form-label">Category</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="category" id="inputBrandCategory" placeholder="Enter Category">
+						<label for="category-name" class="col-sm-2 col-form-label">Category</label>
+						<div class="col-sm-6">
+							<select class="form-control" name="category" id="category-name">
+								<option></option>
+							</select>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-5">
+				<div class="col-4">
 					<div class="form-group">
 						<label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
 						<div class="col-sm-10">
@@ -61,7 +65,7 @@
 				</div>
 				<div class="col-2 d-flex align-items-center">
 					<button type="button" class="btn btn-add button sales-btn" id="generate-report-btn">
-						<i class="fas fa-sync-alt"></i>&nbsp; Generate</button>
+						<i class="bi bi-funnel-fill"></i>&nbsp; Filter</button>
 				</div>
 			</form>
 		</div>

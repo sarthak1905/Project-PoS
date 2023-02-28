@@ -90,8 +90,8 @@ import java.util.Map;
 <span class="fc" id="L90">        List&lt;BrandPojo&gt; brandPojoList = brandService.getAll();</span>
 <span class="fc" id="L91">        List&lt;BrandData&gt; brandDataList = new ArrayList&lt;&gt;();</span>
 <span class="fc bfc" id="L92" title="All 2 branches covered.">        for(BrandPojo brandPojo: brandPojoList){</span>
-<span class="pc bpc" id="L93" title="2 of 4 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;)) {</span>
-<span class="pc bpc" id="L94" title="2 of 4 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;)) {</span>
+<span class="pc bpc" id="L93" title="4 of 6 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;) || filterBrandName.equals(&quot;---All---&quot;)) {</span>
+<span class="pc bpc" id="L94" title="4 of 6 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;) || filterCategoryName.equals(&quot;---All---&quot;)) {</span>
 <span class="fc" id="L95">                    brandDataList.add(ConvertUtil.convertBrandPojoToData(brandPojo));</span>
                 }
             }
@@ -110,8 +110,8 @@ import java.util.Map;
 <span class="fc" id="L110">        HashMap&lt;Integer, Integer&gt; brandIdToQuantityMap = new HashMap&lt;&gt;();</span>
 <span class="fc bfc" id="L111" title="All 2 branches covered.">        for(ProductPojo productPojo: productPojoList){</span>
 <span class="fc" id="L112">            BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());</span>
-<span class="pc bpc" id="L113" title="2 of 4 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;)) {</span>
-<span class="pc bpc" id="L114" title="2 of 4 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;)) {</span>
+<span class="pc bpc" id="L113" title="4 of 6 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;) || filterBrandName.equals(&quot;---All---&quot;)) {</span>
+<span class="pc bpc" id="L114" title="4 of 6 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;) || filterCategoryName.equals(&quot;---All---&quot;)) {</span>
 <span class="fc" id="L115">                    InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());</span>
 <span class="fc" id="L116">                    Integer quantity = inventoryPojo.getQuantity();</span>
 <span class="fc" id="L117">                    Integer brandId = brandPojo.getId();</span>
@@ -189,8 +189,8 @@ import java.util.Map;
 <span class="fc bfc" id="L189" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: allOrderItemList){</span>
 <span class="fc" id="L190">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
 <span class="fc" id="L191">            BrandPojo brandPojo = brandService.get(productPojo.getBrandCategory());</span>
-<span class="pc bpc" id="L192" title="2 of 4 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;)) {</span>
-<span class="pc bpc" id="L193" title="2 of 4 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;)) {</span>
+<span class="pc bpc" id="L192" title="4 of 6 branches missed.">            if(brandPojo.getBrand().equals(filterBrandName) || filterBrandName.equals(&quot;&quot;) || filterBrandName.equals(&quot;---All---&quot;)) {</span>
+<span class="pc bpc" id="L193" title="4 of 6 branches missed.">                if (brandPojo.getCategory().equals(filterCategoryName) || filterCategoryName.equals(&quot;&quot;) || filterCategoryName.equals(&quot;---All---&quot;)) {</span>
 <span class="fc" id="L194">                    Integer brandId = brandPojo.getId();</span>
 <span class="fc" id="L195">                    Integer quantity = orderItemPojo.getQuantity();</span>
 <span class="fc" id="L196">                    Double revenue = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();</span>

@@ -8,11 +8,11 @@ pos-app,com.increff.pos.dao,InventoryDao,0,31,0,0,0,8,0,4,0,4
 pos-app,com.increff.pos.dao,UserDao,0,31,0,0,0,8,0,4,0,4
 pos-app,com.increff.pos.dao,OrderItemDao,0,56,0,0,0,12,0,5,0,5
 pos-app,com.increff.pos.dao,OrderDao,0,74,0,0,0,17,0,7,0,7
-pos-app,com.increff.pos.dto,ReportDto,45,578,27,57,9,115,26,27,0,11
+pos-app,com.increff.pos.dto,ReportDto,69,578,39,57,9,115,32,27,0,11
 pos-app,com.increff.pos.dto,UserDto,6,111,2,4,2,26,2,9,0,8
 pos-app,com.increff.pos.dto,BrandDto,0,67,0,2,0,21,0,7,0,6
 pos-app,com.increff.pos.dto,ProductDto,10,169,2,6,2,44,2,9,0,7
-pos-app,com.increff.pos.dto,OrderDto,81,514,6,22,14,109,6,19,0,11
+pos-app,com.increff.pos.dto,OrderDto,86,517,7,23,15,110,7,19,0,11
 pos-app,com.increff.pos.dto,InventoryDto,0,105,0,2,0,23,0,6,0,5
 pos-app,com.increff.pos.service,OrderItemService,0,72,0,4,0,15,0,7,0,5
 pos-app,com.increff.pos.service,ApiException,0,4,0,0,0,2,0,1,0,1

@@ -17,13 +17,17 @@ function generateBrandCategoriesMap(){
 		url: url,
 		type: 'GET',
 		success: function(brandData) {
+			var all = "---All---";
+			brandCategoriesMap[all] = [all];
 			for(var i in brandData){
 				var tempBrand = brandData[i];
+				brandCategoriesMap[all].push(tempBrand.category);
 				if(tempBrand.brand in brandCategoriesMap){
 					brandCategoriesMap[tempBrand.brand].push(tempBrand.category); 
 				}
 				else{
-					brandCategoriesMap[tempBrand.brand] = [tempBrand.category];
+					brandCategoriesMap[tempBrand.brand] = [all];
+					brandCategoriesMap[tempBrand.brand].push(tempBrand.category);
 				}
 			}
 			showBrandDropdown(Object.keys(brandCategoriesMap)[0], true);

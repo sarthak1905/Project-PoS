@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.increff.pos.dto.OrderDtoTest" time="3.801" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="com.increff.pos.dto.OrderDtoTest" time="3.189" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_202\jre\bin"/>
@@ -65,9 +65,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetFilteredOrders" time="0.328"/>
-  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetOrderItems" time="0.432"/>
-  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGet" time="0.204"/>
-  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetOrderInvoice" time="2.585"/>
-  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testUpdate" time="0.252"/>
+  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetFilteredOrders" time="0.256"/>
+  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetOrderItems" time="0.308"/>
+  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGet" time="0.127"/>
+  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testGetOrderInvoice" time="2.329"/>
+  <testcase classname="com.increff.pos.dto.OrderDtoTest" name="testUpdate" time="0.169"/>
 </testsuite>

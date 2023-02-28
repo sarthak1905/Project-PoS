@@ -37,7 +37,6 @@ public class DbConfig {
 
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
-//		logger.info("jdbcDriver: " + jdbcDriver + ", jdbcUrl: " + jdbcUrl + ", jdbcUsername: " + jdbcUsername);
 		BasicDataSource bean = new BasicDataSource();
 		bean.setDriverClassName(jdbcDriver);
 		bean.setUrl(jdbcUrl);
@@ -45,7 +44,6 @@ public class DbConfig {
 		bean.setPassword(jdbcPassword);
 		bean.setInitialSize(2);
 		bean.setDefaultAutoCommit(false);
-		//bean.setMaxTotal(10);
 		bean.setMinIdle(2);
 		bean.setValidationQuery("Select 1");
 		bean.setTestWhileIdle(true);
@@ -65,7 +63,6 @@ public class DbConfig {
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", hibernateDialect);
 		jpaProperties.put("hibernate.show_sql", hibernateShowSql);
-		jpaProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddl);
 		jpaProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddl);
 		bean.setJpaProperties(jpaProperties);
 		return bean;

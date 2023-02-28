@@ -217,13 +217,16 @@ import java.util.List;
     }
 
     private void validateOrderItemInputForms(List&lt;OrderItemForm&gt; orderItemForms) throws ApiException {
-<span class="fc bfc" id="L220" title="All 2 branches covered.">        for(OrderItemForm orderItemForm: orderItemForms){</span>
-<span class="fc" id="L221">            ValidationUtil.validateForms(orderItemForm);</span>
-<span class="fc" id="L222">            int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());</span>
-<span class="fc" id="L223">            inventoryService.checkInventory(productId, orderItemForm.getQuantity());</span>
-<span class="fc" id="L224">            orderService.validateSellingPrice(productId, orderItemForm.getSellingPrice());</span>
-<span class="fc" id="L225">        }</span>
-<span class="fc" id="L226">    }</span>
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">        if(orderItemForms.size() == 0){</span>
+<span class="nc" id="L221">            throw new ApiException(&quot;Minimum 1 order item must exist to place order!&quot;);</span>
+        }
+<span class="fc bfc" id="L223" title="All 2 branches covered.">        for(OrderItemForm orderItemForm: orderItemForms){</span>
+<span class="fc" id="L224">            ValidationUtil.validateForms(orderItemForm);</span>
+<span class="fc" id="L225">            int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());</span>
+<span class="fc" id="L226">            inventoryService.checkInventory(productId, orderItemForm.getQuantity());</span>
+<span class="fc" id="L227">            orderService.validateSellingPrice(productId, orderItemForm.getSellingPrice());</span>
+<span class="fc" id="L228">        }</span>
+<span class="fc" id="L229">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
