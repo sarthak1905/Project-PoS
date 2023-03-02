@@ -30,35 +30,21 @@ public class AuthenticationController extends AbstractUiController {
 	private UserDto userDto;
 	@Autowired
 	private InfoData info;
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+
 
 	@ApiOperation(value = "Initializes application")
 	@RequestMapping(path = "/site/signup", method = RequestMethod.POST)
 	public void signupUser(@RequestBody UserForm userForm) throws ApiException {
 		userDto.add(userForm);
-		info.setMessage("Signed up successfully!");
 	}
 
 	@ApiOperation(value = "Logs in a user")
 	@RequestMapping(path = "/session/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView login(HttpServletRequest req, LoginForm loginForm) throws ApiException {
-		UserPojo userPojo = userDto.get(loginForm);
-		boolean authenticated = (userPojo != null && passwordEncoder.matches(loginForm.getPassword(), userPojo.getPassword()));
-		if (!authenticated) {
-			info.setMessage("Invalid username or password");
+		if (!userDto.authenticate(loginForm)) {
 			return new ModelAndView("redirect:/site/login");
 		}
-
-		// Create authentication object
-		Authentication authentication = userDto.convertUserPojoToAuthentication(userPojo);
-		// Create new session
-		HttpSession session = req.getSession(true);
-		// Attach Spring SecurityContext to this new session
-		SecurityUtil.createContext(session);
-		// Attach Authentication object to the Security Context
-		SecurityUtil.setAuthentication(authentication);
-
+		userDto.createLoginSession(loginForm, req);
 		return new ModelAndView("redirect:/ui/orders");
 
 	}

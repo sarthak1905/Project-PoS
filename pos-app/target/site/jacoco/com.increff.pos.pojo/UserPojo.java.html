@@ -7,29 +7,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import static com.increff.pos.pojo.GeneratorTable.POS_USER_SEQ;
-import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
-
 @Entity
 @Getter
-<span class="pc" id="L15">@Setter</span>
+<span class="pc" id="L12">@Setter</span>
 @Table(name = &quot;users&quot;, indexes = @Index(name=&quot;email_index&quot;, columnList = &quot;email&quot;))
-<span class="fc" id="L17">public class UserPojo extends AbstractVersionPojo {</span>
+<span class="fc" id="L14">public class UserPojo extends AbstractVersionPojo {</span>
 
 	@Id
-	@TableGenerator(name = POS_USER_SEQ, pkColumnValue = POS_USER_SEQ, table = POS_TABLE_NAME)
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = POS_USER_SEQ)
-<span class="fc" id="L22">	private int id;</span>
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L18">	private Integer id;</span>
 	@Column(nullable = false, unique = true)
 	@NotBlank
-<span class="fc" id="L25">	private String email;</span>
+<span class="fc" id="L21">	private String email;</span>
 	@Column(nullable = false)
 	@NotBlank
-<span class="fc" id="L28">	private String password;</span>
+<span class="nc" id="L24">	private String password;</span>
 
 	public void setPassword(String password) {
-<span class="fc" id="L31">		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();</span>
-<span class="fc" id="L32">		this.password = passwordEncoder.encode(password);</span>
-<span class="fc" id="L33">	}</span>
+<span class="fc" id="L27">		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L28">		this.password = passwordEncoder.encode(password);</span>
+<span class="fc" id="L29">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

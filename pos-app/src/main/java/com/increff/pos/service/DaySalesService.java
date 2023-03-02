@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 
 @Service
@@ -48,8 +46,10 @@ public class DaySalesService {
     }
 
     public void createDaySalesEntry(LocalDate date) throws ApiException {
-        LocalDateTime startOfDay = date.atStartOfDay();
-        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+        LocalDateTime startOfDayTime = date.atStartOfDay();
+        LocalDateTime endOfDayTime = date.atTime(LocalTime.MAX);
+        ZonedDateTime startOfDay = startOfDayTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime endOfDay = endOfDayTime.atZone(ZoneId.systemDefault());
         DaySalesPojo daySalesPojo = new DaySalesPojo();
         daySalesPojo.setDate(date);
 

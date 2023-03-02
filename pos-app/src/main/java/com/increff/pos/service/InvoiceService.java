@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -28,7 +28,7 @@ public class InvoiceService {
         return invoiceDao.selectAll();
     }
 
-    public List<InvoicePojo> getInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
+    public List<InvoicePojo> getInvoicedOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
         if(startDate.isAfter(endDate)){
             throw new ApiException("Start date cannot be after end date for scheduler!");
         }
@@ -38,7 +38,7 @@ public class InvoiceService {
     public InvoicePojo getOrNull(Integer orderId) {
         return invoiceDao.select_id(orderId);
     }
-    public LocalDateTime getFirstOrderDateTime() {
+    public ZonedDateTime getFirstOrderDateTime() {
         return invoiceDao.selectFirstOrderDateTime();
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class OrderDtoTest extends AbstractUnitTest {
     private static final Integer quantity = 100;
     private static final Integer orderId = 999;
     private static final int orderItemsCount = 3;
-    private static final LocalDateTime orderTime = LocalDateTime.now();
+    private static final ZonedDateTime orderTime = ZonedDateTime.now();
     private static final Double orderTotal = 300.00;
     private static final boolean invoiced = false;
     @Autowired

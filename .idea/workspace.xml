@@ -6,19 +6,239 @@
   <component name="ChangeListManager">
     <list default="true" id="2dd2c2fd-be7c-4c29-bb35-cb867ce1850d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/Test/invoice.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/Test/invoice.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/src/main/java/com/increff/invoice/models/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/src/main/java/com/increff/invoice/models/OrderData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/invoice-app/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/brand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.controller/InvoiceController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.controller/InvoiceController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.dto/InvoiceDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.dto/InvoiceDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/InvoiceForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/InvoiceForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/InvoiceResponse.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/InvoiceResponse.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderData.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderItemData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderItemData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderItemForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.models/OrderItemForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.service/InvoiceService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.service/InvoiceService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/ControllerConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/ControllerConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/SpringConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/SpringConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/WebInitializer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/com.increff.invoice.spring/WebInitializer.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/prettify.css" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/prettify.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/prettify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/report.css" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/report.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/sort.js" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-resources/sort.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/surefire-reports/TEST-org.example.AppTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/surefire-reports/TEST-org.example.AppTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/target/surefire-reports/org.example.AppTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/target/surefire-reports/org.example.AppTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice102.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice103.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice152.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice2.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice202.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice252.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice253.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice254.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice255.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice256.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice302.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice352.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice402.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice452.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice503.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice52.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice53.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/generated/invoice6.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dao/InvoiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dao/InvoiceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dao/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/BrandDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/BrandDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/InventoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/InventoryDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/ReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/ReportDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/InventoryForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/InventoryForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/InvoiceForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/InvoiceForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/model/OrderData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/AbstractVersionPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/AbstractVersionPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/BrandPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/BrandPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/DaySalesPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/DaySalesPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/GeneratorTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/InvoicePojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/InvoicePojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/OrderItemPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/OrderItemPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/OrderPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/OrderPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/ProductPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/ProductPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/UserPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/pojo/UserPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/BrandService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/DaySalesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/DaySalesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/InventoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/DbConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/DbConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/spring/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/util/ConvertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/util/ConvertUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/util/ValidationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/java/com/increff/pos/util/ValidationUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/inventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/html/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/html/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/main/webapp/static/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/main/webapp/static/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/OrderDtoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/OrderDtoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/ReportDtoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/ReportDtoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/UserDtoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/dto/UserDtoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/helper/TestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/helper/TestHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/BrandServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/BrandServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/InvoiceServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/InvoiceServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/OrderFlowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/src/test/java/com/increff/pos/service/ProductServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/jacoco.exec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/brand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/inventory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/html/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/pos-app-1.0-SNAPSHOT/static/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AbstractUiController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AbstractUiController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AppRestControllerAdvice.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AppRestControllerAdvice.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AppUiController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AppUiController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AuthenticationController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/AuthenticationController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/BrandController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/BrandController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/InventoryController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/OrderController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/OrderController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ProductController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ReportController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/ReportController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/SampleController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/SampleController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/SiteUiController.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/SiteUiController.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.controller/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/AbstractDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/AbstractDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/BrandDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/BrandDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/DaySalesDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/DaySalesDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InventoryDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InventoryDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/InvoiceDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderItemDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/OrderItemDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/ProductDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/ProductDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/UserDao.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dao/UserDao.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/BrandDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/BrandDto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/BrandDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/BrandDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/InventoryDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/InventoryDto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/InventoryDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/InventoryDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/OrderDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ProductDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ProductDto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ProductDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ProductDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ReportDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ReportDto.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ReportDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/ReportDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/UserDto.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/UserDto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/UserDto.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/UserDto.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.dto/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandReportFilterForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/BrandReportFilterForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/DaySalesData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/DaySalesData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/DaySalesForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/DaySalesForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InfoData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InfoData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryReportData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryReportData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryReportFilterForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InventoryReportFilterForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InvoiceForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/InvoiceForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/LoginForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/LoginForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/MessageData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/MessageData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderFilterForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderFilterForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderItemData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderItemData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderItemForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/OrderItemForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/ProductData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/ProductData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/ProductForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/ProductForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/SalesReportData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/SalesReportData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/SalesReportFilterForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/SalesReportFilterForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/UserData.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/UserData.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/UserForm.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.model/UserForm.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/AbstractVersionPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/AbstractVersionPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/AbstractVersionPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/AbstractVersionPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/BrandPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/BrandPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/BrandPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/BrandPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/DaySalesPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/DaySalesPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/GeneratorTable.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/GeneratorTable.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InventoryPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InventoryPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/InvoicePojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderItemPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderItemPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderItemPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderItemPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/OrderPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/ProductPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/ProductPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/ProductPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/ProductPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/UserPojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/UserPojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/UserPojo.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/UserPojo.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.pojo/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ApiException.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ApiException.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/BrandService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/BrandService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/BrandService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/BrandService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/DaySalesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/DaySalesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/DaySalesService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/DaySalesService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InventoryService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InventoryService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InventoryService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InventoryService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/InvoiceService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderItemService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderItemService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/OrderService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ProductService.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ProductService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ProductService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/ProductService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/UserService.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/UserService.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.service/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/ControllerConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/ControllerConfig.java.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/DbConfig.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/DbConfig.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/DbConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/DbConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SchedulerConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SchedulerConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SecurityConfig.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SecurityConfig.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SecurityConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SecurityConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SpringConfig.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SpringConfig.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SpringSecurityInitializer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/SpringSecurityInitializer.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/WebInitializer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/WebInitializer.java.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.spring/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ConvertUtil.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ConvertUtil.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ConvertUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ConvertUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/CookieUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/CookieUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/IOUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/IOUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/NormalizeUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/NormalizeUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/SecurityUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/SecurityUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/UserPrincipal.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/UserPrincipal.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ValidationUtil.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ValidationUtil.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ValidationUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/ValidationUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/com.increff.pos.util/index.source.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/prettify.css" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/prettify.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/prettify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/report.css" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/report.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/sort.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-resources/sort.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/site/jacoco/jacoco.xml" afterDir="false" />
@@ -37,7 +257,7 @@
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.InventoryServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.InventoryServiceTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.InvoiceServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.InvoiceServiceTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.OrderItemServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.OrderItemServiceTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.OrderServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.OrderServiceTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.OrderServiceTest.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.ProductServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.ProductServiceTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.SampleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.SampleTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.UserServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/TEST-com.increff.pos.service.UserServiceTest.xml" afterDir="false" />
@@ -56,7 +276,7 @@
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.InventoryServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.InventoryServiceTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.InvoiceServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.InvoiceServiceTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.OrderItemServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.OrderItemServiceTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.OrderServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.OrderServiceTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.OrderServiceTest.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.ProductServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.ProductServiceTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.SampleTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.SampleTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.UserServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pos-app/target/surefire-reports/com.increff.pos.service.UserServiceTest.txt" afterDir="false" />
@@ -99,7 +319,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Ko6gnjjylBBi35bajwAbLWOOXv" />
   <component name="ProjectLevelVcsManager">
@@ -110,18 +330,18 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "jdk.selected.JAVA_MODULE": "1.8 (2)",
-    "last_opened_file_path": "D:/Java-Projects/Maven/Increff-Training/pos-project/pos-app/src/main/resources/com/increff/pos",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "coverage"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8 (2)&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Java-Projects/Maven/Increff-Training/pos-project/pos-app/src/main/resources/com/increff/pos&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;coverage&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app\src\main\resources\com\increff\pos" />
@@ -144,16 +364,8 @@
       <recent name="com.incref.pos_project.models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in pos-app (1)">
+  <component name="RunManager" selected="JUnit.java in pos-app">
     <configuration name="All in pos-app (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pos-app" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in pos-app (5)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pos-app" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
@@ -169,6 +381,21 @@
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BrandServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pos-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.pos.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.pos.service" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.pos.service.BrandServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -245,11 +472,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BrandServiceTest" />
         <item itemvalue="JUnit.All in pos-app (1)" />
         <item itemvalue="JUnit.ReportDtoTest" />
         <item itemvalue="JUnit.OrderDtoTest" />
         <item itemvalue="JUnit.OrderDtoTest.testGetFilteredOrders" />
-        <item itemvalue="JUnit.All in pos-app (5)" />
       </list>
     </recent_temporary>
   </component>
@@ -287,32 +514,24 @@
     <SUITE FILE_PATH="coverage/pos_project$OrderItemDaoTest.ic" NAME="OrderItemDaoTest Coverage Results" MODIFIED="1676281426434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$BrandDtoTest.ic" NAME="BrandDtoTest Coverage Results" MODIFIED="1676354034232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.dto.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$UserDtoTest.ic" NAME="UserDtoTest Coverage Results" MODIFIED="1676457716218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$All_in_pos_project.ic" NAME="All in pos-project Coverage Results" MODIFIED="1676439492450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__4_.ic" NAME="All in pos-app (4) Coverage Results" MODIFIED="1677045431773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__2_.ic" NAME="All in pos-app (2) Coverage Results" MODIFIED="1676955582256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/pos_project$InventoryDaoTest.ic" NAME="InventoryDaoTest Coverage Results" MODIFIED="1676279216153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.dao.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$InventoryDtoTest.ic" NAME="InventoryDtoTest Coverage Results" MODIFIED="1676365987132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$OrderDtoTest_testGetOrderInvoice.ic" NAME="OrderDtoTest.testGetOrderInvoice Coverage Results" MODIFIED="1676379967646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$InventoryServiceTest.ic" NAME="InventoryServiceTest Coverage Results" MODIFIED="1676459268944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$DaySalesServiceTest.ic" NAME="DaySalesServiceTest Coverage Results" MODIFIED="1676460180986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.service.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$ProductDaoTest.ic" NAME="ProductDaoTest Coverage Results" MODIFIED="1676273018355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Project_PoS$java_in_pos_app.ic" NAME="java in pos-app Coverage Results" MODIFIED="1677753777150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dao.*</FILTER>
+      <FILTER>com.increff.pos.dto.*</FILTER>
+      <FILTER>com.increff.pos.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$java_in_pos_app.ic" NAME="java in pos-app Coverage Results" MODIFIED="1676971831841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
@@ -320,11 +539,30 @@
       <FILTER>com.increff.pos.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__3_.ic" NAME="All in pos-app (3) Coverage Results" MODIFIED="1676955767716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/pos_project$UserDtoTest_testGet.ic" NAME="UserDtoTest.testGet Coverage Results" MODIFIED="1676457940313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.dto.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$BrandDaoTest.ic" NAME="BrandDaoTest Coverage Results" MODIFIED="1676269393294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$BrandServiceTest.ic" NAME="BrandServiceTest Coverage Results" MODIFIED="1676287621931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$OrderDtoTest_testGet.ic" NAME="OrderDtoTest.testGet Coverage Results" MODIFIED="1676370899275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dto.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$BrandDtoTest.ic" NAME="BrandDtoTest Coverage Results" MODIFIED="1676354034232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dto.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__2_.ic" NAME="All in pos-app (2) Coverage Results" MODIFIED="1676955582256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pos_project$InventoryDaoTest.ic" NAME="InventoryDaoTest Coverage Results" MODIFIED="1676279216153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$InventoryServiceTest.ic" NAME="InventoryServiceTest Coverage Results" MODIFIED="1676459268944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$DaySalesServiceTest.ic" NAME="DaySalesServiceTest Coverage Results" MODIFIED="1676460180986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/pos_project$UserDtoTest_testGet.ic" NAME="UserDtoTest.testGet Coverage Results" MODIFIED="1676457940313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$OrderDtoTest.ic" NAME="OrderDtoTest Coverage Results" MODIFIED="1676439385157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
@@ -334,12 +572,6 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1676290866662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$BrandServiceTest.ic" NAME="BrandServiceTest Coverage Results" MODIFIED="1676287621931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/pos_project$OrderDtoTest_testGet.ic" NAME="OrderDtoTest.testGet Coverage Results" MODIFIED="1676370899275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/pos_project$All_in_pos_app__1_.ic" NAME="All in pos-app (1) Coverage Results" MODIFIED="1677215209706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>

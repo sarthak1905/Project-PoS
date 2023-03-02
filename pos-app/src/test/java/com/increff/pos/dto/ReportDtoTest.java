@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -41,18 +41,18 @@ public class ReportDtoTest extends AbstractUnitTest {
     private OrderDao orderDao;
     @Autowired
     private InvoiceDao invoiceDao;
-    private static final String productName = "name";
-    private static final String productBarcode = "barcode";
-    private static final String productBrand = "brand";
-    private static final String productCategory = "category";
-    private static final Double productMrp = 99.99;
-    private static final Double sellingPrice = 98.99;
-    private static final Integer quantity = 100;
-    private static final Integer orderId = 999;
-    private static final Integer orderItemsCount = 3;
-    private static final LocalDateTime orderTime = LocalDateTime.now();
-    private static final Double orderTotal = 199.99;
-    private static final boolean invoiced = false;
+    private static final String PRODUCT_NAME = "name";
+    private static final String PRODUCT_BARCODE = "barcode";
+    private static final String PRODUCT_BRAND = "brand";
+    private static final String PRODUCT_CATEGORY = "category";
+    private static final Double PRODUCT_MRP = 99.99;
+    private static final Double SELLING_PRICE = 98.99;
+    private static final Integer QUANTITY = 100;
+    private static final Integer ORDER_ID = 999;
+    private static final Integer ORDER_ITEMS_COUNT = 3;
+    private static final ZonedDateTime ORDER_TIME = ZonedDateTime.now();
+    private static final Double ORDER_TOTAL = 199.99;
+    private static final Boolean BOOLEAN = false;
 
     @Test
     public void testCreateDailyReport() throws ApiException {
@@ -99,8 +99,8 @@ public class ReportDtoTest extends AbstractUnitTest {
             totalRevenue += salesReportData.getRevenue();
             quantity += salesReportData.getQuantity();
         }
-        assertEquals(sellingPrice*3, totalRevenue);
-        assertEquals(orderItemsCount, quantity);
+        assertEquals(SELLING_PRICE *3, totalRevenue);
+        assertEquals(ORDER_ITEMS_COUNT, quantity);
     }
 
     @Test
@@ -116,8 +116,8 @@ public class ReportDtoTest extends AbstractUnitTest {
             totalRevenue += salesReportData.getRevenue();
             quantity += salesReportData.getQuantity();
         }
-        assertEquals(sellingPrice*3, totalRevenue);
-        assertEquals(orderItemsCount, quantity);
+        assertEquals(SELLING_PRICE *3, totalRevenue);
+        assertEquals(ORDER_ITEMS_COUNT, quantity);
     }
 
     @Test
@@ -133,8 +133,8 @@ public class ReportDtoTest extends AbstractUnitTest {
             totalRevenue += salesReportData.getRevenue();
             quantity += salesReportData.getQuantity();
         }
-        assertEquals(sellingPrice*3, totalRevenue);
-        assertEquals(orderItemsCount, quantity);
+        assertEquals(SELLING_PRICE *3, totalRevenue);
+        assertEquals(ORDER_ITEMS_COUNT, quantity);
     }
 
     @Test
@@ -150,8 +150,8 @@ public class ReportDtoTest extends AbstractUnitTest {
             totalRevenue += salesReportData.getRevenue();
             quantity += salesReportData.getQuantity();
         }
-        assertEquals(sellingPrice*3, totalRevenue);
-        assertEquals(orderItemsCount, quantity);
+        assertEquals(SELLING_PRICE *3, totalRevenue);
+        assertEquals(ORDER_ITEMS_COUNT, quantity);
     }
 
 
@@ -159,13 +159,13 @@ public class ReportDtoTest extends AbstractUnitTest {
     public void testGetBrandReport(){
         BrandReportFilterForm brandReportFilterForm = createTemplateBrandFilterForm();
         List<BrandData> brandDataList = reportDto.getBrandReport(brandReportFilterForm);
-        if(brandDataList.size() != orderItemsCount){
+        if(brandDataList.size() != ORDER_ITEMS_COUNT){
             fail();
         }
         int i = 0;
         for(BrandData brandData: brandDataList){
-            assertEquals(brandData.getBrand(), productBrand + i);
-            assertEquals(brandData.getCategory(), productCategory + i);
+            assertEquals(brandData.getBrand(), PRODUCT_BRAND + i);
+            assertEquals(brandData.getCategory(), PRODUCT_CATEGORY + i);
             i++;
         }
     }
@@ -174,14 +174,14 @@ public class ReportDtoTest extends AbstractUnitTest {
     public void testGetInventoryReport() throws ApiException {
         InventoryReportFilterForm inventoryReportFilterForm = createTemplateInventoryReportFilterForm();
         List<InventoryReportData> inventoryReportDataList = reportDto.getFilteredInventoryReport(inventoryReportFilterForm);
-        if(inventoryReportDataList.size() != orderItemsCount){
+        if(inventoryReportDataList.size() != ORDER_ITEMS_COUNT){
             fail();
         }
         int i = 0;
         for(InventoryReportData inventoryReportData: inventoryReportDataList){
-            assertEquals((Integer)(quantity + i - 1), inventoryReportData.getQuantity());
-            assertEquals(productBrand + i, inventoryReportData.getBrand());
-            assertEquals(productCategory + i, inventoryReportData.getCategory());
+            assertEquals((Integer)(QUANTITY + i - 1), inventoryReportData.getQuantity());
+            assertEquals(PRODUCT_BRAND + i, inventoryReportData.getBrand());
+            assertEquals(PRODUCT_CATEGORY + i, inventoryReportData.getCategory());
             i++;
         }
     }
@@ -232,7 +232,7 @@ public class ReportDtoTest extends AbstractUnitTest {
     }
 
     private InvoicePojo createTemplateInvoice(Integer orderId) {
-        InvoicePojo invoicePojo = TestHelper.createInvoicePojo(orderId, orderTime, "tempPath");
+        InvoicePojo invoicePojo = TestHelper.createInvoicePojo(orderId, ORDER_TIME, "tempPath");
         invoiceDao.insert(invoicePojo);
         invoicePojo = invoiceDao.selectAll().get(0);
         return invoicePojo;
@@ -240,10 +240,10 @@ public class ReportDtoTest extends AbstractUnitTest {
 
     private OrderPojo createTemplateOrder() throws ApiException {
         OrderPojo orderPojo = new OrderPojo();
-        orderPojo.setOrderDate(orderTime);
-        orderPojo.setInvoiced(true);
-        orderPojo.setId(orderId);
-        orderPojo.setOrderTotal(orderTotal);
+        orderPojo.setOrderDate(ORDER_TIME);
+        orderPojo.setIsInvoiced(true);
+        orderPojo.setId(ORDER_ID);
+        orderPojo.setOrderTotal(ORDER_TOTAL);
         orderDao.insert(orderPojo);
         orderPojo = orderDao.selectAll().get(0);
         List<OrderItemPojo> orderItemPojoList = createOrderItemPojoList(0);
@@ -263,11 +263,11 @@ public class ReportDtoTest extends AbstractUnitTest {
 
     private List<OrderItemPojo> createOrderItemPojoList(int indexVal) {
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
-        for(int i = indexVal; i < indexVal + orderItemsCount; ++i){
-            ProductPojo productPojo = createTemplateProductPojo(productName + i, productCategory + i,
-                        productBrand + i, productBarcode + i, productMrp + i, quantity + i);
+        for(int i = indexVal; i < indexVal + ORDER_ITEMS_COUNT; ++i){
+            ProductPojo productPojo = createTemplateProductPojo(PRODUCT_NAME + i, PRODUCT_CATEGORY + i,
+                        PRODUCT_BRAND + i, PRODUCT_BARCODE + i, PRODUCT_MRP + i, QUANTITY + i);
             int productId = productPojo.getId();
-            OrderItemForm orderItemForm = TestHelper.createOrderItemForm(productBarcode + i, 1, sellingPrice);
+            OrderItemForm orderItemForm = TestHelper.createOrderItemForm(PRODUCT_BARCODE + i, 1, SELLING_PRICE);
             OrderItemPojo orderItemPojo = TestHelper.convertOrderItemFormToPojo(orderItemForm, productId);
             orderItemPojoList.add(orderItemPojo);
         }

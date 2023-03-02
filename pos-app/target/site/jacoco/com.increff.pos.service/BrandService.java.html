@@ -2,6 +2,7 @@
 
 import com.increff.pos.dao.BrandDao;
 import com.increff.pos.pojo.BrandPojo;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,65 +11,45 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="fc" id="L13">public class BrandService {</span>
+<span class="fc" id="L14">public class BrandService {</span>
 
     @Autowired
     private BrandDao brandDao;
     
     public void add(BrandPojo brandPojo) throws ApiException {
-<span class="fc bfc" id="L19" title="All 2 branches covered.">        if(brandPojo == null){</span>
-<span class="fc" id="L20">            throw new ApiException(&quot;BrandPojo is null!&quot;);</span>
-        }
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (!brandCategoryCombinationExists(brandPojo)) {</span>
-<span class="fc" id="L23">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
-        }
-<span class="fc" id="L25">        brandDao.insert(brandPojo);</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L20">        ValidationUtil.checkPojo(brandPojo);</span>
+<span class="fc" id="L21">        brandDao.insert(brandPojo);</span>
+<span class="fc" id="L22">    }</span>
     
-    public BrandPojo get(int id) throws ApiException{
-<span class="fc" id="L29">        return getCheck(id);</span>
+    public BrandPojo get(Integer id) throws ApiException{
+<span class="fc" id="L25">        ValidationUtil.checkId(id);</span>
+<span class="fc" id="L26">        return getCheck(id);</span>
     }
-    
+
     public List&lt;BrandPojo&gt; getAll(){
-<span class="fc" id="L33">        return brandDao.selectAll();</span>
+<span class="fc" id="L30">        return brandDao.selectAll();</span>
     }
     
     public void update(Integer id, BrandPojo brandPojo) throws ApiException {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(brandPojo == null){</span>
-<span class="fc" id="L38">            throw new ApiException(&quot;BrandPojo is null!&quot;);</span>
-        }
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (!brandCategoryCombinationExists(brandPojo, id)){</span>
-<span class="nc" id="L41">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
-        }
-<span class="fc" id="L43">        BrandPojo existingBrandPojo = getCheck(id);</span>
-<span class="fc" id="L44">        existingBrandPojo.setBrand(brandPojo.getBrand());</span>
-<span class="fc" id="L45">        existingBrandPojo.setCategory(brandPojo.getCategory());</span>
-<span class="fc" id="L46">    }</span>
-    
-    public BrandPojo getCheck(Integer id) throws ApiException{
-<span class="fc" id="L49">        BrandPojo brandPojo = brandDao.selectId(id);</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(brandPojo == null){</span>
-<span class="fc" id="L51">            throw new ApiException(&quot;Brand with given ID does not exist&quot;);</span>
-        }
-<span class="fc" id="L53">        return brandPojo;</span>
-    }
+<span class="fc" id="L34">        ValidationUtil.checkId(id);</span>
+<span class="fc" id="L35">        ValidationUtil.checkPojo(brandPojo);</span>
+<span class="fc" id="L36">        BrandPojo existingBrandPojo = getCheck(id);</span>
+<span class="fc" id="L37">        existingBrandPojo.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L38">        existingBrandPojo.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L39">    }</span>
     
     public BrandPojo getByBrandCategory(String brand, String category){
-<span class="fc" id="L57">        return brandDao.selectBrandCategory(brand, category);</span>
-    }
-    
-    private boolean brandCategoryCombinationExists(BrandPojo brandPojo, int id){
-<span class="fc" id="L61">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (existingBrandPojo != null) {</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            return existingBrandPojo.getId() == id;</span>
-        }
-<span class="fc" id="L65">        return true;</span>
+<span class="fc" id="L42">        return brandDao.selectBrandCategory(brand, category);</span>
     }
 
-    private boolean brandCategoryCombinationExists(BrandPojo brandPojo){
-<span class="fc" id="L69">        BrandPojo existingBrandPojo = brandDao.selectBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        return existingBrandPojo == null;</span>
+    public BrandPojo getCheck(Integer id) throws ApiException {
+<span class="fc" id="L46">        ValidationUtil.checkId(id);</span>
+<span class="fc" id="L47">        BrandPojo brandPojo = brandDao.selectId(id);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if(brandPojo == null){</span>
+<span class="nc" id="L49">            throw new ApiException(&quot;Brand with given ID does not exist!&quot;);</span>
+        }
+<span class="fc" id="L51">        return brandPojo;</span>
     }
-    
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

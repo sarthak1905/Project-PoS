@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.dto</a> &gt; <span class="el_source">InventoryDto.java</span></div><h1>InventoryDto.java</h1><pre class="source lang-java linenums">package com.increff.pos.dto;
 
+import com.increff.pos.flow.InventoryFlow;
+import com.increff.pos.flow.ProductFlow;
 import com.increff.pos.model.InventoryData;
 import com.increff.pos.model.InventoryForm;
 import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.service.ApiException;
-import com.increff.pos.service.InventoryService;
-import com.increff.pos.service.ProductService;
 import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,41 +18,48 @@ import java.util.List;
 <span class="fc" id="L18">public class InventoryDto {</span>
 
     @Autowired
-    private InventoryService inventoryService;
+    private InventoryFlow inventoryFlow;
     @Autowired
-    private ProductService productService;
+    private ProductFlow productFlow;
 
-    public InventoryData get(int id) throws ApiException{
-<span class="fc" id="L26">        InventoryPojo inventoryPojo = inventoryService.get(id);</span>
-<span class="fc" id="L27">        String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());</span>
-<span class="fc" id="L28">        String name = productService.getProductNameFromProductId(inventoryPojo.getId());</span>
-<span class="fc" id="L29">        return ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name);</span>
+    public InventoryData get(Integer id) throws ApiException{
+<span class="fc" id="L26">        checkId(id);</span>
+<span class="fc" id="L27">        InventoryPojo inventoryPojo = inventoryFlow.get(id);</span>
+<span class="fc" id="L28">        String barcode = productFlow.getBarcodeFromProductId(inventoryPojo.getId());</span>
+<span class="fc" id="L29">        String name = productFlow.getProductNameFromProductId(inventoryPojo.getId());</span>
+<span class="fc" id="L30">        return ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name);</span>
     }
 
     public List&lt;InventoryData&gt; getAll() throws ApiException {
-<span class="fc" id="L33">        List&lt;InventoryPojo&gt; inventoryList = inventoryService.getAll();</span>
-<span class="fc" id="L34">        List&lt;InventoryData&gt; inventoryDataList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        for(InventoryPojo inventoryPojo: inventoryList){</span>
-<span class="fc" id="L36">            String barcode = productService.getBarcodeFromProductId(inventoryPojo.getId());</span>
-<span class="fc" id="L37">            String name = productService.getProductNameFromProductId(inventoryPojo.getId());</span>
-<span class="fc" id="L38">            inventoryDataList.add(ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name));</span>
-<span class="fc" id="L39">        }</span>
-<span class="fc" id="L40">        return inventoryDataList;</span>
+<span class="fc" id="L34">        List&lt;InventoryPojo&gt; inventoryList = inventoryFlow.getAll();</span>
+<span class="fc" id="L35">        List&lt;InventoryData&gt; inventoryDataList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for(InventoryPojo inventoryPojo: inventoryList){</span>
+<span class="fc" id="L37">            String barcode = productFlow.getBarcodeFromProductId(inventoryPojo.getId());</span>
+<span class="fc" id="L38">            String name = productFlow.getProductNameFromProductId(inventoryPojo.getId());</span>
+<span class="fc" id="L39">            inventoryDataList.add(ConvertUtil.convertInventoryPojoToData(inventoryPojo, barcode, name));</span>
+<span class="fc" id="L40">        }</span>
+<span class="fc" id="L41">        return inventoryDataList;</span>
     }
 
-    public void update(int id, InventoryForm inventoryForm) throws ApiException{
-<span class="fc" id="L44">        ValidationUtil.validateForms(inventoryForm);</span>
-<span class="fc" id="L45">        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());</span>
-<span class="fc" id="L46">        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);</span>
-<span class="fc" id="L47">        inventoryService.update(id, inventoryPojo);</span>
-<span class="fc" id="L48">    }</span>
+    public void update(Integer id, InventoryForm inventoryForm) throws ApiException{
+<span class="fc" id="L45">        ValidationUtil.validateForms(inventoryForm);</span>
+<span class="fc" id="L46">        Integer productId = productFlow.getProductIdFromBarcode(inventoryForm.getBarcode());</span>
+<span class="fc" id="L47">        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);</span>
+<span class="fc" id="L48">        inventoryFlow.update(id, inventoryPojo);</span>
+<span class="fc" id="L49">    }</span>
 
     public void updateByBarcode(String barcode, InventoryForm inventoryForm) throws ApiException{
-<span class="fc" id="L51">        ValidationUtil.validateForms(inventoryForm);</span>
-<span class="fc" id="L52">        int productId = productService.getProductIdFromBarcode(inventoryForm.getBarcode());</span>
-<span class="fc" id="L53">        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);</span>
-<span class="fc" id="L54">        inventoryService.update(productId, inventoryPojo);</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L52">        ValidationUtil.validateForms(inventoryForm);</span>
+<span class="fc" id="L53">        int productId = productFlow.getProductIdFromBarcode(inventoryForm.getBarcode());</span>
+<span class="fc" id="L54">        InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToPojo(inventoryForm, productId);</span>
+<span class="fc" id="L55">        inventoryFlow.update(productId, inventoryPojo);</span>
+<span class="fc" id="L56">    }</span>
+
+    private void checkId(Integer id) throws ApiException {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(id == null){</span>
+<span class="nc" id="L60">            throw new ApiException(&quot;ID provided is null!&quot;);</span>
+        }
+<span class="fc" id="L62">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

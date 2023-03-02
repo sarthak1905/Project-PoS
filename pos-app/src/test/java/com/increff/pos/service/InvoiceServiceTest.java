@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import static junit.framework.TestCase.fail;
 
 public class InvoiceServiceTest extends AbstractUnitTest {
 
-    private static final LocalDateTime invoiceDateTime = LocalDateTime.now();
+    private static final ZonedDateTime invoiceDateTime = ZonedDateTime.now();
     private static final int orderId = 999;
     private static final String invoicePath = "invoicePath";
     @Autowired
@@ -72,8 +72,8 @@ public class InvoiceServiceTest extends AbstractUnitTest {
 
     @Test(expected = ApiException.class)
     public void testInvalidGetInvoicedOrdersBetweenDates() throws ApiException {
-        LocalDateTime startDate = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
-        LocalDateTime endDate = LocalDateTime.now();
+        ZonedDateTime startDate = ZonedDateTime.now().plus(1, ChronoUnit.DAYS);
+        ZonedDateTime endDate = ZonedDateTime.now();
         invoiceService.getInvoicedOrdersBetweenDates(startDate, endDate);
     }
 

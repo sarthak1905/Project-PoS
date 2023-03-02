@@ -7,9 +7,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import static com.increff.pos.pojo.GeneratorTable.POS_USER_SEQ;
-import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
-
 @Entity
 @Getter
 @Setter
@@ -17,9 +14,8 @@ import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
 public class UserPojo extends AbstractVersionPojo {
 
 	@Id
-	@TableGenerator(name = POS_USER_SEQ, pkColumnValue = POS_USER_SEQ, table = POS_TABLE_NAME)
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = POS_USER_SEQ)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	@Column(nullable = false, unique = true)
 	@NotBlank
 	private String email;

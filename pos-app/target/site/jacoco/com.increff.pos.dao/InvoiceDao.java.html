@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
@@ -35,15 +35,15 @@ import java.util.List;
 <span class="fc" id="L35">        return query.getResultList();</span>
     }
 
-    public List&lt;InvoicePojo&gt; selectInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List&lt;InvoicePojo&gt; selectInvoicedOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
 <span class="fc" id="L39">        TypedQuery&lt;InvoicePojo&gt; query = getQuery(SELECT_BETWEEN_DATES, InvoicePojo.class);</span>
 <span class="fc" id="L40">        query.setParameter(&quot;start_date&quot;, startDate).setParameter(&quot;end_date&quot;, endDate);</span>
 <span class="fc" id="L41">        return query.getResultList();</span>
     }
 
-    public LocalDateTime selectFirstOrderDateTime() {
+    public ZonedDateTime selectFirstOrderDateTime() {
 <span class="fc" id="L45">        Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);</span>
-<span class="fc" id="L46">        return (LocalDateTime)query.getSingleResult();</span>
+<span class="fc" id="L46">        return (ZonedDateTime)query.getSingleResult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

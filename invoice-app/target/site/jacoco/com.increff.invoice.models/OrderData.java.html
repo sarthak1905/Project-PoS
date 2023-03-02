@@ -3,16 +3,16 @@
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 <span class="nc" id="L9">@Setter</span>
 <span class="nc" id="L10">public class OrderData {</span>
 
 <span class="nc" id="L12">    private Integer id;</span>
-<span class="nc" id="L13">    private LocalDateTime dateTime;</span>
+<span class="nc" id="L13">    private ZonedDateTime dateTime;</span>
 <span class="nc" id="L14">    private boolean invoiceStatus;</span>
-<span class="nc" id="L15">    private LocalDateTime invoiceDate;</span>
+<span class="nc" id="L15">    private ZonedDateTime invoiceDate;</span>
 <span class="nc" id="L16">    private Double orderTotal;</span>
 
 }

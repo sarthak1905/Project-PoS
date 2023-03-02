@@ -19,15 +19,15 @@ import java.time.LocalDate;
     @Id
 <span class="fc" id="L20">    private LocalDate date;</span>
 
-    @Column(nullable = false, name = &quot;invoiced_order_count&quot;)
+    @Column(nullable = false)
     @Min(value = 0)
 <span class="fc" id="L24">    private Integer invoicedOrdersCount;</span>
 
-    @Column(nullable = false, name = &quot;invoiced_items_count&quot;)
+    @Column(nullable = false)
     @Min(value = 0)
 <span class="fc" id="L28">    private Integer invoicedItemsCount;</span>
 
-    @Column(nullable = false, name = &quot;total_revenue&quot;)
+    @Column(nullable = false)
     @Min(value = 0)
 <span class="fc" id="L32">    private Double totalRevenue;</span>
 

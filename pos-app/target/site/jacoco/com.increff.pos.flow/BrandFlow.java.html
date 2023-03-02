@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandFlow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.flow</a> &gt; <span class="el_source">BrandFlow.java</span></div><h1>BrandFlow.java</h1><pre class="source lang-java linenums">package com.increff.pos.flow;
+
+import com.increff.pos.pojo.BrandPojo;
+import com.increff.pos.service.ApiException;
+import com.increff.pos.service.BrandService;
+import com.increff.pos.util.ValidationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional(rollbackOn = ApiException.class)
+<span class="fc" id="L15">public class BrandFlow {</span>
+
+    @Autowired
+    private BrandService brandService;
+
+    public void add(BrandPojo brandPojo) throws ApiException {
+<span class="fc" id="L21">        ValidationUtil.checkPojo(brandPojo);</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (!checkByBrandCategory(brandPojo.getBrand(), brandPojo.getCategory())) {</span>
+<span class="nc" id="L23">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+        }
+<span class="fc" id="L25">        brandService.add(brandPojo);</span>
+<span class="fc" id="L26">    }</span>
+
+    public BrandPojo get(Integer id) throws ApiException {
+<span class="fc" id="L29">        ValidationUtil.checkId(id);</span>
+<span class="fc" id="L30">        return brandService.get(id);</span>
+    }
+
+    public BrandPojo getByBrandCategory(String brand, String category) throws ApiException {
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(checkByBrandCategory(brand, category)) {</span>
+<span class="nc" id="L35">            throw new ApiException(&quot;Brand with given brand + category combination does not exist!&quot;);</span>
+        }
+<span class="fc" id="L37">        return brandService.getByBrandCategory(brand, category);</span>
+    }
+
+    public List&lt;BrandPojo&gt; getAll() {
+<span class="fc" id="L41">        return brandService.getAll();</span>
+    }
+
+    public void update(Integer id, BrandPojo brandPojo) throws ApiException {
+<span class="fc" id="L45">        ValidationUtil.checkPojo(brandPojo);</span>
+<span class="fc" id="L46">        ValidationUtil.checkId(id);</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (!checkExistingById(brandPojo, id)) {</span>
+<span class="nc" id="L48">            throw new ApiException(&quot;Brand+category combination must be unique!&quot;);</span>
+        }
+<span class="fc" id="L50">        brandService.update(id, brandPojo);</span>
+<span class="fc" id="L51">    }</span>
+
+    // &lt;----------------------------------PRIVATE METHODS-------------------------------------&gt;
+
+    private Boolean checkByBrandCategory(String brand, String category){
+<span class="fc" id="L56">        BrandPojo existingBrandPojo = brandService.getByBrandCategory(brand, category);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        return existingBrandPojo == null;</span>
+    }
+
+    private Boolean checkExistingById(BrandPojo brandPojo, Integer id){
+<span class="fc" id="L61">        BrandPojo existingBrandPojo = brandService.getByBrandCategory(brandPojo.getBrand(), brandPojo.getCategory());</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (existingBrandPojo != null)</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            return existingBrandPojo.getId() == id;</span>
+<span class="fc" id="L64">        return true;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

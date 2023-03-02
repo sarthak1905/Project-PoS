@@ -4,11 +4,13 @@ import com.increff.pos.dao.OrderDao;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.pojo.ProductPojo;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import javax.validation.Valid;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,28 +20,16 @@ public class OrderService {
 
     @Autowired
     private OrderDao orderDao;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private InventoryService inventoryService;
-    @Autowired
-    private OrderItemService orderItemService;
-    @Autowired
-    private InvoiceService invoiceService;
 
-    public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojos) throws ApiException {
-        orderPojo.setOrderDate(java.time.LocalDateTime.now());
-        orderPojo.setInvoiced(false);
+    public void add(OrderPojo orderPojo) throws ApiException {
+        ValidationUtil.checkPojo(orderPojo);
+        orderPojo.setOrderDate(java.time.ZonedDateTime.now());
+        orderPojo.setIsInvoiced(false);
         orderDao.insert(orderPojo);
-        for (OrderItemPojo orderItemPojo: orderItemPojos){
-            orderItemPojo.setOrderId(orderPojo.getId());
-            inventoryService.reduceInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
-            double itemTotal = orderItemPojo.getSellingPrice() * orderItemPojo.getQuantity();
-            orderItemService.add(orderItemPojo);
-        }
     }
 
-    public OrderPojo get(int id) throws ApiException{
+    public OrderPojo get(Integer id) throws ApiException{
+        ValidationUtil.checkId(id);
         return getCheck(id);
     }
 
@@ -47,21 +37,14 @@ public class OrderService {
         return orderDao.selectAll();
     }
 
-    public void update(List<OrderItemPojo> newOrderItemPojos,
-                       HashMap<Integer, OrderItemPojo> existingOrderItemMapByID,
-                       int orderId, double orderTotal) throws ApiException {
+    public void update(Integer orderId, Double orderTotal) throws ApiException {
+        ValidationUtil.checkId(orderId);
         OrderPojo orderPojo = get(orderId);
         orderPojo.setOrderTotal(orderTotal);
-        for(OrderItemPojo newOrderItemPojo: newOrderItemPojos ){
-            if (existingOrderItemMapByID.containsKey(newOrderItemPojo.getProductId())){
-                OrderItemPojo existingOrderItemPojo = orderItemService.get(newOrderItemPojo.getId());
-                existingOrderItemPojo.setQuantity(newOrderItemPojo.getQuantity());
-                existingOrderItemPojo.setSellingPrice(newOrderItemPojo.getSellingPrice());
-            }
-        }
     }
 
-    private OrderPojo getCheck(int id) throws ApiException {
+    private OrderPojo getCheck(Integer id) throws ApiException {
+        ValidationUtil.checkId(id);
         OrderPojo orderPojo = orderDao.selectId(id);
         if (orderPojo == null) {
             throw new ApiException("Order with given ID: " + id + " does not exist!");
@@ -69,34 +52,29 @@ public class OrderService {
         return orderPojo;
     }
 
-    public void validateSellingPrice(int productId, double sellingPrice) throws ApiException {
-        ProductPojo productPojo = productService.getCheck(productId);
-        if(productPojo.getMrp() < sellingPrice){
-            throw new ApiException("Selling price of order item cannot be greater than MRP!");
-        }
-    }
-
     public void setInvoicedTrue(Integer id) throws ApiException {
+        ValidationUtil.checkId(id);
         OrderPojo orderPojo = getCheck(id);
-        orderPojo.setInvoiced(true);
+        orderPojo.setIsInvoiced(true);
     }
 
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
+        ValidationUtil.checkId(orderId);
         OrderPojo orderPojo = get(orderId);
-        if(orderPojo.isInvoiced()){
+        if(orderPojo.getIsInvoiced()){
             throw new ApiException("Invoiced order cannot be edited!");
         }
     }
 
-    public List<OrderPojo> getBeforeEndDate(LocalDateTime endDate) {
+    public List<OrderPojo> getBeforeEndDate(ZonedDateTime endDate) {
         return orderDao.selectBeforeEndDate(endDate);
     }
 
-    public List<OrderPojo> getAfterStartDate(LocalDateTime startDate) {
+    public List<OrderPojo> getAfterStartDate(ZonedDateTime startDate) {
         return orderDao.selectAfterStartDate(startDate);
     }
 
-    public List<OrderPojo> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<OrderPojo> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
         return orderDao.selectBetweenDates(startDate, endDate);
     }
 

@@ -1,5 +1,9 @@
 package com.increff.pos.dto;
 
+import com.increff.pos.flow.InventoryFlow;
+import com.increff.pos.flow.InvoiceFlow;
+import com.increff.pos.flow.OrderFlow;
+import com.increff.pos.flow.ProductFlow;
 import com.increff.pos.model.*;
 import com.increff.pos.pojo.InvoicePojo;
 import com.increff.pos.pojo.OrderItemPojo;
@@ -14,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -22,29 +27,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
 
-@Component
+
+@Service
 public class OrderDto {
 
     @Autowired
-    private OrderItemService orderItemService;
+    private OrderFlow orderFlow;
     @Autowired
-    private OrderService orderService;
+    private ProductFlow productFlow;
     @Autowired
-    private ProductService productService;
+    private InventoryFlow inventoryFlow;
     @Autowired
-    private InventoryService inventoryService;
-    @Autowired
-    private InvoiceService invoiceService;
+    private InvoiceFlow invoiceFlow;
     @Value("${invoice.uri}")
     private String invoiceUrl;
 
@@ -53,16 +53,15 @@ public class OrderDto {
         OrderPojo orderPojo = new OrderPojo();
         List<OrderItemPojo> orderItemPojos = new ArrayList<>();
         for(OrderItemForm orderItemForm: orderItemForms){
-            int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
+            int productId = productFlow.getProductIdFromBarcode(orderItemForm.getBarcode());
             orderItemPojos.add(ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId));
         }
-        double orderTotal = calculateOrderTotal(orderItemForms);
-        orderPojo.setOrderTotal(orderTotal);
-        orderService.add(orderPojo, orderItemPojos);
+        orderFlow.add(orderPojo, orderItemPojos);
     }
 
     public OrderData get(Integer id) throws ApiException{
-        OrderPojo orderPojo = orderService.get(id);
+        ValidationUtil.checkId(id);
+        OrderPojo orderPojo = orderFlow.get(id);
         return ConvertUtil.convertOrderPojoToData(orderPojo);
     }
 
@@ -72,16 +71,12 @@ public class OrderDto {
         String filteredEndDate = orderFilterForm.getEndDate();
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime startDate = LocalDate.parse(filteredStartDate, dateTimeFormatter).atStartOfDay();
-        LocalDateTime endDate = LocalDate.parse(filteredEndDate, dateTimeFormatter).atTime(LocalTime.MAX);
-        if(startDate.isAfter(endDate)){
-            throw new ApiException("Start date cannot be after end date!");
-        }
-        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
-            throw new ApiException("Max duration between start date and end date is 90 days");
-        }
-
-        List<OrderPojo> orderList = orderService.getBetweenDates(startDate, endDate);
+        LocalDateTime startDateTime = LocalDate.parse(filteredStartDate, dateTimeFormatter).atStartOfDay();
+        LocalDateTime endDateTime = LocalDate.parse(filteredEndDate, dateTimeFormatter).atTime(LocalTime.MAX);
+        ZonedDateTime startDate = startDateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime endDate = endDateTime.atZone(ZoneId.systemDefault());
+        validateDates(startDate, endDate);
+        List<OrderPojo> orderList = orderFlow.getBetweenDates(startDate, endDate);
         List<OrderData> orderDataList = new ArrayList<>();
         for(OrderPojo orderPojo: orderList){
             orderDataList.add(ConvertUtil.convertOrderPojoToData(orderPojo));
@@ -90,11 +85,12 @@ public class OrderDto {
     }
 
     public List<OrderItemData> getOrderItems(Integer orderId) throws ApiException {
-        List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
+        ValidationUtil.checkId(orderId);
+        List<OrderItemPojo> orderItemPojos = orderFlow.getByOrderId(orderId);
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo: orderItemPojos){
-            String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());
-            String productName = productService.getProductNameFromProductId(orderItemPojo.getProductId());
+            String barcode = productFlow.getBarcodeFromProductId(orderItemPojo.getProductId());
+            String productName = productFlow.getProductNameFromProductId(orderItemPojo.getProductId());
             OrderItemData orderItemData  = ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName);
             orderItemDataList.add(orderItemData);
         }
@@ -102,6 +98,7 @@ public class OrderDto {
     }
 
     public ResponseEntity<byte[]> getOrderInvoice(Integer orderId) throws ApiException, IOException {
+        ValidationUtil.checkId(orderId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
 
@@ -110,28 +107,28 @@ public class OrderDto {
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         String invoiceDirectoryString = "./generated/invoice"+ orderId +".pdf";
         File file = new File(invoiceDirectoryString);
-        OrderPojo orderPojo = orderService.get(orderId);
+        OrderPojo orderPojo = orderFlow.get(orderId);
 
-        if(file.exists() && orderPojo.isInvoiced()){
+        if(file.exists() && orderPojo.getIsInvoiced()){
             Path invoicePath = Paths.get(invoiceDirectoryString);
             byte[] contents = Files.readAllBytes(invoicePath);
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
 
-        List<OrderItemPojo> orderItemPojos = orderItemService.getByOrderId(orderId);
+        List<OrderItemPojo> orderItemPojos = orderFlow.getByOrderId(orderId);
 
         List<OrderItemData> orderItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo: orderItemPojos){
-            String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());
-            String productName = productService.getProductNameFromProductId(orderItemPojo.getProductId());
+            String barcode = productFlow.getBarcodeFromProductId(orderItemPojo.getProductId());
+            String productName = productFlow.getProductNameFromProductId(orderItemPojo.getProductId());
             orderItemDataList.add(ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName));
         }
 
         InvoicePojo invoicePojo = new InvoicePojo();
-        InvoicePojo existingInvoicePojo = invoiceService.getOrNull(orderId);
+        InvoicePojo existingInvoicePojo = invoiceFlow.getOrNull(orderId);
         invoicePojo.setOrderId(orderId);
         if(existingInvoicePojo == null) {
-            invoicePojo.setInvoiceDate(java.time.LocalDateTime.now());
+            invoicePojo.setInvoiceDate(java.time.ZonedDateTime.now());
         }
         else{
             invoicePojo.setInvoiceDate(existingInvoicePojo.getInvoiceDate());
@@ -145,8 +142,8 @@ public class OrderDto {
             fos.write(contents);
             String path = "pos-app/generated/invoice" + orderId + ".pdf";
             invoicePojo.setPath(path);
-            invoiceService.add(invoicePojo);
-            orderService.setInvoicedTrue(orderPojo.getId());
+            invoiceFlow.add(invoicePojo);
+            orderFlow.setInvoicedTrue(orderPojo.getId());
 
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
@@ -156,37 +153,19 @@ public class OrderDto {
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
-        orderService.validateOrderInvoiceStatus(orderId);
+        orderFlow.validateOrderInvoiceStatus(orderId);
         validateOrderItemInputForms(orderItemForms);
-        double orderTotal = calculateOrderTotal(orderItemForms);
-
-        List<OrderItemPojo> existingOrderItems = orderItemService.getByOrderId(orderId);
-        HashMap<Integer,OrderItemPojo> existingOrderItemMapByID = new HashMap<>();
-        HashMap<String,OrderItemPojo> existingOrderItemMapByBarcode = new HashMap<>();
-
-        for(OrderItemPojo orderItemPojo: existingOrderItems){
-            String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());
-            existingOrderItemMapByID.put(orderItemPojo.getProductId(), orderItemPojo);
-            existingOrderItemMapByBarcode.put(barcode, orderItemPojo);
+        ValidationUtil.checkId(orderId);
+        List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
+        for(OrderItemForm orderItemForm: orderItemForms){
+            int productId = productFlow.getProductIdFromBarcode(orderItemForm.getBarcode());
+            orderItemPojoList.add(ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId));
         }
-        List<OrderItemPojo> newOrderItemPojos = new ArrayList<>();
-        for(OrderItemForm form: orderItemForms){
-            OrderItemPojo orderItemPojo = getExistingPojoOrAddNew(form, orderId, existingOrderItemMapByBarcode);
-            newOrderItemPojos.add(orderItemPojo);
-        }
-        orderService.update(newOrderItemPojos, existingOrderItemMapByID, orderId, orderTotal);
+        orderFlow.update(orderId, orderItemPojoList);
     }
 
 
     // -----------------------PRIVATE METHODS-------------------------------
-
-    private double calculateOrderTotal(List<OrderItemForm> orderItemForms) {
-        double orderTotal = 0.0;
-        for(OrderItemForm orderItemForm: orderItemForms){
-            orderTotal += orderItemForm.getQuantity() * orderItemForm.getSellingPrice();
-        }
-        return orderTotal;
-    }
 
     private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
         InvoiceForm invoiceForm = new InvoiceForm();
@@ -200,31 +179,21 @@ public class OrderDto {
         return invoiceForm;
     }
 
-    private OrderItemPojo getExistingPojoOrAddNew(OrderItemForm orderItemForm, Integer orderId,
-                                                  HashMap<String, OrderItemPojo> existingOrderItems)
-            throws ApiException {
-        int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
-        OrderItemPojo newOrderItemPojo = ConvertUtil.convertOrderItemFormToPojo(orderItemForm, productId);
-        newOrderItemPojo.setOrderId(orderId);
-        if(existingOrderItems.containsKey(orderItemForm.getBarcode())){
-            OrderItemPojo existingOrderItemPojo = existingOrderItems.get(orderItemForm.getBarcode());
-            newOrderItemPojo.setId(existingOrderItemPojo.getId());
-        }
-        else{
-            orderItemService.add(newOrderItemPojo);
-        }
-        return newOrderItemPojo;
-    }
-
     private void validateOrderItemInputForms(List<OrderItemForm> orderItemForms) throws ApiException {
         if(orderItemForms.size() == 0){
             throw new ApiException("Minimum 1 order item must exist to place order!");
         }
         for(OrderItemForm orderItemForm: orderItemForms){
             ValidationUtil.validateForms(orderItemForm);
-            int productId = productService.getProductIdFromBarcode(orderItemForm.getBarcode());
-            inventoryService.checkInventory(productId, orderItemForm.getQuantity());
-            orderService.validateSellingPrice(productId, orderItemForm.getSellingPrice());
+        }
+    }
+
+    private void validateDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
+        if(startDate.isAfter(endDate)){
+            throw new ApiException("Start date cannot be after end date!");
+        }
+        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
+            throw new ApiException("Max duration between start date and end date is 90 days");
         }
     }
 

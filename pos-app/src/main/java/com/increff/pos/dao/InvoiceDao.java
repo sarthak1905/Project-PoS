@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
@@ -35,14 +35,14 @@ public class InvoiceDao extends AbstractDao{
         return query.getResultList();
     }
 
-    public List<InvoicePojo> selectInvoicedOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<InvoicePojo> selectInvoicedOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
         TypedQuery<InvoicePojo> query = getQuery(SELECT_BETWEEN_DATES, InvoicePojo.class);
         query.setParameter("start_date", startDate).setParameter("end_date", endDate);
         return query.getResultList();
     }
 
-    public LocalDateTime selectFirstOrderDateTime() {
+    public ZonedDateTime selectFirstOrderDateTime() {
         Query query = em().createQuery(SELECT_FIRST_ORDER_DATE_TIME);
-        return (LocalDateTime)query.getSingleResult();
+        return (ZonedDateTime)query.getSingleResult();
     }
 }

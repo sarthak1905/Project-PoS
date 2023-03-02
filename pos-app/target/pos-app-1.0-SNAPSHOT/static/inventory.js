@@ -14,6 +14,7 @@ function updateInventory(event){
 	//Set the values to update
 	var $form = $("#inventory-edit-form");
 	var json = toJson($form);
+	console.log(json);
 
 	$.ajax({
 	   url: url,
@@ -24,6 +25,7 @@ function updateInventory(event){
        },	   
 	   success: function(response) {
 	   		getInventoryList();
+			refreshTable();
 			message = 'Inventory updated successfully!';
 			showSuccessMessage(message);   
 	   },
@@ -175,6 +177,12 @@ function updateFileName(){
 	$('#process-data').attr('disabled', false);
 }
 
+function refreshTable(){
+	destroyTablize();
+
+}
+
+
 function displayUploadData(){
  	resetUploadDialog();	
 	$('#upload-inventory-modal').modal('toggle');
@@ -184,6 +192,7 @@ function displayInventory(data){
 	$("#inventory-edit-form input[name=barcode]").val(data.barcode);
 	$("#inventory-edit-form input[name=name]").val(data.name);	
 	$("#inventory-edit-form input[name=quantity]").val(data.quantity);
+	$("#inventory-id").val(data.id);
 	$('#edit-inventory-modal').modal('toggle');
 }
 

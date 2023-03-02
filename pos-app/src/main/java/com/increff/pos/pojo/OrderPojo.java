@@ -5,30 +5,28 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_SEQ;
-import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
-
+// TODO unless specific use case, use IDENTITY as generation strategy
+// TODO use non-primitive data types everywhere possible
 @Entity
 @Getter
 @Setter
-@Table(name = "orders", indexes = {@Index(name = "order_date_index", columnList = "order_date"),
-                                   @Index(name = "is_invoiced_index", columnList = "is_invoiced")})
+@Table(name = "orders", indexes = {@Index(name = "order_date_index", columnList = "orderDate"),
+                                   @Index(name = "is_invoiced_index", columnList = "isInvoiced")})
 public class OrderPojo extends AbstractVersionPojo {
 
     @Id
-    @TableGenerator(name = POS_ORDER_SEQ, pkColumnValue = POS_ORDER_SEQ, table = POS_TABLE_NAME)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_SEQ)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, name = "order_date")
-    private LocalDateTime orderDate;
+    @Column(nullable = false)
+    private ZonedDateTime orderDate;
 
-    @Column(nullable = false, name = "is_invoiced")
-    private boolean isInvoiced;
+    @Column(nullable = false)
+    private Boolean isInvoiced;
 
-    @Column(name = "order_total")
+    @Column(nullable = false)
     private Double orderTotal;
 
 }

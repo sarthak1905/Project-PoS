@@ -2,6 +2,7 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.ProductDao;
 import com.increff.pos.pojo.ProductPojo;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,22 +14,19 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private BrandService brandService;
-
-    @Autowired
     private ProductDao productDao;
 
     public void add(ProductPojo productPojo) throws ApiException {
-        if(productPojo == null){
-            throw new ApiException("ProductPojo is null!");
+        ValidationUtil.checkPojo(productPojo);
+        if (isValidBarcode(productPojo.getBarcode())) {
+            productDao.insert(productPojo);
+            return;
         }
-        if (!isValidBarcode(productPojo.getBarcode())) {
-            throw new ApiException("Barcode already exists!");
-        }
-        productDao.insert(productPojo);
+        throw new ApiException("Barcode already exists!");
     }
 
-    public ProductPojo get(int id) throws ApiException{
+    public ProductPojo get(Integer id) throws ApiException{
+        ValidationUtil.checkId(id);
         return getCheck(id);
     }
 
@@ -37,32 +35,23 @@ public class ProductService {
     }
 
     public void update(Integer id, ProductPojo productPojo) throws ApiException {
+        ValidationUtil.checkPojo(productPojo);
         ProductPojo existingProductPojo = getCheck(id);
-        if(productPojo == null){
-            throw new ApiException("ProductPojo is null!");
+        if(existingProductPojo.getBarcode().equals(productPojo.getBarcode())){
+            existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
+            existingProductPojo.setName(productPojo.getName());
+            existingProductPojo.setMrp(productPojo.getMrp());
+            return;
         }
-        if(!existingProductPojo.getBarcode().equals(productPojo.getBarcode())){
-            throw new ApiException("Barcode must be same while updating!");
-        }
-        existingProductPojo.setBrandCategory(productPojo.getBrandCategory());
-        existingProductPojo.setName(productPojo.getName());
-        existingProductPojo.setMrp(productPojo.getMrp());
+        throw new ApiException("Barcode must be same while updating!");
     }
 
-    public ProductPojo getCheck(int id) throws ApiException{
-        ProductPojo p = productDao.selectId(id);
-        if(p == null){
-            throw new ApiException("Product with given ID does not exist");
-        }
-        return p;
-    }
-
-    public String getBarcodeFromProductId(int id){
-        ProductPojo productPojo = productDao.selectId(id);
+    public String getBarcodeFromProductId(Integer id) throws ApiException {
+        ProductPojo productPojo = getCheck(id);
         return productPojo.getBarcode();
     }
 
-    public int getProductIdFromBarcode(String barcode) throws ApiException {
+    public Integer getProductIdFromBarcode(String barcode) throws ApiException {
         ProductPojo existingProductPojo = productDao.selectBarcode(barcode);
         if (existingProductPojo == null){
             throw new ApiException("Product with given barcode" + barcode + " does not exist!");
@@ -70,13 +59,23 @@ public class ProductService {
         return existingProductPojo.getId();
     }
 
-    public boolean isValidBarcode(String barcode){
+    public Boolean isValidBarcode(String barcode){
         ProductPojo existingProductPojo = productDao.selectBarcode(barcode);
         return existingProductPojo == null;
     }
 
-    public String getProductNameFromProductId(int productId) throws ApiException {
+    public String getProductNameFromProductId(Integer productId) throws ApiException {
         ProductPojo productPojo = getCheck(productId);
         return productPojo.getName();
     }
+
+    private ProductPojo getCheck(Integer id) throws ApiException{
+        ValidationUtil.checkId(id);
+        ProductPojo productPojo = productDao.selectId(id);
+        if(productPojo == null){
+            throw new ApiException("Product with given ID does not exist!");
+        }
+        return productPojo;
+    }
+
 }

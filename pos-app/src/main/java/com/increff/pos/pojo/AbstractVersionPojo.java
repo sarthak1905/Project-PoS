@@ -8,8 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
+import java.time.ZonedDateTime;
 
 @MappedSuperclass
 @Getter
@@ -17,16 +16,13 @@ import java.time.LocalDateTime;
 public abstract class AbstractVersionPojo implements Serializable {
 
     @CreationTimestamp
-    @Column
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @UpdateTimestamp
-    @Column
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedAt;
+    private ZonedDateTime updatedAt;
 
     @Version
-    @Column
     private Integer version;
 }

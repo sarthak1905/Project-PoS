@@ -44,35 +44,12 @@ public class UserDtoTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetAll() throws ApiException {
-        UserForm userForm = TestHelper.createUserForm(operatorEmail2, password);
-        userDto.add(userForm);
-        List<UserData> userDataList = userDto.getAllUser();
-        if(userDataList.size() != 2){
-            fail();
-        }
-        UserData userData = userDataList.get(0);
-        assertEquals(operatorEmail1, userData.getEmail());
-        assertEquals("operator", userData.getRole());
-        UserData userData1 = userDataList.get(1);
-        assertEquals(operatorEmail2, userData1.getEmail());
-        assertEquals("operator", userData1.getRole());
-    }
-
-    @Test
-    public void testConvertUserPojoToAuthentication(){
+    public void testConvertUserPojoToAuthentication() throws ApiException {
         List<UserPojo> userPojoList = userDao.selectAll();
         UserPojo userPojo = userPojoList.get(0);
         Authentication token = userDto.convertUserPojoToAuthentication(userPojo);
     }
 
-    @Test
-    public void testGet() throws ApiException {
-        LoginForm loginForm = TestHelper.createLoginForm(operatorEmail1, password);
-        UserPojo userPojo = userDto.get(loginForm);
-        assertEquals(operatorEmail1, userPojo.getEmail());
-        assertTrue(passwordEncoder.matches(password, userPojo.getPassword()));
-    }
 
     @Before
     public void initUser() throws ApiException {

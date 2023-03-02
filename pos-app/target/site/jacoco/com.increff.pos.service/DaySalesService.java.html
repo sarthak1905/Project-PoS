@@ -9,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="fc" id="L19">public class DaySalesService {</span>
+<span class="fc" id="L17">public class DaySalesService {</span>
 
     @Autowired
     DaySalesDao daySalesDao;
@@ -28,28 +26,30 @@ import java.util.List;
     OrderItemService orderItemService;
 
     public void addOrUpdate(DaySalesPojo daySalesPojo) {
-<span class="fc" id="L31">        DaySalesPojo existingDaySalesPojo = daySalesDao.selectByDate(daySalesPojo.getDate());</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (existingDaySalesPojo == null) {</span>
-<span class="fc" id="L33">            daySalesDao.insert(daySalesPojo);</span>
+<span class="fc" id="L29">        DaySalesPojo existingDaySalesPojo = daySalesDao.selectByDate(daySalesPojo.getDate());</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (existingDaySalesPojo == null) {</span>
+<span class="fc" id="L31">            daySalesDao.insert(daySalesPojo);</span>
         }
         else{
-<span class="fc" id="L36">            existingDaySalesPojo.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());</span>
-<span class="fc" id="L37">            existingDaySalesPojo.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());</span>
-<span class="fc" id="L38">            existingDaySalesPojo.setTotalRevenue(daySalesPojo.getTotalRevenue());</span>
+<span class="fc" id="L34">            existingDaySalesPojo.setInvoicedOrdersCount(daySalesPojo.getInvoicedOrdersCount());</span>
+<span class="fc" id="L35">            existingDaySalesPojo.setInvoicedItemsCount(daySalesPojo.getInvoicedItemsCount());</span>
+<span class="fc" id="L36">            existingDaySalesPojo.setTotalRevenue(daySalesPojo.getTotalRevenue());</span>
         }
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L38">    }</span>
 
     public List&lt;DaySalesPojo&gt; getAll() {
-<span class="fc" id="L43">        return daySalesDao.selectAll();</span>
+<span class="fc" id="L41">        return daySalesDao.selectAll();</span>
     }
 
     public LocalDate getLastDate() {
-<span class="fc" id="L47">        return daySalesDao.selectLatestDate();</span>
+<span class="fc" id="L45">        return daySalesDao.selectLatestDate();</span>
     }
 
     public void createDaySalesEntry(LocalDate date) throws ApiException {
-<span class="fc" id="L51">        LocalDateTime startOfDay = date.atStartOfDay();</span>
-<span class="fc" id="L52">        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);</span>
+<span class="fc" id="L49">        LocalDateTime startOfDayTime = date.atStartOfDay();</span>
+<span class="fc" id="L50">        LocalDateTime endOfDayTime = date.atTime(LocalTime.MAX);</span>
+<span class="fc" id="L51">        ZonedDateTime startOfDay = startOfDayTime.atZone(ZoneId.systemDefault());</span>
+<span class="fc" id="L52">        ZonedDateTime endOfDay = endOfDayTime.atZone(ZoneId.systemDefault());</span>
 <span class="fc" id="L53">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
 <span class="fc" id="L54">        daySalesPojo.setDate(date);</span>
 

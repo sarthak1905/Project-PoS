@@ -10,13 +10,13 @@ com\increff\pos\service\DaySalesServiceTest.class
 com\increff\pos\service\InvoiceServiceTest.class
 com\increff\pos\helper\TestHelper.class
 com\increff\pos\dto\BrandDtoTest.class
-com\increff\pos\service\OrderServiceTest.class
 com\increff\pos\dto\ReportDtoTest.class
 com\increff\pos\service\SampleTest.class
 com\increff\pos\dto\UserDtoTest.class
 com\increff\pos\service\UserServiceTest.class
 com\increff\pos\dao\BrandDaoTest.class
 com\increff\pos\dao\OrderItemDaoTest.class
+com\increff\pos\service\OrderFlowTest.class
 com\increff\pos\service\OrderItemServiceTest.class
 com\increff\pos\QaConfig.class
 com\increff\pos\service\ProductServiceTest.class

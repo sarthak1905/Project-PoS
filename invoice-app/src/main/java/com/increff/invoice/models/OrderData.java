@@ -3,16 +3,16 @@ package com.increff.invoice.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
 public class OrderData {
 
     private Integer id;
-    private LocalDateTime dateTime;
+    private ZonedDateTime dateTime;
     private boolean invoiceStatus;
-    private LocalDateTime invoiceDate;
+    private ZonedDateTime invoiceDate;
     private Double orderTotal;
 
 }

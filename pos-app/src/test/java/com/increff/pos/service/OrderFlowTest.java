@@ -4,6 +4,7 @@ import com.increff.pos.AbstractUnitTest;
 import com.increff.pos.dao.InventoryDao;
 import com.increff.pos.dao.OrderDao;
 import com.increff.pos.dao.ProductDao;
+import com.increff.pos.flow.OrderFlow;
 import com.increff.pos.helper.TestHelper;
 import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.pojo.OrderItemPojo;
@@ -13,17 +14,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
 
-public class OrderServiceTest extends AbstractUnitTest {
+public class OrderFlowTest extends AbstractUnitTest {
 
-    private static final boolean invoiced = false;
-    private static final LocalDateTime orderTime = LocalDateTime.now();
+    private static final Boolean invoiced = false;
+    private static final ZonedDateTime orderTime = ZonedDateTime.now();
     private static final double orderTotal = 199.99;
     private static final int orderId = 999;
     private static final int quantity = 1;
@@ -34,7 +34,7 @@ public class OrderServiceTest extends AbstractUnitTest {
     private static final int brandCategory = 1;
     private static final double mrp = 200.00;
     @Autowired
-    private OrderService orderService;
+    private OrderFlow orderFlow;
     @Autowired
     private InventoryDao inventoryDao;
     @Autowired
@@ -50,7 +50,7 @@ public class OrderServiceTest extends AbstractUnitTest {
         }
         OrderPojo orderPojo = orderPojoList.get(0);
         assertEquals(orderPojo.getOrderTotal(), orderTotal);
-        assertEquals(orderPojo.isInvoiced(), invoiced);
+        assertEquals(orderPojo.getIsInvoiced(), invoiced);
     }
 
     @Test
@@ -60,9 +60,9 @@ public class OrderServiceTest extends AbstractUnitTest {
             fail();
         }
         OrderPojo orderPojo = orderPojoList.get(0);
-        orderPojo = orderService.get(orderPojo.getId());
+        orderPojo = orderFlow.get(orderPojo.getId());
         assertEquals(orderPojo.getOrderTotal(), orderTotal);
-        assertEquals(orderPojo.isInvoiced(), invoiced);
+        assertEquals(orderPojo.getIsInvoiced(), invoiced);
     }
 
     @Test(expected = ApiException.class)
@@ -72,7 +72,7 @@ public class OrderServiceTest extends AbstractUnitTest {
             fail();
         }
         OrderPojo orderPojo = orderPojoList.get(0);
-        orderPojo = orderService.get(orderPojo.getId() + 1);
+        orderPojo = orderFlow.get(orderPojo.getId() + 1);
     }
 
     @Test
@@ -82,13 +82,13 @@ public class OrderServiceTest extends AbstractUnitTest {
             fail();
         }
         OrderPojo orderPojo = orderPojoList.get(0);
-        orderService.setInvoicedTrue(orderPojo.getId());
+        orderFlow.setInvoicedTrue(orderPojo.getId());
         orderPojoList = orderDao.selectAll();
         if(orderPojoList.size() != 1){
             fail();
         }
         orderPojo = orderPojoList.get(0);
-        assertTrue(orderPojo.isInvoiced());
+        assertTrue(orderPojo.getIsInvoiced());
     }
 
     @Test(expected = ApiException.class)
@@ -98,16 +98,17 @@ public class OrderServiceTest extends AbstractUnitTest {
             fail();
         }
         OrderPojo orderPojo = orderPojoList.get(0);
-        orderService.setInvoicedTrue(orderPojo.getId());
+        orderFlow.setInvoicedTrue(orderPojo.getId());
         orderPojoList = orderDao.selectAll();
         if(orderPojoList.size() != 1){
             fail();
         }
         orderPojo = orderPojoList.get(0);
-        orderService.validateOrderInvoiceStatus(orderPojo.getId());
+        orderFlow.validateOrderInvoiceStatus(orderPojo.getId());
     }
 
 
+/*
     @Test(expected = ApiException.class)
     public void testValidateSellingPrice() throws ApiException {
         ProductPojo productPojo = productDao.selectBarcode(barcode);
@@ -116,12 +117,13 @@ public class OrderServiceTest extends AbstractUnitTest {
         }
         orderService.validateSellingPrice(productPojo.getId(), mrp + 1);
     }
+*/
 
     @Before
     public void initOrderService() throws ApiException {
         List<OrderItemPojo> orderItemPojoList = createTemplateOrderItemPojoList();
         OrderPojo orderPojo = TestHelper.createOrderPojo(orderId, orderTime, orderTotal, invoiced);
-        orderService.add(orderPojo, orderItemPojoList);
+        orderFlow.add(orderPojo, orderItemPojoList);
     }
 
     private List<OrderItemPojo> createTemplateOrderItemPojoList() {

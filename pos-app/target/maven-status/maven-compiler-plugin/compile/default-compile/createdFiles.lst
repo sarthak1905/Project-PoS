@@ -5,6 +5,7 @@ com\increff\pos\dto\OrderDto.class
 com\increff\pos\service\ApiException.class
 com\increff\pos\model\InventoryReportData.class
 com\increff\pos\pojo\OrderItemPojo.class
+com\increff\pos\flow\UserFlow.class
 com\increff\pos\dao\InventoryDao.class
 com\increff\pos\dao\UserDao.class
 com\increff\pos\model\BrandReportFilterForm.class
@@ -13,14 +14,16 @@ com\increff\pos\model\UserData.class
 com\increff\pos\util\CookieUtil.class
 com\increff\pos\pojo\InventoryPojo.class
 com\increff\pos\model\OrderItemForm.class
+com\increff\pos\flow\InvoiceFlow.class
 com\increff\pos\service\InventoryService.class
+com\increff\pos\spring\CustomNamingStrategy.class
 com\increff\pos\dto\InventoryDto.class
 com\increff\pos\pojo\InvoicePojo.class
 com\increff\pos\model\InventoryData.class
 com\increff\pos\model\InventoryForm.class
 com\increff\pos\spring\SchedulerConfig.class
 com\increff\pos\util\NormalizeUtil.class
-com\increff\pos\pojo\GeneratorTable.class
+com\increff\pos\flow\OrderFlow.class
 com\increff\pos\service\BrandService.class
 com\increff\pos\spring\WebInitializer.class
 com\increff\pos\model\SalesReportData.class
@@ -38,7 +41,9 @@ com\increff\pos\pojo\DaySalesPojo.class
 com\increff\pos\model\InfoData.class
 com\increff\pos\model\InventoryReportFilterForm.class
 com\increff\pos\model\ProductForm.class
+com\increff\pos\flow\BrandFlow.class
 com\increff\pos\dao\AbstractDao.class
+com\increff\pos\flow\ProductFlow.class
 com\increff\pos\pojo\AbstractVersionPojo.class
 com\increff\pos\controller\AbstractUiController.class
 com\increff\pos\service\InvoiceService.class
@@ -63,6 +68,7 @@ com\increff\pos\service\UserService.class
 com\increff\pos\controller\ReportController.class
 com\increff\pos\pojo\UserPojo.class
 com\increff\pos\model\BrandForm.class
+com\increff\pos\flow\DaySalesFlow.class
 com\increff\pos\spring\DbConfig.class
 com\increff\pos\model\OrderFilterForm.class
 com\increff\pos\controller\AppRestControllerAdvice.class
@@ -72,6 +78,7 @@ com\increff\pos\dto\ProductDto.class
 com\increff\pos\spring\ControllerConfig.class
 com\increff\pos\dto\UserDto.class
 com\increff\pos\dao\BrandDao.class
+com\increff\pos\flow\InventoryFlow.class
 com\increff\pos\controller\BrandController.class
 com\increff\pos\service\DaySalesService.class
 com\increff\pos\model\OrderItemData.class
@@ -80,3 +87,4 @@ com\increff\pos\util\SecurityUtil.class
 com\increff\pos\model\DaySalesData.class
 com\increff\pos\model\UserForm.class
 com\increff\pos\util\ValidationUtil.class
+com\increff\pos\flow\ReportFlow.class

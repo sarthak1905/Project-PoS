@@ -79,7 +79,7 @@ public class ConvertUtil {
         orderData.setId(orderPojo.getId());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         orderData.setDateTime(orderPojo.getOrderDate().format(dateTimeFormatter));
-        orderData.setInvoiced(orderPojo.isInvoiced());
+        orderData.setInvoiced(orderPojo.getIsInvoiced());
         orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
     }

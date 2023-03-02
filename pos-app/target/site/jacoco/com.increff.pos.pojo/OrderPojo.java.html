@@ -5,31 +5,29 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-import static com.increff.pos.pojo.GeneratorTable.POS_ORDER_SEQ;
-import static com.increff.pos.pojo.GeneratorTable.POS_TABLE_NAME;
-
+// TODO unless specific use case, use IDENTITY as generation strategy
+// TODO use non-primitive data types everywhere possible
 @Entity
 @Getter
-<span class="fc" id="L15">@Setter</span>
-@Table(name = &quot;orders&quot;, indexes = {@Index(name = &quot;order_date_index&quot;, columnList = &quot;order_date&quot;),
-                                   @Index(name = &quot;is_invoiced_index&quot;, columnList = &quot;is_invoiced&quot;)})
-<span class="fc" id="L18">public class OrderPojo extends AbstractVersionPojo {</span>
+<span class="fc" id="L14">@Setter</span>
+@Table(name = &quot;orders&quot;, indexes = {@Index(name = &quot;order_date_index&quot;, columnList = &quot;orderDate&quot;),
+                                   @Index(name = &quot;is_invoiced_index&quot;, columnList = &quot;isInvoiced&quot;)})
+<span class="fc" id="L17">public class OrderPojo extends AbstractVersionPojo {</span>
 
     @Id
-    @TableGenerator(name = POS_ORDER_SEQ, pkColumnValue = POS_ORDER_SEQ, table = POS_TABLE_NAME)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = POS_ORDER_SEQ)
-<span class="fc" id="L23">    private Integer id;</span>
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L21">    private Integer id;</span>
 
-    @Column(nullable = false, name = &quot;order_date&quot;)
-<span class="fc" id="L26">    private LocalDateTime orderDate;</span>
+    @Column(nullable = false)
+<span class="fc" id="L24">    private ZonedDateTime orderDate;</span>
 
-    @Column(nullable = false, name = &quot;is_invoiced&quot;)
-<span class="fc" id="L29">    private boolean isInvoiced;</span>
+    @Column(nullable = false)
+<span class="fc" id="L27">    private Boolean isInvoiced;</span>
 
-    @Column(name = &quot;order_total&quot;)
-<span class="fc" id="L32">    private Double orderTotal;</span>
+    @Column(nullable = false)
+<span class="fc" id="L30">    private Double orderTotal;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

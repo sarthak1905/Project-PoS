@@ -8,26 +8,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
+import java.time.ZonedDateTime;
 
 @MappedSuperclass
 @Getter
-<span class="nc" id="L16">@Setter</span>
-<span class="fc" id="L17">public abstract class AbstractVersionPojo implements Serializable {</span>
+<span class="nc" id="L15">@Setter</span>
+<span class="fc" id="L16">public abstract class AbstractVersionPojo implements Serializable {</span>
 
     @CreationTimestamp
-    @Column
     @JsonFormat(pattern=&quot;yyyy-MM-dd HH:mm:ss&quot;)
-<span class="nc" id="L22">    private LocalDateTime createdAt;</span>
+<span class="nc" id="L20">    private ZonedDateTime createdAt;</span>
 
     @UpdateTimestamp
-    @Column
     @JsonFormat(pattern=&quot;yyyy-MM-dd HH:mm:ss&quot;)
-<span class="nc" id="L27">    private LocalDateTime updatedAt;</span>
+<span class="nc" id="L24">    private ZonedDateTime updatedAt;</span>
 
     @Version
-    @Column
-<span class="nc" id="L31">    private Integer version;</span>
+<span class="nc" id="L27">    private Integer version;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

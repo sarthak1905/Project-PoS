@@ -160,7 +160,7 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetBarcodeFromProductId() {
+    public void testGetBarcodeFromProductId() throws ApiException {
         List<ProductPojo> productPojoList = productDao.selectAll();
         if (productPojoList.size() == 0) {
             fail();

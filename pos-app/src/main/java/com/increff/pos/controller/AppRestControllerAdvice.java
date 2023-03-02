@@ -1,5 +1,7 @@
 package com.increff.pos.controller;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.increff.pos.model.MessageData;
 import com.increff.pos.service.ApiException;
 import org.springframework.http.HttpHeaders;
@@ -28,13 +30,23 @@ public class AppRestControllerAdvice {
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public MessageData handleHttpMessageNotReadableException(
-			HttpMessageNotReadableException ex) {
-		String message = "Required request body is invalid!";
+	public MessageData handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		Throwable cause = ex.getCause();
 		MessageData data = new MessageData();
+		String message;
+		if (cause instanceof InvalidFormatException) {
+			InvalidFormatException ife = (InvalidFormatException) cause;
+			message = "Invalid value for field " + ife.getPath().get(0).getFieldName();
+		} else if (cause instanceof UnrecognizedPropertyException) {
+			UnrecognizedPropertyException upe = (UnrecognizedPropertyException) cause;
+			message = "Unrecognized field " + upe.getPropertyName();
+		} else {
+			message = "Required request body is invalid!";
+		}
 		data.setMessage(message);
 		return data;
 	}
+
 
 	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

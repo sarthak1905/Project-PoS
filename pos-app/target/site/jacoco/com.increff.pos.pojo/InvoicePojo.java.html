@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -17,14 +17,13 @@ import java.time.LocalDateTime;
 <span class="fc" id="L17">public class InvoicePojo extends AbstractVersionPojo {</span>
 
     @Id
-    @Column(name = &quot;order_id&quot;)
-<span class="fc" id="L21">    private Integer orderId;</span>
+<span class="fc" id="L20">    private Integer orderId;</span>
 
-    @Column(nullable = false, name = &quot;invoice_date&quot;)
-<span class="fc" id="L24">    private LocalDateTime invoiceDate;</span>
+    @Column(nullable = false)
+<span class="fc" id="L23">    private ZonedDateTime invoiceDate;</span>
 
     @Column(nullable = false, length = 100)
     @NotBlank
-<span class="fc" id="L28">    private String path;</span>
+<span class="fc" id="L27">    private String path;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

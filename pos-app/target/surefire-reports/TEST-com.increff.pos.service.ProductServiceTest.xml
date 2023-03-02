@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="com.increff.pos.service.ProductServiceTest" time="0.073" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="com.increff.pos.service.ProductServiceTest" time="0.12" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_202\jre\bin"/>
     <property name="java.vm.version" value="25.202-b08"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\sarth\Desktop\Final Project\Project-PoS\pos-app"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="D:\Java-Projects\Maven\Increff-Training\pos-project\pos-app"/>
+    <property name="user.dir" value="C:\Users\sarth\Desktop\Final Project\Project-PoS\pos-app"/>
     <property name="java.runtime.version" value="1.8.0_202-b08"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_202\jre\lib\endorsed"/>
@@ -65,14 +65,14 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testRepeatedBarcodeAdd" time="0.008"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGet" time="0.008"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetProductIdFromBarcode" time="0.008"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testNullUpdate" time="0.007"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetProductNameFromProductId" time="0.005"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetAll" time="0.008"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testInvalidIdGet" time="0.007"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testUpdate" time="0.01"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testNullAdd" time="0.004"/>
-  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetBarcodeFromProductId" time="0.008"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testRepeatedBarcodeAdd" time="0.012"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGet" time="0.01"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetProductIdFromBarcode" time="0.013"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testNullUpdate" time="0.01"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetProductNameFromProductId" time="0.014"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetAll" time="0.011"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testInvalidIdGet" time="0.013"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testUpdate" time="0.011"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testNullAdd" time="0.009"/>
+  <testcase classname="com.increff.pos.service.ProductServiceTest" name="testGetBarcodeFromProductId" time="0.017"/>
 </testsuite>

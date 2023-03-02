@@ -17,6 +17,7 @@ function addProduct(event){
 	//Set the values to update
 	var $form = $('#product-form');
 	var json = toJson($form);
+	console.log(json);
 	var url = getProductUrl();
 
 	$.ajax({

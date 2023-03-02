@@ -19,15 +19,15 @@ public class DaySalesPojo extends AbstractVersionPojo {
     @Id
     private LocalDate date;
 
-    @Column(nullable = false, name = "invoiced_order_count")
+    @Column(nullable = false)
     @Min(value = 0)
     private Integer invoicedOrdersCount;
 
-    @Column(nullable = false, name = "invoiced_items_count")
+    @Column(nullable = false)
     @Min(value = 0)
     private Integer invoicedItemsCount;
 
-    @Column(nullable = false, name = "total_revenue")
+    @Column(nullable = false)
     @Min(value = 0)
     private Double totalRevenue;
 

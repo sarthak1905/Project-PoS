@@ -8,7 +8,7 @@ import com.increff.pos.pojo.*;
 import org.h2.engine.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class TestHelper {
     public static ProductForm createNewProductForm(String productName, String productBarcode, String productBrand, String productCategory, Double productMrp) {
@@ -61,12 +61,12 @@ public class TestHelper {
         return orderItemForm;
     }
 
-    public static OrderPojo createOrderPojo(Integer orderId, LocalDateTime orderTime, Double orderTotal, boolean invoiced) {
+    public static OrderPojo createOrderPojo(Integer orderId, ZonedDateTime orderTime, Double orderTotal, boolean invoiced) {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setId(orderId);
         orderPojo.setOrderDate(orderTime);
         orderPojo.setOrderTotal(orderTotal);
-        orderPojo.setInvoiced(invoiced);
+        orderPojo.setIsInvoiced(invoiced);
         return orderPojo;
     }
 
@@ -78,7 +78,7 @@ public class TestHelper {
         return orderItemPojo;
     }
 
-    public static InvoicePojo createInvoicePojo(Integer orderId, LocalDateTime orderTime, String tempPath) {
+    public static InvoicePojo createInvoicePojo(Integer orderId, ZonedDateTime orderTime, String tempPath) {
         InvoicePojo invoicePojo = new InvoicePojo();
         invoicePojo.setOrderId(orderId);
         invoicePojo.setInvoiceDate(orderTime);
