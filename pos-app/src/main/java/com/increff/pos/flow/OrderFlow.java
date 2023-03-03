@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +25,8 @@ public class OrderFlow {
     @Autowired
     private OrderItemService orderItemService;
     @Autowired
+    private InvoiceService invoiceService;
+    @Autowired
     private OrderService orderService;
 
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) throws ApiException {
@@ -33,6 +34,8 @@ public class OrderFlow {
         validateOrderItemPojoList(orderItemPojoList);
         Double orderTotal = calculateOrderTotal(orderItemPojoList);
         orderPojo.setOrderTotal(orderTotal);
+        orderPojo.setOrderDate(java.time.ZonedDateTime.now());
+        orderPojo.setOrderStatus("placed");
         orderService.add(orderPojo);
         for (OrderItemPojo orderItemPojo: orderItemPojoList){
             orderItemPojo.setOrderId(orderPojo.getId());
@@ -88,14 +91,17 @@ public class OrderFlow {
     public void setInvoicedTrue(Integer orderId) throws ApiException {
         ValidationUtil.checkId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
-        orderPojo.setIsInvoiced(true);
+        orderPojo.setOrderStatus("invoiced");
     }
 
     public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
         ValidationUtil.checkId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
-        if(orderPojo.getIsInvoiced()){
+        if(orderPojo.getOrderStatus().equals("invoiced")){
             throw new ApiException("Invoiced order cannot be updated!");
+        }
+        if(orderPojo.getOrderStatus().equals("cancelled")){
+            throw new ApiException("Cancelled order cannot be updated!");
         }
     }
 
@@ -110,6 +116,15 @@ public class OrderFlow {
 
     public List<OrderPojo> getAfterStartDate(ZonedDateTime startDate) {
         return orderService.getAfterStartDate(startDate);
+    }
+
+    public void cancel(Integer id) throws ApiException {
+        OrderPojo orderPojo = orderService.get(id);
+        orderPojo.setOrderStatus("cancelled");
+        List<OrderItemPojo> orderItemPojoList = orderItemService.getByOrderId(id);
+        for(OrderItemPojo orderItemPojo: orderItemPojoList){
+            inventoryService.increaseInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+        }
     }
 
     private double calculateOrderTotal(List<OrderItemPojo> orderItemPojos) {
@@ -148,5 +163,6 @@ public class OrderFlow {
         }
         return orderItemPojo;
     }
+
 
 }

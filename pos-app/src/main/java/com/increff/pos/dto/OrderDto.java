@@ -1,5 +1,6 @@
 package com.increff.pos.dto;
 
+import com.increff.pos.clients.InvoiceClient;
 import com.increff.pos.flow.InventoryFlow;
 import com.increff.pos.flow.InvoiceFlow;
 import com.increff.pos.flow.OrderFlow;
@@ -17,11 +18,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,7 +30,6 @@ import java.nio.file.Paths;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 
@@ -45,6 +44,8 @@ public class OrderDto {
     private InventoryFlow inventoryFlow;
     @Autowired
     private InvoiceFlow invoiceFlow;
+    @Autowired
+    private InvoiceClient invoiceClient;
     @Value("${invoice.uri}")
     private String invoiceUrl;
 
@@ -75,7 +76,8 @@ public class OrderDto {
         LocalDateTime endDateTime = LocalDate.parse(filteredEndDate, dateTimeFormatter).atTime(LocalTime.MAX);
         ZonedDateTime startDate = startDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime endDate = endDateTime.atZone(ZoneId.systemDefault());
-        validateDates(startDate, endDate);
+        ValidationUtil.validateDates(startDate, endDate);
+
         List<OrderPojo> orderList = orderFlow.getBetweenDates(startDate, endDate);
         List<OrderData> orderDataList = new ArrayList<>();
         for(OrderPojo orderPojo: orderList){
@@ -105,50 +107,29 @@ public class OrderDto {
         String filename = "invoice" + orderId +".pdf";
         headers.setContentDispositionFormData(filename, filename);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
         String invoiceDirectoryString = "./generated/invoice"+ orderId +".pdf";
         File file = new File(invoiceDirectoryString);
         OrderPojo orderPojo = orderFlow.get(orderId);
 
-        if(file.exists() && orderPojo.getIsInvoiced()){
+        if(file.exists() && orderPojo.getOrderStatus().equals("invoiced")){
             Path invoicePath = Paths.get(invoiceDirectoryString);
             byte[] contents = Files.readAllBytes(invoicePath);
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
-
-        List<OrderItemPojo> orderItemPojos = orderFlow.getByOrderId(orderId);
-
-        List<OrderItemData> orderItemDataList = new ArrayList<>();
-        for(OrderItemPojo orderItemPojo: orderItemPojos){
-            String barcode = productFlow.getBarcodeFromProductId(orderItemPojo.getProductId());
-            String productName = productFlow.getProductNameFromProductId(orderItemPojo.getProductId());
-            orderItemDataList.add(ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName));
-        }
-
-        InvoicePojo invoicePojo = new InvoicePojo();
-        InvoicePojo existingInvoicePojo = invoiceFlow.getOrNull(orderId);
-        invoicePojo.setOrderId(orderId);
-        if(existingInvoicePojo == null) {
-            invoicePojo.setInvoiceDate(java.time.ZonedDateTime.now());
-        }
-        else{
-            invoicePojo.setInvoiceDate(existingInvoicePojo.getInvoiceDate());
-        }
-
-        InvoiceForm invoiceForm = generateInvoiceForm(orderItemDataList, orderPojo, invoicePojo);
-        RestTemplate restTemplate = new RestTemplate();
-
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            byte[] contents = Base64.getDecoder().decode(restTemplate.postForEntity(invoiceUrl, invoiceForm, byte[].class).getBody());
+        InvoicePojo invoicePojo = invoiceFlow.getInvoiceDetails(orderId);
+        InvoiceForm invoiceForm = generateInvoiceForm(orderId, invoicePojo);
+        try(FileOutputStream fos = new FileOutputStream(file)) {
+            byte[] contents = invoiceClient.generateInvoice(invoiceForm);
             fos.write(contents);
             String path = "pos-app/generated/invoice" + orderId + ".pdf";
             invoicePojo.setPath(path);
             invoiceFlow.add(invoicePojo);
             orderFlow.setInvoicedTrue(orderPojo.getId());
-
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         }
-        catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        catch(FileNotFoundException e){
+            throw new ApiException("Error creating file in system!");
         }
     }
 
@@ -164,10 +145,17 @@ public class OrderDto {
         orderFlow.update(orderId, orderItemPojoList);
     }
 
+    public void cancel(Integer id) throws ApiException {
+        ValidationUtil.checkId(id);
+        orderFlow.cancel(id);
+    }
+
 
     // -----------------------PRIVATE METHODS-------------------------------
 
-    private InvoiceForm generateInvoiceForm(List<OrderItemData> orderItemDataList, OrderPojo orderPojo, InvoicePojo invoicePojo) {
+    private InvoiceForm generateInvoiceForm(Integer orderId, InvoicePojo invoicePojo) throws ApiException {
+        List<OrderItemData> orderItemDataList = generateOrderItemListByOrderId(orderId);
+        OrderPojo orderPojo = orderFlow.get(orderId);
         InvoiceForm invoiceForm = new InvoiceForm();
         invoiceForm.setOrderItemData(orderItemDataList);
 
@@ -179,21 +167,23 @@ public class OrderDto {
         return invoiceForm;
     }
 
+    private List<OrderItemData> generateOrderItemListByOrderId(Integer orderId) throws ApiException {
+        List<OrderItemPojo> orderItemPojos = orderFlow.getByOrderId(orderId);
+        List<OrderItemData> orderItemDataList = new ArrayList<>();
+        for(OrderItemPojo orderItemPojo: orderItemPojos){
+            String barcode = productFlow.getBarcodeFromProductId(orderItemPojo.getProductId());
+            String productName = productFlow.getProductNameFromProductId(orderItemPojo.getProductId());
+            orderItemDataList.add(ConvertUtil.convertOrderItemPojoToData(orderItemPojo, barcode, productName));
+        }
+        return orderItemDataList;
+    }
+
     private void validateOrderItemInputForms(List<OrderItemForm> orderItemForms) throws ApiException {
         if(orderItemForms.size() == 0){
             throw new ApiException("Minimum 1 order item must exist to place order!");
         }
         for(OrderItemForm orderItemForm: orderItemForms){
             ValidationUtil.validateForms(orderItemForm);
-        }
-    }
-
-    private void validateDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
-        if(startDate.isAfter(endDate)){
-            throw new ApiException("Start date cannot be after end date!");
-        }
-        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
-            throw new ApiException("Max duration between start date and end date is 90 days");
         }
     }
 

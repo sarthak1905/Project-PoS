@@ -47,7 +47,7 @@ public class ConvertUtil {
         return inventoryData;
     }
 
-    public static InventoryPojo convertInventoryFormToPojo(InventoryForm inventoryForm, int productId) {
+    public static InventoryPojo convertInventoryFormToPojo(InventoryForm inventoryForm, Integer productId) {
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(productId);
         inventoryPojo.setQuantity(inventoryForm.getQuantity());
@@ -79,7 +79,7 @@ public class ConvertUtil {
         orderData.setId(orderPojo.getId());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         orderData.setDateTime(orderPojo.getOrderDate().format(dateTimeFormatter));
-        orderData.setInvoiced(orderPojo.getIsInvoiced());
+        orderData.setOrderStatus(orderPojo.getOrderStatus());
         orderData.setOrderTotal(orderPojo.getOrderTotal());
         return orderData;
     }

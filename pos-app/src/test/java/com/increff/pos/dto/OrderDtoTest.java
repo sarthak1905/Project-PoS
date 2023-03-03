@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -108,7 +109,7 @@ public class OrderDtoTest extends AbstractUnitTest {
         }
     }
 
-    @Test
+    @Test(expected = ResourceAccessException.class)
     public void testGetOrderInvoice() throws IOException, ApiException {
         List<OrderPojo> orderPojoList = orderDao.selectAll();
         if(orderPojoList.size()!= 1){

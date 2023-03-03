@@ -3,45 +3,56 @@
 import com.increff.pos.service.ApiException;
 
 import javax.validation.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
-<span class="nc" id="L10">public class ValidationUtil {</span>
+<span class="nc" id="L12">public class ValidationUtil {</span>
 
     public static &lt;T&gt; void validateForms(T form){
-<span class="fc" id="L13">        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
-<span class="fc" id="L14">        Validator validator = factory.getValidator();</span>
-<span class="fc" id="L15">        Set&lt;ConstraintViolation&lt;T&gt;&gt; violations = validator.validate(form);</span>
-<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        if (!violations.isEmpty()) {</span>
-<span class="nc" id="L17">            throw new ConstraintViolationException(violations);</span>
+<span class="fc" id="L15">        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L16">        Validator validator = factory.getValidator();</span>
+<span class="fc" id="L17">        Set&lt;ConstraintViolation&lt;T&gt;&gt; violations = validator.validate(form);</span>
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        if (!violations.isEmpty()) {</span>
+<span class="nc" id="L19">            throw new ConstraintViolationException(violations);</span>
         }
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L21">    }</span>
 
     public static &lt;T&gt; void checkPojo(T pojo) throws ApiException {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if(pojo == null){</span>
-<span class="fc" id="L23">            throw new ApiException(&quot;Pojo is null!&quot;);</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if(pojo == null){</span>
+<span class="fc" id="L25">            throw new ApiException(&quot;Pojo is null!&quot;);</span>
         }
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L27">    }</span>
 
     public static void checkId(Integer id) throws ApiException {
-<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if(id == null) {</span>
-<span class="nc" id="L29">            throw new ApiException(&quot;ID provided is null!&quot;);</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if(id == null) {</span>
+<span class="nc" id="L31">            throw new ApiException(&quot;ID provided is null!&quot;);</span>
         }
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L33">    }</span>
 
     public static void validateDaySalesDates(LocalDate startDate, LocalDate endDate) throws ApiException {
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(startDate.isAfter(endDate)){</span>
-<span class="nc" id="L35">            throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if(startDate.isAfter(endDate)){</span>
+<span class="nc" id="L37">            throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
         }
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if(ChronoUnit.DAYS.between(startDate, endDate) &gt; 90){</span>
-<span class="nc" id="L38">            throw new ApiException(&quot;Max duration between start date and end date is 90 days&quot;);</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if(ChronoUnit.DAYS.between(startDate, endDate) &gt; 90){</span>
+<span class="nc" id="L40">            throw new ApiException(&quot;Max duration between start date and end date is 90 days&quot;);</span>
         }
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L42">    }</span>
 
     public static boolean checkIfNullOrEmpty(String inputString) {
-<span class="pc bpc" id="L43" title="1 of 4 branches missed.">        return inputString == null || inputString.equals(&quot;&quot;);</span>
+<span class="pc bpc" id="L45" title="1 of 4 branches missed.">        return inputString == null || inputString.equals(&quot;&quot;);</span>
     }
+
+    public static void validateDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(startDate.isAfter(endDate)){</span>
+<span class="nc" id="L50">            throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
+        }
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) &gt; 0){</span>
+<span class="nc" id="L53">            throw new ApiException(&quot;Max duration between start date and end date is 90 days&quot;);</span>
+        }
+<span class="fc" id="L55">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

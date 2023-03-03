@@ -2,6 +2,7 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.UserDao;
 import com.increff.pos.pojo.UserPojo;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class UserService {
 	private UserDao userDao;
 
 	public void add(UserPojo userPojo) throws ApiException {
-		normalize(userPojo);
+		ValidationUtil.checkPojo(userPojo);
 		UserPojo existing = userDao.select(userPojo.getEmail());
 		if (existing != null) {
 			throw new ApiException("User with given email already exists");
@@ -28,11 +29,4 @@ public class UserService {
 		return userDao.select(email);
 	}
 
-	public List<UserPojo> getAll() {
-		return userDao.selectAll();
-	}
-
-	protected static void normalize(UserPojo userPojo) {
-		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());
-	}
 }

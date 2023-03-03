@@ -24,7 +24,7 @@ public class DaySalesServiceTest extends AbstractUnitTest {
 
     @Test
     public void testUpdateAddOrUpdate(){
-        List<DaySalesPojo> daySalesPojoList = daySalesService.getAll();
+        List<DaySalesPojo> daySalesPojoList = daySalesService.getBetweenDates(LocalDate.now(), LocalDate.now());
         if(daySalesPojoList.size() != 1){
             fail();
         }
@@ -33,7 +33,7 @@ public class DaySalesServiceTest extends AbstractUnitTest {
         daySalesPojo.setInvoicedOrdersCount(invoicedOrdersCount + 1);
         daySalesPojo.setInvoicedItemsCount(invoicedItemsCount + 1);
         daySalesService.addOrUpdate(daySalesPojo);
-        daySalesPojoList = daySalesService.getAll();
+        daySalesPojoList = daySalesService.getBetweenDates(LocalDate.now(), LocalDate.now());
         daySalesPojo = daySalesPojoList.get(0);
         assertEquals(totalRevenue + 0.1, daySalesPojo.getTotalRevenue());
         assertEquals((Integer)(invoicedOrdersCount + 1), daySalesPojo.getInvoicedOrdersCount());

@@ -241,7 +241,7 @@ public class ReportDtoTest extends AbstractUnitTest {
     private OrderPojo createTemplateOrder() throws ApiException {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setOrderDate(ORDER_TIME);
-        orderPojo.setIsInvoiced(true);
+        orderPojo.setOrderStatus("invoiced");
         orderPojo.setId(ORDER_ID);
         orderPojo.setOrderTotal(ORDER_TOTAL);
         orderDao.insert(orderPojo);

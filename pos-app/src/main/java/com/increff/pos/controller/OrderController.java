@@ -56,4 +56,10 @@ public class OrderController {
         orderDto.update(id, orderItemForms);
     }
 
+    @ApiOperation(value = "Cancels an order")
+    @RequestMapping(path = "/{id}/cancel", method = RequestMethod.GET)
+    public void cancel(@PathVariable Integer id) throws ApiException {
+        orderDto.cancel(id);
+    }
+
 }

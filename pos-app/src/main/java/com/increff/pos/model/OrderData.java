@@ -11,7 +11,7 @@ public class OrderData {
 
     private Integer id;
     private String dateTime;
-    private boolean isInvoiced;
+    private String orderStatus;
     private Double orderTotal;
 
 }

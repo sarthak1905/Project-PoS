@@ -121,60 +121,48 @@ import java.util.Map;
     }
 
     public void refreshDaySalesEntity() throws ApiException {
-<span class="fc" id="L124">        LocalDate currentDate = java.time.LocalDate.now();</span>
-<span class="fc" id="L125">        LocalDate startDate = daySalesService.getLastDate();</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if(startDate == null){</span>
-<span class="fc" id="L127">            ZonedDateTime firstOrder = invoiceService.getFirstOrderDateTime();</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">            if(firstOrder == null){</span>
-<span class="fc" id="L129">                return;</span>
-            }
-<span class="nc" id="L131">            startDate = firstOrder.toLocalDate();</span>
-        }
-<span class="nc bnc" id="L133" title="All 2 branches missed.">        while (!startDate.isAfter(currentDate)){</span>
-<span class="nc" id="L134">            daySalesService.createDaySalesEntry(startDate);</span>
-<span class="nc" id="L135">            startDate = startDate.plusDays(1);</span>
-        }
-<span class="nc" id="L137">    }</span>
+
+<span class="nc" id="L125">    }</span>
 
     private List&lt;OrderPojo&gt; getOrderPojoListByDates(SalesReportFilterForm salesReportFilterForm) throws ApiException {
         ZonedDateTime startDate;
         ZonedDateTime endDate;
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-<span class="fc" id="L144">        String filterStartDate = salesReportFilterForm.getStartDate();</span>
-<span class="fc" id="L145">        String filterEndDate = salesReportFilterForm.getEndDate();</span>
+<span class="fc" id="L132">        String filterStartDate = salesReportFilterForm.getStartDate();</span>
+<span class="fc" id="L133">        String filterEndDate = salesReportFilterForm.getEndDate();</span>
 
-<span class="fc" id="L147">        List&lt;OrderPojo&gt; orderPojoList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L148" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L149">            orderPojoList = orderService.getAll();</span>
+<span class="fc" id="L135">        List&lt;OrderPojo&gt; orderPojoList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L136" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L137">            orderPojoList = orderService.getAll();</span>
         }
 
-<span class="fc bfc" id="L152" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L153">            endDateTime = LocalDateTime.of(LocalDate.parse(filterEndDate, DATE_TIME_FORMATTER), LocalTime.MAX);</span>
-<span class="fc" id="L154">            endDate = endDateTime.atZone(ZoneId.systemDefault());</span>
-<span class="fc" id="L155">            orderPojoList = orderService.getBeforeEndDate(endDate);</span>
+<span class="fc bfc" id="L140" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L141">            endDateTime = LocalDateTime.of(LocalDate.parse(filterEndDate, DATE_TIME_FORMATTER), LocalTime.MAX);</span>
+<span class="fc" id="L142">            endDate = endDateTime.atZone(ZoneId.systemDefault());</span>
+<span class="fc" id="L143">            orderPojoList = orderService.getBeforeEndDate(endDate);</span>
         }
 
-<span class="fc bfc" id="L158" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterEndDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterStartDate)){</span>
-<span class="fc" id="L159">            startDateTime = LocalDate.parse(filterStartDate, DATE_TIME_FORMATTER).atStartOfDay();</span>
-<span class="fc" id="L160">            startDate = startDateTime.atZone(ZoneId.systemDefault());</span>
-<span class="fc" id="L161">            orderPojoList = orderService.getAfterStartDate(startDate);</span>
+<span class="fc bfc" id="L146" title="All 4 branches covered.">        if(ValidationUtil.checkIfNullOrEmpty(filterEndDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterStartDate)){</span>
+<span class="fc" id="L147">            startDateTime = LocalDate.parse(filterStartDate, DATE_TIME_FORMATTER).atStartOfDay();</span>
+<span class="fc" id="L148">            startDate = startDateTime.atZone(ZoneId.systemDefault());</span>
+<span class="fc" id="L149">            orderPojoList = orderService.getAfterStartDate(startDate);</span>
         }
 
-<span class="fc bfc" id="L164" title="All 4 branches covered.">        if(!ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
-<span class="fc" id="L165">            startDateTime = LocalDate.parse(filterStartDate, DATE_TIME_FORMATTER).atStartOfDay();</span>
-<span class="fc" id="L166">            startDate = startDateTime.atZone(ZoneId.systemDefault());</span>
-<span class="fc" id="L167">            endDateTime = LocalDateTime.of(LocalDate.parse(filterEndDate, DATE_TIME_FORMATTER), LocalTime.MAX);</span>
-<span class="fc" id="L168">            endDate = endDateTime.atZone(ZoneId.systemDefault());</span>
-<span class="pc bpc" id="L169" title="1 of 2 branches missed.">            if(startDate.isAfter(endDate)){</span>
-<span class="nc" id="L170">                throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
+<span class="fc bfc" id="L152" title="All 4 branches covered.">        if(!ValidationUtil.checkIfNullOrEmpty(filterStartDate) &amp;&amp; !ValidationUtil.checkIfNullOrEmpty(filterEndDate)){</span>
+<span class="fc" id="L153">            startDateTime = LocalDate.parse(filterStartDate, DATE_TIME_FORMATTER).atStartOfDay();</span>
+<span class="fc" id="L154">            startDate = startDateTime.atZone(ZoneId.systemDefault());</span>
+<span class="fc" id="L155">            endDateTime = LocalDateTime.of(LocalDate.parse(filterEndDate, DATE_TIME_FORMATTER), LocalTime.MAX);</span>
+<span class="fc" id="L156">            endDate = endDateTime.atZone(ZoneId.systemDefault());</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">            if(startDate.isAfter(endDate)){</span>
+<span class="nc" id="L158">                throw new ApiException(&quot;Start date cannot be after end date!&quot;);</span>
             }
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">            if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) &gt; 0){</span>
-<span class="nc" id="L173">                throw new ApiException(&quot;Max duration between start date and end date is 90 days&quot;);</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">            if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) &gt; 0){</span>
+<span class="nc" id="L161">                throw new ApiException(&quot;Max duration between start date and end date is 90 days&quot;);</span>
             }
-<span class="fc" id="L175">            orderPojoList = orderService.getBetweenDates(startDate, endDate);</span>
+<span class="fc" id="L163">            orderPojoList = orderService.getBetweenDates(startDate, endDate);</span>
         }
-<span class="fc" id="L177">        return orderPojoList;</span>
+<span class="fc" id="L165">        return orderPojoList;</span>
     }
 
 }

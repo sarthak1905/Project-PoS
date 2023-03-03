@@ -79,7 +79,7 @@ import java.time.format.DateTimeFormatter;
 <span class="fc" id="L79">        orderData.setId(orderPojo.getId());</span>
 <span class="fc" id="L80">        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm&quot;);</span>
 <span class="fc" id="L81">        orderData.setDateTime(orderPojo.getOrderDate().format(dateTimeFormatter));</span>
-<span class="fc" id="L82">        orderData.setInvoiced(orderPojo.getIsInvoiced());</span>
+<span class="fc" id="L82">        orderData.setOrderStatus(orderPojo.getOrderStatus());</span>
 <span class="fc" id="L83">        orderData.setOrderTotal(orderPojo.getOrderTotal());</span>
 <span class="fc" id="L84">        return orderData;</span>
     }

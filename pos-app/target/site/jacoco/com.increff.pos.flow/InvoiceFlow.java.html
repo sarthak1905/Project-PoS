@@ -8,23 +8,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.ZonedDateTime;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="fc" id="L14">public class InvoiceFlow {</span>
+<span class="fc" id="L15">public class InvoiceFlow {</span>
 
     @Autowired
     private InvoiceService invoiceService;
 
 
     public InvoicePojo getOrNull(Integer orderId) throws ApiException {
-<span class="fc" id="L21">        ValidationUtil.checkId(orderId);</span>
-<span class="fc" id="L22">        return invoiceService.getOrNull(orderId);</span>
+<span class="nc" id="L22">        ValidationUtil.checkId(orderId);</span>
+<span class="nc" id="L23">        return invoiceService.getOrNull(orderId);</span>
     }
 
     public void add(InvoicePojo invoicePojo) throws ApiException {
-<span class="nc" id="L26">        ValidationUtil.checkPojo(invoicePojo);</span>
-<span class="nc" id="L27">        invoiceService.add(invoicePojo);</span>
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L27">        ValidationUtil.checkPojo(invoicePojo);</span>
+<span class="nc" id="L28">        invoiceService.add(invoicePojo);</span>
+<span class="nc" id="L29">    }</span>
+
+    public ZonedDateTime getFirstOrderDateTime() {
+<span class="fc" id="L32">        return invoiceService.getFirstOrderDateTime();</span>
+    }
+
+    public InvoicePojo getInvoiceDetails(Integer orderId) throws ApiException {
+<span class="fc" id="L36">        InvoicePojo invoicePojo = new InvoicePojo();</span>
+<span class="fc" id="L37">        InvoicePojo existingInvoicePojo = invoiceService.getOrNull(orderId);</span>
+<span class="fc" id="L38">        invoicePojo.setOrderId(orderId);</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if(existingInvoicePojo == null) {</span>
+<span class="fc" id="L40">            invoicePojo.setInvoiceDate(java.time.ZonedDateTime.now());</span>
+        }
+        else{
+<span class="nc" id="L43">            invoicePojo.setInvoiceDate(existingInvoicePojo.getInvoiceDate());</span>
+        }
+<span class="fc" id="L45">        return invoicePojo;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

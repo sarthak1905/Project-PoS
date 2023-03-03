@@ -7,10 +7,7 @@ import com.increff.pos.model.UserData;
 import com.increff.pos.model.UserForm;
 import com.increff.pos.pojo.UserPojo;
 import com.increff.pos.service.ApiException;
-import com.increff.pos.util.ConvertUtil;
-import com.increff.pos.util.SecurityUtil;
-import com.increff.pos.util.UserPrincipal;
-import com.increff.pos.util.ValidationUtil;
+import com.increff.pos.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,14 +15,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-<span class="fc" id="L28">public class UserDto {</span>
+@Service
+<span class="fc" id="L26">public class UserDto {</span>
 
     @Autowired
     private UserFlow userFlow;
@@ -38,32 +36,33 @@ import java.util.List;
     private List&lt;String&gt; supervisorEmails;
 
     public String getRoleFromEmail(String email) throws ApiException {
-<span class="fc" id="L41">        UserPojo userPojo = userFlow.get(email);</span>
-<span class="fc" id="L42">        return userFlow.getRoleFromPojo(userPojo);</span>
+<span class="fc" id="L39">        UserPojo userPojo = userFlow.get(email);</span>
+<span class="fc" id="L40">        return userFlow.getRoleFromPojo(userPojo);</span>
     }
 
     public void add(UserForm userForm) throws ApiException {
-<span class="fc" id="L46">        UserPojo userPojo = ConvertUtil.convertUserFormToUserPojo(userForm);</span>
-<span class="fc" id="L47">        userForm.setRole(userFlow.getRoleFromPojo(userPojo));</span>
-<span class="fc" id="L48">        userFlow.add(userPojo);</span>
-<span class="fc" id="L49">        info.setMessage(&quot;Signed up successfully!&quot;);</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L44">        NormalizeUtil.normalize(userForm);</span>
+<span class="fc" id="L45">        UserPojo userPojo = ConvertUtil.convertUserFormToUserPojo(userForm);</span>
+<span class="fc" id="L46">        userForm.setRole(userFlow.getRoleFromPojo(userPojo));</span>
+<span class="fc" id="L47">        userFlow.add(userPojo);</span>
+<span class="fc" id="L48">    }</span>
 
     public Authentication convertUserPojoToAuthentication(UserPojo userPojo) throws ApiException {
-<span class="fc" id="L53">        ValidationUtil.checkPojo(userPojo);</span>
-<span class="fc" id="L54">        return userFlow.convertUserPojoToAuthentication(userPojo);</span>
+<span class="fc" id="L51">        ValidationUtil.checkPojo(userPojo);</span>
+<span class="fc" id="L52">        return userFlow.convertUserPojoToAuthentication(userPojo);</span>
     }
 
     public Boolean authenticate(LoginForm loginForm) throws ApiException {
-<span class="nc" id="L58">        UserPojo userPojo = userFlow.get(loginForm.getEmail());</span>
-<span class="nc bnc" id="L59" title="All 4 branches missed.">        Boolean authenticated = (userPojo != null &amp;&amp; passwordEncoder.matches(loginForm.getPassword(), userPojo.getPassword()));</span>
-<span class="nc" id="L60">        info.setMessage(&quot;Invalid username or password&quot;);</span>
-<span class="nc" id="L61">        return authenticated;</span>
+<span class="nc" id="L56">        UserPojo userPojo = userFlow.get(loginForm.getEmail());</span>
+<span class="nc bnc" id="L57" title="All 4 branches missed.">        Boolean authenticated = (userPojo != null &amp;&amp; passwordEncoder.matches(loginForm.getPassword(), userPojo.getPassword()));</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if(!authenticated)</span>
+<span class="nc" id="L59">            info.setMessage(&quot;Invalid username or password&quot;);</span>
+<span class="nc" id="L60">        return authenticated;</span>
     }
 
     public void createLoginSession(LoginForm loginForm, HttpServletRequest req) throws ApiException {
-<span class="nc" id="L65">        UserPojo userPojo = userFlow.get(loginForm.getEmail());</span>
-<span class="nc" id="L66">        userFlow.createLoginSession(userPojo, req);</span>
-<span class="nc" id="L67">    }</span>
+<span class="nc" id="L64">        UserPojo userPojo = userFlow.get(loginForm.getEmail());</span>
+<span class="nc" id="L65">        userFlow.createLoginSession(userPojo, req);</span>
+<span class="nc" id="L66">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

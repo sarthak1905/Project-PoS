@@ -233,6 +233,24 @@ function downloadOrderInvoice(id) {
 
 }
 
+function cancelOrder(id){
+  var url = getOrderUrl() + id + '/cancel';
+
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(){
+      message = 'Order cancelled succesfully';
+      showSuccessMessage(message);
+    },
+    error: function(response){
+      message = "There was a problem cancelling the order, please try again later";
+      showErrorMessage(message);
+    }
+  })
+
+}
+
 //UI DISPLAY METHODS
 
 function displayOrderList(data) {
@@ -247,9 +265,9 @@ function displayOrderList(data) {
       o.id +
       '"class="btn btn-view button" onclick="displayOrderItems(' +
       o.id +
-      ')"><i class="bi bi-eye-fill"></i> View</button>';
-    if (o.invoiced === false) {
-      invoiceStatus += "Not Invoiced";
+      ')"><i class="bi bi-eye-fill"></i></button>';
+    if (o.orderStatus != "invoiced") {
+      invoiceStatus += o.orderStatus;
       downloadIncvoiceButton +=
         ' <button id="btn-invoice' +
         o.id +
@@ -261,7 +279,12 @@ function displayOrderList(data) {
         o.id +
         '"class="btn btn-edit button order-add" onclick="displayEditOrder(' +
         o.id +
-        ')"><i class="bi bi-pen-fill"></i> Edit</button>';
+        ')"><i class="bi bi-pen-fill"></i></button>' +
+        ' <button id="btn-edit' +
+        o.id +
+        '"class="btn btn-edit button order-add" onclick="cancelOrder(' +
+        o.id +
+        ')"><i class="bi bi-x-octagon-fill"></i></button>';
     } else {
       invoiceStatus += "Invoiced";
       downloadIncvoiceButton +=

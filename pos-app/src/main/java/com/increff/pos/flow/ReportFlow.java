@@ -121,19 +121,7 @@ public class ReportFlow {
     }
 
     public void refreshDaySalesEntity() throws ApiException {
-        LocalDate currentDate = java.time.LocalDate.now();
-        LocalDate startDate = daySalesService.getLastDate();
-        if(startDate == null){
-            ZonedDateTime firstOrder = invoiceService.getFirstOrderDateTime();
-            if(firstOrder == null){
-                return;
-            }
-            startDate = firstOrder.toLocalDate();
-        }
-        while (!startDate.isAfter(currentDate)){
-            daySalesService.createDaySalesEntry(startDate);
-            startDate = startDate.plusDays(1);
-        }
+
     }
 
     private List<OrderPojo> getOrderPojoListByDates(SalesReportFilterForm salesReportFilterForm) throws ApiException {

@@ -2,6 +2,7 @@
 
 import com.increff.pos.dao.UserDao;
 import com.increff.pos.pojo.UserPojo;
+import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,30 +11,23 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="fc" id="L13">public class UserService {</span>
+<span class="fc" id="L14">public class UserService {</span>
 
 	@Autowired
 	private UserDao userDao;
 
 	public void add(UserPojo userPojo) throws ApiException {
-<span class="fc" id="L19">		normalize(userPojo);</span>
-<span class="fc" id="L20">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">		if (existing != null) {</span>
-<span class="fc" id="L22">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
+<span class="fc" id="L20">		ValidationUtil.checkPojo(userPojo);</span>
+<span class="fc" id="L21">		UserPojo existing = userDao.select(userPojo.getEmail());</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">		if (existing != null) {</span>
+<span class="fc" id="L23">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
 		}
-<span class="fc" id="L24">		userDao.insert(userPojo);</span>
-<span class="fc" id="L25">	}</span>
+<span class="fc" id="L25">		userDao.insert(userPojo);</span>
+<span class="fc" id="L26">	}</span>
 
 	public UserPojo get(String email) throws ApiException {
-<span class="fc" id="L28">		return userDao.select(email);</span>
+<span class="fc" id="L29">		return userDao.select(email);</span>
 	}
 
-	public List&lt;UserPojo&gt; getAll() {
-<span class="nc" id="L32">		return userDao.selectAll();</span>
-	}
-
-	protected static void normalize(UserPojo userPojo) {
-<span class="fc" id="L36">		userPojo.setEmail(userPojo.getEmail().toLowerCase().trim());</span>
-<span class="fc" id="L37">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

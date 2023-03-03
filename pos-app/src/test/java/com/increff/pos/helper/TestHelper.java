@@ -5,7 +5,6 @@ import com.increff.pos.model.OrderItemForm;
 import com.increff.pos.model.ProductForm;
 import com.increff.pos.model.UserForm;
 import com.increff.pos.pojo.*;
-import org.h2.engine.User;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -66,7 +65,7 @@ public class TestHelper {
         orderPojo.setId(orderId);
         orderPojo.setOrderDate(orderTime);
         orderPojo.setOrderTotal(orderTotal);
-        orderPojo.setIsInvoiced(invoiced);
+        orderPojo.setOrderStatus("placed");
         return orderPojo;
     }
 

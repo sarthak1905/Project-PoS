@@ -13,12 +13,13 @@ import com.increff.pos.util.NormalizeUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-<span class="fc" id="L21">public class ProductDto {</span>
+@Service
+<span class="fc" id="L22">public class ProductDto {</span>
 
     @Autowired
     private ProductFlow productFlow;
@@ -26,57 +27,57 @@ import java.util.List;
     private BrandFlow brandFlow;
 
     public void add(ProductForm productForm) throws ApiException {
-<span class="fc" id="L29">        validateForm(productForm, false);</span>
-<span class="fc" id="L30">        NormalizeUtil.normalize(productForm);</span>
-<span class="fc" id="L31">        BrandPojo brandPojo = brandFlow.getByBrandCategory(productForm.getBrand(), productForm.getCategory());</span>
-<span class="fc" id="L32">        ProductPojo productPojo = ConvertUtil.convertProductFormToPojo(productForm, brandPojo.getId());</span>
-<span class="fc" id="L33">        productFlow.add(productPojo);</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L30">        validateForm(productForm, false);</span>
+<span class="fc" id="L31">        NormalizeUtil.normalize(productForm);</span>
+<span class="fc" id="L32">        BrandPojo brandPojo = brandFlow.getByBrandCategory(productForm.getBrand(), productForm.getCategory());</span>
+<span class="fc" id="L33">        ProductPojo productPojo = ConvertUtil.convertProductFormToPojo(productForm, brandPojo.getId());</span>
+<span class="fc" id="L34">        productFlow.add(productPojo);</span>
+<span class="fc" id="L35">    }</span>
 
     public ProductData get(Integer id) throws ApiException{
-<span class="fc" id="L37">        checkId(id);</span>
-<span class="fc" id="L38">        ProductPojo productPojo = productFlow.get(id);</span>
-<span class="fc" id="L39">        BrandPojo brandPojo = brandFlow.get(productPojo.getBrandCategory());</span>
-<span class="fc" id="L40">        return ConvertUtil.convertProductPojoToData(productPojo, brandPojo.getBrand(), brandPojo.getCategory());</span>
+<span class="fc" id="L38">        checkId(id);</span>
+<span class="fc" id="L39">        ProductPojo productPojo = productFlow.get(id);</span>
+<span class="fc" id="L40">        BrandPojo brandPojo = brandFlow.get(productPojo.getBrandCategory());</span>
+<span class="fc" id="L41">        return ConvertUtil.convertProductPojoToData(productPojo, brandPojo.getBrand(), brandPojo.getCategory());</span>
     }
 
     public List&lt;ProductData&gt; getAll() throws ApiException {
-<span class="fc" id="L44">        List&lt;ProductPojo&gt; productList = productFlow.getAll();</span>
-<span class="fc" id="L45">        List&lt;ProductData&gt; productDataList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(ProductPojo productPojo: productList){</span>
-<span class="fc" id="L47">            BrandPojo brandPojo = brandFlow.get(productPojo.getBrandCategory());</span>
-<span class="fc" id="L48">            String brand = brandPojo.getBrand();</span>
-<span class="fc" id="L49">            String category = brandPojo.getCategory();</span>
-<span class="fc" id="L50">            productDataList.add(ConvertUtil.convertProductPojoToData(productPojo, brand, category));</span>
-<span class="fc" id="L51">        }</span>
-<span class="fc" id="L52">        return productDataList;</span>
+<span class="fc" id="L45">        List&lt;ProductPojo&gt; productList = productFlow.getAll();</span>
+<span class="fc" id="L46">        List&lt;ProductData&gt; productDataList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for(ProductPojo productPojo: productList){</span>
+<span class="fc" id="L48">            BrandPojo brandPojo = brandFlow.get(productPojo.getBrandCategory());</span>
+<span class="fc" id="L49">            String brand = brandPojo.getBrand();</span>
+<span class="fc" id="L50">            String category = brandPojo.getCategory();</span>
+<span class="fc" id="L51">            productDataList.add(ConvertUtil.convertProductPojoToData(productPojo, brand, category));</span>
+<span class="fc" id="L52">        }</span>
+<span class="fc" id="L53">        return productDataList;</span>
     }
 
     public void update(Integer id, ProductForm productForm) throws ApiException{
-<span class="fc" id="L56">        checkId(id);</span>
-<span class="fc" id="L57">        validateForm(productForm, true);</span>
-<span class="fc" id="L58">        NormalizeUtil.normalize(productForm);</span>
-<span class="fc" id="L59">        BrandPojo brandPojo = brandFlow.getByBrandCategory(productForm.getBrand(), productForm.getCategory());</span>
-<span class="fc" id="L60">        Integer brandId = brandPojo.getId();</span>
-<span class="fc" id="L61">        ProductPojo productPojo = ConvertUtil.convertProductFormToPojo(productForm, brandId);</span>
-<span class="fc" id="L62">        productFlow.update(id, productPojo);</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L57">        checkId(id);</span>
+<span class="fc" id="L58">        validateForm(productForm, true);</span>
+<span class="fc" id="L59">        NormalizeUtil.normalize(productForm);</span>
+<span class="fc" id="L60">        BrandPojo brandPojo = brandFlow.getByBrandCategory(productForm.getBrand(), productForm.getCategory());</span>
+<span class="fc" id="L61">        Integer brandId = brandPojo.getId();</span>
+<span class="fc" id="L62">        ProductPojo productPojo = ConvertUtil.convertProductFormToPojo(productForm, brandId);</span>
+<span class="fc" id="L63">        productFlow.update(id, productPojo);</span>
+<span class="fc" id="L64">    }</span>
 
     private void validateForm(ProductForm productForm, Boolean isUpdate) throws ApiException {
-<span class="fc" id="L66">        ValidationUtil.validateForms(productForm);</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (isUpdate) {</span>
-<span class="fc" id="L68">            return;</span>
+<span class="fc" id="L67">        ValidationUtil.validateForms(productForm);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (isUpdate) {</span>
+<span class="fc" id="L69">            return;</span>
         }
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (productFlow.isValidBarcode(productForm.getBarcode())) {</span>
-<span class="fc" id="L71">            return;</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (productFlow.isValidBarcode(productForm.getBarcode())) {</span>
+<span class="fc" id="L72">            return;</span>
         }
-<span class="nc" id="L73">        throw new ApiException(&quot;Barcode already exists!&quot;);</span>
+<span class="nc" id="L74">        throw new ApiException(&quot;Barcode already exists!&quot;);</span>
     }
 
     private void checkId(Integer id) throws ApiException {
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if(id == null){</span>
-<span class="nc" id="L78">            throw new ApiException(&quot;ID provided is null&quot;);</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if(id == null){</span>
+<span class="nc" id="L79">            throw new ApiException(&quot;ID provided is null&quot;);</span>
         }
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L81">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

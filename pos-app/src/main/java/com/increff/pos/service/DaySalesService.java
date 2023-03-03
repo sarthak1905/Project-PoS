@@ -18,12 +18,6 @@ public class DaySalesService {
 
     @Autowired
     DaySalesDao daySalesDao;
-    @Autowired
-    InvoiceService invoiceService;
-    @Autowired
-    OrderService orderService;
-    @Autowired
-    OrderItemService orderItemService;
 
     public void addOrUpdate(DaySalesPojo daySalesPojo) {
         DaySalesPojo existingDaySalesPojo = daySalesDao.selectByDate(daySalesPojo.getDate());
@@ -37,36 +31,8 @@ public class DaySalesService {
         }
     }
 
-    public List<DaySalesPojo> getAll() {
-        return daySalesDao.selectAll();
-    }
-
     public LocalDate getLastDate() {
         return daySalesDao.selectLatestDate();
-    }
-
-    public void createDaySalesEntry(LocalDate date) throws ApiException {
-        LocalDateTime startOfDayTime = date.atStartOfDay();
-        LocalDateTime endOfDayTime = date.atTime(LocalTime.MAX);
-        ZonedDateTime startOfDay = startOfDayTime.atZone(ZoneId.systemDefault());
-        ZonedDateTime endOfDay = endOfDayTime.atZone(ZoneId.systemDefault());
-        DaySalesPojo daySalesPojo = new DaySalesPojo();
-        daySalesPojo.setDate(date);
-
-        List<InvoicePojo> invoicePojoList = invoiceService.getInvoicedOrdersBetweenDates(startOfDay, endOfDay);
-        daySalesPojo.setInvoicedOrdersCount(invoicePojoList.size());
-
-        int totalItems = 0;
-        double totalRevenue = 0.0;
-        for(InvoicePojo invoicePojo: invoicePojoList){
-            List<OrderItemPojo> orderItemPojoList = orderItemService.getByOrderId(invoicePojo.getOrderId());
-            OrderPojo orderPojo = orderService.get(invoicePojo.getOrderId());
-            totalItems += orderItemPojoList.size();
-            totalRevenue += orderPojo.getOrderTotal();
-        }
-        daySalesPojo.setInvoicedItemsCount(totalItems);
-        daySalesPojo.setTotalRevenue(totalRevenue);
-        addOrUpdate(daySalesPojo);
     }
 
     public List<DaySalesPojo> getBetweenDates(LocalDate startDate, LocalDate endDate) {

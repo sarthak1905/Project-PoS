@@ -7,10 +7,7 @@ import com.increff.pos.model.UserData;
 import com.increff.pos.model.UserForm;
 import com.increff.pos.pojo.UserPojo;
 import com.increff.pos.service.ApiException;
-import com.increff.pos.util.ConvertUtil;
-import com.increff.pos.util.SecurityUtil;
-import com.increff.pos.util.UserPrincipal;
-import com.increff.pos.util.ValidationUtil;
+import com.increff.pos.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class UserDto {
 
     @Autowired
@@ -43,10 +41,10 @@ public class UserDto {
     }
 
     public void add(UserForm userForm) throws ApiException {
+        NormalizeUtil.normalize(userForm);
         UserPojo userPojo = ConvertUtil.convertUserFormToUserPojo(userForm);
         userForm.setRole(userFlow.getRoleFromPojo(userPojo));
         userFlow.add(userPojo);
-        info.setMessage("Signed up successfully!");
     }
 
     public Authentication convertUserPojoToAuthentication(UserPojo userPojo) throws ApiException {

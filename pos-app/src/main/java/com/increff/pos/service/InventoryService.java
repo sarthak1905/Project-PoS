@@ -62,4 +62,9 @@ public class InventoryService {
                     ". Max available = " + inventoryPojo.getQuantity() + ". Order placed for = " + quantity);
         }
     }
+
+    public void increaseInventory(Integer productId, Integer quantity) {
+        InventoryPojo inventoryPojo = inventoryDao.selectId(productId);
+        inventoryPojo.setQuantity(inventoryPojo.getQuantity() + quantity);
+    }
 }

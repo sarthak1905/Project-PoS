@@ -3,7 +3,9 @@ package com.increff.pos.util;
 import com.increff.pos.service.ApiException;
 
 import javax.validation.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -41,6 +43,15 @@ public class ValidationUtil {
 
     public static boolean checkIfNullOrEmpty(String inputString) {
         return inputString == null || inputString.equals("");
+    }
+
+    public static void validateDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
+        if(startDate.isAfter(endDate)){
+            throw new ApiException("Start date cannot be after end date!");
+        }
+        if(Duration.between(startDate, endDate).compareTo(Duration.ofDays(90)) > 0){
+            throw new ApiException("Max duration between start date and end date is 90 days");
+        }
     }
 
 }

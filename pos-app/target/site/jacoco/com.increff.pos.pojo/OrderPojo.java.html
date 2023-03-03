@@ -4,30 +4,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.time.ZonedDateTime;
 
-// TODO unless specific use case, use IDENTITY as generation strategy
-// TODO use non-primitive data types everywhere possible
 @Entity
 @Getter
-<span class="fc" id="L14">@Setter</span>
+<span class="fc" id="L11">@Setter</span>
 @Table(name = &quot;orders&quot;, indexes = {@Index(name = &quot;order_date_index&quot;, columnList = &quot;orderDate&quot;),
-                                   @Index(name = &quot;is_invoiced_index&quot;, columnList = &quot;isInvoiced&quot;)})
-<span class="fc" id="L17">public class OrderPojo extends AbstractVersionPojo {</span>
+                                   @Index(name = &quot;order_status_index&quot;, columnList = &quot;orderStatus&quot;)})
+<span class="fc" id="L14">public class OrderPojo extends AbstractVersionPojo {</span>
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L21">    private Integer id;</span>
+<span class="fc" id="L18">    private Integer id;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L24">    private ZonedDateTime orderDate;</span>
+<span class="fc" id="L21">    private ZonedDateTime orderDate;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L27">    private Boolean isInvoiced;</span>
+<span class="fc" id="L24">    private String orderStatus;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L30">    private Double orderTotal;</span>
+<span class="fc" id="L27">    private Double orderTotal;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

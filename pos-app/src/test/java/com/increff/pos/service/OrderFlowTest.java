@@ -50,7 +50,7 @@ public class OrderFlowTest extends AbstractUnitTest {
         }
         OrderPojo orderPojo = orderPojoList.get(0);
         assertEquals(orderPojo.getOrderTotal(), orderTotal);
-        assertEquals(orderPojo.getIsInvoiced(), invoiced);
+        assertEquals(orderPojo.getOrderStatus(), "placed");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class OrderFlowTest extends AbstractUnitTest {
         OrderPojo orderPojo = orderPojoList.get(0);
         orderPojo = orderFlow.get(orderPojo.getId());
         assertEquals(orderPojo.getOrderTotal(), orderTotal);
-        assertEquals(orderPojo.getIsInvoiced(), invoiced);
+        assertEquals(orderPojo.getOrderStatus(), "placed");
     }
 
     @Test(expected = ApiException.class)
@@ -88,7 +88,7 @@ public class OrderFlowTest extends AbstractUnitTest {
             fail();
         }
         orderPojo = orderPojoList.get(0);
-        assertTrue(orderPojo.getIsInvoiced());
+        assertEquals(orderPojo.getOrderStatus(), "invoiced");
     }
 
     @Test(expected = ApiException.class)

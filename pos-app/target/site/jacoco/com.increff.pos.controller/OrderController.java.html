@@ -56,5 +56,11 @@ import java.util.List;
 <span class="nc" id="L56">        orderDto.update(id, orderItemForms);</span>
 <span class="nc" id="L57">    }</span>
 
+    @ApiOperation(value = &quot;Cancels an order&quot;)
+    @RequestMapping(path = &quot;/{id}/cancel&quot;, method = RequestMethod.GET)
+    public void cancel(@PathVariable Integer id) throws ApiException {
+<span class="nc" id="L62">        orderDto.cancel(id);</span>
+<span class="nc" id="L63">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

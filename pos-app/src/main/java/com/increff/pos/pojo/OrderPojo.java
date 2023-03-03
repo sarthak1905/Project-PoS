@@ -4,16 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.time.ZonedDateTime;
 
-// TODO unless specific use case, use IDENTITY as generation strategy
-// TODO use non-primitive data types everywhere possible
 @Entity
 @Getter
 @Setter
 @Table(name = "orders", indexes = {@Index(name = "order_date_index", columnList = "orderDate"),
-                                   @Index(name = "is_invoiced_index", columnList = "isInvoiced")})
+                                   @Index(name = "order_status_index", columnList = "orderStatus")})
 public class OrderPojo extends AbstractVersionPojo {
 
     @Id
@@ -24,7 +21,7 @@ public class OrderPojo extends AbstractVersionPojo {
     private ZonedDateTime orderDate;
 
     @Column(nullable = false)
-    private Boolean isInvoiced;
+    private String orderStatus;
 
     @Column(nullable = false)
     private Double orderTotal;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pos-app</a> &gt; <a href="index.source.html" class="el_package">com.increff.pos.dto</a> &gt; <span class="el_source">ReportDto.java</span></div><h1>ReportDto.java</h1><pre class="source lang-java linenums">package com.increff.pos.dto;
 
 import com.increff.pos.flow.DaySalesFlow;
+import com.increff.pos.flow.InvoiceFlow;
 import com.increff.pos.flow.ReportFlow;
 import com.increff.pos.model.*;
 import com.increff.pos.pojo.DaySalesPojo;
@@ -9,6 +10,7 @@ import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -16,67 +18,81 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-<span class="fc" id="L20">public class ReportDto {</span>
+@Service
+<span class="fc" id="L22">public class ReportDto {</span>
 
     @Autowired
     private DaySalesFlow daySalesFlow;
     @Autowired
     private ReportFlow reportFlow;
+    @Autowired
+    private InvoiceFlow invoiceFlow;
 
-<span class="fc" id="L27">    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L31">    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
 
     public void createDailyReport() throws ApiException {
-<span class="fc" id="L30">        LocalDate localDate = java.time.LocalDate.now().minus(1, ChronoUnit.DAYS);</span>
-<span class="fc" id="L31">        daySalesFlow.createDaySalesEntry(localDate);</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L34">        LocalDate localDate = java.time.LocalDate.now().minus(1, ChronoUnit.DAYS);</span>
+<span class="fc" id="L35">        daySalesFlow.createDaySalesEntry(localDate);</span>
+<span class="fc" id="L36">    }</span>
 
     public List&lt;DaySalesData&gt; getFilteredDaySalesReport(DaySalesForm daySalesForm) throws ApiException {
-<span class="fc" id="L35">        ValidationUtil.validateForms(daySalesForm);</span>
-<span class="fc" id="L36">        String filteredStartDate = daySalesForm.getStartDate();</span>
-<span class="fc" id="L37">        String filteredEndDate = daySalesForm.getEndDate();</span>
-<span class="fc" id="L38">        LocalDate startDate = LocalDate.parse(filteredStartDate, DATE_TIME_FORMATTER);</span>
-<span class="fc" id="L39">        LocalDate endDate = LocalDate.parse(filteredEndDate, DATE_TIME_FORMATTER);</span>
-<span class="fc" id="L40">        ValidationUtil.validateDaySalesDates(startDate, endDate);</span>
+<span class="fc" id="L39">        ValidationUtil.validateForms(daySalesForm);</span>
+<span class="fc" id="L40">        String filteredStartDate = daySalesForm.getStartDate();</span>
+<span class="fc" id="L41">        String filteredEndDate = daySalesForm.getEndDate();</span>
+<span class="fc" id="L42">        LocalDate startDate = LocalDate.parse(filteredStartDate, DATE_TIME_FORMATTER);</span>
+<span class="fc" id="L43">        LocalDate endDate = LocalDate.parse(filteredEndDate, DATE_TIME_FORMATTER);</span>
+<span class="fc" id="L44">        ValidationUtil.validateDaySalesDates(startDate, endDate);</span>
 
-<span class="fc" id="L42">        List&lt;DaySalesPojo&gt; daySalesPojoList = daySalesFlow.getBetweenDates(startDate, endDate);</span>
-<span class="fc" id="L43">        List&lt;DaySalesData&gt; daySalesDataList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        for(DaySalesPojo daySalesPojo : daySalesPojoList){</span>
-<span class="fc" id="L45">            daySalesDataList.add(ConvertUtil.convertDaySalesPojoToData(daySalesPojo));</span>
-<span class="fc" id="L46">        }</span>
-<span class="fc" id="L47">        return daySalesDataList;</span>
+<span class="fc" id="L46">        List&lt;DaySalesPojo&gt; daySalesPojoList = daySalesFlow.getBetweenDates(startDate, endDate);</span>
+<span class="fc" id="L47">        List&lt;DaySalesData&gt; daySalesDataList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for(DaySalesPojo daySalesPojo : daySalesPojoList){</span>
+<span class="fc" id="L49">            daySalesDataList.add(ConvertUtil.convertDaySalesPojoToData(daySalesPojo));</span>
+<span class="fc" id="L50">        }</span>
+<span class="fc" id="L51">        return daySalesDataList;</span>
     }
 
     public List&lt;SalesReportData&gt; getSalesReport(SalesReportFilterForm salesReportFilterForm) throws ApiException {
-<span class="fc" id="L51">        String filterBrandName = salesReportFilterForm.getBrand();</span>
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if(filterBrandName == null){salesReportFilterForm.setBrand(&quot;&quot;);}</span>
-<span class="fc" id="L53">        String filterCategoryName = salesReportFilterForm.getCategory();</span>
-<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if(filterCategoryName == null){salesReportFilterForm.setCategory(&quot;&quot;);}</span>
+<span class="fc" id="L55">        String filterBrandName = salesReportFilterForm.getBrand();</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if(filterBrandName == null){salesReportFilterForm.setBrand(&quot;&quot;);}</span>
+<span class="fc" id="L57">        String filterCategoryName = salesReportFilterForm.getCategory();</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if(filterCategoryName == null){salesReportFilterForm.setCategory(&quot;&quot;);}</span>
 
-<span class="fc" id="L56">        return reportFlow.generateSalesReportDataList(salesReportFilterForm);</span>
+<span class="fc" id="L60">        return reportFlow.generateSalesReportDataList(salesReportFilterForm);</span>
     }
 
     public List&lt;BrandData&gt; getBrandReport(BrandReportFilterForm brandReportFilterForm) {
-<span class="fc" id="L60">        String filterBrandName = brandReportFilterForm.getBrand();</span>
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if(filterBrandName == null){brandReportFilterForm.setBrand(&quot;&quot;);}</span>
-<span class="fc" id="L62">        String filterCategoryName = brandReportFilterForm.getCategory();</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if(filterCategoryName == null){brandReportFilterForm.setCategory(&quot;&quot;);}</span>
+<span class="fc" id="L64">        String filterBrandName = brandReportFilterForm.getBrand();</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if(filterBrandName == null){brandReportFilterForm.setBrand(&quot;&quot;);}</span>
+<span class="fc" id="L66">        String filterCategoryName = brandReportFilterForm.getCategory();</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if(filterCategoryName == null){brandReportFilterForm.setCategory(&quot;&quot;);}</span>
 
-<span class="fc" id="L65">        return reportFlow.getBrandReport(brandReportFilterForm);</span>
+<span class="fc" id="L69">        return reportFlow.getBrandReport(brandReportFilterForm);</span>
     }
 
     public List&lt;InventoryReportData&gt; getFilteredInventoryReport(InventoryReportFilterForm inventoryReportFilterForm) throws ApiException {
-<span class="fc" id="L69">        String filterBrandName = inventoryReportFilterForm.getBrand();</span>
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if(filterBrandName == null){inventoryReportFilterForm.setBrand(&quot;&quot;);}</span>
-<span class="fc" id="L71">        String filterCategoryName = inventoryReportFilterForm.getCategory();</span>
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if(filterCategoryName == null){inventoryReportFilterForm.setCategory(&quot;&quot;);}</span>
+<span class="fc" id="L73">        String filterBrandName = inventoryReportFilterForm.getBrand();</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if(filterBrandName == null){inventoryReportFilterForm.setBrand(&quot;&quot;);}</span>
+<span class="fc" id="L75">        String filterCategoryName = inventoryReportFilterForm.getCategory();</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if(filterCategoryName == null){inventoryReportFilterForm.setCategory(&quot;&quot;);}</span>
 
-<span class="fc" id="L74">        return reportFlow.getInventoryReport(inventoryReportFilterForm);</span>
+<span class="fc" id="L78">        return reportFlow.getInventoryReport(inventoryReportFilterForm);</span>
     }
 
     public void refreshDaySalesEntity() throws ApiException {
-<span class="fc" id="L78">        reportFlow.refreshDaySalesEntity();</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L82">        LocalDate currentDate = java.time.LocalDate.now();</span>
+<span class="fc" id="L83">        LocalDate startDate = daySalesFlow.getLastDate();</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if(startDate == null){</span>
+<span class="fc" id="L85">            ZonedDateTime firstOrder = invoiceFlow.getFirstOrderDateTime();</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            if(firstOrder == null){</span>
+<span class="fc" id="L87">                return;</span>
+            }
+<span class="nc" id="L89">            startDate = firstOrder.toLocalDate();</span>
+        }
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        while (!startDate.isAfter(currentDate)){</span>
+<span class="nc" id="L92">            daySalesFlow.createDaySalesEntry(startDate);</span>
+<span class="nc" id="L93">            startDate = startDate.plusDays(1);</span>
+        }
+<span class="nc" id="L95">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

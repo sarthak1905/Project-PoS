@@ -233,6 +233,24 @@ function downloadOrderInvoice(id) {
 
 }
 
+function cancelOrder(id){
+  var url = getOrderUrl() + '/' + id + '/cancel';
+
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(){
+      message = 'Order cancelled succesfully';
+      showSuccessMessage(message);
+    },
+    error: function(response){
+      message = "There was a problem cancelling the order, please try again later";
+      showErrorMessage(message);
+    }
+  })
+
+}
+
 //UI DISPLAY METHODS
 
 function displayOrderList(data) {
@@ -242,14 +260,9 @@ function displayOrderList(data) {
     var o = data[i];
     var downloadIncvoiceButton = "";
     var invoiceStatus = "";
-    var actionsButton =
-      ' <button id="btn-view' +
-      o.id +
-      '"class="btn btn-view button" onclick="displayOrderItems(' +
-      o.id +
-      ')"><i class="bi bi-eye-fill"></i> View</button>';
-    if (o.invoiced === false) {
-      invoiceStatus += "Not Invoiced";
+    var actionsButton = "";
+    if (o.orderStatus === "placed") {
+      invoiceStatus += 'Placed';
       downloadIncvoiceButton +=
         ' <button id="btn-invoice' +
         o.id +
@@ -257,19 +270,45 @@ function displayOrderList(data) {
         o.id +
         ')"><i class="fas fa-sync-alt"></i> Generate</button>';
       actionsButton +=
+        ' <button id="btn-view' +
+        o.id +
+        '"class="btn btn-view button" onclick="displayOrderItems(' +
+        o.id +
+        ')"><i class="bi bi-eye-fill"></i></button>' + 
         ' <button id="btn-edit' +
         o.id +
         '"class="btn btn-edit button order-add" onclick="displayEditOrder(' +
         o.id +
-        ')"><i class="bi bi-pen-fill"></i> Edit</button>';
-    } else {
+        ')"><i class="bi bi-pen-fill"></i></button>' +
+        ' <button id="btn-edit' +
+        o.id +
+        '"class="btn btn-edit button order-add" onclick="cancelOrder(' +
+        o.id +
+        ')"><i class="bi bi-x-octagon-fill"></i></button>';
+    } else if(o.orderStatus === "invoiced") {
       invoiceStatus += "Invoiced";
+      actionsButton += 
+      ' <button id="btn-view' +
+      o.id +
+      '"class="btn btn-view button" onclick="displayOrderItems(' +
+      o.id +
+      ')"><i class="bi bi-eye-fill"></i></button>';
       downloadIncvoiceButton +=
         ' <button id="btn-invoice' +
         o.id +
         '"class="btn btn-view button" onclick="downloadOrderInvoice(' +
         o.id +
         ')"><i class="bi bi-cloud-arrow-down-fill"></i> Download</button>';
+    }
+    else {
+      invoiceStatus += 'Cancelled';
+      actionsButton += 
+      ' <button id="btn-view' +
+      o.id +
+      '"class="btn btn-view button" onclick="displayOrderItems(' +
+      o.id +
+      ')"><i class="bi bi-eye-fill"></i></button>';
+      downloadIncvoiceButton += 'Not available';
     }
     var row =
       "<tr>" + 

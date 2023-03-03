@@ -1,6 +1,7 @@
 package com.increff.pos.dto;
 
 import com.increff.pos.flow.DaySalesFlow;
+import com.increff.pos.flow.InvoiceFlow;
 import com.increff.pos.flow.ReportFlow;
 import com.increff.pos.model.*;
 import com.increff.pos.pojo.DaySalesPojo;
@@ -9,6 +10,7 @@ import com.increff.pos.util.ConvertUtil;
 import com.increff.pos.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -16,13 +18,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class ReportDto {
 
     @Autowired
     private DaySalesFlow daySalesFlow;
     @Autowired
     private ReportFlow reportFlow;
+    @Autowired
+    private InvoiceFlow invoiceFlow;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -75,7 +79,19 @@ public class ReportDto {
     }
 
     public void refreshDaySalesEntity() throws ApiException {
-        reportFlow.refreshDaySalesEntity();
+        LocalDate currentDate = java.time.LocalDate.now();
+        LocalDate startDate = daySalesFlow.getLastDate();
+        if(startDate == null){
+            ZonedDateTime firstOrder = invoiceFlow.getFirstOrderDateTime();
+            if(firstOrder == null){
+                return;
+            }
+            startDate = firstOrder.toLocalDate();
+        }
+        while (!startDate.isAfter(currentDate)){
+            daySalesFlow.createDaySalesEntry(startDate);
+            startDate = startDate.plusDays(1);
+        }
     }
 
 }
