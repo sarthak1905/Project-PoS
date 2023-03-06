@@ -81,6 +81,18 @@ function showBrandDropdown(brand, firstRun){
 	}
 }
 
+function getInitSales(){
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+	var yyyy = today.getFullYear();
+  
+	today = yyyy + '-' + mm + '-' + dd;
+	$('#input-start-date').val(today);
+	$('#input-end-date').val(today);
+	getSalesList();
+}
+
 function getSalesList(){
 	var $form = $("#filter-form");
 	var json = toJson($form);
@@ -128,6 +140,7 @@ function init(){
 		var data = e.params.data.text;
 		showBrandDropdown(data, firstRun=false);
 	});
+	getInitSales();
 }
 
 $(document).ready(init);

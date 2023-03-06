@@ -104,7 +104,7 @@ public class OrderFlowTest extends AbstractUnitTest {
             fail();
         }
         orderPojo = orderPojoList.get(0);
-        orderFlow.validateOrderInvoiceStatus(orderPojo.getId());
+        orderFlow.validateOrderStatus(orderPojo.getId());
     }
 
 

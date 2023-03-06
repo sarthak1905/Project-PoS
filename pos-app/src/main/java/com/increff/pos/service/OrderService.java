@@ -27,8 +27,8 @@ public class OrderService {
         return getCheck(id);
     }
 
-    public List<OrderPojo> getAll(){
-        return orderDao.selectAll();
+    public List<OrderPojo> getAllInvoiced(){
+        return orderDao.selectAllByStatus("invoiced");
     }
 
     public void update(Integer orderId, Double orderTotal) throws ApiException {
@@ -58,4 +58,7 @@ public class OrderService {
         return orderDao.selectBetweenDates(startDate, endDate);
     }
 
+    public List<OrderPojo> getAllBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return orderDao.selectAllBetweenDates(startDate, endDate);
+    }
 }

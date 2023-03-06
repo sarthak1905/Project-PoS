@@ -43,8 +43,10 @@ public class ReportFlow {
         String filterCategoryName = salesReportFilterForm.getCategory();
         List<OrderItemPojo> allOrderItemList = new ArrayList<>();
         for(OrderPojo orderPojo: orderPojoList) {
-            List<OrderItemPojo> orderItemPojoList = orderItemService.getByOrderId(orderPojo.getId());
-            allOrderItemList.addAll(orderItemPojoList);
+            if(orderPojo.getOrderStatus().equals("invoiced")) {
+                List<OrderItemPojo> orderItemPojoList = orderItemService.getByOrderId(orderPojo.getId());
+                allOrderItemList.addAll(orderItemPojoList);
+            }
         }
 
         HashMap<Integer, Integer> brandIdToQuantityMap = new HashMap<>();
@@ -134,7 +136,7 @@ public class ReportFlow {
 
         List<OrderPojo> orderPojoList = new ArrayList<>();
         if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) && ValidationUtil.checkIfNullOrEmpty(filterEndDate)){
-            orderPojoList = orderService.getAll();
+            orderPojoList = orderService.getAllInvoiced();
         }
 
         if(ValidationUtil.checkIfNullOrEmpty(filterStartDate) && !ValidationUtil.checkIfNullOrEmpty(filterEndDate)){

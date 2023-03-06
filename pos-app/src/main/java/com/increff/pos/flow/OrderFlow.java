@@ -50,12 +50,12 @@ public class OrderFlow {
         return orderService.get(orderId);
     }
 
-    public List<OrderPojo> getAll() {
-        return orderService.getAll();
+    public List<OrderPojo> getAllInvoiced() {
+        return orderService.getAllInvoiced();
     }
 
-    public List<OrderPojo> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-        return orderService.getBetweenDates(startDate, endDate);
+    public List<OrderPojo> getAllBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return orderService.getAllBetweenDates(startDate, endDate);
     }
 
     public void update(Integer orderId, List<OrderItemPojo> orderItemPojoList) throws ApiException {
@@ -94,7 +94,7 @@ public class OrderFlow {
         orderPojo.setOrderStatus("invoiced");
     }
 
-    public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
+    public void validateOrderStatus(Integer orderId) throws ApiException {
         ValidationUtil.checkId(orderId);
         OrderPojo orderPojo = orderService.get(orderId);
         if(orderPojo.getOrderStatus().equals("invoiced")){
@@ -120,6 +120,9 @@ public class OrderFlow {
 
     public void cancel(Integer id) throws ApiException {
         OrderPojo orderPojo = orderService.get(id);
+        if(orderPojo.getOrderStatus().equals("invoiced")){
+            throw new ApiException("Invoiced order cannot be cancelled!");
+        }
         orderPojo.setOrderStatus("cancelled");
         List<OrderItemPojo> orderItemPojoList = orderItemService.getByOrderId(id);
         for(OrderItemPojo orderItemPojo: orderItemPojoList){

@@ -33,7 +33,7 @@ public class DaySalesFlow {
         DaySalesPojo daySalesPojo = new DaySalesPojo();
         daySalesPojo.setDate(date);
 
-        List<InvoicePojo> invoicePojoList = invoiceService.getInvoicedOrdersBetweenDates(startOfDay, endOfDay);
+        List<InvoicePojo> invoicePojoList = invoiceService.getOrdersBetweenDates(startOfDay, endOfDay);
         daySalesPojo.setInvoicedOrdersCount(invoicePojoList.size());
 
         int totalItems = 0;

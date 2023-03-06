@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -74,7 +73,7 @@ public class InvoiceServiceTest extends AbstractUnitTest {
     public void testInvalidGetInvoicedOrdersBetweenDates() throws ApiException {
         ZonedDateTime startDate = ZonedDateTime.now().plus(1, ChronoUnit.DAYS);
         ZonedDateTime endDate = ZonedDateTime.now();
-        invoiceService.getInvoicedOrdersBetweenDates(startDate, endDate);
+        invoiceService.getOrdersBetweenDates(startDate, endDate);
     }
 
     @Before

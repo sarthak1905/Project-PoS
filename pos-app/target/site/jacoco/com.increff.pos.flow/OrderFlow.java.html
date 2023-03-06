@@ -50,12 +50,12 @@ import java.util.List;
 <span class="fc" id="L50">        return orderService.get(orderId);</span>
     }
 
-    public List&lt;OrderPojo&gt; getAll() {
-<span class="nc" id="L54">        return orderService.getAll();</span>
+    public List&lt;OrderPojo&gt; getAllInvoiced() {
+<span class="nc" id="L54">        return orderService.getAllInvoiced();</span>
     }
 
-    public List&lt;OrderPojo&gt; getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-<span class="fc" id="L58">        return orderService.getBetweenDates(startDate, endDate);</span>
+    public List&lt;OrderPojo&gt; getAllBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+<span class="fc" id="L58">        return orderService.getAllBetweenDates(startDate, endDate);</span>
     }
 
     public void update(Integer orderId, List&lt;OrderItemPojo&gt; orderItemPojoList) throws ApiException {
@@ -94,14 +94,14 @@ import java.util.List;
 <span class="fc" id="L94">        orderPojo.setOrderStatus(&quot;invoiced&quot;);</span>
 <span class="fc" id="L95">    }</span>
 
-    public void validateOrderInvoiceStatus(Integer orderId) throws ApiException {
+    public void validateOrderStatus(Integer orderId) throws ApiException {
 <span class="fc" id="L98">        ValidationUtil.checkId(orderId);</span>
 <span class="fc" id="L99">        OrderPojo orderPojo = orderService.get(orderId);</span>
 <span class="fc bfc" id="L100" title="All 2 branches covered.">        if(orderPojo.getOrderStatus().equals(&quot;invoiced&quot;)){</span>
 <span class="fc" id="L101">            throw new ApiException(&quot;Invoiced order cannot be updated!&quot;);</span>
         }
 <span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if(orderPojo.getOrderStatus().equals(&quot;cancelled&quot;)){</span>
-<span class="nc" id="L104">            throw new ApiException(&quot;cancelled order cannot be updated!&quot;);</span>
+<span class="nc" id="L104">            throw new ApiException(&quot;Cancelled order cannot be updated!&quot;);</span>
         }
 <span class="fc" id="L106">    }</span>
 
@@ -120,44 +120,51 @@ import java.util.List;
 
     public void cancel(Integer id) throws ApiException {
 <span class="nc" id="L122">        OrderPojo orderPojo = orderService.get(id);</span>
-<span class="nc" id="L123">        orderPojo.setOrderStatus(&quot;cancelled&quot;);</span>
-<span class="nc" id="L124">    }</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if(orderPojo.getOrderStatus().equals(&quot;invoiced&quot;)){</span>
+<span class="nc" id="L124">            throw new ApiException(&quot;Invoiced order cannot be cancelled!&quot;);</span>
+        }
+<span class="nc" id="L126">        orderPojo.setOrderStatus(&quot;cancelled&quot;);</span>
+<span class="nc" id="L127">        List&lt;OrderItemPojo&gt; orderItemPojoList = orderItemService.getByOrderId(id);</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        for(OrderItemPojo orderItemPojo: orderItemPojoList){</span>
+<span class="nc" id="L129">            inventoryService.increaseInventory(orderItemPojo.getProductId(), orderItemPojo.getQuantity());</span>
+<span class="nc" id="L130">        }</span>
+<span class="nc" id="L131">    }</span>
 
     private double calculateOrderTotal(List&lt;OrderItemPojo&gt; orderItemPojos) {
-<span class="fc" id="L127">        Double orderTotal = 0.0;</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: orderItemPojos){</span>
-<span class="fc" id="L129">            orderTotal += orderItemPojo.getQuantity() * orderItemPojo.getSellingPrice();</span>
-<span class="fc" id="L130">        }</span>
-<span class="fc" id="L131">        return orderTotal;</span>
+<span class="fc" id="L134">        Double orderTotal = 0.0;</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: orderItemPojos){</span>
+<span class="fc" id="L136">            orderTotal += orderItemPojo.getQuantity() * orderItemPojo.getSellingPrice();</span>
+<span class="fc" id="L137">        }</span>
+<span class="fc" id="L138">        return orderTotal;</span>
     }
     private void validateOrderItemPojoList(List&lt;OrderItemPojo&gt; orderItemPojoList) throws ApiException {
-<span class="fc bfc" id="L134" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: orderItemPojoList){</span>
-<span class="fc" id="L135">            Integer productId = orderItemPojo.getProductId();</span>
-<span class="fc" id="L136">            inventoryService.checkInventory(productId, orderItemPojo.getQuantity());</span>
-<span class="fc" id="L137">            validateSellingPrice(productId, orderItemPojo.getSellingPrice());</span>
-<span class="fc" id="L138">        }</span>
-<span class="fc" id="L139">    }</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        for(OrderItemPojo orderItemPojo: orderItemPojoList){</span>
+<span class="fc" id="L142">            Integer productId = orderItemPojo.getProductId();</span>
+<span class="fc" id="L143">            inventoryService.checkInventory(productId, orderItemPojo.getQuantity());</span>
+<span class="fc" id="L144">            validateSellingPrice(productId, orderItemPojo.getSellingPrice());</span>
+<span class="fc" id="L145">        }</span>
+<span class="fc" id="L146">    }</span>
 
     private void validateSellingPrice(Integer productId, Double sellingPrice) throws ApiException {
-<span class="fc" id="L142">        ProductPojo productPojo = productService.get(productId);</span>
-<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
-<span class="nc" id="L144">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
+<span class="fc" id="L149">        ProductPojo productPojo = productService.get(productId);</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if(productPojo.getMrp() &lt; sellingPrice){</span>
+<span class="nc" id="L151">            throw new ApiException(&quot;Selling price of order item cannot be greater than MRP!&quot;);</span>
         }
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L153">    }</span>
 
     private OrderItemPojo getExistingPojoOrAddNew(OrderItemPojo orderItemPojo, Integer orderId,
                                                   HashMap&lt;String, OrderItemPojo&gt; existingOrderItems)
             throws ApiException {
-<span class="fc" id="L151">        orderItemPojo.setOrderId(orderId);</span>
-<span class="fc" id="L152">        String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());</span>
-<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        if(existingOrderItems.containsKey(barcode)){</span>
-<span class="fc" id="L154">            OrderItemPojo existingOrderItemPojo = existingOrderItems.get(barcode);</span>
-<span class="fc" id="L155">            orderItemPojo.setId(existingOrderItemPojo.getId());</span>
-<span class="fc" id="L156">        }</span>
+<span class="fc" id="L158">        orderItemPojo.setOrderId(orderId);</span>
+<span class="fc" id="L159">        String barcode = productService.getBarcodeFromProductId(orderItemPojo.getProductId());</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if(existingOrderItems.containsKey(barcode)){</span>
+<span class="fc" id="L161">            OrderItemPojo existingOrderItemPojo = existingOrderItems.get(barcode);</span>
+<span class="fc" id="L162">            orderItemPojo.setId(existingOrderItemPojo.getId());</span>
+<span class="fc" id="L163">        }</span>
         else{
-<span class="nc" id="L158">            orderItemService.add(orderItemPojo);</span>
+<span class="nc" id="L165">            orderItemService.add(orderItemPojo);</span>
         }
-<span class="fc" id="L160">        return orderItemPojo;</span>
+<span class="fc" id="L167">        return orderItemPojo;</span>
     }
 
 

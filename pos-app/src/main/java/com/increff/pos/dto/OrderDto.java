@@ -78,7 +78,7 @@ public class OrderDto {
         ZonedDateTime endDate = endDateTime.atZone(ZoneId.systemDefault());
         ValidationUtil.validateDates(startDate, endDate);
 
-        List<OrderPojo> orderList = orderFlow.getBetweenDates(startDate, endDate);
+        List<OrderPojo> orderList = orderFlow.getAllBetweenDates(startDate, endDate);
         List<OrderData> orderDataList = new ArrayList<>();
         for(OrderPojo orderPojo: orderList){
             orderDataList.add(ConvertUtil.convertOrderPojoToData(orderPojo));
@@ -134,7 +134,7 @@ public class OrderDto {
     }
 
     public void update(Integer orderId, List<OrderItemForm> orderItemForms) throws ApiException{
-        orderFlow.validateOrderInvoiceStatus(orderId);
+        orderFlow.validateOrderStatus(orderId);
         validateOrderItemInputForms(orderItemForms);
         ValidationUtil.checkId(orderId);
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();

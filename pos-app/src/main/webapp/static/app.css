@@ -71,10 +71,13 @@ input:disabled {
 }
 
 .button:hover:enabled {
-  background-color: #2ee59d;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background-color: #04b6b6;
   color: #000;
-  transform: translateY(-5px);
+}
+
+.button-add:hover:enabled {
+  background-color: #02f70a;
+  color: #000;
 }
 
 .btn-add {
@@ -82,15 +85,15 @@ input:disabled {
 }
 
 .btn-refresh {
-  background-color: #b2ffff;
+  background-color: #73f5f5;
 }
 
 .btn-upload {
-  background-color: #fafa33;
+  background-color: #73f5f5;
 }
 
 .btn-edit {
-  background-color: darkgray;
+  background-color: #73f5f5;
 }
 
 .btn-remove {
@@ -98,7 +101,7 @@ input:disabled {
 }
 
 .btn-view {
-  background-color: mistyrose;
+  background-color: #73f5f5;
 }
 
 .card {

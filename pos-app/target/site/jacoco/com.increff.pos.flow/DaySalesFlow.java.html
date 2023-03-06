@@ -33,7 +33,7 @@ import java.util.List;
 <span class="fc" id="L33">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
 <span class="fc" id="L34">        daySalesPojo.setDate(date);</span>
 
-<span class="fc" id="L36">        List&lt;InvoicePojo&gt; invoicePojoList = invoiceService.getInvoicedOrdersBetweenDates(startOfDay, endOfDay);</span>
+<span class="fc" id="L36">        List&lt;InvoicePojo&gt; invoicePojoList = invoiceService.getOrdersBetweenDates(startOfDay, endOfDay);</span>
 <span class="fc" id="L37">        daySalesPojo.setInvoicedOrdersCount(invoicePojoList.size());</span>
 
 <span class="fc" id="L39">        int totalItems = 0;</span>

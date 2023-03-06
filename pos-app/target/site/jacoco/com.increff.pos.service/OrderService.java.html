@@ -27,8 +27,8 @@ import java.util.List;
 <span class="fc" id="L27">        return getCheck(id);</span>
     }
 
-    public List&lt;OrderPojo&gt; getAll(){
-<span class="fc" id="L31">        return orderDao.selectAll();</span>
+    public List&lt;OrderPojo&gt; getAllInvoiced(){
+<span class="fc" id="L31">        return orderDao.selectAllByStatus(&quot;invoiced&quot;);</span>
     }
 
     public void update(Integer orderId, Double orderTotal) throws ApiException {
@@ -58,5 +58,8 @@ import java.util.List;
 <span class="fc" id="L58">        return orderDao.selectBetweenDates(startDate, endDate);</span>
     }
 
+    public List&lt;OrderPojo&gt; getAllBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+<span class="fc" id="L62">        return orderDao.selectAllBetweenDates(startDate, endDate);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -62,5 +62,10 @@ import java.util.List;
 <span class="fc" id="L62">                    &quot;. Max available = &quot; + inventoryPojo.getQuantity() + &quot;. Order placed for = &quot; + quantity);</span>
         }
 <span class="fc" id="L64">    }</span>
+
+    public void increaseInventory(Integer productId, Integer quantity) {
+<span class="nc" id="L67">        InventoryPojo inventoryPojo = inventoryDao.selectId(productId);</span>
+<span class="nc" id="L68">        inventoryPojo.setQuantity(inventoryPojo.getQuantity() + quantity);</span>
+<span class="nc" id="L69">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

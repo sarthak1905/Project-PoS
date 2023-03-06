@@ -2,7 +2,6 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.InvoiceDao;
 import com.increff.pos.pojo.InvoicePojo;
-import com.increff.pos.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class InvoiceService {
         return invoiceDao.selectAll();
     }
 
-    public List<InvoicePojo> getInvoicedOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
+    public List<InvoicePojo> getOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
         if(startDate.isAfter(endDate)){
             throw new ApiException("Start date cannot be after end date for scheduler!");
         }

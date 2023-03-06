@@ -125,6 +125,7 @@ function init(){
 		var data = e.params.data.text;
 		showBrandDropdown(data, firstRun=false);
 	});
+	getBrandList();
 }
 
 $(document).ready(init);

@@ -234,7 +234,7 @@ function downloadOrderInvoice(id) {
 }
 
 function cancelOrder(id){
-  var url = getOrderUrl() + id + '/cancel';
+  var url = getOrderUrl() + '/' + id + '/cancel';
 
   $.ajax({
     url: url,
@@ -260,14 +260,9 @@ function displayOrderList(data) {
     var o = data[i];
     var downloadIncvoiceButton = "";
     var invoiceStatus = "";
-    var actionsButton =
-      ' <button id="btn-view' +
-      o.id +
-      '"class="btn btn-view button" onclick="displayOrderItems(' +
-      o.id +
-      ')"><i class="bi bi-eye-fill"></i></button>';
-    if (o.orderStatus != "invoiced") {
-      invoiceStatus += o.orderStatus;
+    var actionsButton = "";
+    if (o.orderStatus === "placed") {
+      invoiceStatus += 'Placed';
       downloadIncvoiceButton +=
         ' <button id="btn-invoice' +
         o.id +
@@ -275,6 +270,11 @@ function displayOrderList(data) {
         o.id +
         ')"><i class="fas fa-sync-alt"></i> Generate</button>';
       actionsButton +=
+        ' <button id="btn-view' +
+        o.id +
+        '"class="btn btn-view button" onclick="displayOrderItems(' +
+        o.id +
+        ')"><i class="bi bi-eye-fill"></i></button>' + 
         ' <button id="btn-edit' +
         o.id +
         '"class="btn btn-edit button order-add" onclick="displayEditOrder(' +
@@ -285,14 +285,30 @@ function displayOrderList(data) {
         '"class="btn btn-edit button order-add" onclick="cancelOrder(' +
         o.id +
         ')"><i class="bi bi-x-octagon-fill"></i></button>';
-    } else {
+    } else if(o.orderStatus === "invoiced") {
       invoiceStatus += "Invoiced";
+      actionsButton += 
+      ' <button id="btn-view' +
+      o.id +
+      '"class="btn btn-view button" onclick="displayOrderItems(' +
+      o.id +
+      ')"><i class="bi bi-eye-fill"></i></button>';
       downloadIncvoiceButton +=
         ' <button id="btn-invoice' +
         o.id +
         '"class="btn btn-view button" onclick="downloadOrderInvoice(' +
         o.id +
         ')"><i class="bi bi-cloud-arrow-down-fill"></i> Download</button>';
+    }
+    else {
+      invoiceStatus += 'Cancelled';
+      actionsButton += 
+      ' <button id="btn-view' +
+      o.id +
+      '"class="btn btn-view button" onclick="displayOrderItems(' +
+      o.id +
+      ')"><i class="bi bi-eye-fill"></i></button>';
+      downloadIncvoiceButton += 'Not available';
     }
     var row =
       "<tr>" + 

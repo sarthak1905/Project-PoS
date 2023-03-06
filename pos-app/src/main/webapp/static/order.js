@@ -187,6 +187,18 @@ function showBarcodeDropdown(element) {
   $selectBarcodeInput.select2();
 }
 
+function getInitOrders(){
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  var yyyy = today.getFullYear();
+
+  today = yyyy + '-' + mm + '-' + dd;
+  $('#input-start-date').val(today);
+  $('#input-end-date').val(today);
+  getOrderList();
+}
+
 function getOrderList() {
   var url = getOrderUrl() + '/filtered';
 	var $form = $("#filter-form");
@@ -268,7 +280,7 @@ function displayOrderList(data) {
         o.id +
         '"class="btn btn-view button" onclick="downloadOrderInvoice(' +
         o.id +
-        ')"><i class="fas fa-sync-alt"></i> Generate</button>';
+        ')"><i class="bi bi-cloud-arrow-down-fill"></i></button>';
       actionsButton +=
         ' <button id="btn-view' +
         o.id +
@@ -298,7 +310,7 @@ function displayOrderList(data) {
         o.id +
         '"class="btn btn-view button" onclick="downloadOrderInvoice(' +
         o.id +
-        ')"><i class="bi bi-cloud-arrow-down-fill"></i> Download</button>';
+        ')"><i class="bi bi-cloud-arrow-down-fill"></i></button>';
     }
     else {
       invoiceStatus += 'Cancelled';
@@ -409,6 +421,7 @@ function init() {
   $("#add-order-dialog").click(initOrderItemRow);
   $("#add-order").click(addOrder);
   $("#update-order").click(updateOrder);
+  getInitOrders();
   $("#filter-btn").click(getOrderList);
   checkRoleAndDisableEditBtns();
 }

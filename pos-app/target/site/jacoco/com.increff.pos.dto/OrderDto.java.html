@@ -78,7 +78,7 @@ import java.util.List;
 <span class="fc" id="L78">        ZonedDateTime endDate = endDateTime.atZone(ZoneId.systemDefault());</span>
 <span class="fc" id="L79">        ValidationUtil.validateDates(startDate, endDate);</span>
 
-<span class="fc" id="L81">        List&lt;OrderPojo&gt; orderList = orderFlow.getBetweenDates(startDate, endDate);</span>
+<span class="fc" id="L81">        List&lt;OrderPojo&gt; orderList = orderFlow.getAllBetweenDates(startDate, endDate);</span>
 <span class="fc" id="L82">        List&lt;OrderData&gt; orderDataList = new ArrayList&lt;&gt;();</span>
 <span class="fc bfc" id="L83" title="All 2 branches covered.">        for(OrderPojo orderPojo: orderList){</span>
 <span class="fc" id="L84">            orderDataList.add(ConvertUtil.convertOrderPojoToData(orderPojo));</span>
@@ -134,7 +134,7 @@ import java.util.List;
     }
 
     public void update(Integer orderId, List&lt;OrderItemForm&gt; orderItemForms) throws ApiException{
-<span class="fc" id="L137">        orderFlow.validateOrderInvoiceStatus(orderId);</span>
+<span class="fc" id="L137">        orderFlow.validateOrderStatus(orderId);</span>
 <span class="fc" id="L138">        validateOrderItemInputForms(orderItemForms);</span>
 <span class="fc" id="L139">        ValidationUtil.checkId(orderId);</span>
 <span class="fc" id="L140">        List&lt;OrderItemPojo&gt; orderItemPojoList = new ArrayList&lt;&gt;();</span>

@@ -2,7 +2,6 @@
 
 import com.increff.pos.dao.InvoiceDao;
 import com.increff.pos.pojo.InvoicePojo;
-import com.increff.pos.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,34 +11,34 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = ApiException.class)
-<span class="fc" id="L15">public class InvoiceService {</span>
+<span class="fc" id="L14">public class InvoiceService {</span>
 
     @Autowired
     private InvoiceDao invoiceDao;
     
     public void add(InvoicePojo invoicePojo) throws ApiException {
-<span class="fc" id="L21">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if(existingPojo == null) {</span>
-<span class="fc" id="L23">            invoiceDao.insert(invoicePojo);</span>
+<span class="fc" id="L20">        InvoicePojo existingPojo = invoiceDao.select_id(invoicePojo.getOrderId());</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if(existingPojo == null) {</span>
+<span class="fc" id="L22">            invoiceDao.insert(invoicePojo);</span>
         }
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L24">    }</span>
     
     public List&lt;InvoicePojo&gt; getAll(){
-<span class="fc" id="L28">        return invoiceDao.selectAll();</span>
+<span class="fc" id="L27">        return invoiceDao.selectAll();</span>
     }
 
-    public List&lt;InvoicePojo&gt; getInvoicedOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        if(startDate.isAfter(endDate)){</span>
-<span class="fc" id="L33">            throw new ApiException(&quot;Start date cannot be after end date for scheduler!&quot;);</span>
+    public List&lt;InvoicePojo&gt; getOrdersBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) throws ApiException {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if(startDate.isAfter(endDate)){</span>
+<span class="fc" id="L32">            throw new ApiException(&quot;Start date cannot be after end date for scheduler!&quot;);</span>
         }
-<span class="fc" id="L35">        return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);</span>
+<span class="fc" id="L34">        return invoiceDao.selectInvoicedOrdersBetweenDates(startDate, endDate);</span>
     }
 
     public InvoicePojo getOrNull(Integer orderId) {
-<span class="fc" id="L39">        return invoiceDao.select_id(orderId);</span>
+<span class="fc" id="L38">        return invoiceDao.select_id(orderId);</span>
     }
     public ZonedDateTime getFirstOrderDateTime() {
-<span class="fc" id="L42">        return invoiceDao.selectFirstOrderDateTime();</span>
+<span class="fc" id="L41">        return invoiceDao.selectFirstOrderDateTime();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

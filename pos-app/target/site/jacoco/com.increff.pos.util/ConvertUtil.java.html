@@ -47,7 +47,7 @@ import java.time.format.DateTimeFormatter;
 <span class="fc" id="L47">        return inventoryData;</span>
     }
 
-    public static InventoryPojo convertInventoryFormToPojo(InventoryForm inventoryForm, int productId) {
+    public static InventoryPojo convertInventoryFormToPojo(InventoryForm inventoryForm, Integer productId) {
 <span class="fc" id="L51">        InventoryPojo inventoryPojo = new InventoryPojo();</span>
 <span class="fc" id="L52">        inventoryPojo.setId(productId);</span>
 <span class="fc" id="L53">        inventoryPojo.setQuantity(inventoryForm.getQuantity());</span>

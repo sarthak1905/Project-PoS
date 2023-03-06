@@ -125,6 +125,7 @@ function init(){
 		var data = e.params.data.text;
 		showBrandDropdown(data, firstRun=false);
 	});
+	getInventoryList();
 }
 
 $(document).ready(init);

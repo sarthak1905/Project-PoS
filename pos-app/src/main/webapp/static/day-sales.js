@@ -4,6 +4,18 @@ function getDaySalesReportUrl(){
 	return baseUrl + "/api/reports/day-sales";
 }
 
+function getInitSales(){
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+	var yyyy = today.getFullYear();
+  
+	today = yyyy + '-' + mm + '-' + dd;
+	$('#input-start-date').val(today);
+	$('#input-end-date').val(today);
+	getFilteredList();
+  }
+
 function getFilteredList(){
 	var url = getDaySalesReportUrl();
 	var $form = $("#filter-form");
@@ -46,7 +58,7 @@ function displayDaySalesList(data){
 
 //INITIALIZATION CODE
 function init(){
-	//$('#refresh-data').click(getDaySalesList);
+	getInitSales();
 	$('#filter-report-btn').click(getFilteredList);
 	displayOrHideButtons();
 }
