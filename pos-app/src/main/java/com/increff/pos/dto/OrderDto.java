@@ -46,6 +46,7 @@ public class OrderDto {
     private InvoiceFlow invoiceFlow;
     @Autowired
     private InvoiceClient invoiceClient;
+    // TODO add generic AppProperties class to get all values from properties file
     @Value("${invoice.uri}")
     private String invoiceUrl;
 
@@ -71,6 +72,7 @@ public class OrderDto {
         String filteredStartDate = orderFilterForm.getStartDate();
         String filteredEndDate = orderFilterForm.getEndDate();
 
+        // TODO change fomatter to ZonedDateTime formatter
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime startDateTime = LocalDate.parse(filteredStartDate, dateTimeFormatter).atStartOfDay();
         LocalDateTime endDateTime = LocalDate.parse(filteredEndDate, dateTimeFormatter).atTime(LocalTime.MAX);
@@ -104,7 +106,10 @@ public class OrderDto {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
 
+        // TODO make object and then set strings, don't directly assign
         String filename = "invoice" + orderId +".pdf";
+
+        // TODO remove header property setting, to only what is necessary - research more
         headers.setContentDispositionFormData(filename, filename);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
@@ -112,6 +117,7 @@ public class OrderDto {
         File file = new File(invoiceDirectoryString);
         OrderPojo orderPojo = orderFlow.get(orderId);
 
+        // TODO try returning URL instead of byte array
         if(file.exists() && orderPojo.getOrderStatus().equals("invoiced")){
             Path invoicePath = Paths.get(invoiceDirectoryString);
             byte[] contents = Files.readAllBytes(invoicePath);

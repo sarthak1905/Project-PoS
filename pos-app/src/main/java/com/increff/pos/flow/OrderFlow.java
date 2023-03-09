@@ -29,6 +29,7 @@ public class OrderFlow {
     @Autowired
     private OrderService orderService;
 
+    // TODO all setting in service layer only, by creating objects and passing as parameter
     public void add(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) throws ApiException {
         ValidationUtil.checkPojo(orderPojo);
         validateOrderItemPojoList(orderItemPojoList);

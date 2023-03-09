@@ -20,6 +20,7 @@ public class OrderPojo extends AbstractVersionPojo {
     @Column(nullable = false)
     private ZonedDateTime orderDate;
 
+    // TODO change String to enum
     @Column(nullable = false)
     private String orderStatus;
 
